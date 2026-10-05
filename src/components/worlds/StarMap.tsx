@@ -4,6 +4,7 @@ import { MotionConfig, motion } from "framer-motion";
 import Link from "next/link";
 import { colorVar } from "@/lib/theme";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
+import { StarMapBackdrop } from "./StarMapBackdrop";
 import { WorldArt } from "./WorldArt";
 
 export type MapWorld = {
@@ -90,7 +91,8 @@ export function StarMap({ worlds }: { worlds: MapWorld[] }) {
   return (
     <MotionConfig reducedMotion="user">
       {/* Wide screens: the map. */}
-      <div className="glass relative hidden aspect-video overflow-hidden rounded-3xl md:block">
+      <div className="relative hidden aspect-video overflow-hidden rounded-3xl border border-line shadow-[0_20px_60px_-20px_rgb(0_0_0/0.8)] md:block">
+        <StarMapBackdrop worlds={worlds} />
         <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="absolute inset-0 h-full w-full" aria-hidden="true">
           <defs>
             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
