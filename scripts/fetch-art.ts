@@ -1,29 +1,94 @@
 /*
- * Downloads character art from StarRailRes (github.com/Mar-7th/StarRailRes) and
- * stores it as WebP under public/art, so the site serves it itself instead of
- * hotlinking 4–6 MB PNGs (which made Next's image optimizer time out).
+ * Downloads game art and stores it as WebP under public/art, so the site serves
+ * it itself instead of hotlinking multi-megabyte PNGs (which made Next's image
+ * optimizer time out).
  *
  *   npm run art:fetch            fetch anything missing
  *   npm run art:fetch -- --force re-fetch everything
  *
- * Art © HoYoverse.
+ * Sources (art © HoYoverse):
+ *  - Characters and Path icons: StarRailRes (github.com/Mar-7th/StarRailRes)
+ *  - World renders: the Honkai: Star Rail Wiki on Fandom (in-game star chart art)
  */
 import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
-import sharp from "sharp";
-import { artOf, CHARACTERS } from "../src/db/seed-data";
-import { ART_DIR, type ArtKind } from "../src/lib/images";
+import sharp, { type Sharp } from "sharp";
+import { artOf, CHARACTERS, PATHS, WORLD_ART_SOURCES } from "../src/db/seed-data";
+import { characterIcon, characterPortrait, characterPreview, pathIcon, worldImage } from "../src/lib/images";
 
-const SOURCE = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/image";
-const SOURCE_DIR: Record<ArtKind, string> = { preview: "character_preview", portrait: "character_portrait" };
+const STARRAILRES = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master";
+const WIKI_API = "https://honkai-star-rail.fandom.com/api.php";
+// The wiki's image CDN serves a bot challenge to bare requests; browser-like headers get the image.
+const BROWSER_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36",
+  Accept: "image/avif,image/webp,image/png,image/*;q=0.8",
+  Referer: "https://honkai-star-rail.fandom.com/",
+};
+
+// StarRailRes names Path icons after the in-game Path IDs.
+const PATH_ICON_FILES: Record<string, string> = {
+  destruction: "Destruction", hunt: "Hunt", erudition: "Erudition", harmony: "Harmony", nihility: "Nihility",
+  preservation: "Preservation", abundance: "Abundance", remembrance: "Remembrance", elation: "Elation",
+};
+
+type Job = {
+  label: string;
+  /** Public URL path, e.g. "/art/worlds/penacony.webp"; the file lives under public/. */
+  out: string;
+  source: () => Promise<string>;
+  headers?: Record<string, string>;
+  convert: (img: Sharp) => Sharp;
+};
+
 const force = process.argv.includes("--force");
+const webp = (img: Sharp, quality = 85) => img.webp({ quality, alphaQuality: 90, effort: 5 });
 
-async function download(url: string, attempts = 3): Promise<Buffer> {
+/** Resolves a wiki file name to its CDN URL via the MediaWiki API. */
+async function wikiFileUrl(file: string) {
+  const url = `${WIKI_API}?action=query&titles=File:${encodeURIComponent(file)}&prop=imageinfo&iiprop=url&format=json`;
+  const res = await fetch(url, { headers: { "User-Agent": BROWSER_HEADERS["User-Agent"] } });
+  const data = (await res.json()) as { query: { pages: Record<string, { imageinfo?: { url: string }[] }> } };
+  const info = Object.values(data.query.pages)[0]?.imageinfo?.[0];
+  if (!info) throw new Error(`wiki file not found: ${file}`);
+  return info.url;
+}
+
+function jobs(): Job[] {
+  const list: Job[] = [];
+  const gameIds = [...new Set(CHARACTERS.flatMap((c) => artOf(c).map((v) => v.gameId)))];
+  for (const id of gameIds) {
+    list.push(
+      { label: `preview ${id}`, out: characterPreview(id), source: async () => `${STARRAILRES}/image/character_preview/${id}.png`, convert: (i) => webp(i) },
+      // Portraits keep their full 2048px for the full-screen viewer.
+      { label: `portrait ${id}`, out: characterPortrait(id), source: async () => `${STARRAILRES}/image/character_portrait/${id}.png`, convert: (i) => webp(i) },
+      { label: `icon ${id}`, out: characterIcon(id), source: async () => `${STARRAILRES}/icon/character/${id}.png`, convert: (i) => webp(i.resize(160), 82) },
+    );
+  }
+  for (const p of PATHS) {
+    const file = PATH_ICON_FILES[p.slug];
+    if (!file) continue;
+    list.push({ label: `path ${p.slug}`, out: pathIcon(p.slug), source: async () => `${STARRAILRES}/icon/path/${file}.png`, convert: (i) => webp(i.resize(128), 90) });
+  }
+  for (const [slug, file] of Object.entries(WORLD_ART_SOURCES)) {
+    list.push({
+      label: `world ${slug}`,
+      out: worldImage(slug),
+      source: () => wikiFileUrl(file),
+      headers: BROWSER_HEADERS,
+      // Trim the transparent margin so every world fills its frame alike.
+      convert: (i) => webp(i.trim().resize(1024, 1024, { fit: "inside", withoutEnlargement: true }), 88),
+    });
+  }
+  return list;
+}
+
+async function download(url: string, headers?: Record<string, string>, attempts = 3): Promise<Buffer> {
   for (let i = 1; ; i++) {
     try {
-      const res = await fetch(url, { signal: AbortSignal.timeout(120_000) });
+      const res = await fetch(url, { headers, signal: AbortSignal.timeout(120_000) });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!res.headers.get("content-type")?.startsWith("image/")) throw new Error(`not an image (${res.headers.get("content-type")})`);
       return Buffer.from(await res.arrayBuffer());
     } catch (err) {
       if (i >= attempts) throw new Error(`${url}: ${err instanceof Error ? err.message : err}`);
@@ -32,34 +97,30 @@ async function download(url: string, attempts = 3): Promise<Buffer> {
   }
 }
 
-async function fetchOne(gameId: string, kind: ArtKind) {
-  const out = path.join("public", ART_DIR, kind, `${gameId}.webp`);
-  if (!force && existsSync(out)) return "skipped";
-  const png = await download(`${SOURCE}/${SOURCE_DIR[kind]}/${gameId}.png`);
-  await mkdir(path.dirname(out), { recursive: true });
-  // Portraits keep full 2048px resolution for the full-screen viewer; alphaQuality
-  // keeps the soft edges of the transparent backgrounds clean.
-  await sharp(png).webp({ quality: 85, alphaQuality: 90, effort: 5 }).toFile(out);
+async function run(job: Job) {
+  const file = path.join("public", job.out);
+  if (!force && existsSync(file)) return "skipped";
+  const data = await download(await job.source(), job.headers);
+  await mkdir(path.dirname(file), { recursive: true });
+  await job.convert(sharp(data)).toFile(file);
   return "fetched";
 }
 
 async function main() {
-  const ids = [...new Set(CHARACTERS.flatMap((c) => artOf(c).map((v) => v.gameId)))];
-  const jobs = ids.flatMap((id) => (["preview", "portrait"] as const).map((kind) => ({ id, kind })));
+  const queue = jobs();
   const counts = { fetched: 0, skipped: 0, failed: 0 };
 
   // A few downloads at a time.
-  const queue = [...jobs];
   await Promise.all(
     Array.from({ length: 4 }, async () => {
       for (let job = queue.shift(); job; job = queue.shift()) {
         try {
-          const result = await fetchOne(job.id, job.kind);
+          const result = await run(job);
           counts[result]++;
-          if (result === "fetched") console.log(`  ${job.kind} ${job.id}`);
+          if (result === "fetched") console.log(`  ${job.label}`);
         } catch (err) {
           counts.failed++;
-          console.error(`  FAILED ${job.kind} ${job.id}: ${err instanceof Error ? err.message : err}`);
+          console.error(`  FAILED ${job.label}: ${err instanceof Error ? err.message : err}`);
         }
       }
     }),

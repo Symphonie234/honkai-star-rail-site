@@ -34,6 +34,12 @@
   --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-float: float 7s ease-in-out infinite;
+  @keyframes float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -10px; }
+  }
 }
 
 html {

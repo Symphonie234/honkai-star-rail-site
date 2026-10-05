@@ -2,8 +2,8 @@ import "dotenv/config";
 import { sql } from "drizzle-orm";
 import type { PgTable, PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { db } from "./index";
-import { characters, elements, factions, glossaryTerms, paths, worldChapters, worlds } from "./schema";
-import { artOf, CHARACTERS, ELEMENTS, FACTIONS, GLOSSARY, PATHS, WORLD_CHAPTERS, WORLDS } from "./seed-data";
+import { aeons, characters, elements, factions, glossaryTerms, paths, worldChapters, worlds } from "./schema";
+import { AEONS, artOf, CHARACTERS, ELEMENTS, FACTIONS, GLOSSARY, PATHS, WORLD_CHAPTERS, WORLDS } from "./seed-data";
 
 // Insert rows, or overwrite every non-key column when the slug already exists.
 async function upsert<T extends PgTable & { slug: unknown }>(table: T, rows: T["$inferInsert"][]) {
@@ -22,11 +22,12 @@ async function main() {
   await upsert(paths, PATHS);
   await upsert(elements, ELEMENTS);
   await upsert(worlds, WORLDS);
+  await upsert(aeons, AEONS); // after paths; factions reference aeons
   await upsert(factions, FACTIONS);
   await upsert(characters, CHARACTERS.map((c) => ({ ...c, art: artOf(c) })));
   await upsert(worldChapters, WORLD_CHAPTERS);
   await upsert(glossaryTerms, GLOSSARY);
-  console.log(`Seeded ${PATHS.length} paths, ${ELEMENTS.length} elements, ${WORLDS.length} worlds, ` +
+  console.log(`Seeded ${PATHS.length} paths, ${AEONS.length} aeons, ${ELEMENTS.length} elements, ${WORLDS.length} worlds, ` +
     `${FACTIONS.length} factions, ${CHARACTERS.length} characters, ${WORLD_CHAPTERS.length} chapters, ${GLOSSARY.length} glossary terms.`);
 }
 

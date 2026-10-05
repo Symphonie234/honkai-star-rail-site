@@ -1,7 +1,7 @@
 import { asc, eq } from "drizzle-orm";
 import { cache } from "react";
 import { db } from "@/db";
-import { characters, elements, glossaryTerms, paths, worldChapters, worlds } from "@/db/schema";
+import { aeons, characters, elements, factions, glossaryTerms, paths, worldChapters, worlds } from "@/db/schema";
 import { compareVersions } from "@/lib/spoilers";
 
 const withRefs = { element: true, path: true, faction: true, world: true } as const;
@@ -47,3 +47,18 @@ export const getStoryVersions = cache(async () => {
   const all = [...chars.flatMap((c) => [c.r, c.s]), ...ws.map((w) => w.r), ...chapters.map((c) => c.s), ...terms.map((t) => t.s)];
   return [...new Set(all.filter((v): v is string => !!v))].sort(compareVersions);
 });
+
+/** Everything the Aeons web draws: Aeons, factions and characters, trimmed to what the graph needs. */
+export const getAeonWeb = cache(async () => {
+  const [aeonRows, factionRows, characterRows] = await Promise.all([
+    db.query.aeons.findMany({ with: { path: true }, orderBy: asc(aeons.sortOrder) }),
+    db.query.factions.findMany({ orderBy: asc(factions.name) }),
+    db.query.characters.findMany({
+      columns: { slug: true, name: true, pathSlug: true, factionSlug: true, elementSlug: true, art: true, spoilerVersion: true },
+      orderBy: asc(characters.name),
+    }),
+  ]);
+  return { aeons: aeonRows, factions: factionRows, characters: characterRows };
+});
+
+export type AeonWebData = Awaited<ReturnType<typeof getAeonWeb>>;

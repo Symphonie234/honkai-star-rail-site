@@ -1,15 +1,26 @@
 /*
- * Character art lives in public/art, fetched from StarRailRes
- * (github.com/Mar-7th/StarRailRes) by `npm run art:fetch`. Art © HoYoverse.
+ * Game art lives in public/art, downloaded and converted to WebP by
+ * `npm run art:fetch` (scripts/fetch-art.ts). Art © HoYoverse.
+ *  - Characters and Path icons: StarRailRes (github.com/Mar-7th/StarRailRes)
+ *  - World renders: the Honkai: Star Rail Wiki on Fandom (in-game star chart art)
  */
-export const ART_DIR = "art/characters";
+export const ART_DIR = "art";
 
-export type ArtKind = "preview" | "portrait";
+export type CharacterArtKind = "preview" | "portrait" | "icon";
 
-const art = (kind: ArtKind) => (gameId: string) => `/${ART_DIR}/${kind}/${gameId}.webp`;
+const characterArt = (kind: CharacterArtKind) => (gameId: string) => `/${ART_DIR}/characters/${kind}/${gameId}.webp`;
 
 /** 376×512 bust shot that fades out at the bottom. Used on cards. */
-export const characterPreview = art("preview");
+export const characterPreview = characterArt("preview");
 
 /** 2048×2048 full splash art on a transparent background. Used on detail pages and the viewer. */
-export const characterPortrait = art("portrait");
+export const characterPortrait = characterArt("portrait");
+
+/** Round 256×256 head-and-shoulders avatar. Used as nodes in the Aeons web. */
+export const characterIcon = characterArt("icon");
+
+/** In-game star chart render of a world, on a transparent background. */
+export const worldImage = (slug: string) => `/${ART_DIR}/worlds/${slug}.webp`;
+
+/** White Path glyph on a transparent background. */
+export const pathIcon = (slug: string) => `/${ART_DIR}/paths/${slug}.webp`;

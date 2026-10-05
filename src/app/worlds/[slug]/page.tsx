@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CharacterCard } from "@/components/characters/CharacterCard";
 import { LoreText } from "@/components/glossary/LoreText";
 import { Spoiler } from "@/components/Spoiler";
-import { Planet } from "@/components/worlds/StarMap";
+import { WorldArt } from "@/components/worlds/WorldArt";
 import { getWorld, getWorlds } from "@/lib/queries";
 import { colorVar } from "@/lib/theme";
 
@@ -52,15 +51,11 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
           <p className="mt-3 font-display text-xl text-[var(--c)]">{w.tagline}</p>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted"><LoreText text={w.description} /></p>
         </div>
-        {w.image ? (
-          <div className="relative aspect-video w-full overflow-hidden rounded-3xl border border-line md:w-[420px]">
-            <Image src={w.image} alt={w.name} fill loading="eager" fetchPriority="high" sizes="(min-width: 768px) 420px, 100vw" className="object-cover" />
-          </div>
-        ) : (
-          <div className="hidden px-16 md:block">
-            <Planet size="size-40" />
-          </div>
-        )}
+        <div className="relative order-first mx-auto grid place-items-center md:order-none md:px-6">
+          {/* A soft halo in the world's color behind the render. */}
+          <span aria-hidden="true" className="absolute inset-0 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--c)_25%,transparent),transparent_65%)] blur-2xl" />
+          <WorldArt image={w.image} size="size-56 sm:size-72 md:size-80" sizes="(min-width: 768px) 320px, 288px" float priority />
+        </div>
       </header>
 
       {w.chapters.length > 0 && (

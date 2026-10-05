@@ -4,6 +4,7 @@ import { MotionConfig, motion } from "framer-motion";
 import Link from "next/link";
 import { colorVar } from "@/lib/theme";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
+import { WorldArt } from "./WorldArt";
 
 export type MapWorld = {
   slug: string;
@@ -14,6 +15,7 @@ export type MapWorld = {
   arcOrder: number;
   mapX: number;
   mapY: number;
+  image: string | null;
 };
 
 // The map is 16:9; world positions are percentages of width and height.
@@ -87,9 +89,10 @@ export function StarMap({ worlds }: { worlds: MapWorld[] }) {
               transition={{ delay: 0.3 + i * 0.35, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link href={`/worlds/${w.slug}`} style={colorVar(w.color)} className="group flex flex-col items-center text-center">
-                <Planet />
+                {/* Wider than tall, so planets (square) and ships (wide) read at a similar size. */}
+                <WorldArt image={w.image} size="h-20 w-28 lg:h-24 lg:w-36" sizes="144px" priority />
                 {/* Backed so the rail never runs through the text. */}
-                <span className="mt-3 flex flex-col items-center rounded-lg bg-surface-solid/85 px-2.5 py-1 backdrop-blur-sm">
+                <span className="mt-2 flex flex-col items-center rounded-lg bg-surface-solid/85 px-2.5 py-1 backdrop-blur-sm">
                   <span className="text-[0.65rem] font-semibold tracking-[0.2em] text-[var(--c)] uppercase">
                     {stopLabel(w.arcOrder)}
                   </span>
@@ -105,13 +108,13 @@ export function StarMap({ worlds }: { worlds: MapWorld[] }) {
       </div>
 
       {/* Narrow screens: the same journey as a vertical line. */}
-      <ol className="relative flex flex-col gap-6 border-l border-dashed border-line pl-8 md:hidden">
+      <ol className="relative ml-6 flex flex-col gap-8 border-l border-dashed border-line pl-12 md:hidden">
         {worlds.map((w) => (
           <li key={w.slug} style={colorVar(w.color)} className="relative">
-            <span
-              aria-hidden="true"
-              className="absolute top-1.5 -left-[calc(2.5rem+0.5px)] size-4 rounded-full bg-[var(--c)] shadow-[0_0_14px_var(--c)]"
-            />
+            {/* Centered on the dashed line: pl-12 (3rem) plus half the 3rem frame. */}
+            <span className="absolute top-0 -left-[calc(4.5rem+0.5px)]">
+              <WorldArt image={w.image} size="size-12" sizes="48px" />
+            </span>
             <Link href={`/worlds/${w.slug}`} className="block">
               <span className="text-[0.65rem] font-semibold tracking-[0.2em] text-[var(--c)] uppercase">
                 {stopLabel(w.arcOrder)} · v{w.releaseVersion}
@@ -126,12 +129,3 @@ export function StarMap({ worlds }: { worlds: MapWorld[] }) {
   );
 }
 
-/** A glowing planet in the world's color, with an orbit ring that spins on hover. */
-export function Planet({ size = "size-12 lg:size-14" }: { size?: string }) {
-  return (
-    <span aria-hidden="true" className={`relative grid place-items-center ${size}`}>
-      <span className="absolute inset-[-35%] rounded-full border border-[color-mix(in_srgb,var(--c)_40%,transparent)] transition-transform duration-700 ease-out-expo [transform:rotateX(70deg)] group-hover:[transform:rotateX(70deg)_rotateZ(180deg)_scale(1.1)]" />
-      <span className="size-full rounded-full bg-[radial-gradient(circle_at_30%_30%,white,var(--c)_35%,color-mix(in_srgb,var(--c)_30%,black)_100%)] shadow-[0_0_24px_var(--c)] transition-transform duration-500 ease-out-expo group-hover:scale-110" />
-    </span>
-  );
-}

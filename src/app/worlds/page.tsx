@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Planet, StarMap } from "@/components/worlds/StarMap";
+import { StarMap } from "@/components/worlds/StarMap";
+import { WorldArt } from "@/components/worlds/WorldArt";
 import { getWorlds } from "@/lib/queries";
 import { colorVar } from "@/lib/theme";
 
@@ -32,7 +33,7 @@ export default async function WorldsPage() {
               style={colorVar(w.color)}
               className="glass group flex h-full gap-5 rounded-2xl p-6 transition duration-300 ease-out-expo hover:-translate-y-1 hover:border-[var(--c)]"
             >
-              <Planet size="size-10 shrink-0" />
+              <WorldArt image={w.image} size="size-16 shrink-0" sizes="64px" />
               <span>
                 <span className="text-[0.65rem] font-semibold tracking-[0.2em] text-[var(--c)] uppercase">
                   Stop {String(w.arcOrder).padStart(2, "0")} · v{w.releaseVersion}

@@ -34,17 +34,18 @@ npm run dev              # http://localhost:3000
 
 ```
 src/
-  app/                 routes (/, /characters/[slug], /worlds/[slug], /glossary)
-  components/          UI (Starfield, StarMap, character cards & browser, Spoiler, glossary Term/LoreText)
+  app/                 routes (/, /characters/[slug], /worlds/[slug], /aeons, /glossary)
+  components/          UI (Starfield, StarMap, WorldArt, AeonWeb, character cards & viewer, Spoiler, glossary)
   db/
-    schema.ts          tables: paths, elements, worlds, world_chapters, factions, characters, glossary_terms
+    schema.ts          tables: paths, aeons, elements, worlds, world_chapters, factions, characters, glossary_terms
     seed-data.ts       the content — edit this to add characters
     seed.ts            upserts seed-data into the database
   lib/
     queries.ts         data access used by pages
     spoilers.ts        version comparison + isRevealed()
     glossary.ts        finds glossary terms in lore text
-    images.ts          character art paths
+    images.ts          art paths (characters, Path icons, worlds)
+    aeon-web.ts        radial layout for the Aeons web
     local-pref.ts      per-browser reader preferences (story progress, Trailblazer look)
 scripts/fetch-art.ts   downloads character art
 legacy/                the original static site, kept for reference
@@ -59,6 +60,9 @@ legacy/                the original static site, kept for reference
 4. Set `art` to the character's in-game ID — look it up in StarRailRes's
    [`index_new/en/characters.json`](https://github.com/Mar-7th/StarRailRes/blob/master/index_new/en/characters.json) —
    then run `npm run art:fetch`. For several looks, give a list of `{ label, gameId }` variants instead (see the Trailblazer).
+
+Aeons live in `AEONS`; a faction's `aeonSlug` ties it to the Aeon it serves (only where that tie is well established).
+The Aeons web lays everything out automatically.
 
 World story recaps live in `CHAPTERS_BY_WORLD` in the same file, one entry per chapter, each with its own `spoilerVersion`.
 
@@ -76,8 +80,11 @@ chapters) automatically links the first mention of each term to a hover definiti
   idle. Zoom with the wheel, pinch, double-click, the toolbar or `+`/`-`/`0`; drag or arrow keys to pan; `F` toggles
   browser fullscreen; `Esc` closes.
 - **Trailblazer:** readers pick Stelle or Caelus; the choice is remembered per browser and used on cards too.
-- **Worlds:** no source is wired up. Drop an image in `public/worlds/` and set that world's `image`
-  (e.g. `"/worlds/penacony.webp"`) in `seed-data.ts`; otherwise the hub draws a CSS planet.
+- **Worlds:** the in-game star chart renders, from the [Honkai: Star Rail Wiki](https://honkai-star-rail.fandom.com/)
+  (`World_<name>.png`). Map a world to its wiki file in `WORLD_ART_SOURCES` in `seed-data.ts`, then run
+  `npm run art:fetch`; it trims the transparent margins and saves `public/art/worlds/<slug>.webp`. Worlds without art
+  get a drawn planet.
+- **Path icons and avatars** (used by the Aeons web) come from StarRailRes too.
 
 > Schema changes: `db:push` can't add required columns to tables that already have rows. Locally, since everything comes from the seed, reset with `docker compose down -v`, then `db:up`, `db:push`, `db:seed`. Before there's real production data, switch to `drizzle-kit generate` + `migrate`.
 
@@ -91,7 +98,7 @@ run `db:push` and `db:seed` against it once, then deploy. Content is static, so 
 - [x] Phase 1 — Character Archive
 - [x] Phase 2 — Star map home + world hubs
 - [x] Phase 3 — Reader story-progress spoiler system + glossary tooltips
-- [ ] Phase 4 — Aeons & Paths relationship web
+- [x] Phase 4 — Aeons & Paths relationship web
 - [ ] Phase 5 — Team builder / tier list
 
 ---

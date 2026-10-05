@@ -5,6 +5,7 @@ import { StoryProgressPicker } from "./spoilers/story-progress";
 const links = [
   { href: "/characters", label: "Characters" },
   { href: "/worlds", label: "Worlds" },
+  { href: "/aeons", label: "Aeons" },
   { href: "/glossary", label: "Glossary" },
 ];
 

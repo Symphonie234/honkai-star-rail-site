@@ -1,3 +1,4 @@
+import { worldImage } from "../lib/images";
 import type { ArtVariant } from "./schema";
 
 /*
@@ -22,6 +23,8 @@ export const PATHS = [
     blurb: "Abundance restores and sustains. Healers who keep the team standing through any battle." },
   { slug: "remembrance", name: "Remembrance", icon: "❖", aeon: "Fuli",
     blurb: "Keepers of Remembrance summon memosprites — companions forged from memory — to fight alongside them." },
+  { slug: "elation", name: "Elation", icon: "✺", aeon: "Aha",
+    blurb: "The Path of Aha, the laughing Aeon. Its followers chase joy and spectacle, and turn every battle into a stage." },
 ].map((p, i) => ({ ...p, sortOrder: i }));
 
 export const ELEMENTS = [
@@ -33,6 +36,16 @@ export const ELEMENTS = [
   { slug: "quantum", name: "Quantum", description: "Entanglement — delays the target's action." },
   { slug: "imaginary", name: "Imaginary", description: "Imprisonment — delays and slows the target." },
 ].map((e, i) => ({ ...e, sortOrder: i }));
+
+// In-game star chart renders on the Honkai: Star Rail Wiki (Fandom), by file name.
+// `npm run art:fetch` downloads them to public/art/worlds/<slug>.webp.
+export const WORLD_ART_SOURCES: Record<string, string> = {
+  "herta-space-station": "World_Herta_Space_Station.png",
+  "jarilo-vi": "World_Jarilo-VI.png",
+  "xianzhou-luofu": "World_The_Xianzhou_Luofu.png",
+  penacony: "World_Penacony.png",
+  amphoreus: "World_Amphoreus.png",
+};
 
 // mapX / mapY place each stop on the star map (percent of width / height).
 export const WORLDS = [
@@ -51,7 +64,7 @@ export const WORLDS = [
   { slug: "amphoreus", name: "Amphoreus", tagline: "The Eternal Land",
     releaseVersion: "3.0", color: "fire", mapX: 89, mapY: 60,
     description: "A world of myth and Titans, where Chrysos Heirs pursue the Flame-Chase to reclaim their gods' fire." },
-].map((w, i) => ({ ...w, arcOrder: i + 1 }));
+].map((w, i) => ({ ...w, arcOrder: i + 1, image: WORLD_ART_SOURCES[w.slug] ? worldImage(w.slug) : null }));
 
 type ChapterSeed = { title: string; spoilerVersion: string | null; body: string };
 
@@ -116,17 +129,64 @@ export const WORLD_CHAPTERS = Object.entries(CHAPTERS_BY_WORLD).flatMap(([worldS
   chapters.map((c, i) => ({ ...c, slug: `${worldSlug}-${i + 1}`, worldSlug, sortOrder: i + 1 })),
 );
 
+// The Aeons, in the order they sit around the Aeons web. pathSlug links an Aeon to
+// its playable Path; Aeons whose Path has no playable characters (Trailblaze,
+// Permanence, Order) have none and show their glyph instead.
+export const AEONS = [
+  { slug: "nanook", name: "Nanook", concept: "Destruction", pathSlug: "destruction", glyph: "✸",
+    description: "The Aeon of Destruction, who sees all existence as a mistake to be erased. Its Antimatter Legion wages war on every living world." },
+  { slug: "lan", name: "Lan", concept: "The Hunt", pathSlug: "hunt", glyph: "➹",
+    description: "The Aeon of the Hunt, an archer forever pursuing its quarry. The Xianzhou Alliance fights in its name against the creations of the Abundance." },
+  { slug: "nous", name: "Nous", concept: "Erudition", pathSlug: "erudition", glyph: "✧",
+    description: "The Aeon of Erudition, a vast intelligence devoted to solving the universe. It invites the most brilliant minds into the Genius Society." },
+  { slug: "xipe", name: "Xipe", concept: "Harmony", pathSlug: "harmony", glyph: "♫",
+    description: "The Aeon of Harmony, who unites countless voices into a single chorus. Penacony's Family sings in its name." },
+  { slug: "ix", name: "IX", concept: "Nihility", pathSlug: "nihility", glyph: "◌",
+    description: "The Aeon of Nihility, an indifferent void whose very existence draws all things toward meaninglessness." },
+  { slug: "qlipoth", name: "Qlipoth", concept: "Preservation", pathSlug: "preservation", glyph: "⛨",
+    description: "The Aeon of Preservation, builder of walls against the dark. The Interastral Peace Corporation reveres it." },
+  { slug: "yaoshi", name: "Yaoshi", concept: "Abundance", pathSlug: "abundance", glyph: "❀",
+    description: "The Aeon of Abundance, who answers suffering with the gift of endless life — a blessing the Xianzhou regard as a curse." },
+  { slug: "fuli", name: "Fuli", concept: "Remembrance", pathSlug: "remembrance", glyph: "❖",
+    description: "The Aeon of Remembrance, who gathers and preserves memories from across the cosmos." },
+  { slug: "aha", name: "Aha", concept: "Elation", pathSlug: "elation", glyph: "✺",
+    description: "The Aeon of Elation, a trickster who finds the universe hilarious. The Masked Fools follow its lead." },
+  { slug: "akivili", name: "Akivili", concept: "Trailblaze", pathSlug: null, glyph: "✦",
+    description: "The Aeon of the Trailblaze, who laid the star rails between worlds and rode the Astral Express. Said to have perished long ago." },
+  { slug: "long", name: "Long", concept: "Permanence", pathSlug: null, glyph: "❂",
+    description: "The Aeon of Permanence, revered by the Vidyadhara, whose power sought to keep all things unchanging. Long since fallen." },
+  { slug: "ena", name: "Ena", concept: "Order", pathSlug: null, glyph: "⌘",
+    description: "The Aeon of Order, who sought to fit every life into a single, perfect design — and is long absent from the cosmos." },
+].map((a, i) => ({ ...a, sortOrder: i }));
+
+// aeonSlug is the Aeon a faction is devoted to, where that tie is well established.
 export const FACTIONS = [
-  { slug: "astral-express", name: "Astral Express" },
-  { slug: "stellaron-hunters", name: "Stellaron Hunters" },
-  { slug: "wildfire", name: "Wildfire" },
-  { slug: "xianzhou-alliance", name: "Xianzhou Alliance" },
-  { slug: "intelligentsia-guild", name: "Intelligentsia Guild" },
-  { slug: "genius-society", name: "Genius Society" },
-  { slug: "galaxy-rangers", name: "Galaxy Rangers" },
-  { slug: "the-family", name: "The Family" },
-  { slug: "chrysos-heirs", name: "Chrysos Heirs" },
-  { slug: "herta-space-station", name: "Herta Space Station" },
+  { slug: "astral-express", name: "Astral Express", aeonSlug: "akivili",
+    description: "The crew of the train once ridden by Akivili, travelling the star rails on the Trailblaze." },
+  { slug: "stellaron-hunters", name: "Stellaron Hunters", aeonSlug: null,
+    description: "Wanted fugitives led by Elio, following a script that seems to foresee the future." },
+  { slug: "wildfire", name: "Wildfire", aeonSlug: null,
+    description: "The resistance of Belobog's Underworld on Jarilo-VI." },
+  { slug: "xianzhou-alliance", name: "Xianzhou Alliance", aeonSlug: "lan",
+    description: "A fleet of colossal starskiffs devoted to Lan, waging an ancient war against the Abundance." },
+  { slug: "intelligentsia-guild", name: "Intelligentsia Guild", aeonSlug: "nous",
+    description: "A scholarly guild walking the Path of Erudition." },
+  { slug: "genius-society", name: "Genius Society", aeonSlug: "nous",
+    description: "An exclusive circle of geniuses recognized by Nous, the Aeon of Erudition." },
+  { slug: "galaxy-rangers", name: "Galaxy Rangers", aeonSlug: null,
+    description: "Wanderers who roam the cosmos righting wrongs." },
+  { slug: "the-family", name: "The Family", aeonSlug: "xipe",
+    description: "The alliance of clans that governs Penacony, devoted to Xipe, the Aeon of Harmony." },
+  { slug: "chrysos-heirs", name: "Chrysos Heirs", aeonSlug: null,
+    description: "Heroes of Amphoreus chosen to undertake the Flame-Chase." },
+  { slug: "herta-space-station", name: "Herta Space Station", aeonSlug: null,
+    description: "The research station of Herta, a member of the Genius Society." },
+  { slug: "ipc", name: "Interastral Peace Corporation", aeonSlug: "qlipoth",
+    description: "A vast interstellar trading power that reveres Qlipoth, the Aeon of Preservation." },
+  { slug: "antimatter-legion", name: "Antimatter Legion", aeonSlug: "nanook",
+    description: "The endless armies of Nanook, bent on wiping out all life." },
+  { slug: "masked-fools", name: "Masked Fools", aeonSlug: "aha",
+    description: "Jesters who follow Aha, the Aeon of Elation, seeking amusement above all else." },
 ];
 
 // art is the game's internal character ID, which the art is fetched by (run `npm run art:fetch`

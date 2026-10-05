@@ -25,9 +25,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="mx-auto flex w-[min(100%-2rem,1200px)] flex-col gap-1">
             <p>Fan-made, non-commercial archive. Honkai: Star Rail and all related names and art are © HoYoverse.</p>
             <p>
-              Character art via{" "}
+              Character and Path art via{" "}
               <a href="https://github.com/Mar-7th/StarRailRes" className="underline underline-offset-2 hover:text-ink">
                 StarRailRes
+              </a>
+              ; world art via the{" "}
+              <a href="https://honkai-star-rail.fandom.com/" className="underline underline-offset-2 hover:text-ink">
+                Honkai: Star Rail Wiki
               </a>
               .
             </p>

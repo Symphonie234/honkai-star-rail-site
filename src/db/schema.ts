@@ -52,9 +52,25 @@ export const worldChapters = pgTable("world_chapters", {
   spoilerVersion: text("spoiler_version"),
 });
 
+/** The god-like embodiments of concepts. Those with a playable Path link to it. */
+export const aeons = pgTable("aeons", {
+  slug: text("slug").primaryKey(),
+  name: text("name").notNull(),
+  /** The concept the Aeon embodies, e.g. "Destruction". */
+  concept: text("concept").notNull(),
+  pathSlug: text("path_slug").references(() => paths.slug),
+  /** Shown when the Aeon has no Path icon. */
+  glyph: text("glyph").notNull(),
+  description: text("description").notNull(),
+  sortOrder: integer("sort_order").notNull(),
+});
+
 export const factions = pgTable("factions", {
   slug: text("slug").primaryKey(),
   name: text("name").notNull(),
+  description: text("description"),
+  /** The Aeon the faction is devoted to, if any. */
+  aeonSlug: text("aeon_slug").references(() => aeons.slug),
 });
 
 export const characters = pgTable("characters", {
@@ -96,7 +112,15 @@ export const charactersRelations = relations(characters, ({ one }) => ({
 
 export const pathsRelations = relations(paths, ({ many }) => ({ characters: many(characters) }));
 export const elementsRelations = relations(elements, ({ many }) => ({ characters: many(characters) }));
-export const factionsRelations = relations(factions, ({ many }) => ({ characters: many(characters) }));
+export const factionsRelations = relations(factions, ({ one, many }) => ({
+  characters: many(characters),
+  aeon: one(aeons, { fields: [factions.aeonSlug], references: [aeons.slug] }),
+}));
+
+export const aeonsRelations = relations(aeons, ({ one, many }) => ({
+  path: one(paths, { fields: [aeons.pathSlug], references: [paths.slug] }),
+  factions: many(factions),
+}));
 export const worldsRelations = relations(worlds, ({ many }) => ({
   characters: many(characters),
   chapters: many(worldChapters),
