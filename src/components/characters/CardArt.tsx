@@ -6,8 +6,8 @@ import { characterPreview } from "@/lib/images";
 import { useArtVariant } from "./art-variant";
 
 /** A card's bust shot, following the reader's chosen variant (Stelle/Caelus). */
-export function CardArt({ slug, name, art }: { slug: string; name: string; art: ArtVariant[] }) {
-  const [variant] = useArtVariant(slug, art);
+export function CardArt({ name, art }: { name: string; art: ArtVariant[] }) {
+  const [variant] = useArtVariant(art);
 
   if (!variant) {
     return (

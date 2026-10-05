@@ -1,6 +1,7 @@
 # Astral Express — Honkai: Star Rail Fan Archive
 
-A fan-made, lore-first archive of Honkai: Star Rail: characters, Paths, worlds and story.
+A fan-made, lore-first, spoiler-aware archive of Honkai: Star Rail: every playable character through the end of the
+Amphoreus era (Version 3.8), the Aeons and their lore, the worlds of the Trailblaze, and a version-by-version timeline.
 
 **Stack:** Next.js (App Router) · React · TypeScript · Tailwind CSS · Framer Motion · PostgreSQL + Drizzle ORM
 
@@ -10,10 +11,11 @@ Requires Node 20+ and Docker Desktop (for the local database).
 
 ```bash
 npm install
-cp .env.example .env     # points at the local Docker database
+cp .env.example .env     # local database + site URL
 npm run db:up            # start Postgres on localhost:5433
 npm run db:push          # create tables from src/db/schema.ts
-npm run db:seed          # load content from src/db/seed-data.ts
+npm run art:fetch        # download game art into public/art (~1 minute the first time)
+npm run db:seed          # load content (after art:fetch, so Aeon art is linked)
 npm run dev              # http://localhost:3000
 ```
 
@@ -22,76 +24,98 @@ npm run dev              # http://localhost:3000
 | Script | What it does |
 | --- | --- |
 | `npm run dev` | Dev server |
-| `npm run build` | Production build (needs the database — pages are pre-rendered from it) |
+| `npm run build` | Production build. Runs `art:fetch` first; needs the database (pages are pre-rendered from it) |
 | `npm run db:up` | Start the local Postgres container |
 | `npm run db:push` | Sync the schema to the database |
-| `npm run db:seed` | Upsert content from `seed-data.ts` (safe to re-run) |
+| `npm run db:seed` | Upsert content and prune removed entries (safe to re-run) |
 | `npm run db:studio` | Browse the database in Drizzle Studio |
-| `npm run art:fetch` | Download missing character art into `public/art` |
+| `npm run art:fetch` | Download missing art into `public/art` (`-- --force` re-fetches) |
 | `npm run typecheck` / `npm run lint` | Checks |
+
+## What's in it
+
+| Route | |
+| --- | --- |
+| `/` | Hero + animated star map (the Astral Express rides the rail) |
+| `/characters`, `/characters/[slug]` | 80 characters: search, filter by type / Path / rarity, sort by release; full splash art viewer |
+| `/worlds`, `/worlds/[slug]` | World hubs with in-game art, spoiler-tagged story recaps, and their people |
+| `/aeons`, `/aeons/[slug]` | Interactive web of Aeons, factions and characters; a lore page per Aeon with official art |
+| `/versions` | Every version 1.0–3.8: official title, release date, characters released |
+| `/glossary` | Lore terms; underlined terms anywhere on the site show their definition |
+
+**Spoilers:** the header's story-progress picker (saved per browser) reveals everything tagged up to the chosen version.
+Spoiler-tagged facts, chapters, lore sections, splash art and faction ties stay hidden until then.
 
 ## Project layout
 
 ```
 src/
-  app/                 routes (/, /characters/[slug], /worlds/[slug], /aeons, /glossary)
-  components/          UI (Starfield, StarMap, WorldArt, AeonWeb, character cards & viewer, Spoiler, glossary)
+  app/                 routes (see above), plus sitemap.ts and robots.ts
+  components/          UI (StarMap, WorldArt, AeonWeb, character cards & art viewer, Spoiler, glossary, JsonLd)
   db/
-    schema.ts          tables: paths, aeons, elements, worlds, world_chapters, factions, characters, glossary_terms
-    seed-data.ts       the content — edit this to add characters
-    seed.ts            upserts seed-data into the database
+    schema.ts          tables: versions, paths, aeons, aeon_lore, elements, worlds, world_chapters, factions,
+                       characters, glossary_terms
+    data/              the big content sets: characters.ts, aeons.ts (with lore), versions.ts
+    seed-data.ts       everything else (Paths, elements, worlds + chapters, factions, glossary)
+    seed.ts            upserts the data and prunes rows that were removed or renamed
   lib/
     queries.ts         data access used by pages
+    site.ts            site URL + structured-data helpers (SEO)
     spoilers.ts        version comparison + isRevealed()
     glossary.ts        finds glossary terms in lore text
-    images.ts          art paths (characters, Path icons, worlds)
+    images.ts          art paths
     aeon-web.ts        radial layout for the Aeons web
     local-pref.ts      per-browser reader preferences (story progress, Trailblazer look)
-scripts/fetch-art.ts   downloads character art
+scripts/fetch-art.ts   downloads and converts game art
 legacy/                the original static site, kept for reference
 ```
 
 ## Adding content
 
-1. Add an entry to `src/db/seed-data.ts`.
-2. Run `npm run db:seed`.
-3. If a detail reveals story, set `spoilerVersion` to the version where it's revealed. It stays hidden until the reader's
-   story progress (the header picker, saved per browser) reaches that version, or they click to reveal it.
-4. Set `art` to the character's in-game ID — look it up in StarRailRes's
-   [`index_new/en/characters.json`](https://github.com/Mar-7th/StarRailRes/blob/master/index_new/en/characters.json) —
-   then run `npm run art:fetch`. For several looks, give a list of `{ label, gameId }` variants instead (see the Trailblazer).
+**A character** — add an entry to `src/db/data/characters.ts`, then `npm run art:fetch` and `npm run db:seed`.
+- `art` is the in-game character ID; look it up in StarRailRes's
+  [`index_new/en/characters.json`](https://github.com/Mar-7th/StarRailRes/blob/master/index_new/en/characters.json).
+  For several looks, give labeled variants instead (see the Trailblazer — one Stelle/Caelus choice covers every form
+  sharing those labels).
+- `releaseVersion` must exist in `data/versions.ts` (add new versions there).
+- Pick a spoiler-safe `factionSlug`. If the card itself reveals story, set `spoilerVersion` to the version of the reveal.
+- Facts (rarity, element, Path, dates, Light Cone, voice actor) are checked against the
+  [Honkai: Star Rail Wiki](https://honkai-star-rail.fandom.com/); bios are our own writing.
 
-Aeons live in `AEONS`; a faction's `aeonSlug` ties it to the Aeon it serves (only where that tie is well established).
-The Aeons web lays everything out automatically.
+**Aeon lore** — `src/db/data/aeons.ts`: sections per Aeon, each with its own `spoilerVersion`. `artFile` names the
+official art on the wiki for `art:fetch`.
 
-World story recaps live in `CHAPTERS_BY_WORLD` in the same file, one entry per chapter, each with its own `spoilerVersion`.
+**World chapters, factions, glossary** — `src/db/seed-data.ts`. Any text rendered through `<LoreText>` links the first
+mention of each glossary term to a hover definition.
 
-Glossary terms live in `GLOSSARY`. Any lore text rendered through `<LoreText>` (bios, Path blurbs, world descriptions,
-chapters) automatically links the first mention of each term to a hover definition.
+> Schema changes: `db:push` can't add required columns to tables that already have rows. Locally, since everything
+> comes from the seed, reset with `docker compose down -v`, then `db:up`, `db:push`, `db:seed`. Before there's real
+> production data, switch to `drizzle-kit generate` + `migrate`.
 
 ## Images
 
-- **Characters:** art comes from [StarRailRes](https://github.com/Mar-7th/StarRailRes) (community-archived game assets,
-  © HoYoverse). `npm run art:fetch` downloads each character's bust shot and 2048px splash art, converts them to WebP,
-  and stores them in `public/art/characters/` (committed, so deploys need no network fetch). It skips files already
-  present; `-- --force` re-fetches. Spoiler-tagged characters show their bust shot until the reader's progress covers
-  them, since full splash art can give away a reveal.
-- **Full-screen viewer:** click a character's art on their page. The art fills the window and the controls fade when
-  idle. Zoom with the wheel, pinch, double-click, the toolbar or `+`/`-`/`0`; drag or arrow keys to pan; `F` toggles
-  browser fullscreen; `Esc` closes.
-- **Trailblazer:** readers pick Stelle or Caelus; the choice is remembered per browser and used on cards too.
-- **Worlds:** the in-game star chart renders, from the [Honkai: Star Rail Wiki](https://honkai-star-rail.fandom.com/)
-  (`World_<name>.png`). Map a world to its wiki file in `WORLD_ART_SOURCES` in `seed-data.ts`, then run
-  `npm run art:fetch`; it trims the transparent margins and saves `public/art/worlds/<slug>.webp`. Worlds without art
-  get a drawn planet.
-- **Path icons and avatars** (used by the Aeons web) come from StarRailRes too.
+All game art is © HoYoverse and is **not committed**: `npm run art:fetch` downloads it into `public/art` (also run
+automatically by `prebuild`), converting to WebP. Converted files are cached in `.next/cache/hsr-art`, which Vercel keeps
+between builds, so deploys only download what's new.
 
-> Schema changes: `db:push` can't add required columns to tables that already have rows. Locally, since everything comes from the seed, reset with `docker compose down -v`, then `db:up`, `db:push`, `db:seed`. Before there's real production data, switch to `drizzle-kit generate` + `migrate`.
+- **Characters:** bust shots, 2048px splash art and round avatars from [StarRailRes](https://github.com/Mar-7th/StarRailRes).
+  Spoiler-tagged characters show their bust shot until the reader's progress covers them.
+- **Worlds and Aeons:** in-game star chart renders and official Aeon art from the HSR Wiki (`WORLD_ART_SOURCES`,
+  `artFile`). Missing art falls back to a drawn planet or the Aeon's glyph.
+- **Full-screen viewer:** click a character's art. Zoom with the wheel, pinch, double-click, the toolbar or
+  `+`/`-`/`0`; drag or arrow keys to pan; `F` toggles browser fullscreen; `Esc` closes.
+
+## SEO
+
+- `NEXT_PUBLIC_SITE_URL` sets the canonical domain used for canonical links, the sitemap and social cards.
+- Every page has its own title, description and canonical URL; detail pages add Open Graph / Twitter images from their
+  art and `BreadcrumbList` structured data; the home page declares the `WebSite`.
+- `/sitemap.xml` lists every page (generated from the database) and `/robots.txt` points to it.
 
 ## Deploying
 
-Create a Postgres database on Neon (or Supabase), set `DATABASE_URL` in Vercel's environment variables,
-run `db:push` and `db:seed` against it once, then deploy. Content is static, so rebuild after each patch's update.
+Create a Postgres database on Neon (or Supabase). In Vercel, set `DATABASE_URL` and `NEXT_PUBLIC_SITE_URL`. Run
+`db:push` and `db:seed` against the database once, then deploy. Content is static, so rebuild after each content update.
 
 ## Roadmap
 
@@ -99,8 +123,9 @@ run `db:push` and `db:seed` against it once, then deploy. Content is static, so 
 - [x] Phase 2 — Star map home + world hubs
 - [x] Phase 3 — Reader story-progress spoiler system + glossary tooltips
 - [x] Phase 4 — Aeons & Paths relationship web
+- [x] Full roster through 3.8, Aeon lore pages, version timeline, SEO
 - [ ] Phase 5 — Team builder / tier list
 
 ---
 
-Fan-made and non-commercial. Honkai: Star Rail and all related names are trademarks of HoYoverse.
+Fan-made and non-commercial. Honkai: Star Rail and all related names and art are © HoYoverse.

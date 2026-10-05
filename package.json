@@ -12,7 +12,8 @@
     "db:seed": "tsx src/db/seed.ts",
     "db:studio": "drizzle-kit studio",
     "typecheck": "tsc --noEmit",
-    "art:fetch": "tsx scripts/fetch-art.ts"
+    "art:fetch": "tsx scripts/fetch-art.ts",
+    "prebuild": "npm run art:fetch"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.3",

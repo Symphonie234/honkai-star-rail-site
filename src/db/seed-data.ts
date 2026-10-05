@@ -1,5 +1,10 @@
 import { worldImage } from "../lib/images";
+import type { CharacterSeed } from "./data/characters";
 import type { ArtVariant } from "./schema";
+
+export { AEON_LORE, AEONS } from "./data/aeons";
+export { CHARACTERS } from "./data/characters";
+export { VERSIONS } from "./data/versions";
 
 /*
  * Source content for the database. Edit here, then run `npm run db:seed`
@@ -129,36 +134,6 @@ export const WORLD_CHAPTERS = Object.entries(CHAPTERS_BY_WORLD).flatMap(([worldS
   chapters.map((c, i) => ({ ...c, slug: `${worldSlug}-${i + 1}`, worldSlug, sortOrder: i + 1 })),
 );
 
-// The Aeons, in the order they sit around the Aeons web. pathSlug links an Aeon to
-// its playable Path; Aeons whose Path has no playable characters (Trailblaze,
-// Permanence, Order) have none and show their glyph instead.
-export const AEONS = [
-  { slug: "nanook", name: "Nanook", concept: "Destruction", pathSlug: "destruction", glyph: "✸",
-    description: "The Aeon of Destruction, who sees all existence as a mistake to be erased. Its Antimatter Legion wages war on every living world." },
-  { slug: "lan", name: "Lan", concept: "The Hunt", pathSlug: "hunt", glyph: "➹",
-    description: "The Aeon of the Hunt, an archer forever pursuing its quarry. The Xianzhou Alliance fights in its name against the creations of the Abundance." },
-  { slug: "nous", name: "Nous", concept: "Erudition", pathSlug: "erudition", glyph: "✧",
-    description: "The Aeon of Erudition, a vast intelligence devoted to solving the universe. It invites the most brilliant minds into the Genius Society." },
-  { slug: "xipe", name: "Xipe", concept: "Harmony", pathSlug: "harmony", glyph: "♫",
-    description: "The Aeon of Harmony, who unites countless voices into a single chorus. Penacony's Family sings in its name." },
-  { slug: "ix", name: "IX", concept: "Nihility", pathSlug: "nihility", glyph: "◌",
-    description: "The Aeon of Nihility, an indifferent void whose very existence draws all things toward meaninglessness." },
-  { slug: "qlipoth", name: "Qlipoth", concept: "Preservation", pathSlug: "preservation", glyph: "⛨",
-    description: "The Aeon of Preservation, builder of walls against the dark. The Interastral Peace Corporation reveres it." },
-  { slug: "yaoshi", name: "Yaoshi", concept: "Abundance", pathSlug: "abundance", glyph: "❀",
-    description: "The Aeon of Abundance, who answers suffering with the gift of endless life — a blessing the Xianzhou regard as a curse." },
-  { slug: "fuli", name: "Fuli", concept: "Remembrance", pathSlug: "remembrance", glyph: "❖",
-    description: "The Aeon of Remembrance, who gathers and preserves memories from across the cosmos." },
-  { slug: "aha", name: "Aha", concept: "Elation", pathSlug: "elation", glyph: "✺",
-    description: "The Aeon of Elation, a trickster who finds the universe hilarious. The Masked Fools follow its lead." },
-  { slug: "akivili", name: "Akivili", concept: "Trailblaze", pathSlug: null, glyph: "✦",
-    description: "The Aeon of the Trailblaze, who laid the star rails between worlds and rode the Astral Express. Said to have perished long ago." },
-  { slug: "long", name: "Long", concept: "Permanence", pathSlug: null, glyph: "❂",
-    description: "The Aeon of Permanence, revered by the Vidyadhara, whose power sought to keep all things unchanging. Long since fallen." },
-  { slug: "ena", name: "Ena", concept: "Order", pathSlug: null, glyph: "⌘",
-    description: "The Aeon of Order, who sought to fit every life into a single, perfect design — and is long absent from the cosmos." },
-].map((a, i) => ({ ...a, sortOrder: i }));
-
 // aeonSlug is the Aeon a faction is devoted to, where that tie is well established.
 export const FACTIONS = [
   { slug: "astral-express", name: "Astral Express", aeonSlug: "akivili",
@@ -187,85 +162,19 @@ export const FACTIONS = [
     description: "The endless armies of Nanook, bent on wiping out all life." },
   { slug: "masked-fools", name: "Masked Fools", aeonSlug: "aha",
     description: "Jesters who follow Aha, the Aeon of Elation, seeking amusement above all else." },
+  { slug: "belobog", name: "Belobog", aeonSlug: "qlipoth",
+    description: "The last city of Jarilo-VI, split between the Overworld and the Underworld, whose people revere Qlipoth." },
+  { slug: "silvermane-guards", name: "Silvermane Guards", aeonSlug: null,
+    description: "Belobog's army, sworn to defend the last city against the Fragmentum." },
+  { slug: "garden-of-recollection", name: "Garden of Recollection", aeonSlug: "fuli",
+    description: "Home of the Memokeepers, who serve Fuli by gathering and preserving memories." },
+  { slug: "knights-of-beauty", name: "Knights of Beauty", aeonSlug: "idrila",
+    description: "Wandering knights who spread the glory of Idrila, the vanished Aeon of Beauty." },
 ];
-
-// art is the game's internal character ID, which the art is fetched by (run `npm run art:fetch`
-// after adding one). Characters with several looks — the Trailblazer — list labeled variants
-// instead; the first is the default.
-type CharacterSeed = {
-  slug: string; art: string | ArtVariant[] | null; name: string; rarity: 4 | 5;
-  elementSlug: string; pathSlug: string; factionSlug: string | null; worldSlug: string | null;
-  releaseVersion: string; spoilerVersion: string | null; bio: string;
-};
 
 /** A seed character's art, normalized to the variant list stored in characters.art. */
 export const artOf = (c: CharacterSeed): ArtVariant[] =>
   typeof c.art === "string" ? [{ label: c.name, gameId: c.art }] : (c.art ?? []);
-
-export const CHARACTERS: CharacterSeed[] = [
-  { slug: "trailblazer", art: [{ label: "Stelle", gameId: "8002" }, { label: "Caelus", gameId: "8001" }],
-    name: "Trailblazer", rarity: 5, elementSlug: "physical", pathSlug: "destruction",
-    factionSlug: "astral-express", worldSlug: null, releaseVersion: "1.0", spoilerVersion: null,
-    bio: "A traveler who awoke on the Herta Space Station with a Stellaron sealed within, now walking the Trailblaze aboard the Astral Express." },
-  { slug: "march-7th", art: "1001", name: "March 7th", rarity: 4, elementSlug: "ice", pathSlug: "preservation",
-    factionSlug: "astral-express", worldSlug: null, releaseVersion: "1.0", spoilerVersion: null,
-    bio: "A cheerful girl found frozen in drifting ice, searching for clues to her own forgotten past." },
-  { slug: "dan-heng", art: "1002", name: "Dan Heng", rarity: 4, elementSlug: "wind", pathSlug: "hunt",
-    factionSlug: "astral-express", worldSlug: null, releaseVersion: "1.0", spoilerVersion: null,
-    bio: "A cool, reserved guard of the Express archives with a past tied to the Xianzhou." },
-  { slug: "himeko", art: "1003", name: "Himeko", rarity: 5, elementSlug: "fire", pathSlug: "erudition",
-    factionSlug: "astral-express", worldSlug: null, releaseVersion: "1.0", spoilerVersion: null,
-    bio: "The navigator who repaired the Astral Express and set it back on the rails among the stars." },
-  { slug: "welt", art: "1004", name: "Welt", rarity: 5, elementSlug: "imaginary", pathSlug: "nihility",
-    factionSlug: "astral-express", worldSlug: null, releaseVersion: "1.0", spoilerVersion: null,
-    bio: "A seasoned veteran who once inherited the name of Welt Yang and now travels with the Express." },
-  { slug: "kafka", art: "1005", name: "Kafka", rarity: 5, elementSlug: "lightning", pathSlug: "nihility",
-    factionSlug: "stellaron-hunters", worldSlug: null, releaseVersion: "1.2", spoilerVersion: null,
-    bio: "A calm and elegant Stellaron Hunter who always seems to be one step ahead of everyone else." },
-  { slug: "silver-wolf", art: "1006", name: "Silver Wolf", rarity: 5, elementSlug: "quantum", pathSlug: "nihility",
-    factionSlug: "stellaron-hunters", worldSlug: null, releaseVersion: "1.1", spoilerVersion: null,
-    bio: "A genius hacker who treats the universe like an immersive game to be beaten." },
-  { slug: "blade", art: "1205", name: "Blade", rarity: 5, elementSlug: "wind", pathSlug: "destruction",
-    factionSlug: "stellaron-hunters", worldSlug: null, releaseVersion: "1.2", spoilerVersion: null,
-    bio: "A swordsman cursed with an undying body, seeking an end that never comes." },
-  // Her Stellaron Hunter affiliation is a Penacony story reveal.
-  { slug: "firefly", art: "1310", name: "Firefly", rarity: 5, elementSlug: "fire", pathSlug: "destruction",
-    factionSlug: "stellaron-hunters", worldSlug: "penacony", releaseVersion: "2.3", spoilerVersion: "2.1",
-    bio: "A girl bearing a short lifespan who fights for the chance to truly live." },
-  { slug: "seele", art: "1102", name: "Seele", rarity: 5, elementSlug: "quantum", pathSlug: "hunt",
-    factionSlug: "wildfire", worldSlug: "jarilo-vi", releaseVersion: "1.0", spoilerVersion: null,
-    bio: "A sharp-tongued fighter from the Underworld of Belobog, quick as a butterfly." },
-  { slug: "jing-yuan", art: "1204", name: "Jing Yuan", rarity: 5, elementSlug: "lightning", pathSlug: "erudition",
-    factionSlug: "xianzhou-alliance", worldSlug: "xianzhou-luofu", releaseVersion: "1.0", spoilerVersion: null,
-    bio: "The General of the Cloud Knights, seemingly idle yet always in command." },
-  { slug: "fu-xuan", art: "1208", name: "Fu Xuan", rarity: 5, elementSlug: "quantum", pathSlug: "preservation",
-    factionSlug: "xianzhou-alliance", worldSlug: "xianzhou-luofu", releaseVersion: "1.6", spoilerVersion: null,
-    bio: "Master Diviner of the Luofu, who reads fate through the Matrix of Prescience." },
-  { slug: "huohuo", art: "1217", name: "Huohuo", rarity: 5, elementSlug: "wind", pathSlug: "abundance",
-    factionSlug: "xianzhou-alliance", worldSlug: "xianzhou-luofu", releaseVersion: "1.7", spoilerVersion: null,
-    bio: "A timid Foxian Judge-in-training who carries a heliobus named Tail on her tail." },
-  { slug: "dr-ratio", art: "1305", name: "Dr. Ratio", rarity: 5, elementSlug: "imaginary", pathSlug: "hunt",
-    factionSlug: "intelligentsia-guild", worldSlug: null, releaseVersion: "1.6", spoilerVersion: null,
-    bio: "A brilliant scholar who never removes his plaster bust and has no patience for ignorance." },
-  { slug: "ruan-mei", art: "1303", name: "Ruan Mei", rarity: 5, elementSlug: "ice", pathSlug: "harmony",
-    factionSlug: "genius-society", worldSlug: null, releaseVersion: "1.6", spoilerVersion: null,
-    bio: "A member of the Genius Society devoted to unraveling the secrets of life itself." },
-  { slug: "acheron", art: "1308", name: "Acheron", rarity: 5, elementSlug: "lightning", pathSlug: "nihility",
-    factionSlug: "galaxy-rangers", worldSlug: "penacony", releaseVersion: "2.1", spoilerVersion: null,
-    bio: "A self-proclaimed Galaxy Ranger who walks alone, carrying a blade that cuts through sorrow." },
-  { slug: "robin", art: "1309", name: "Robin", rarity: 5, elementSlug: "physical", pathSlug: "harmony",
-    factionSlug: "the-family", worldSlug: "penacony", releaseVersion: "2.2", spoilerVersion: null,
-    bio: "A beloved Halovian singer whose voice resonates across the cosmos." },
-  { slug: "aglaea", art: "1402", name: "Aglaea", rarity: 5, elementSlug: "lightning", pathSlug: "remembrance",
-    factionSlug: "chrysos-heirs", worldSlug: "amphoreus", releaseVersion: "3.0", spoilerVersion: null,
-    bio: "A Chrysos Heir of Amphoreus who weaves fate through threads of gold." },
-  { slug: "castorice", art: "1407", name: "Castorice", rarity: 5, elementSlug: "quantum", pathSlug: "remembrance",
-    factionSlug: "chrysos-heirs", worldSlug: "amphoreus", releaseVersion: "3.2", spoilerVersion: null,
-    bio: "A gentle Chrysos Heir whose touch brings death, accompanied by the great dragon Pollux." },
-  { slug: "asta", art: "1009", name: "Asta", rarity: 4, elementSlug: "fire", pathSlug: "harmony",
-    factionSlug: "herta-space-station", worldSlug: "herta-space-station", releaseVersion: "1.0", spoilerVersion: null,
-    bio: "The lively lead researcher of the Herta Space Station, with an eye for the stars." },
-];
 
 // Lore terms. Wherever a term (or alias) appears in lore text, it gets a hover
 // definition. Longer names win, so "Stellaron Hunters" isn't read as "Stellaron".
@@ -316,6 +225,18 @@ export const GLOSSARY = [
     definition: "Heroes of Amphoreus chosen to undertake the Flame-Chase." },
   { slug: "flame-chase", term: "Flame-Chase", aliases: [], spoilerVersion: null,
     definition: "Amphoreus's great quest to take back the Titans' fire and remake the world." },
+  { slug: "swarm-disaster", term: "Swarm Disaster", aliases: [], spoilerVersion: null,
+    definition: "The ancient catastrophe in which Tayzzyronth and the Swarm spread across the universe, until several Aeons joined forces to seal it." },
+  { slug: "memokeeper", term: "Memokeeper", aliases: [], spoilerVersion: null,
+    definition: "A follower of Fuli from the Garden of Recollection who has shed their body to live on as a being of memory." },
+  { slug: "amber-era", term: "Amber Era", aliases: ["AE"], spoilerVersion: null,
+    definition: "The cosmic calendar era, which begins anew each time Qlipoth brings down its hammer." },
+  { slug: "voidranger", term: "Voidranger", aliases: [], spoilerVersion: null,
+    definition: "The rank-and-file monsters of the Antimatter Legion." },
+  { slug: "self-annihilator", term: "Self-Annihilator", aliases: [], spoilerVersion: null,
+    definition: "Someone who has entered a Shadow of IX and lost the meaning of their own existence." },
+  { slug: "the-nameless", term: "the Nameless", aliases: [], spoilerVersion: null,
+    definition: "Akivili's travelling companions — and everyone since who has ridden the Astral Express along the Trailblaze." },
   { slug: "black-tide", term: "Black Tide", aliases: [], spoilerVersion: null,
     definition: "A corrupting tide that is steadily swallowing the lands of Amphoreus." },
 ];

@@ -3,8 +3,10 @@
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import type { CharacterWithRefs } from "@/lib/queries";
+import { compareVersions, isRevealed } from "@/lib/spoilers";
 import { colorVar } from "@/lib/theme";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
+import { useStoryProgress } from "../spoilers/story-progress";
 import { CharacterCard } from "./CharacterCard";
 
 type Option = { slug: string; name: string };
@@ -15,6 +17,8 @@ type Props = {
   paths: Option[];
 };
 
+const RARITIES: Option[] = [{ slug: "5", name: "5★" }, { slug: "4", name: "4★" }];
+
 const chip =
   "rounded-full border px-3 py-1.5 text-sm transition-colors aria-pressed:border-[var(--c,var(--color-gold))] aria-pressed:bg-[color-mix(in_srgb,var(--c,var(--color-gold))_18%,transparent)] aria-pressed:text-ink border-line text-muted hover:text-ink";
 
@@ -22,17 +26,28 @@ export function CharacterBrowser({ characters, elements, paths }: Props) {
   const [query, setQuery] = useState("");
   const [element, setElement] = useState<string | null>(null);
   const [path, setPath] = useState<string | null>(null);
+  const [rarity, setRarity] = useState<string | null>(null);
+  const [sort, setSort] = useState<"name" | "newest">("name");
   const reduceMotion = usePrefersReducedMotion();
+  const progress = useStoryProgress();
 
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return characters.filter(
+    // A spoiler-tagged character's faction is the reveal (Firefly), so it only counts
+    // toward search once the reader's progress covers it.
+    const factionMatches = (c: CharacterWithRefs) =>
+      isRevealed(c.spoilerVersion, progress) && !!c.faction?.name.toLowerCase().includes(q);
+    const list = characters.filter(
       (c) =>
         (!element || c.elementSlug === element) &&
         (!path || c.pathSlug === path) &&
-        (!q || c.name.toLowerCase().includes(q) || c.faction?.name.toLowerCase().includes(q)),
+        (!rarity || String(c.rarity) === rarity) &&
+        (!q || c.name.toLowerCase().includes(q) || factionMatches(c)),
     );
-  }, [characters, query, element, path]);
+    return sort === "newest"
+      ? [...list].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate) || compareVersions(b.releaseVersion, a.releaseVersion))
+      : list;
+  }, [characters, query, element, path, rarity, sort, progress]);
 
   return (
     <MotionConfig reducedMotion="user">
@@ -49,15 +64,23 @@ export function CharacterBrowser({ characters, elements, paths }: Props) {
               className="glass w-full rounded-full px-5 py-3 placeholder:text-muted focus:border-gold focus:outline-none"
             />
           </label>
-  
+
           <FilterRow label="Combat type" options={elements} value={element} onChange={setElement} colored />
           <FilterRow label="Path" options={paths} value={path} onChange={setPath} />
+          <FilterRow label="Rarity" options={RARITIES} value={rarity} onChange={setRarity} />
         </div>
-  
-        <p className="text-sm text-muted" aria-live="polite">
-          {shown.length} {shown.length === 1 ? "traveler" : "travelers"}
-        </p>
-  
+
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm text-muted" aria-live="polite">
+            {shown.length} {shown.length === 1 ? "traveler" : "travelers"}
+          </p>
+          <div role="group" aria-label="Sort" className="flex items-center gap-2 text-sm">
+            <span className="text-muted">Sort</span>
+            <button type="button" className={chip} aria-pressed={sort === "name"} onClick={() => setSort("name")}>A–Z</button>
+            <button type="button" className={chip} aria-pressed={sort === "newest"} onClick={() => setSort("newest")}>Newest</button>
+          </div>
+        </div>
+
         <motion.ul layout={!reduceMotion} className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           <AnimatePresence mode="popLayout" initial={false}>
             {shown.map((c) => (
@@ -74,7 +97,7 @@ export function CharacterBrowser({ characters, elements, paths }: Props) {
             ))}
           </AnimatePresence>
         </motion.ul>
-  
+
         {shown.length === 0 && <p className="py-12 text-center text-muted">No travelers match those filters.</p>}
       </div>
     </MotionConfig>

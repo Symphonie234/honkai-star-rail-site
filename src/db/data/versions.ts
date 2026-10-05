@@ -1,0 +1,34 @@
+/*
+ * Game versions through 3.8, the end of the Amphoreus (3.x) era, with their
+ * official titles and release dates (per the Honkai: Star Rail Wiki).
+ * These are also the choices in the story-progress picker.
+ */
+export const VERSIONS = [
+  ["1.0", "The Rail Unto the Stars", "2023-04-26"],
+  ["1.1", "Galactic Roaming", "2023-06-07"],
+  ["1.2", "Even Immortality Ends", "2023-07-19"],
+  ["1.3", "Celestial Eyes Above Mortal Ruins", "2023-08-30"],
+  ["1.4", "Jolted Awake From a Winter Dream", "2023-10-11"],
+  ["1.5", "The Crepuscule Zone", "2023-11-15"],
+  ["1.6", "Crown of the Mundane and Divine", "2023-12-27"],
+  ["2.0", "If One Dreams At Midnight", "2024-02-06"],
+  ["2.1", "Into the Yawning Chasm", "2024-03-27"],
+  ["2.2", "Then Wake to Weep", "2024-05-08"],
+  ["2.3", "Farewell, Penacony", "2024-06-19"],
+  ["2.4", "Finest Duel Under the Pristine Blue", "2024-07-31"],
+  ["2.5", "Flying Aureus Shot to Lupine Rue", "2024-09-10"],
+  ["2.6", "Annals of Pinecany's Mappou Age", "2024-10-23"],
+  ["2.7", "A New Venture on the Eighth Dawn", "2024-12-04"],
+  ["3.0", "Paean of Era Nova", "2025-01-15"],
+  ["3.1", "Light Slips the Gate, Shadow Greets the Throne", "2025-02-26"],
+  ["3.2", "Through the Petals in the Land of Repose", "2025-04-09"],
+  ["3.3", "The Fall at Dawn's Rise", "2025-05-21"],
+  ["3.4", "For the Sun is Set to Die", "2025-07-02"],
+  ["3.5", "Before Their Deaths", "2025-08-13"],
+  ["3.6", "Back to Earth in Evernight", "2025-09-24"],
+  ["3.7", "As Tomorrow Became Yesterday", "2025-11-05"],
+  ["3.8", "Memories are the Prelude to Dreams", "2025-12-17"],
+].map(([version, title, releaseDate]) => {
+  const [major, minor] = version.split(".").map(Number);
+  return { version, title, releaseDate, major, minor };
+});

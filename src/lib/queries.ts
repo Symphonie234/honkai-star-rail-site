@@ -1,10 +1,9 @@
-import { asc, eq } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 import { cache } from "react";
 import { db } from "@/db";
-import { aeons, characters, elements, factions, glossaryTerms, paths, worldChapters, worlds } from "@/db/schema";
-import { compareVersions } from "@/lib/spoilers";
+import { aeonLore, aeons, characters, elements, factions, glossaryTerms, paths, versions, worldChapters, worlds } from "@/db/schema";
 
-const withRefs = { element: true, path: true, faction: true, world: true } as const;
+const withRefs = { element: true, path: true, faction: true, world: true, version: true } as const;
 
 export const getCharacters = cache(() =>
   db.query.characters.findMany({ with: withRefs, orderBy: asc(characters.name) }),
@@ -13,6 +12,8 @@ export const getCharacters = cache(() =>
 export const getCharacter = cache((slug: string) =>
   db.query.characters.findFirst({ where: eq(characters.slug, slug), with: withRefs }),
 );
+
+export type CharacterWithRefs = Awaited<ReturnType<typeof getCharacters>>[number];
 
 export const getElements = cache(() => db.query.elements.findMany({ orderBy: asc(elements.sortOrder) }));
 
@@ -30,23 +31,39 @@ export const getWorld = cache((slug: string) =>
   }),
 );
 
-export type CharacterWithRefs = Awaited<ReturnType<typeof getCharacters>>[number];
-
 export const getGlossary = cache(() => db.query.glossaryTerms.findMany({ orderBy: asc(glossaryTerms.term) }));
 
 export type GlossaryTerm = Awaited<ReturnType<typeof getGlossary>>[number];
 
-/** Every version that appears in the content, ascending — the story-progress choices. */
+/** Versions, newest first, with the characters each released. */
+export const getVersions = cache(() =>
+  db.query.versions.findMany({
+    orderBy: [desc(versions.major), desc(versions.minor)],
+    with: { characters: { with: withRefs, orderBy: asc(characters.name) } },
+  }),
+);
+
+/** Every version, ascending — the story-progress choices. */
 export const getStoryVersions = cache(async () => {
-  const [chars, ws, chapters, terms] = await Promise.all([
-    db.select({ r: characters.releaseVersion, s: characters.spoilerVersion }).from(characters),
-    db.select({ r: worlds.releaseVersion }).from(worlds),
-    db.select({ s: worldChapters.spoilerVersion }).from(worldChapters),
-    db.select({ s: glossaryTerms.spoilerVersion }).from(glossaryTerms),
-  ]);
-  const all = [...chars.flatMap((c) => [c.r, c.s]), ...ws.map((w) => w.r), ...chapters.map((c) => c.s), ...terms.map((t) => t.s)];
-  return [...new Set(all.filter((v): v is string => !!v))].sort(compareVersions);
+  const rows = await db.select({ v: versions.version }).from(versions).orderBy(asc(versions.major), asc(versions.minor));
+  return rows.map((r) => r.v);
 });
+
+export const getAeons = cache(() =>
+  db.query.aeons.findMany({ with: { path: true, factions: true }, orderBy: asc(aeons.sortOrder) }),
+);
+
+export const getAeon = cache((slug: string) =>
+  db.query.aeons.findFirst({
+    where: eq(aeons.slug, slug),
+    with: { path: true, factions: true, lore: { orderBy: asc(aeonLore.sortOrder) } },
+  }),
+);
+
+/** Characters walking a Path, for an Aeon's page. */
+export const getPathCharacters = cache((pathSlug: string) =>
+  db.query.characters.findMany({ where: eq(characters.pathSlug, pathSlug), with: withRefs, orderBy: asc(characters.name) }),
+);
 
 /** Everything the Aeons web draws: Aeons, factions and characters, trimmed to what the graph needs. */
 export const getAeonWeb = cache(async () => {

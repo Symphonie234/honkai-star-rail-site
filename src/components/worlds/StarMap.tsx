@@ -41,6 +41,48 @@ function railPath(pts: Point[]) {
 
 const stopLabel = (n: number) => `Stop ${String(n).padStart(2, "0")}`;
 
+/**
+ * A side view of the Astral Express in map units, nose pointing +x and centered on
+ * the rail, so animateMotion's rotate="auto" tilts it along the curve: a navy
+ * locomotive with gold trim and its round golden headlight, pulling one carriage.
+ */
+function ExpressTrain() {
+  const body = "#1d2350";
+  const trim = "var(--color-gold)";
+  const lit = "var(--color-gold-strong)";
+  return (
+    <g transform="translate(0 -0.75) scale(0.62)">
+      <defs>
+        <linearGradient id="express-beam" x1="0" x2="1">
+          <stop offset="0" stopColor="#fff3c4" stopOpacity="0.55" />
+          <stop offset="1" stopColor="#fff3c4" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      {/* Headlight beam */}
+      <path d="M 3 -0.2 L 7 -1.3 L 7 0.9 Z" fill="url(#express-beam)" />
+      {/* Carriage, with lit windows */}
+      <rect x="-7" y="-1.2" width="3.9" height="1.75" rx="0.4" fill={body} stroke={trim} strokeWidth="0.12" />
+      {[-6.4, -5.4, -4.4].map((x) => (
+        <rect key={x} x={x} y="-0.85" width="0.6" height="0.55" rx="0.1" fill={lit} />
+      ))}
+      <rect x="-3.15" y="-0.15" width="0.5" height="0.22" fill={trim} />
+      {/* Cab */}
+      <rect x="-2.7" y="-1.65" width="1.9" height="2.2" rx="0.35" fill={body} stroke={trim} strokeWidth="0.12" />
+      <rect x="-2.3" y="-1.3" width="0.9" height="0.6" rx="0.1" fill={lit} />
+      {/* Boiler and chimney */}
+      <rect x="-0.95" y="-1" width="3.4" height="1.55" rx="0.75" fill={body} stroke={trim} strokeWidth="0.12" />
+      <rect x="0.5" y="-1.85" width="0.55" height="0.95" rx="0.12" fill={body} stroke={trim} strokeWidth="0.1" />
+      {/* The golden ring on the Express's nose */}
+      <circle cx="2.45" cy="-0.22" r="0.82" fill="#0b0f24" stroke={trim} strokeWidth="0.2" />
+      <circle cx="2.45" cy="-0.22" r="0.34" fill="#fff6d6" />
+      {/* Wheels */}
+      {[-6.2, -3.9, -2.1, -0.2, 1.6].map((x) => (
+        <circle key={x} cx={x} cy="0.72" r="0.36" fill="#0b0f24" stroke={trim} strokeWidth="0.1" />
+      ))}
+    </g>
+  );
+}
+
 export function StarMap({ worlds }: { worlds: MapWorld[] }) {
   const reduceMotion = usePrefersReducedMotion();
   const rail = railPath(worlds.map((w) => ({ x: (w.mapX / 100) * VIEW_W, y: (w.mapY / 100) * VIEW_H })));
@@ -68,13 +110,14 @@ export function StarMap({ worlds }: { worlds: MapWorld[] }) {
             animate={{ pathLength: 1 }}
             transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
           />
-          {/* The Express, riding the rail. */}
+          {/* The Astral Express, riding the rail (it passes behind each stop, as if pulling in). */}
           {!reduceMotion && (
-            <circle r="0.7" fill="var(--color-gold-strong)" filter="url(#glow)">
-              <animateMotion dur="16s" repeatCount="indefinite" rotate="auto">
+            <g>
+              <ExpressTrain />
+              <animateMotion dur="18s" repeatCount="indefinite" rotate="auto">
                 <mpath href="#rail" />
               </animateMotion>
-            </circle>
+            </g>
           )}
         </svg>
 

@@ -12,7 +12,6 @@ import { useArtVariant } from "./art-variant";
 import { VariantToggle } from "./VariantToggle";
 
 type Props = {
-  slug: string;
   name: string;
   caption: string;
   art: ArtVariant[];
@@ -24,8 +23,8 @@ type Props = {
  * characters whose reveal the reader hasn't reached, the bust shot (Firefly's
  * splash shows SAM). Click to open the full-screen viewer.
  */
-export function PortraitShowcase({ slug, name, caption, art, spoilerVersion }: Props) {
-  const [variant, selectVariant] = useArtVariant(slug, art);
+export function PortraitShowcase({ name, caption, art, spoilerVersion }: Props) {
+  const [variant, selectVariant] = useArtVariant(art);
   const progress = useStoryProgress();
   const showSplash = isRevealed(spoilerVersion, progress);
   const [viewerOpen, setViewerOpen] = useState(false);

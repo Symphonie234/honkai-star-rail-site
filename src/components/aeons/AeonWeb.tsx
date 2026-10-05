@@ -4,7 +4,10 @@ import { MotionConfig, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState, type KeyboardEvent, type PointerEvent, type ReactNode, type SVGProps } from "react";
-import { anchorFor, edgePath, layoutWeb, R_AEON, R_CHARACTER, R_FACTION, SIZE, VIEW, type Edge, type NodeId, type Point } from "@/lib/aeon-web";
+import {
+  anchorFor, edgePath, layoutWeb, R_AEON, R_CHARACTER_INNER, R_CHARACTER_OUTER, R_FACTION, R_LABEL, SIZE, VIEW,
+  type Edge, type NodeId, type Point,
+} from "@/lib/aeon-web";
 import { characterIcon, pathIcon } from "@/lib/images";
 import type { AeonWebData } from "@/lib/queries";
 import { isRevealed } from "@/lib/spoilers";
@@ -93,6 +96,10 @@ export function AeonWeb({ data }: { data: AeonWebData }) {
     if (e.to === active) lit.add(e.from);
   }
   const dim = (id: NodeId) => (active && !lit.has(id) ? 0.18 : 1);
+  // Name every lit character only when there are few; large Path groups would bury
+  // each other's labels, so the panel lists those instead. The active node is always named.
+  const litCharacters = [...lit].filter((id) => id.startsWith("c:")).length;
+  const labelCharacter = (id: NodeId) => id === active || (lit.has(id) && litCharacters <= 6);
 
   const select = (id: NodeId) => setSelected((s) => (s === id ? null : id));
   const handlers: NodeHandlers = { onHover: setHovered, onSelect: select };
@@ -124,7 +131,7 @@ export function AeonWeb({ data }: { data: AeonWebData }) {
             <span className="ml-auto hidden text-xs text-muted sm:block">Hover to preview · click to pin · Esc to clear</span>
           </div>
 
-          <div className="glass mx-auto aspect-[1240/1072] w-full max-w-[880px] overflow-hidden rounded-3xl">
+          <div className="glass mx-auto aspect-[1420/1080] w-full max-w-[920px] overflow-hidden rounded-3xl">
             <svg viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.width} ${VIEW.height}`} className="h-full w-full select-none" role="group" aria-label="Web of Aeons, factions and characters">
               <defs>
                 <clipPath id="avatar-clip" clipPathUnits="objectBoundingBox">
@@ -137,7 +144,7 @@ export function AeonWeb({ data }: { data: AeonWebData }) {
               </defs>
 
               <circle cx={SIZE / 2} cy={SIZE / 2} r={R_FACTION - 30} fill="url(#core-glow)" />
-              {[R_FACTION, R_AEON, R_CHARACTER].map((r) => (
+              {[R_FACTION, R_AEON, R_CHARACTER_INNER, R_CHARACTER_OUTER].map((r) => (
                 <circle key={r} cx={SIZE / 2} cy={SIZE / 2} r={r} fill="none" stroke="var(--color-line)" strokeDasharray="2 8" />
               ))}
 
@@ -185,7 +192,7 @@ export function AeonWeb({ data }: { data: AeonWebData }) {
                     if (!at) return null;
                     return (
                       <CharacterNode key={c.slug} character={c} at={at} labelLevel={labelLevels.get(id) ?? 0} opacity={dim(id)}
-                        selected={selected === id} showLabel={lit.has(id)} handlers={handlers} />
+                        selected={selected === id} showLabel={labelCharacter(id)} lit={lit.has(id)} handlers={handlers} />
                     );
                   })}
                 </motion.g>
@@ -240,13 +247,13 @@ function AeonNode({ aeon, at, opacity, selected, handlers }: NodeBase & { aeon: 
   const id: NodeId = `a:${aeon.slug}`;
   // Labels sit inside the ring, toward the center, clear of the characters outside.
   const inward = (d: number) => offset(at.angle, -d);
-  const label = inward(66);
+  const label = inward(58);
   return (
     <g transform={`translate(${at.x} ${at.y})`} style={{ opacity }} {...nodeProps(id, `${aeon.name}, Aeon of ${aeon.concept}`, selected, handlers)}>
-      <circle r={45} fill="none" stroke="var(--color-gold)" strokeWidth={3} className="opacity-0 in-focus-visible:opacity-100" />
-      <circle r={36} fill="var(--color-surface-solid)" stroke="var(--color-gold)" strokeOpacity={selected ? 1 : 0.5} strokeWidth={selected ? 3 : 2} />
+      <circle r={39} fill="none" stroke="var(--color-gold)" strokeWidth={3} className="opacity-0 in-focus-visible:opacity-100" />
+      <circle r={31} fill="var(--color-surface-solid)" stroke="var(--color-gold)" strokeOpacity={selected ? 1 : 0.5} strokeWidth={selected ? 3 : 2} />
       {aeon.pathSlug ? (
-        <image href={pathIcon(aeon.pathSlug)} x={-22} y={-22} width={44} height={44} />
+        <image href={pathIcon(aeon.pathSlug)} x={-19} y={-19} width={38} height={38} />
       ) : (
         <text textAnchor="middle" dominantBaseline="central" fontSize={30} fill="var(--color-gold)">{aeon.glyph}</text>
       )}
@@ -258,23 +265,24 @@ function AeonNode({ aeon, at, opacity, selected, handlers }: NodeBase & { aeon: 
   );
 }
 
-function CharacterNode({ character: c, at, labelLevel, opacity, selected, showLabel, handlers }: NodeBase & {
-  character: Character; labelLevel: number; showLabel: boolean;
+function CharacterNode({ character: c, at, labelLevel, opacity, selected, showLabel, lit, handlers }: NodeBase & {
+  character: Character; labelLevel: number; showLabel: boolean; lit: boolean;
 }) {
   const id: NodeId = `c:${c.slug}`;
-  const [variant] = useArtVariant(c.slug, c.art);
+  const [variant] = useArtVariant(c.art);
   // Near the top and bottom, labels are centered and neighbours would overlap, so every
   // other one moves out a row.
   const anchor = anchorFor(at.angle);
-  const out = offset(at.angle, 42 + (anchor === "middle" ? labelLevel * 26 : 0));
+  const ring = Math.hypot(at.x - SIZE / 2, at.y - SIZE / 2);
+  const out = offset(at.angle, R_LABEL - ring + (anchor === "middle" ? labelLevel * 24 : 0));
   return (
     <g transform={`translate(${at.x} ${at.y})`} style={{ opacity, ...colorVar(c.elementSlug) }} {...nodeProps(id, c.name, selected, handlers)}>
-      <circle r={33} fill="none" stroke="var(--color-gold)" strokeWidth={3} className="opacity-0 in-focus-visible:opacity-100" />
-      <circle r={27} fill="var(--color-space)" stroke="var(--c)" strokeWidth={selected || showLabel ? 3.5 : 2} />
+      <circle r={27} fill="none" stroke="var(--color-gold)" strokeWidth={3} className="opacity-0 in-focus-visible:opacity-100" />
+      <circle r={22} fill="var(--color-space)" stroke="var(--c)" strokeWidth={selected || lit ? 3.5 : 2} />
       {variant ? (
-        <image href={characterIcon(variant.gameId)} x={-25} y={-25} width={50} height={50} clipPath="url(#avatar-clip)" />
+        <image href={characterIcon(variant.gameId)} x={-20} y={-20} width={40} height={40} clipPath="url(#avatar-clip)" />
       ) : (
-        <text textAnchor="middle" dominantBaseline="central" fontSize={22} fill="var(--c)">{c.name[0]}</text>
+        <text textAnchor="middle" dominantBaseline="central" fontSize={18} fill="var(--c)">{c.name[0]}</text>
       )}
       {showLabel && (
         <Label x={out.x} y={out.y + 5} fontSize={17} fontWeight={600} fill="var(--color-ink)" textAnchor={anchor}>
@@ -289,11 +297,11 @@ function FactionNode({ faction: f, at, opacity, selected, showLabel, handlers }:
   const id: NodeId = `f:${f.slug}`;
   const hex = Array.from({ length: 6 }, (_, i) => {
     const a = (Math.PI / 3) * i - Math.PI / 2;
-    return `${Math.cos(a) * 17},${Math.sin(a) * 17}`;
+    return `${Math.cos(a) * 15},${Math.sin(a) * 15}`;
   }).join(" ");
   return (
     <g transform={`translate(${at.x} ${at.y})`} style={{ opacity }} {...nodeProps(id, `${f.name}, faction`, selected, handlers)}>
-      <circle r={25} fill="none" stroke="var(--color-gold)" strokeWidth={3} className="opacity-0 in-focus-visible:opacity-100" />
+      <circle r={22} fill="none" stroke="var(--color-gold)" strokeWidth={3} className="opacity-0 in-focus-visible:opacity-100" />
       <polygon points={hex} fill="var(--color-space)" stroke="var(--color-cyan)" strokeWidth={selected ? 3.5 : 2} />
       <circle r={4} fill="var(--color-cyan)" />
       {showLabel && (
@@ -343,6 +351,9 @@ function Panel({
             {aeon.name}
           </h2>
           <p className="mt-4 leading-relaxed text-muted">{aeon.description}</p>
+          <Link href={`/aeons/${aeon.slug}`} className="mt-3 inline-block font-semibold text-gold hover:text-gold-strong">
+            Read {aeon.name}&apos;s full lore →
+          </Link>
           {aeon.path ? (
             <Section title={`Walking ${aeon.path.name}`}>
               <AvatarList characters={data.characters.filter((c) => c.pathSlug === aeon.pathSlug)} onSelect={onSelect} />
@@ -407,7 +418,7 @@ function Panel({
 function CharacterDetail({ character: c, aeon, faction, onSelect }: {
   character: Character; aeon?: Aeon; faction?: Faction; onSelect: (id: NodeId) => void;
 }) {
-  const [variant] = useArtVariant(c.slug, c.art);
+  const [variant] = useArtVariant(c.art);
   const factionChip = faction && (
     <button type="button" onClick={() => onSelect(`f:${faction.slug}`)} className={chipClass("cyan")}>{faction.name}</button>
   );
@@ -487,7 +498,7 @@ function AvatarList({ characters, onSelect }: { characters: Character[]; onSelec
 }
 
 function AvatarButton({ character: c, onSelect }: { character: Character; onSelect: (id: NodeId) => void }) {
-  const [variant] = useArtVariant(c.slug, c.art);
+  const [variant] = useArtVariant(c.art);
   return (
     <button type="button" onClick={() => onSelect(`c:${c.slug}`)} style={colorVar(c.elementSlug)}
       className="flex items-center gap-2 rounded-full border border-line py-1 pr-3 pl-1 text-sm transition hover:border-[var(--c)]">

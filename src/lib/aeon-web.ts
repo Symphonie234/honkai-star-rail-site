@@ -2,25 +2,30 @@ import type { AeonWebData } from "./queries";
 
 /*
  * Layout for the Aeons web: a radial constellation in a 1000×1000 box.
- *  - Aeons on the middle ring, evenly spaced, in sortOrder.
- *  - Characters on the outer ring, fanned out around their Path's Aeon.
+ *  - Aeons on the middle ring, each centered over its group of characters.
+ *  - Characters outside, alternating between two rings so many fit side by side.
  *  - Factions on the inner ring, near the Aeon they serve (or their members).
+ * Each Aeon claims angular space in proportion to its group (with a minimum, so
+ * Aeons with few or no playable characters keep their room).
  * Pure and deterministic, so server and client render identical positions.
  */
 
 export const SIZE = 1000;
+const C = SIZE / 2;
 /**
  * Visible area: the 1000×1000 layout plus room for the outer ring's labels, which
- * extend past it at the sides (e.g. "Silver Wolf" to the right of the ring).
+ * extend past it at the sides ("Trailblazer (Remembrance)" on the left).
  */
-export const VIEW = { x: -120, y: -36, width: SIZE + 240, height: SIZE + 72 };
-const C = SIZE / 2;
-export const R_AEON = 300;
-export const R_CHARACTER = 432;
+export const VIEW = { x: -210, y: -40, width: SIZE + 420, height: SIZE + 80 };
+export const R_AEON = 290;
+export const R_CHARACTER_INNER = 398;
+export const R_CHARACTER_OUTER = 456;
+/** Character labels sit just beyond the outer ring. */
+export const R_LABEL = 490;
 // Inside the Aeon labels, which sit toward the center from each Aeon.
 export const R_FACTION = 150;
-/** Angular gap between characters that share an Aeon. */
-const CHARACTER_SPREAD = 8.5;
+/** The least angular space an Aeon gets, in character slots. */
+const MIN_SLOTS = 5;
 
 export type NodeId = `a:${string}` | `f:${string}` | `c:${string}`;
 export type Point = { x: number; y: number; angle: number };
@@ -48,39 +53,43 @@ const norm = (a: number) => ((a % 360) + 360) % 360;
 export function layoutWeb({ aeons, factions, characters }: AeonWebData, options: { hiddenMemberships: Set<string> }) {
   const positions = new Map<NodeId, Point>();
   const edges: Edge[] = [];
-  /** Alternating 0/1 per character within an Aeon's group, to stagger crowded labels. */
+  /** Alternating 0/1 within an Aeon's group: which character ring, and which label row. */
   const labelLevels = new Map<NodeId, number>();
 
-  // Aeons: evenly around the ring, starting at the top.
-  const aeonAngle = new Map<string, number>();
-  const aeonByPath = new Map<string, string>();
-  aeons.forEach((a, i) => {
-    const angle = -90 + (i * 360) / aeons.length;
-    aeonAngle.set(a.slug, angle);
-    positions.set(`a:${a.slug}`, polar(R_AEON, angle));
-    if (a.pathSlug) aeonByPath.set(a.pathSlug, a.slug);
-  });
+  // Group characters under the Aeon of their Path.
+  const aeonByPath = new Map(aeons.filter((a) => a.pathSlug).map((a) => [a.pathSlug!, a.slug]));
+  const groups = new Map(aeons.map((a) => [a.slug, characters.filter((c) => aeonByPath.get(c.pathSlug) === a.slug)]));
+  const slots = aeons.map((a) => Math.max(groups.get(a.slug)!.length, MIN_SLOTS));
+  const step = 360 / slots.reduce((s, n) => s + n, 0);
 
-  // Characters: fanned out around their Path's Aeon.
-  const byAeon = Map.groupBy(characters, (c) => aeonByPath.get(c.pathSlug));
+  // Walk the ring clockwise from the top, centering each Aeon over its slots.
+  const aeonAngle = new Map<string, number>();
   const characterAngle = new Map<string, number>();
-  for (const [aeonSlug, group] of byAeon) {
-    if (!aeonSlug) continue;
-    const base = aeonAngle.get(aeonSlug)!;
+  let cursor = -90 - (slots[0] * step) / 2;
+  aeons.forEach((a, i) => {
+    const center = cursor + (slots[i] * step) / 2;
+    aeonAngle.set(a.slug, center);
+    positions.set(`a:${a.slug}`, polar(R_AEON, center));
+
+    const group = groups.get(a.slug)!;
     group.forEach((c, j) => {
-      const angle = base + (j - (group.length - 1) / 2) * CHARACTER_SPREAD;
+      const angle = center + (j - (group.length - 1) / 2) * step;
+      const id: NodeId = `c:${c.slug}`;
       characterAngle.set(c.slug, angle);
-      positions.set(`c:${c.slug}`, polar(R_CHARACTER, angle));
-      labelLevels.set(`c:${c.slug}`, j % 2);
-      edges.push({ from: `a:${aeonSlug}`, to: `c:${c.slug}`, kind: "path" });
+      labelLevels.set(id, j % 2);
+      positions.set(id, polar(j % 2 ? R_CHARACTER_OUTER : R_CHARACTER_INNER, angle));
+      edges.push({ from: `a:${a.slug}`, to: id, kind: "path" });
     });
-  }
+    cursor += slots[i] * step;
+  });
 
   // Factions: prefer the angle of their Aeon, else the middle of their members;
   // then nudge apart so neighbours keep a minimum gap.
   const preferred = factions.map((f) => {
-    const members = characters.filter((c) => c.factionSlug === f.slug && !options.hiddenMemberships.has(c.slug));
-    const memberAngles = members.map((c) => characterAngle.get(c.slug)).filter((a): a is number => a !== undefined);
+    const memberAngles = characters
+      .filter((c) => c.factionSlug === f.slug && !options.hiddenMemberships.has(c.slug))
+      .map((c) => characterAngle.get(c.slug))
+      .filter((a): a is number => a !== undefined);
     const angle = f.aeonSlug ? aeonAngle.get(f.aeonSlug)! : memberAngles.length ? circularMean(memberAngles) : 0;
     return { f, angle: norm(angle + 90) }; // measured from the top, so sorting starts there
   });

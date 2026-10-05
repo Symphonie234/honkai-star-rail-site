@@ -6,16 +6,22 @@
  *   npm run art:fetch            fetch anything missing
  *   npm run art:fetch -- --force re-fetch everything
  *
+ * public/art is not committed. Converted files are also kept in .next/cache/hsr-art,
+ * which Vercel preserves between builds, so deploys (which run this via "prebuild")
+ * only download what is new.
+ *
  * Sources (art © HoYoverse):
  *  - Characters and Path icons: StarRailRes (github.com/Mar-7th/StarRailRes)
- *  - World renders: the Honkai: Star Rail Wiki on Fandom (in-game star chart art)
+ *  - World renders and Aeon art: the Honkai: Star Rail Wiki on Fandom
  */
 import { existsSync } from "node:fs";
-import { mkdir } from "node:fs/promises";
+import { copyFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import sharp, { type Sharp } from "sharp";
-import { artOf, CHARACTERS, PATHS, WORLD_ART_SOURCES } from "../src/db/seed-data";
-import { characterIcon, characterPortrait, characterPreview, pathIcon, worldImage } from "../src/lib/images";
+import { AEONS, artOf, CHARACTERS, PATHS, WORLD_ART_SOURCES } from "../src/db/seed-data";
+import { aeonImage, characterIcon, characterPortrait, characterPreview, pathIcon, worldImage } from "../src/lib/images";
+
+const CACHE_DIR = path.join(".next", "cache", "hsr-art");
 
 const STARRAILRES = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master";
 const WIKI_API = "https://honkai-star-rail.fandom.com/api.php";
@@ -39,6 +45,8 @@ type Job = {
   source: () => Promise<string>;
   headers?: Record<string, string>;
   convert: (img: Sharp) => Sharp;
+  /** Art that may not exist at the source (e.g. Aeons never depicted); a miss is not a failure. */
+  optional?: boolean;
 };
 
 const force = process.argv.includes("--force");
@@ -80,6 +88,17 @@ function jobs(): Job[] {
       convert: (i) => webp(i.trim().resize(1024, 1024, { fit: "inside", withoutEnlargement: true }), 88),
     });
   }
+  for (const a of AEONS) {
+    if (!a.artFile) continue;
+    list.push({
+      label: `aeon ${a.slug}`,
+      out: aeonImage(a.slug),
+      source: () => wikiFileUrl(a.artFile),
+      headers: BROWSER_HEADERS,
+      convert: (i) => webp(i.resize(1200, 1200, { fit: "inside", withoutEnlargement: true }), 86),
+      optional: true,
+    });
+  }
   return list;
 }
 
@@ -97,18 +116,31 @@ async function download(url: string, headers?: Record<string, string>, attempts 
   }
 }
 
-async function run(job: Job) {
+async function run(job: Job): Promise<"fetched" | "skipped" | "cached" | "unavailable"> {
   const file = path.join("public", job.out);
+  const cached = path.join(CACHE_DIR, job.out);
   if (!force && existsSync(file)) return "skipped";
-  const data = await download(await job.source(), job.headers);
   await mkdir(path.dirname(file), { recursive: true });
+  if (!force && existsSync(cached)) {
+    await copyFile(cached, file);
+    return "cached";
+  }
+  let data: Buffer;
+  try {
+    data = await download(await job.source(), job.headers);
+  } catch (err) {
+    if (job.optional) return "unavailable";
+    throw err;
+  }
   await job.convert(sharp(data)).toFile(file);
+  await mkdir(path.dirname(cached), { recursive: true });
+  await copyFile(file, cached);
   return "fetched";
 }
 
 async function main() {
   const queue = jobs();
-  const counts = { fetched: 0, skipped: 0, failed: 0 };
+  const counts = { fetched: 0, cached: 0, skipped: 0, unavailable: 0, failed: 0 };
 
   // A few downloads at a time.
   await Promise.all(
@@ -126,7 +158,10 @@ async function main() {
     }),
   );
 
-  console.log(`Art: ${counts.fetched} fetched, ${counts.skipped} already present, ${counts.failed} failed.`);
+  console.log(
+    `Art: ${counts.fetched} fetched, ${counts.cached} from build cache, ${counts.skipped} already present, ` +
+      `${counts.unavailable} not available at the source, ${counts.failed} failed.`,
+  );
   if (counts.failed) process.exit(1);
 }
 

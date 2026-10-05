@@ -3,8 +3,11 @@ import { CharacterBrowser } from "@/components/characters/CharacterBrowser";
 import { getCharacters, getElements, getPaths } from "@/lib/queries";
 
 export const metadata: Metadata = {
-  title: "Character Archive",
-  description: "Every traveler of the Trailblaze — filter by combat type and Path.",
+  title: "Character Archive — Every Playable Character",
+  description:
+    "All 80 Honkai: Star Rail playable characters through Version 3.8 — filter by combat type, Path and rarity, " +
+    "and sort by release. Every Trailblazer Path and both March 7th forms included.",
+  alternates: { canonical: "/characters" },
 };
 
 export default async function CharactersPage() {

@@ -6,6 +6,7 @@ const links = [
   { href: "/characters", label: "Characters" },
   { href: "/worlds", label: "Worlds" },
   { href: "/aeons", label: "Aeons" },
+  { href: "/versions", label: "Versions" },
   { href: "/glossary", label: "Glossary" },
 ];
 
@@ -19,7 +20,7 @@ export async function SiteHeader() {
           <span aria-hidden="true" className="text-gold">✦</span>
           Astral Express
         </Link>
-        <nav aria-label="Primary" className="order-last flex w-full gap-6 text-sm text-muted sm:order-none sm:ml-auto sm:w-auto">
+        <nav aria-label="Primary" className="order-last -mx-1 flex w-full gap-5 overflow-x-auto px-1 text-sm whitespace-nowrap text-muted sm:order-none sm:ml-auto sm:w-auto sm:gap-6 sm:overflow-visible">
           {links.map((l) => (
             <Link key={l.href} href={l.href} className="transition-colors hover:text-ink">
               {l.label}

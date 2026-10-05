@@ -9,6 +9,16 @@ import { integer, jsonb, pgTable, text } from "drizzle-orm/pg-core";
  * system (Phase 3) compares it against the reader's progress.
  */
 
+/** Game versions, with their official titles. Characters reference their release version. */
+export const versions = pgTable("versions", {
+  version: text("version").primaryKey(),
+  title: text("title").notNull(),
+  /** ISO date, e.g. "2025-04-09". */
+  releaseDate: text("release_date").notNull(),
+  major: integer("major").notNull(),
+  minor: integer("minor").notNull(),
+});
+
 export const paths = pgTable("paths", {
   slug: text("slug").primaryKey(),
   name: text("name").notNull(),
@@ -61,8 +71,24 @@ export const aeons = pgTable("aeons", {
   pathSlug: text("path_slug").references(() => paths.slug),
   /** Shown when the Aeon has no Path icon. */
   glyph: text("glyph").notNull(),
+  /** Titles the Aeon is known by, e.g. "Amber Lord". */
+  epithets: text("epithets").array().notNull().default(sql`'{}'::text[]`),
+  /** Official art under /public, if any. */
+  image: text("image"),
+  /** One-paragraph summary; the full lore lives in aeon_lore. */
   description: text("description").notNull(),
   sortOrder: integer("sort_order").notNull(),
+});
+
+/** An Aeon's lore, in sections so each can carry its own spoiler level. */
+export const aeonLore = pgTable("aeon_lore", {
+  slug: text("slug").primaryKey(),
+  aeonSlug: text("aeon_slug").notNull().references(() => aeons.slug),
+  sortOrder: integer("sort_order").notNull(),
+  title: text("title").notNull(),
+  /** Plain text; paragraphs separated by blank lines. */
+  body: text("body").notNull(),
+  spoilerVersion: text("spoiler_version"),
 });
 
 export const factions = pgTable("factions", {
@@ -82,8 +108,14 @@ export const characters = pgTable("characters", {
   factionSlug: text("faction_slug").references(() => factions.slug),
   worldSlug: text("world_slug").references(() => worlds.slug),
   bio: text("bio").notNull(),
-  releaseVersion: text("release_version").notNull(),
+  releaseVersion: text("release_version").notNull().references(() => versions.version),
+  /** ISO date the character was released. */
+  releaseDate: text("release_date").notNull(),
   spoilerVersion: text("spoiler_version"),
+  /** Signature Light Cone, if the character has one. */
+  lightCone: text("light_cone"),
+  /** English voice actor(s). */
+  voiceEn: text("voice_en"),
   /**
    * Art variants, each a game character ID (see src/lib/images.ts). Usually one;
    * the Trailblazer has two (Stelle and Caelus) and the reader picks which to show.
@@ -108,7 +140,10 @@ export const charactersRelations = relations(characters, ({ one }) => ({
   path: one(paths, { fields: [characters.pathSlug], references: [paths.slug] }),
   faction: one(factions, { fields: [characters.factionSlug], references: [factions.slug] }),
   world: one(worlds, { fields: [characters.worldSlug], references: [worlds.slug] }),
+  version: one(versions, { fields: [characters.releaseVersion], references: [versions.version] }),
 }));
+
+export const versionsRelations = relations(versions, ({ many }) => ({ characters: many(characters) }));
 
 export const pathsRelations = relations(paths, ({ many }) => ({ characters: many(characters) }));
 export const elementsRelations = relations(elements, ({ many }) => ({ characters: many(characters) }));
@@ -120,6 +155,11 @@ export const factionsRelations = relations(factions, ({ one, many }) => ({
 export const aeonsRelations = relations(aeons, ({ one, many }) => ({
   path: one(paths, { fields: [aeons.pathSlug], references: [paths.slug] }),
   factions: many(factions),
+  lore: many(aeonLore),
+}));
+
+export const aeonLoreRelations = relations(aeonLore, ({ one }) => ({
+  aeon: one(aeons, { fields: [aeonLore.aeonSlug], references: [aeons.slug] }),
 }));
 export const worldsRelations = relations(worlds, ({ many }) => ({
   characters: many(characters),

@@ -27,7 +27,10 @@ export function WorldArt({
         sizes={sizes}
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : "auto"}
-        className="object-contain drop-shadow-[0_0_18px_color-mix(in_srgb,var(--c)_55%,transparent)] transition duration-500 ease-out-expo group-hover:scale-110 group-hover:drop-shadow-[0_0_28px_var(--c)]"
+        // Both glow states use color-mix() so they're the same color format: transitioning
+        // from color(srgb …) to a plain rgb() color made browsers interpolate garbage
+        // values, flashing the glow a different color mid-hover.
+        className="object-contain drop-shadow-[0_0_18px_color-mix(in_srgb,var(--c)_55%,transparent)] transition duration-500 ease-out-expo group-hover:scale-110 group-hover:drop-shadow-[0_0_28px_color-mix(in_srgb,var(--c)_95%,transparent)]"
       />
     </span>
   );

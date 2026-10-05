@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Game art, downloaded by `npm run art:fetch` (also run automatically before builds)
+/public/art/

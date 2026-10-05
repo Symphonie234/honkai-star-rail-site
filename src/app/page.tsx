@@ -1,12 +1,28 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/JsonLd";
 import { StarMap } from "@/components/worlds/StarMap";
 import { getWorlds } from "@/lib/queries";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default async function Home() {
   const worlds = await getWorlds();
 
   return (
     <div className="mx-auto w-[min(100%-2rem,1200px)]">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: SITE_NAME,
+          alternateName: SITE_TAGLINE,
+          url: SITE_URL,
+          inLanguage: "en",
+          about: { "@type": "VideoGame", name: "Honkai: Star Rail", publisher: { "@type": "Organization", name: "HoYoverse" } },
+        }}
+      />
       <section className="pt-20 pb-14 sm:pt-28">
         <p className="eyebrow">May this journey lead us starward</p>
         <h1 className="mt-4 font-display text-5xl leading-tight font-bold sm:text-7xl">

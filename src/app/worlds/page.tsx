@@ -7,7 +7,9 @@ import { colorVar } from "@/lib/theme";
 
 export const metadata: Metadata = {
   title: "Worlds",
-  description: "Every stop on the Trailblaze — from Herta Space Station to Amphoreus.",
+  description:
+    "Every stop on the Trailblaze — Herta Space Station, Jarilo-VI, the Xianzhou Luofu, Penacony and Amphoreus — with story recaps and their people.",
+  alternates: { canonical: "/worlds" },
 };
 
 export default async function WorldsPage() {

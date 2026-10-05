@@ -5,7 +5,9 @@ import { getGlossary } from "@/lib/queries";
 
 export const metadata: Metadata = {
   title: "Glossary",
-  description: "Stellarons, Aeons, Paths and the rest of the cosmos's vocabulary, explained.",
+  description:
+    "Honkai: Star Rail lore terms explained — Stellarons, Aeons, Paths, Emanators, mara, the Swarm Disaster and more.",
+  alternates: { canonical: "/glossary" },
 };
 
 export default async function GlossaryPage() {

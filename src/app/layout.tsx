@@ -2,14 +2,22 @@ import type { Metadata, Viewport } from "next";
 import { Cinzel, Inter } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Starfield } from "@/components/Starfield";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const cinzel = Cinzel({ variable: "--font-cinzel", subsets: ["latin"], weight: ["500", "700"] });
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: { default: "Astral Express — A Honkai: Star Rail Fan Archive", template: "%s · Astral Express" },
-  description: "A fan-made archive of Honkai: Star Rail — characters, Paths, worlds and lore.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: `${SITE_NAME} — ${SITE_TAGLINE}`, template: `%s · ${SITE_NAME}` },
+  description:
+    "A fan-made, spoiler-aware Honkai: Star Rail archive: every playable character through the Amphoreus era, " +
+    "the Aeons and their lore, the worlds of the Trailblaze, and a version-by-version timeline.",
+  applicationName: SITE_NAME,
+  keywords: ["Honkai: Star Rail", "HSR", "characters", "Aeons", "Paths", "lore", "Amphoreus", "Penacony", "Trailblaze"],
+  openGraph: { type: "website", siteName: SITE_NAME, locale: "en_US" },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = { themeColor: "#0b0f24" };
