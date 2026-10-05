@@ -27,8 +27,13 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
   const prev = worlds[i - 1];
   const next = worlds[i + 1];
 
-  // Factions present, derived from the characters who call this world home.
-  const factions = [...new Map(w.characters.flatMap((c) => (c.faction ? [[c.faction.slug, c.faction]] : []))).values()];
+  // Factions present, derived from the characters who call this world home. Characters with
+  // a spoiler version are skipped: their faction may be the reveal (e.g. Firefly).
+  const factions = [
+    ...new Map(
+      w.characters.flatMap((c) => (c.faction && !c.spoilerVersion ? [[c.faction.slug, c.faction]] : [])),
+    ).values(),
+  ];
 
   return (
     <article style={colorVar(w.color)} className="mx-auto w-[min(100%-2rem,1200px)] py-12">
