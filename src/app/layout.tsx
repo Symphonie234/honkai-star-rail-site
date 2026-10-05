@@ -22,8 +22,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <footer className="border-t border-line py-8 text-sm text-muted">
-          <div className="mx-auto w-[min(100%-2rem,1200px)]">
-            Fan-made archive. Honkai: Star Rail and all related names are trademarks of HoYoverse.
+          <div className="mx-auto flex w-[min(100%-2rem,1200px)] flex-col gap-1">
+            <p>Fan-made, non-commercial archive. Honkai: Star Rail and all related names and art are © HoYoverse.</p>
+            <p>
+              Character art via{" "}
+              <a href="https://github.com/Mar-7th/StarRailRes" className="underline underline-offset-2 hover:text-ink">
+                StarRailRes
+              </a>
+              .
+            </p>
           </div>
         </footer>
       </body>

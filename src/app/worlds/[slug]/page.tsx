@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CharacterCard } from "@/components/characters/CharacterCard";
+import { LoreText } from "@/components/glossary/LoreText";
 import { Spoiler } from "@/components/Spoiler";
 import { Planet } from "@/components/worlds/StarMap";
 import { getWorld, getWorlds } from "@/lib/queries";
@@ -48,11 +50,17 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
           </p>
           <h1 className="mt-3 font-display text-4xl font-bold sm:text-6xl">{w.name}</h1>
           <p className="mt-3 font-display text-xl text-[var(--c)]">{w.tagline}</p>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{w.description}</p>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted"><LoreText text={w.description} /></p>
         </div>
-        <div className="hidden px-16 md:block">
-          <Planet size="size-40" />
-        </div>
+        {w.image ? (
+          <div className="relative aspect-video w-full overflow-hidden rounded-3xl border border-line md:w-[420px]">
+            <Image src={w.image} alt={w.name} fill priority sizes="(min-width: 768px) 420px, 100vw" className="object-cover" />
+          </div>
+        ) : (
+          <div className="hidden px-16 md:block">
+            <Planet size="size-40" />
+          </div>
+        )}
       </header>
 
       {w.chapters.length > 0 && (
@@ -65,7 +73,7 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
                   <p className="eyebrow !text-[var(--c)]">Chapter {n + 1}</p>
                   <h3 className="mt-2 font-display text-xl font-bold">{ch.title}</h3>
                   <div className="mt-4 flex max-w-3xl flex-col gap-4 leading-relaxed text-muted">
-                    {ch.body.split(/\n\s*\n/).map((p, k) => <p key={k}>{p}</p>)}
+                    {ch.body.split(/\n\s*\n/).map((p, k) => <p key={k}><LoreText text={p} /></p>)}
                   </div>
                 </div>
               );

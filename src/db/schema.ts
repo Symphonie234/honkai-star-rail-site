@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { integer, pgTable, text } from "drizzle-orm/pg-core";
 
 /*
@@ -37,6 +37,8 @@ export const worlds = pgTable("worlds", {
   /** Position on the star map, in percent of the map's width/height. */
   mapX: integer("map_x").notNull(),
   mapY: integer("map_y").notNull(),
+  /** Optional banner image path under /public (e.g. "/worlds/penacony.webp"); a CSS planet is drawn otherwise. */
+  image: text("image"),
 });
 
 /** Story recap for a world, split into chapters so each can carry its own spoiler level. */
@@ -65,6 +67,18 @@ export const characters = pgTable("characters", {
   worldSlug: text("world_slug").references(() => worlds.slug),
   bio: text("bio").notNull(),
   releaseVersion: text("release_version").notNull(),
+  spoilerVersion: text("spoiler_version"),
+  /** The game's internal character ID, used to resolve art (see src/lib/images.ts). */
+  gameId: text("game_id"),
+});
+
+/** Lore terms shown as hover definitions wherever they appear in lore text. */
+export const glossaryTerms = pgTable("glossary_terms", {
+  slug: text("slug").primaryKey(),
+  term: text("term").notNull(),
+  /** Other spellings that should link to this term (matched case-insensitively). */
+  aliases: text("aliases").array().notNull().default(sql`'{}'::text[]`),
+  definition: text("definition").notNull(),
   spoilerVersion: text("spoiler_version"),
 });
 

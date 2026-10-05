@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { MotionConfig, motion } from "framer-motion";
 import Link from "next/link";
 import { colorVar } from "@/lib/theme";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 
 export type MapWorld = {
   slug: string;
@@ -39,11 +40,11 @@ function railPath(pts: Point[]) {
 const stopLabel = (n: number) => `Stop ${String(n).padStart(2, "0")}`;
 
 export function StarMap({ worlds }: { worlds: MapWorld[] }) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
   const rail = railPath(worlds.map((w) => ({ x: (w.mapX / 100) * VIEW_W, y: (w.mapY / 100) * VIEW_H })));
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       {/* Wide screens: the map. */}
       <div className="glass relative hidden aspect-video overflow-hidden rounded-3xl md:block">
         <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="absolute inset-0 h-full w-full" aria-hidden="true">
@@ -121,7 +122,7 @@ export function StarMap({ worlds }: { worlds: MapWorld[] }) {
           </li>
         ))}
       </ol>
-    </>
+    </MotionConfig>
   );
 }
 

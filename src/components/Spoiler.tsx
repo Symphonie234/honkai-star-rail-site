@@ -1,16 +1,19 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { isRevealed } from "@/lib/spoilers";
+import { useStoryProgress } from "./spoilers/story-progress";
 
 /**
- * Blurs story-revealing content until clicked. `block` covers a whole section
- * (e.g. a story chapter) instead of an inline phrase. Phase 3 replaces the
- * per-click reveal with the reader's saved story progress.
+ * Hides story-revealing content unless the reader's story progress covers
+ * `version`; they can also reveal it with a click. `block` covers a whole section
+ * (e.g. a story chapter) instead of an inline phrase.
  */
 export function Spoiler({ version, block = false, children }: { version: string; block?: boolean; children: ReactNode }) {
-  const [revealed, setRevealed] = useState(false);
+  const progress = useStoryProgress();
+  const [clicked, setClicked] = useState(false);
 
-  if (revealed) return <>{children}</>;
+  if (clicked || isRevealed(version, progress)) return <>{children}</>;
 
   if (block) {
     return (
@@ -18,30 +21,35 @@ export function Spoiler({ version, block = false, children }: { version: string;
         <div aria-hidden="true" inert className="pointer-events-none blur-md select-none">
           {children}
         </div>
-        <button
-          type="button"
-          onClick={() => setRevealed(true)}
-          className="absolute inset-0 grid place-items-center rounded-2xl"
-        >
-          <span className="rounded-full border border-gold bg-space/80 px-4 py-2 text-sm font-semibold text-gold">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center">
+          <button
+            type="button"
+            onClick={() => setClicked(true)}
+            className="rounded-full border border-gold bg-space/80 px-4 py-2 text-sm font-semibold text-gold transition hover:bg-gold hover:text-gold-ink"
+          >
             Spoilers through v{version} · reveal
-          </span>
-        </button>
+          </button>
+          <span className="text-xs text-muted">or set your story progress in the header</span>
+        </div>
       </div>
     );
   }
 
+  // No blurred placeholder text inline: its length alone can hint at the answer.
   return (
     <button
       type="button"
-      onClick={() => setRevealed(true)}
-      className="group relative inline-flex items-center rounded-md"
-      aria-label={`Spoiler through version ${version}. Reveal`}
+      onClick={() => setClicked(true)}
+      className="rounded-full border border-dashed border-gold/60 px-3 py-0.5 text-sm font-semibold text-gold transition hover:border-gold hover:bg-gold/10"
+      aria-label={`Hidden: spoiler through version ${version}. Reveal`}
     >
-      <span aria-hidden="true" className="blur-sm select-none">{children}</span>
-      <span className="absolute inset-0 grid place-items-center text-xs font-semibold tracking-wide text-gold uppercase">
-        v{version} spoiler · reveal
-      </span>
+      v{version} spoiler · reveal
     </button>
   );
+}
+
+/** Renders `fallback` until the reader's progress covers `version` — for spoilers that can't be blurred, like art. */
+export function SpoilerSwap({ version, fallback, children }: { version: string | null; fallback: ReactNode; children: ReactNode }) {
+  const progress = useStoryProgress();
+  return <>{isRevealed(version, progress) ? children : fallback}</>;
 }

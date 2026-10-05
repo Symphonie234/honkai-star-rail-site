@@ -1,7 +1,8 @@
 import { asc, eq } from "drizzle-orm";
 import { cache } from "react";
 import { db } from "@/db";
-import { characters, elements, paths, worldChapters, worlds } from "@/db/schema";
+import { characters, elements, glossaryTerms, paths, worldChapters, worlds } from "@/db/schema";
+import { compareVersions } from "@/lib/spoilers";
 
 const withRefs = { element: true, path: true, faction: true, world: true } as const;
 
@@ -30,3 +31,19 @@ export const getWorld = cache((slug: string) =>
 );
 
 export type CharacterWithRefs = Awaited<ReturnType<typeof getCharacters>>[number];
+
+export const getGlossary = cache(() => db.query.glossaryTerms.findMany({ orderBy: asc(glossaryTerms.term) }));
+
+export type GlossaryTerm = Awaited<ReturnType<typeof getGlossary>>[number];
+
+/** Every version that appears in the content, ascending — the story-progress choices. */
+export const getStoryVersions = cache(async () => {
+  const [chars, ws, chapters, terms] = await Promise.all([
+    db.select({ r: characters.releaseVersion, s: characters.spoilerVersion }).from(characters),
+    db.select({ r: worlds.releaseVersion }).from(worlds),
+    db.select({ s: worldChapters.spoilerVersion }).from(worldChapters),
+    db.select({ s: glossaryTerms.spoilerVersion }).from(glossaryTerms),
+  ]);
+  const all = [...chars.flatMap((c) => [c.r, c.s]), ...ws.map((w) => w.r), ...chapters.map((c) => c.s), ...terms.map((t) => t.s)];
+  return [...new Set(all.filter((v): v is string => !!v))].sort(compareVersions);
+});

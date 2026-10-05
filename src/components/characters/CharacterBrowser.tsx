@@ -1,9 +1,10 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import type { CharacterWithRefs } from "@/lib/queries";
 import { colorVar } from "@/lib/theme";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 import { CharacterCard } from "./CharacterCard";
 
 type Option = { slug: string; name: string };
@@ -21,7 +22,7 @@ export function CharacterBrowser({ characters, elements, paths }: Props) {
   const [query, setQuery] = useState("");
   const [element, setElement] = useState<string | null>(null);
   const [path, setPath] = useState<string | null>(null);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -34,47 +35,49 @@ export function CharacterBrowser({ characters, elements, paths }: Props) {
   }, [characters, query, element, path]);
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-4">
-        <label className="block max-w-md">
-          <span className="sr-only">Search characters</span>
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by name or faction…"
-            autoComplete="off"
-            className="glass w-full rounded-full px-5 py-3 placeholder:text-muted focus:border-gold focus:outline-none"
-          />
-        </label>
-
-        <FilterRow label="Combat type" options={elements} value={element} onChange={setElement} colored />
-        <FilterRow label="Path" options={paths} value={path} onChange={setPath} />
+    <MotionConfig reducedMotion="user">
+      <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4">
+          <label className="block max-w-md">
+            <span className="sr-only">Search characters</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search by name or faction…"
+              autoComplete="off"
+              className="glass w-full rounded-full px-5 py-3 placeholder:text-muted focus:border-gold focus:outline-none"
+            />
+          </label>
+  
+          <FilterRow label="Combat type" options={elements} value={element} onChange={setElement} colored />
+          <FilterRow label="Path" options={paths} value={path} onChange={setPath} />
+        </div>
+  
+        <p className="text-sm text-muted" aria-live="polite">
+          {shown.length} {shown.length === 1 ? "traveler" : "travelers"}
+        </p>
+  
+        <motion.ul layout={!reduceMotion} className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {shown.map((c) => (
+              <motion.li
+                key={c.slug}
+                layout={!reduceMotion}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: reduceMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <CharacterCard c={c} />
+              </motion.li>
+            ))}
+          </AnimatePresence>
+        </motion.ul>
+  
+        {shown.length === 0 && <p className="py-12 text-center text-muted">No travelers match those filters.</p>}
       </div>
-
-      <p className="text-sm text-muted" aria-live="polite">
-        {shown.length} {shown.length === 1 ? "traveler" : "travelers"}
-      </p>
-
-      <motion.ul layout={!reduceMotion} className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        <AnimatePresence mode="popLayout" initial={false}>
-          {shown.map((c) => (
-            <motion.li
-              key={c.slug}
-              layout={!reduceMotion}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: reduceMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <CharacterCard c={c} />
-            </motion.li>
-          ))}
-        </AnimatePresence>
-      </motion.ul>
-
-      {shown.length === 0 && <p className="py-12 text-center text-muted">No travelers match those filters.</p>}
-    </div>
+    </MotionConfig>
   );
 }
 
