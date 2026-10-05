@@ -3,11 +3,11 @@
 import { MotionConfig, motion } from "framer-motion";
 import Image from "next/image";
 import {
-  useEffect, useImperativeHandle, useRef, useState,
+  useEffect, useImperativeHandle, useRef, useState, useSyncExternalStore,
   type KeyboardEvent, type MouseEvent, type PointerEvent, type Ref, type RefObject, type WheelEvent,
 } from "react";
 import type { ArtVariant } from "@/db/schema";
-import { CloseIcon, FitIcon, ZoomInIcon, ZoomOutIcon } from "../icons";
+import { CloseIcon, EnterFullscreenIcon, ExitFullscreenIcon, FitIcon, ZoomInIcon, ZoomOutIcon } from "../icons";
 import { VariantToggle } from "./VariantToggle";
 
 type Props = {
@@ -22,28 +22,72 @@ type Props = {
   onClose: () => void;
 };
 
+/** Controls fade out after this long without pointer or keyboard activity. */
+const IDLE_MS = 2500;
+
+// Browser fullscreen (hides the browser's own UI). Not available everywhere, e.g. iPhone Safari.
+const subscribeFullscreen = (onChange: () => void) => {
+  document.addEventListener("fullscreenchange", onChange);
+  return () => document.removeEventListener("fullscreenchange", onChange);
+};
+const noSubscribe = () => () => {};
+
 /**
- * Full-screen art viewer: a modal <dialog> (focus trap, Esc to close) with
- * zoom (wheel, pinch, double-click, buttons, +/−/0 keys) and drag-to-pan.
+ * Full-screen art viewer: a modal <dialog> (focus trap, Esc to close) covering the
+ * window, with zoom (wheel, pinch, double-click, buttons, +/−/0 keys), drag-to-pan,
+ * controls that fade when idle, and optional browser fullscreen (F).
  * Mount it only while open; it opens itself on mount.
  */
 export function ArtViewer({ src, title, caption, notice, variants, current, onSelectVariant, onClose }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  // Browsers refuse fullscreen on a <dialog> itself, so a wrapper inside it goes fullscreen.
+  const fullscreenRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<StageHandle>(null);
+  const [idle, setIdle] = useState(false);
+  const idleTimer = useRef(0);
+  const isFullscreen = useSyncExternalStore(subscribeFullscreen, () => !!document.fullscreenElement, () => false);
+  const canFullscreen = useSyncExternalStore(noSubscribe, () => document.fullscreenEnabled, () => false);
 
   useEffect(() => {
     const dialog = dialogRef.current!;
     dialog.showModal();
+    // showModal focuses the first button, which would pin the controls visible (they stay
+    // up while focused); start with focus on the dialog itself instead.
+    dialog.focus();
     const root = document.documentElement;
     const prevOverflow = root.style.overflow;
     root.style.overflow = "hidden"; // the page behind shouldn't scroll
+    idleTimer.current = window.setTimeout(() => setIdle(true), IDLE_MS);
     return () => {
+      clearTimeout(idleTimer.current);
       root.style.overflow = prevOverflow;
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
       if (dialog.open) dialog.close();
     };
   }, []);
 
+  // The dialog's close event also fires after this component's own cleanup closes it:
+  // React Strict Mode (development) mounts, unmounts and remounts, and treating that
+  // event as "closed" unmounted the viewer the moment it opened. By the time the event
+  // arrives the remount has reopened the dialog, so only a close that leaves it shut
+  // (Esc) means the reader closed the viewer.
+  const handleClose = () => {
+    if (!dialogRef.current?.open) onClose();
+  };
+
+  const wake = () => {
+    setIdle(false);
+    clearTimeout(idleTimer.current);
+    idleTimer.current = window.setTimeout(() => setIdle(true), IDLE_MS);
+  };
+
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    else fullscreenRef.current?.requestFullscreen().catch(() => {});
+  };
+
   const onKeyDown = (e: KeyboardEvent) => {
+    wake();
     const stage = stageRef.current;
     if (!stage) return;
     const pan = 80;
@@ -52,6 +96,7 @@ export function ArtViewer({ src, title, caption, notice, variants, current, onSe
       "=": () => stage.zoomBy(1.5),
       "-": () => stage.zoomBy(1 / 1.5),
       "0": () => stage.reset(),
+      f: () => canFullscreen && toggleFullscreen(),
       ArrowLeft: () => stage.panBy(pan, 0),
       ArrowRight: () => stage.panBy(-pan, 0),
       ArrowUp: () => stage.panBy(0, pan),
@@ -64,56 +109,74 @@ export function ArtViewer({ src, title, caption, notice, variants, current, onSe
     }
   };
 
+  // Hovering a control, or reaching it by keyboard, keeps it visible while idle.
+  const fade = `transition-opacity duration-500 ${idle ? "opacity-0 hover:opacity-100 has-[:focus-visible]:opacity-100" : "opacity-100"}`;
+  const roundButton =
+    "glass pointer-events-auto grid size-11 shrink-0 place-items-center rounded-full transition hover:border-gold hover:text-gold";
+
   return (
     <dialog
       ref={dialogRef}
-      onClose={onClose}
+      onClose={handleClose}
       onKeyDown={onKeyDown}
+      onPointerMove={wake}
+      onPointerDown={wake}
       aria-label={`${title} — full art`}
-      className="fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none overflow-hidden border-0 bg-transparent p-0 text-ink backdrop:bg-space/90 backdrop:backdrop-blur-md"
+      tabIndex={-1}
+      className={`fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none overflow-hidden border-0 bg-space p-0 text-ink backdrop:bg-space ${
+        idle ? "cursor-none" : ""
+      } outline-none`}
     >
-      <MotionConfig reducedMotion="user">
-        <motion.div
-          className="relative h-full w-full bg-[radial-gradient(circle_at_50%_45%,color-mix(in_srgb,var(--c,var(--color-gold))_22%,transparent),transparent_65%)]"
-          initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {/* Keyed by src so zoom and loading state reset when the image changes. */}
-          <Stage key={src} ref={stageRef} src={src} alt={title} />
-
-          {/* Top bar */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-4 bg-gradient-to-b from-space/95 via-space/60 to-transparent p-4 pb-10 sm:p-6 sm:pb-12">
-            <div className="pointer-events-auto [text-shadow:0_1px_8px_rgb(11_15_36/0.9)]">
-              <h2 className="font-display text-2xl font-bold sm:text-3xl">{title}</h2>
-              <p className="text-sm text-muted">{caption}</p>
-              {notice && <p className="mt-1 text-sm text-gold">{notice}</p>}
+      <div ref={fullscreenRef} className="h-full w-full bg-space">
+        <MotionConfig reducedMotion="user">
+          <motion.div
+            className="relative h-full w-full bg-[radial-gradient(circle_at_50%_50%,color-mix(in_srgb,var(--c,var(--color-gold))_22%,transparent),transparent_70%)]"
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* The art fills the whole window; controls float over it. Keyed by src so
+                zoom and loading state reset when the image changes. */}
+            <Stage key={src} ref={stageRef} src={src} alt={title} uiClass={fade} />
+  
+            <div className={`pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-4 bg-gradient-to-b from-space/90 via-space/40 to-transparent p-4 pb-12 sm:p-6 sm:pb-16 ${fade}`}>
+              <div className="pointer-events-auto [text-shadow:0_1px_8px_rgb(11_15_36/0.9)]">
+                <h2 className="font-display text-2xl font-bold sm:text-3xl">{title}</h2>
+                <p className="text-sm text-muted">{caption}</p>
+                {notice && <p className="mt-1 text-sm text-gold">{notice}</p>}
+              </div>
+              <div className="flex gap-2">
+                {canFullscreen && (
+                  <button
+                    type="button"
+                    onClick={toggleFullscreen}
+                    aria-label={isFullscreen ? "Exit browser fullscreen" : "Browser fullscreen"}
+                    title={isFullscreen ? "Exit fullscreen (F)" : "Fullscreen (F)"}
+                    className={roundButton}
+                  >
+                    {isFullscreen ? <ExitFullscreenIcon /> : <EnterFullscreenIcon />}
+                  </button>
+                )}
+                <button type="button" onClick={onClose} aria-label="Close" title="Close (Esc)" className={roundButton}>
+                  <CloseIcon />
+                </button>
+              </div>
             </div>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Close"
-              title="Close (Esc)"
-              className="glass pointer-events-auto grid size-11 shrink-0 place-items-center rounded-full transition hover:border-gold hover:text-gold"
-            >
-              <CloseIcon />
-            </button>
-          </div>
-
-          {/* Bottom toolbar */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 bg-gradient-to-t from-space/95 via-space/60 to-transparent p-4 pt-10 sm:p-6 sm:pt-12">
-            <div className="pointer-events-auto flex flex-wrap items-center justify-center gap-3">
-              <ZoomControls stageRef={stageRef} />
-              {variants.length > 1 && current && (
-                <VariantToggle variants={variants} current={current} onSelect={onSelectVariant} />
-              )}
+  
+            <div className={`pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 bg-gradient-to-t from-space/90 via-space/40 to-transparent p-4 pt-12 sm:p-6 sm:pt-16 ${fade}`}>
+              <div className="pointer-events-auto flex flex-wrap items-center justify-center gap-3">
+                <ZoomControls stageRef={stageRef} />
+                {variants.length > 1 && current && (
+                  <VariantToggle variants={variants} current={current} onSelect={onSelectVariant} />
+                )}
+              </div>
+              <p className="hidden text-xs text-muted sm:block">
+                Scroll or double-click to zoom · drag to pan{canFullscreen ? " · F for fullscreen" : ""} · Esc to close · Art © HoYoverse
+              </p>
             </div>
-            <p className="hidden text-xs text-muted sm:block">
-              Scroll or double-click to zoom · drag to pan · Esc to close · Art © HoYoverse
-            </p>
-          </div>
-        </motion.div>
-      </MotionConfig>
+          </motion.div>
+        </MotionConfig>
+      </div>
     </dialog>
   );
 }
@@ -146,7 +209,7 @@ const FIT: View = { scale: 1, x: 0, y: 0 };
 const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 
 /** The zoomable, pannable image. */
-function Stage({ src, alt, ref }: { src: string; alt: string; ref: Ref<StageHandle> }) {
+function Stage({ src, alt, uiClass, ref }: { src: string; alt: string; uiClass: string; ref: Ref<StageHandle> }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const [view, setView] = useState<View>(FIT);
   const [loaded, setLoaded] = useState(false);
@@ -231,7 +294,7 @@ function Stage({ src, alt, ref }: { src: string; alt: string; ref: Ref<StageHand
       onPointerUp={endPointer}
       onPointerCancel={endPointer}
       onDoubleClick={onDoubleClick}
-      className={`absolute inset-x-0 top-20 bottom-28 touch-none select-none sm:top-24 sm:bottom-32 ${
+      className={`absolute inset-0 touch-none select-none ${
         view.scale > 1 ? (dragging ? "cursor-grabbing" : "cursor-grab") : "cursor-zoom-in"
       }`}
     >
@@ -256,7 +319,7 @@ function Stage({ src, alt, ref }: { src: string; alt: string; ref: Ref<StageHand
           className={`object-contain transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
       </div>
-      <span className="glass pointer-events-none absolute top-2 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs tabular-nums text-muted">
+      <span className={`glass pointer-events-none absolute top-24 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs tabular-nums text-muted sm:top-7 ${uiClass}`}>
         {Math.round(view.scale * 100)}%
       </span>
     </div>

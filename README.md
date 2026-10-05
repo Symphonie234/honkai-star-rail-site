@@ -72,8 +72,9 @@ chapters) automatically links the first mention of each term to a hover definiti
   and stores them in `public/art/characters/` (committed, so deploys need no network fetch). It skips files already
   present; `-- --force` re-fetches. Spoiler-tagged characters show their bust shot until the reader's progress covers
   them, since full splash art can give away a reveal.
-- **Full-screen viewer:** click a character's art on their page. Zoom with the wheel, pinch, double-click, the toolbar or
-  `+`/`-`/`0`; drag or arrow keys to pan; `Esc` closes.
+- **Full-screen viewer:** click a character's art on their page. The art fills the window and the controls fade when
+  idle. Zoom with the wheel, pinch, double-click, the toolbar or `+`/`-`/`0`; drag or arrow keys to pan; `F` toggles
+  browser fullscreen; `Esc` closes.
 - **Trailblazer:** readers pick Stelle or Caelus; the choice is remembered per browser and used on cards too.
 - **Worlds:** no source is wired up. Drop an image in `public/worlds/` and set that world's `image`
   (e.g. `"/worlds/penacony.webp"`) in `seed-data.ts`; otherwise the hub draws a CSS planet.
