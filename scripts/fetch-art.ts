@@ -18,8 +18,8 @@ import { existsSync } from "node:fs";
 import { copyFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import sharp, { type Sharp } from "sharp";
-import { AEONS, artOf, CHARACTERS, PATHS, WORLD_ART_SOURCES } from "../src/db/seed-data";
-import { aeonImage, characterIcon, characterPortrait, characterPreview, pathIcon, worldImage } from "../src/lib/images";
+import { AEONS, artOf, CHARACTERS, ELEMENTS, PATHS, WORLD_ART_SOURCES } from "../src/db/seed-data";
+import { aeonImage, characterIcon, characterPortrait, characterPreview, elementIcon, pathIcon, worldImage } from "../src/lib/images";
 
 const CACHE_DIR = path.join(".next", "cache", "hsr-art");
 
@@ -36,6 +36,11 @@ const BROWSER_HEADERS = {
 const PATH_ICON_FILES: Record<string, string> = {
   destruction: "Destruction", hunt: "Hunt", erudition: "Erudition", harmony: "Harmony", nihility: "Nihility",
   preservation: "Preservation", abundance: "Abundance", remembrance: "Remembrance", elation: "Elation",
+};
+
+// StarRailRes names combat type icons after the in-game IDs (Lightning is "Thunder").
+const ELEMENT_ICON_FILES: Record<string, string> = {
+  physical: "Physical", fire: "Fire", ice: "Ice", lightning: "Thunder", wind: "Wind", quantum: "Quantum", imaginary: "Imaginary",
 };
 
 type Job = {
@@ -77,6 +82,11 @@ function jobs(): Job[] {
     const file = PATH_ICON_FILES[p.slug];
     if (!file) continue;
     list.push({ label: `path ${p.slug}`, out: pathIcon(p.slug), source: async () => `${STARRAILRES}/icon/path/${file}.png`, convert: (i) => webp(i.resize(128), 90) });
+  }
+  for (const e of ELEMENTS) {
+    const file = ELEMENT_ICON_FILES[e.slug];
+    if (!file) continue;
+    list.push({ label: `element ${e.slug}`, out: elementIcon(e.slug), source: async () => `${STARRAILRES}/icon/element/${file}.png`, convert: (i) => webp(i.resize(96), 90) });
   }
   for (const [slug, file] of Object.entries(WORLD_ART_SOURCES)) {
     list.push({

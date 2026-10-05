@@ -25,5 +25,8 @@ export const worldImage = (slug: string) => `/${ART_DIR}/worlds/${slug}.webp`;
 /** White Path glyph on a transparent background. */
 export const pathIcon = (slug: string) => `/${ART_DIR}/paths/${slug}.webp`;
 
+/** Official combat type icon, in the element's own color. */
+export const elementIcon = (slug: string) => `/${ART_DIR}/elements/${slug}.webp`;
+
 /** Official Aeon art (or, for Aeons never depicted, their Path emblem). */
 export const aeonImage = (slug: string) => `/${ART_DIR}/aeons/${slug}.webp`;

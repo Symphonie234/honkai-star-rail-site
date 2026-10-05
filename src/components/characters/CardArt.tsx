@@ -6,7 +6,14 @@ import { characterPreview } from "@/lib/images";
 import { useArtVariant } from "./art-variant";
 
 /** A card's bust shot, following the reader's chosen variant (Stelle/Caelus). */
-export function CardArt({ name, art }: { name: string; art: ArtVariant[] }) {
+export function CardArt({
+  name, art, sizes = "(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw",
+}: {
+  name: string;
+  art: ArtVariant[];
+  /** next/image `sizes`, matching how wide the card renders. */
+  sizes?: string;
+}) {
   const [variant] = useArtVariant(art);
 
   if (!variant) {
@@ -25,7 +32,7 @@ export function CardArt({ name, art }: { name: string; art: ArtVariant[] }) {
       src={characterPreview(variant.gameId)}
       alt=""
       fill
-      sizes="(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw"
+      sizes={sizes}
       className="object-cover object-top transition-transform duration-500 ease-out-expo [mask-image:linear-gradient(to_bottom,black_65%,transparent)] group-hover:scale-105"
     />
   );

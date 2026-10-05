@@ -38,6 +38,15 @@ export const EnterFullscreenIcon = () => (
 export const ExitFullscreenIcon = () => (
   <Icon><path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3" /></Icon>
 );
+export const GridIcon = () => (
+  <Icon><rect x="3" y="3" width="7.5" height="9" rx="1.5" /><rect x="13.5" y="3" width="7.5" height="9" rx="1.5" /><path d="M3 16h7.5M3 20h5M13.5 16H21M13.5 20h5" /></Icon>
+);
+export const CompactIcon = () => (
+  <Icon><rect x="3" y="3" width="5" height="5" rx="1" /><rect x="9.5" y="3" width="5" height="5" rx="1" /><rect x="16" y="3" width="5" height="5" rx="1" /><rect x="3" y="10" width="5" height="5" rx="1" /><rect x="9.5" y="10" width="5" height="5" rx="1" /><rect x="16" y="10" width="5" height="5" rx="1" /><rect x="3" y="17" width="5" height="4" rx="1" /><rect x="9.5" y="17" width="5" height="4" rx="1" /><rect x="16" y="17" width="5" height="4" rx="1" /></Icon>
+);
+export const ListIcon = () => (
+  <Icon><circle cx="5" cy="6" r="1.6" /><circle cx="5" cy="12" r="1.6" /><circle cx="5" cy="18" r="1.6" /><path d="M9.5 6H21M9.5 12H21M9.5 18H21" /></Icon>
+);
 export const FitIcon = () => (
   <Icon><path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><path d="M3 3v5h5" /></Icon>
 );

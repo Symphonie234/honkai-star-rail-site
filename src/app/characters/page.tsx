@@ -24,8 +24,9 @@ export default async function CharactersPage() {
       </header>
       <CharacterBrowser
         characters={characters}
-        elements={elements.map(({ slug, name }) => ({ slug, name }))}
-        paths={paths.map(({ slug, name }) => ({ slug, name }))}
+        // Only offer filters that match someone (no one walks Elation through 3.8).
+        elements={elements.filter((e) => characters.some((c) => c.elementSlug === e.slug)).map(({ slug, name }) => ({ slug, name }))}
+        paths={paths.filter((p) => characters.some((c) => c.pathSlug === p.slug)).map(({ slug, name }) => ({ slug, name }))}
       />
     </div>
   );
