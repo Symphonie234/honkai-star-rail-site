@@ -2,8 +2,8 @@ import "dotenv/config";
 import { sql } from "drizzle-orm";
 import type { PgTable, PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { db } from "./index";
-import { characters, elements, factions, paths, worlds } from "./schema";
-import { CHARACTERS, ELEMENTS, FACTIONS, PATHS, WORLDS } from "./seed-data";
+import { characters, elements, factions, paths, worldChapters, worlds } from "./schema";
+import { CHARACTERS, ELEMENTS, FACTIONS, PATHS, WORLD_CHAPTERS, WORLDS } from "./seed-data";
 
 // Insert rows, or overwrite every non-key column when the slug already exists.
 async function upsert<T extends PgTable & { slug: unknown }>(table: T, rows: T["$inferInsert"][]) {
@@ -24,8 +24,9 @@ async function main() {
   await upsert(worlds, WORLDS);
   await upsert(factions, FACTIONS);
   await upsert(characters, CHARACTERS);
+  await upsert(worldChapters, WORLD_CHAPTERS);
   console.log(`Seeded ${PATHS.length} paths, ${ELEMENTS.length} elements, ${WORLDS.length} worlds, ` +
-    `${FACTIONS.length} factions, ${CHARACTERS.length} characters.`);
+    `${FACTIONS.length} factions, ${CHARACTERS.length} characters, ${WORLD_CHAPTERS.length} chapters.`);
 }
 
 main()

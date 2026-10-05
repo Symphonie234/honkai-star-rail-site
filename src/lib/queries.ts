@@ -1,7 +1,7 @@
 import { asc, eq } from "drizzle-orm";
 import { cache } from "react";
 import { db } from "@/db";
-import { characters, elements, paths } from "@/db/schema";
+import { characters, elements, paths, worldChapters, worlds } from "@/db/schema";
 
 const withRefs = { element: true, path: true, faction: true, world: true } as const;
 
@@ -16,5 +16,17 @@ export const getCharacter = cache((slug: string) =>
 export const getElements = cache(() => db.query.elements.findMany({ orderBy: asc(elements.sortOrder) }));
 
 export const getPaths = cache(() => db.query.paths.findMany({ orderBy: asc(paths.sortOrder) }));
+
+export const getWorlds = cache(() => db.query.worlds.findMany({ orderBy: asc(worlds.arcOrder) }));
+
+export const getWorld = cache((slug: string) =>
+  db.query.worlds.findFirst({
+    where: eq(worlds.slug, slug),
+    with: {
+      chapters: { orderBy: asc(worldChapters.sortOrder) },
+      characters: { with: withRefs, orderBy: asc(characters.name) },
+    },
+  }),
+);
 
 export type CharacterWithRefs = Awaited<ReturnType<typeof getCharacters>>[number];

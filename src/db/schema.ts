@@ -28,9 +28,26 @@ export const elements = pgTable("elements", {
 export const worlds = pgTable("worlds", {
   slug: text("slug").primaryKey(),
   name: text("name").notNull(),
+  tagline: text("tagline").notNull(),
   description: text("description").notNull(),
   arcOrder: integer("arc_order").notNull(),
   releaseVersion: text("release_version").notNull(),
+  /** Theme color token name, e.g. "cyan" → var(--color-cyan). */
+  color: text("color").notNull(),
+  /** Position on the star map, in percent of the map's width/height. */
+  mapX: integer("map_x").notNull(),
+  mapY: integer("map_y").notNull(),
+});
+
+/** Story recap for a world, split into chapters so each can carry its own spoiler level. */
+export const worldChapters = pgTable("world_chapters", {
+  slug: text("slug").primaryKey(),
+  worldSlug: text("world_slug").notNull().references(() => worlds.slug),
+  sortOrder: integer("sort_order").notNull(),
+  title: text("title").notNull(),
+  /** Plain text; paragraphs separated by blank lines. */
+  body: text("body").notNull(),
+  spoilerVersion: text("spoiler_version"),
 });
 
 export const factions = pgTable("factions", {
@@ -61,4 +78,11 @@ export const charactersRelations = relations(characters, ({ one }) => ({
 export const pathsRelations = relations(paths, ({ many }) => ({ characters: many(characters) }));
 export const elementsRelations = relations(elements, ({ many }) => ({ characters: many(characters) }));
 export const factionsRelations = relations(factions, ({ many }) => ({ characters: many(characters) }));
-export const worldsRelations = relations(worlds, ({ many }) => ({ characters: many(characters) }));
+export const worldsRelations = relations(worlds, ({ many }) => ({
+  characters: many(characters),
+  chapters: many(worldChapters),
+}));
+
+export const worldChaptersRelations = relations(worldChapters, ({ one }) => ({
+  world: one(worlds, { fields: [worldChapters.worldSlug], references: [worlds.slug] }),
+}));

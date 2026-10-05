@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
-import { CharacterCard, elementColor, Stars } from "@/components/characters/CharacterCard";
+import { CharacterCard, Stars } from "@/components/characters/CharacterCard";
 import { Spoiler } from "@/components/Spoiler";
 import { getCharacter, getCharacters } from "@/lib/queries";
+import { colorVar } from "@/lib/theme";
 
 export async function generateStaticParams() {
   const characters = await getCharacters();
@@ -25,7 +26,7 @@ export default async function CharacterPage({ params }: PageProps<"/characters/[
   const faction = c.faction?.name ?? "Unaffiliated";
 
   return (
-    <article style={elementColor(c.elementSlug)} className="mx-auto w-[min(100%-2rem,1200px)] py-12">
+    <article style={colorVar(c.elementSlug)} className="mx-auto w-[min(100%-2rem,1200px)] py-12">
       <Link href="/characters" className="text-sm text-muted transition-colors hover:text-ink">
         ← Character Archive
       </Link>
@@ -48,7 +49,11 @@ export default async function CharacterPage({ params }: PageProps<"/characters/[
             <Fact label="Faction">
               {c.spoilerVersion ? <Spoiler version={c.spoilerVersion}>{faction}</Spoiler> : faction}
             </Fact>
-            <Fact label="Home world">{c.world?.name ?? "—"}</Fact>
+            <Fact label="Home world">
+              {c.world ? (
+                <Link href={`/worlds/${c.world.slug}`} className="text-gold hover:text-gold-strong">{c.world.name}</Link>
+              ) : "—"}
+            </Fact>
             <Fact label="Released">Version {c.releaseVersion}</Fact>
           </dl>
         </div>

@@ -3,7 +3,8 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
 import type { CharacterWithRefs } from "@/lib/queries";
-import { CharacterCard, elementColor } from "./CharacterCard";
+import { colorVar } from "@/lib/theme";
+import { CharacterCard } from "./CharacterCard";
 
 type Option = { slug: string; name: string };
 
@@ -88,7 +89,7 @@ function FilterRow({
 }) {
   return (
     <div role="group" aria-label={label} className="flex flex-wrap items-center gap-2">
-      <span className="eyebrow mr-2 w-full sm:w-28">{label}</span>
+      <span className="eyebrow mr-2 w-full sm:w-36">{label}</span>
       <button type="button" className={chip} aria-pressed={value === null} onClick={() => onChange(null)}>
         All
       </button>
@@ -97,7 +98,7 @@ function FilterRow({
           key={o.slug}
           type="button"
           className={chip}
-          style={colored ? elementColor(o.slug) : undefined}
+          style={colored ? colorVar(o.slug) : undefined}
           aria-pressed={value === o.slug}
           onClick={() => onChange(value === o.slug ? null : o.slug)}
         >

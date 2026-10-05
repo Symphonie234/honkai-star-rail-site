@@ -32,18 +32,87 @@ export const ELEMENTS = [
   { slug: "imaginary", name: "Imaginary", description: "Imprisonment — delays and slows the target." },
 ].map((e, i) => ({ ...e, sortOrder: i }));
 
+// mapX / mapY place each stop on the star map (percent of width / height).
 export const WORLDS = [
-  { slug: "herta-space-station", name: "Herta Space Station", releaseVersion: "1.0",
+  { slug: "herta-space-station", name: "Herta Space Station", tagline: "Where the Trailblaze begins",
+    releaseVersion: "1.0", color: "cyan", mapX: 10, mapY: 68,
     description: "A research station housing curios from across the cosmos — and the place where the Trailblaze begins." },
-  { slug: "jarilo-vi", name: "Jarilo-VI", releaseVersion: "1.0",
+  { slug: "jarilo-vi", name: "Jarilo-VI", tagline: "The planet of eternal winter",
+    releaseVersion: "1.0", color: "ice", mapX: 29, mapY: 30,
     description: "A planet locked in eternal winter, where the last city of Belobog stands against the Fragmentum." },
-  { slug: "xianzhou-luofu", name: "The Xianzhou Luofu", releaseVersion: "1.0",
+  { slug: "xianzhou-luofu", name: "The Xianzhou Luofu", tagline: "A starskiff of the Xianzhou Alliance",
+    releaseVersion: "1.0", color: "gold", mapX: 50, mapY: 64,
     description: "A colossal starskiff of the Xianzhou Alliance, home to long-lived peoples and ancient secrets." },
-  { slug: "penacony", name: "Penacony", releaseVersion: "2.0",
+  { slug: "penacony", name: "Penacony", tagline: "The Planet of Festivities",
+    releaseVersion: "2.0", color: "violet", mapX: 70, mapY: 26,
     description: "The Planet of Festivities, where guests drift through a dazzling Dreamscape of endless celebration." },
-  { slug: "amphoreus", name: "Amphoreus", releaseVersion: "3.0",
+  { slug: "amphoreus", name: "Amphoreus", tagline: "The Eternal Land",
+    releaseVersion: "3.0", color: "fire", mapX: 89, mapY: 60,
     description: "A world of myth and Titans, where Chrysos Heirs pursue the Flame-Chase to reclaim their gods' fire." },
 ].map((w, i) => ({ ...w, arcOrder: i + 1 }));
+
+type ChapterSeed = { title: string; spoilerVersion: string | null; body: string };
+
+// Story recaps, in order per world. The first chapter of each world is setup and
+// spoiler-free; later chapters carry the version that reveals them.
+const CHAPTERS_BY_WORLD: Record<string, ChapterSeed[]> = {
+  "herta-space-station": [
+    { title: "Awakening", spoilerVersion: null, body:
+`The Trailblaze begins in chaos. The Antimatter Legion has overrun Herta Space Station, and amid the wreckage two Stellaron Hunters — Kafka and Silver Wolf — seal a Stellaron inside a newly awakened traveler, then slip away.
+
+March 7th and Dan Heng of the Astral Express find the stranger. Together with the station's researchers they fight their way through the besieged zones, ending in a clash with the Doomsday Beast.` },
+    { title: "All Aboard", spoilerVersion: null, body:
+`Himeko, the Express's navigator, offers the traveler a seat aboard — and a choice. The Express follows the Trails once laid by the Aeon Akivili, and a Stellaron, the "cancer of all worlds", is calling from a frozen planet: Jarilo-VI.
+
+The Trailblazer decides to come along.` },
+  ],
+  "jarilo-vi": [
+    { title: "The Last City", spoilerVersion: null, body:
+`Jarilo-VI has been buried in an Eternal Freeze for centuries. Its last refuge is Belobog, ruled by the Supreme Guardian Cocolia and defended by the Silvermane Guards.
+
+Outsiders are not welcome. Soon after arriving, the crew are branded intruders and pursued by Silvermane officer Gepard, while Cocolia's daughter Bronya watches them closely.` },
+    { title: "The Underworld", spoilerVersion: null, body:
+`Beneath the city lies the Underworld, a mining district the Overworld left behind. There the crew find Natasha's clinic, the Wildfire resistance, and Seele — and begin to learn how the spreading Fragmentum is tied to the Stellaron.` },
+    { title: "The Supreme Guardian", spoilerVersion: "1.0", body:
+`Cocolia, it turns out, has long been listening to the Stellaron's whispers. Convinced that it alone can save Belobog, she turns against her own people and her own daughter.
+
+The Trailblazer, Bronya and their allies confront her at the heart of the Fragmentum. Afterwards Bronya takes up her mother's mantle, and the Overworld and Underworld begin to close the divide between them.` },
+  ],
+  "xianzhou-luofu": [
+    { title: "A Ship in Crisis", spoilerVersion: null, body:
+`The Xianzhou Luofu is a vast starskiff of the Alliance — home to long-lived Xianzhou natives, Vidyadhara and Foxians — and it is in trouble. A Stellaron has surfaced aboard, the Stellaron Hunters are on the ship, and mara, the madness that comes with too long a life, haunts its people.
+
+General Jing Yuan of the Cloud Knights enlists the Express crew, while keeping his own counsel about how much he already knows.` },
+    { title: "The Ambrosial Arbor", spoilerVersion: "1.0", body:
+`The threads lead to Phantylia the Unknowing, a Lord Ravager of the Antimatter Legion who has taken the guise of the Luofu's envoy Tingyun. Her plan is to reawaken the Ambrosial Arbor, a remnant of the Aeon of Abundance, and drown the ship in uncontrolled life.
+
+Along the way Dan Heng's past surfaces: he is the reincarnation of Dan Feng, the Vidyadhara High Elder known as Imbibitor Lunae. In the end Jing Yuan calls down his Lightning-Lord and brings Phantylia down.` },
+  ],
+  penacony: [
+    { title: "The Charmony Festival", spoilerVersion: null, body:
+`The Express receives an invitation from the Family to Penacony's Charmony Festival. Once a frontier prison of the IPC, Penacony is now a planet of dreams: guests fall asleep in the Hotel Reverie and wake in a shared Dreamscape of endless celebration.
+
+Among the guests are figures from across the cosmos — the Galaxy Ranger Acheron, the IPC's Aventurine, the Masked Fool Sparkle, and a quiet girl named Firefly.` },
+    { title: "A Death in the Dream", spoilerVersion: "2.0", body:
+`Death in the Dreamscape should be impossible — dreamers simply wake up. Then Robin, the Halovian singer set to headline the festival, is found dead within the dream.
+
+The Trailblazer's investigation pulls them into the hidden layers of the Dreamscape and the secrets the Family keeps.` },
+    { title: "Sunday's Paradise", spoilerVersion: "2.2", body:
+`Behind the festival stands Sunday, head of the Oak Family and Robin's brother. Believing people deserve to be shielded from suffering, he plans to seal everyone into an eternal, perfect dream modelled on the ideals of the vanished Aeon of Order.
+
+With allies old and new — among them Firefly, revealed as the Stellaron Hunter Sam — the Trailblazer stands against him.` },
+  ],
+  amphoreus: [
+    { title: "The Flame-Chase", spoilerVersion: null, body:
+`Amphoreus is a world of myth, sealed away from the wider cosmos. Its Titans once shaped every part of existence; now many have turned against mortals, and the encroaching Black Tide devours the land.
+
+From the city-state of Okhema, the Chrysos Heirs — Aglaea among them — undertake the Flame-Chase: a journey to claim the Titans' fire and remake the world. The Trailblazer arrives and is drawn into the quest.` },
+  ],
+};
+
+export const WORLD_CHAPTERS = Object.entries(CHAPTERS_BY_WORLD).flatMap(([worldSlug, chapters]) =>
+  chapters.map((c, i) => ({ ...c, slug: `${worldSlug}-${i + 1}`, worldSlug, sortOrder: i + 1 })),
+);
 
 export const FACTIONS = [
   { slug: "astral-express", name: "Astral Express" },

@@ -1,6 +1,9 @@
 import Link from "next/link";
 
-const links = [{ href: "/characters", label: "Characters" }];
+const links = [
+  { href: "/characters", label: "Characters" },
+  { href: "/worlds", label: "Worlds" },
+];
 
 export function SiteHeader() {
   return (

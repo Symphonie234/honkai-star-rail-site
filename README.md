@@ -33,10 +33,10 @@ npm run dev              # http://localhost:3000
 
 ```
 src/
-  app/                 routes (/, /characters, /characters/[slug])
-  components/          UI (Starfield, character cards & browser, Spoiler)
+  app/                 routes (/, /characters/[slug], /worlds/[slug])
+  components/          UI (Starfield, StarMap, character cards & browser, Spoiler)
   db/
-    schema.ts          tables: paths, elements, worlds, factions, characters
+    schema.ts          tables: paths, elements, worlds, world_chapters, factions, characters
     seed-data.ts       the content — edit this to add characters
     seed.ts            upserts seed-data into the database
   lib/queries.ts       data access used by pages
@@ -49,6 +49,10 @@ legacy/                the original static site, kept for reference
 2. Run `npm run db:seed`.
 3. If a detail reveals story, set `spoilerVersion` to the version where it's revealed; it renders blurred until clicked.
 
+World story recaps live in `CHAPTERS_BY_WORLD` in the same file, one entry per chapter, each with its own `spoilerVersion`.
+
+> Schema changes: `db:push` can't add required columns to tables that already have rows. Locally, since everything comes from the seed, reset with `docker compose down -v`, then `db:up`, `db:push`, `db:seed`. Before there's real production data, switch to `drizzle-kit generate` + `migrate`.
+
 ## Deploying
 
 Create a Postgres database on Neon (or Supabase), set `DATABASE_URL` in Vercel's environment variables,
@@ -57,7 +61,7 @@ run `db:push` and `db:seed` against it once, then deploy. Content is static, so 
 ## Roadmap
 
 - [x] Phase 1 — Character Archive
-- [ ] Phase 2 — Star map home + world hubs
+- [x] Phase 2 — Star map home + world hubs
 - [ ] Phase 3 — Reader story-progress spoiler system + glossary tooltips
 - [ ] Phase 4 — Aeons & Paths relationship web
 - [ ] Phase 5 — Team builder / tier list

@@ -1,8 +1,6 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
 import type { CharacterWithRefs } from "@/lib/queries";
-
-export const elementColor = (slug: string) => ({ "--c": `var(--color-${slug})` }) as CSSProperties;
+import { colorVar } from "@/lib/theme";
 
 export function Stars({ rarity }: { rarity: number }) {
   return (
@@ -16,7 +14,7 @@ export function CharacterCard({ c }: { c: CharacterWithRefs }) {
   return (
     <Link
       href={`/characters/${c.slug}`}
-      style={elementColor(c.elementSlug)}
+      style={colorVar(c.elementSlug)}
       className="glass group flex h-full flex-col overflow-hidden rounded-2xl transition duration-300 ease-out-expo hover:-translate-y-1 hover:border-[var(--c)] hover:shadow-[0_10px_40px_-10px_var(--c)]"
     >
       <div className="relative grid aspect-[4/3] place-items-center bg-[radial-gradient(circle_at_50%_60%,color-mix(in_srgb,var(--c)_35%,transparent),transparent_70%)]">

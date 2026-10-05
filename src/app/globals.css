@@ -4,9 +4,10 @@
  * Palette carried over from the original static site (see legacy/css/styles.css):
  * deep-space navy base, Trailblaze gold for primary accents, cyan + violet for glow.
  * Element colors are exposed as --color-<element> so components can set
- * `--c: var(--color-fire)` and style against `var(--c)`.
+ * `--c: var(--color-fire)` and style against `var(--c)`. `static` emits every token,
+ * since most are only referenced at runtime through that variable.
  */
-@theme {
+@theme static {
   --color-space: #0b0f24;
   --color-space-2: #10163a;
   --color-surface: rgb(27 35 80 / 0.55);
