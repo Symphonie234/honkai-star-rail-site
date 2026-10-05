@@ -54,7 +54,7 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
         </div>
         {w.image ? (
           <div className="relative aspect-video w-full overflow-hidden rounded-3xl border border-line md:w-[420px]">
-            <Image src={w.image} alt={w.name} fill priority sizes="(min-width: 768px) 420px, 100vw" className="object-cover" />
+            <Image src={w.image} alt={w.name} fill loading="eager" fetchPriority="high" sizes="(min-width: 768px) 420px, 100vw" className="object-cover" />
           </div>
         ) : (
           <div className="hidden px-16 md:block">

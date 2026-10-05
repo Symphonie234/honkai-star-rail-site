@@ -27,6 +27,7 @@ npm run dev              # http://localhost:3000
 | `npm run db:push` | Sync the schema to the database |
 | `npm run db:seed` | Upsert content from `seed-data.ts` (safe to re-run) |
 | `npm run db:studio` | Browse the database in Drizzle Studio |
+| `npm run art:fetch` | Download missing character art into `public/art` |
 | `npm run typecheck` / `npm run lint` | Checks |
 
 ## Project layout
@@ -43,7 +44,9 @@ src/
     queries.ts         data access used by pages
     spoilers.ts        version comparison + isRevealed()
     glossary.ts        finds glossary terms in lore text
-    images.ts          character art URLs
+    images.ts          character art paths
+    local-pref.ts      per-browser reader preferences (story progress, Trailblazer look)
+scripts/fetch-art.ts   downloads character art
 legacy/                the original static site, kept for reference
 ```
 
@@ -53,8 +56,9 @@ legacy/                the original static site, kept for reference
 2. Run `npm run db:seed`.
 3. If a detail reveals story, set `spoilerVersion` to the version where it's revealed. It stays hidden until the reader's
    story progress (the header picker, saved per browser) reaches that version, or they click to reveal it.
-4. Set `gameId` to the character's in-game ID to show their art — look it up in StarRailRes's
-   [`index_new/en/characters.json`](https://github.com/Mar-7th/StarRailRes/blob/master/index_new/en/characters.json).
+4. Set `art` to the character's in-game ID — look it up in StarRailRes's
+   [`index_new/en/characters.json`](https://github.com/Mar-7th/StarRailRes/blob/master/index_new/en/characters.json) —
+   then run `npm run art:fetch`. For several looks, give a list of `{ label, gameId }` variants instead (see the Trailblazer).
 
 World story recaps live in `CHAPTERS_BY_WORLD` in the same file, one entry per chapter, each with its own `spoilerVersion`.
 
@@ -64,8 +68,13 @@ chapters) automatically links the first mention of each term to a hover definiti
 ## Images
 
 - **Characters:** art comes from [StarRailRes](https://github.com/Mar-7th/StarRailRes) (community-archived game assets,
-  © HoYoverse) via jsDelivr, optimized by `next/image`. Spoiler-tagged characters show their bust shot until the
-  reader's progress covers them, since full splash art can give away a reveal.
+  © HoYoverse). `npm run art:fetch` downloads each character's bust shot and 2048px splash art, converts them to WebP,
+  and stores them in `public/art/characters/` (committed, so deploys need no network fetch). It skips files already
+  present; `-- --force` re-fetches. Spoiler-tagged characters show their bust shot until the reader's progress covers
+  them, since full splash art can give away a reveal.
+- **Full-screen viewer:** click a character's art on their page. Zoom with the wheel, pinch, double-click, the toolbar or
+  `+`/`-`/`0`; drag or arrow keys to pan; `Esc` closes.
+- **Trailblazer:** readers pick Stelle or Caelus; the choice is remembered per browser and used on cards too.
 - **Worlds:** no source is wired up. Drop an image in `public/worlds/` and set that world's `image`
   (e.g. `"/worlds/penacony.webp"`) in `seed-data.ts`; otherwise the hub draws a CSS planet.
 

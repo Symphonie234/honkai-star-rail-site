@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import { integer, pgTable, text } from "drizzle-orm/pg-core";
+import { integer, jsonb, pgTable, text } from "drizzle-orm/pg-core";
 
 /*
  * Slugs are primary keys: they're stable, human-readable, and double as URL segments.
@@ -68,9 +68,14 @@ export const characters = pgTable("characters", {
   bio: text("bio").notNull(),
   releaseVersion: text("release_version").notNull(),
   spoilerVersion: text("spoiler_version"),
-  /** The game's internal character ID, used to resolve art (see src/lib/images.ts). */
-  gameId: text("game_id"),
+  /**
+   * Art variants, each a game character ID (see src/lib/images.ts). Usually one;
+   * the Trailblazer has two (Stelle and Caelus) and the reader picks which to show.
+   */
+  art: jsonb("art").$type<ArtVariant[]>().notNull().default([]),
 });
+
+export type ArtVariant = { label: string; gameId: string };
 
 /** Lore terms shown as hover definitions wherever they appear in lore text. */
 export const glossaryTerms = pgTable("glossary_terms", {

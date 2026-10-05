@@ -1,51 +1,18 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { setPref, usePref } from "@/lib/local-pref";
 import type { StoryProgress } from "@/lib/spoilers";
 
-/*
- * The reader's story progress lives in localStorage, so it's per-browser and
- * needs no account. Static HTML renders with spoilers hidden; the saved
- * progress applies right after hydration.
- */
+/* The reader's story progress, saved per browser. */
 
 const KEY = "hsr:story-progress";
-const EVENT = "hsr:story-progress-change";
-
-// Fallback when storage is unavailable (private mode, blocked site data): progress
-// still works for the current page session.
-let memory: StoryProgress = null;
-
-function read(): StoryProgress {
-  try {
-    return localStorage.getItem(KEY);
-  } catch {
-    return memory;
-  }
-}
-
-function subscribe(onChange: () => void) {
-  window.addEventListener(EVENT, onChange);
-  window.addEventListener("storage", onChange); // other tabs
-  return () => {
-    window.removeEventListener(EVENT, onChange);
-    window.removeEventListener("storage", onChange);
-  };
-}
 
 export function useStoryProgress(): StoryProgress {
-  return useSyncExternalStore(subscribe, read, () => null);
+  return usePref(KEY);
 }
 
 export function setStoryProgress(progress: StoryProgress) {
-  memory = progress;
-  try {
-    if (progress === null) localStorage.removeItem(KEY);
-    else localStorage.setItem(KEY, progress);
-  } catch {
-    // Storage unavailable; `memory` carries it.
-  }
-  window.dispatchEvent(new Event(EVENT));
+  setPref(KEY, progress);
 }
 
 export function StoryProgressPicker({ versions }: { versions: string[] }) {

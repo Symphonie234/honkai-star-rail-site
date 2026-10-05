@@ -1,12 +1,15 @@
 /*
- * Character art comes from StarRailRes (github.com/Mar-7th/StarRailRes), a
- * community archive of game assets, served through jsDelivr's GitHub CDN.
- * Art © HoYoverse. Allowed hosts are configured in next.config.ts.
+ * Character art lives in public/art, fetched from StarRailRes
+ * (github.com/Mar-7th/StarRailRes) by `npm run art:fetch`. Art © HoYoverse.
  */
-const BASE = "https://cdn.jsdelivr.net/gh/Mar-7th/StarRailRes@master";
+export const ART_DIR = "art/characters";
 
-/** 376×512 bust shot, fades out at the bottom. Used on cards. */
-export const characterPreview = (gameId: string) => `${BASE}/image/character_preview/${gameId}.png`;
+export type ArtKind = "preview" | "portrait";
 
-/** 2048×2048 full splash art on a transparent background. Used on detail pages. */
-export const characterPortrait = (gameId: string) => `${BASE}/image/character_portrait/${gameId}.png`;
+const art = (kind: ArtKind) => (gameId: string) => `/${ART_DIR}/${kind}/${gameId}.webp`;
+
+/** 376×512 bust shot that fades out at the bottom. Used on cards. */
+export const characterPreview = art("preview");
+
+/** 2048×2048 full splash art on a transparent background. Used on detail pages and the viewer. */
+export const characterPortrait = art("portrait");

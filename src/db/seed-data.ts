@@ -1,3 +1,5 @@
+import type { ArtVariant } from "./schema";
+
 /*
  * Source content for the database. Edit here, then run `npm run db:seed`
  * (the seed upserts, so re-running is safe).
@@ -127,74 +129,80 @@ export const FACTIONS = [
   { slug: "herta-space-station", name: "Herta Space Station" },
 ];
 
-// gameId is the game's internal character ID; art is fetched by it (see src/lib/images.ts).
-// The Trailblazer uses 8002 (Physical, female); 8001 is the male variant.
+// art is the game's internal character ID, which the art is fetched by (run `npm run art:fetch`
+// after adding one). Characters with several looks — the Trailblazer — list labeled variants
+// instead; the first is the default.
 type CharacterSeed = {
-  slug: string; gameId: string | null; name: string; rarity: 4 | 5;
+  slug: string; art: string | ArtVariant[] | null; name: string; rarity: 4 | 5;
   elementSlug: string; pathSlug: string; factionSlug: string | null; worldSlug: string | null;
   releaseVersion: string; spoilerVersion: string | null; bio: string;
 };
 
+/** A seed character's art, normalized to the variant list stored in characters.art. */
+export const artOf = (c: CharacterSeed): ArtVariant[] =>
+  typeof c.art === "string" ? [{ label: c.name, gameId: c.art }] : (c.art ?? []);
+
 export const CHARACTERS: CharacterSeed[] = [
-  { slug: "trailblazer", gameId: "8002", name: "Trailblazer", rarity: 5, elementSlug: "physical", pathSlug: "destruction",
+  { slug: "trailblazer", art: [{ label: "Stelle", gameId: "8002" }, { label: "Caelus", gameId: "8001" }],
+    name: "Trailblazer", rarity: 5, elementSlug: "physical", pathSlug: "destruction",
     factionSlug: "astral-express", worldSlug: null, releaseVersion: "1.0", spoilerVersion: null,
     bio: "A traveler who awoke on the Herta Space Station with a Stellaron sealed within, now walking the Trailblaze aboard the Astral Express." },
-  { slug: "march-7th", gameId: "1001", name: "March 7th", rarity: 4, elementSlug: "ice", pathSlug: "preservation",
+  { slug: "march-7th", art: "1001", name: "March 7th", rarity: 4, elementSlug: "ice", pathSlug: "preservation",
     factionSlug: "astral-express", worldSlug: null, releaseVersion: "1.0", spoilerVersion: null,
     bio: "A cheerful girl found frozen in drifting ice, searching for clues to her own forgotten past." },
-  { slug: "dan-heng", gameId: "1002", name: "Dan Heng", rarity: 4, elementSlug: "wind", pathSlug: "hunt",
+  { slug: "dan-heng", art: "1002", name: "Dan Heng", rarity: 4, elementSlug: "wind", pathSlug: "hunt",
     factionSlug: "astral-express", worldSlug: null, releaseVersion: "1.0", spoilerVersion: null,
     bio: "A cool, reserved guard of the Express archives with a past tied to the Xianzhou." },
-  { slug: "himeko", gameId: "1003", name: "Himeko", rarity: 5, elementSlug: "fire", pathSlug: "erudition",
+  { slug: "himeko", art: "1003", name: "Himeko", rarity: 5, elementSlug: "fire", pathSlug: "erudition",
     factionSlug: "astral-express", worldSlug: null, releaseVersion: "1.0", spoilerVersion: null,
     bio: "The navigator who repaired the Astral Express and set it back on the rails among the stars." },
-  { slug: "welt", gameId: "1004", name: "Welt", rarity: 5, elementSlug: "imaginary", pathSlug: "nihility",
+  { slug: "welt", art: "1004", name: "Welt", rarity: 5, elementSlug: "imaginary", pathSlug: "nihility",
     factionSlug: "astral-express", worldSlug: null, releaseVersion: "1.0", spoilerVersion: null,
     bio: "A seasoned veteran who once inherited the name of Welt Yang and now travels with the Express." },
-  { slug: "kafka", gameId: "1005", name: "Kafka", rarity: 5, elementSlug: "lightning", pathSlug: "nihility",
+  { slug: "kafka", art: "1005", name: "Kafka", rarity: 5, elementSlug: "lightning", pathSlug: "nihility",
     factionSlug: "stellaron-hunters", worldSlug: null, releaseVersion: "1.2", spoilerVersion: null,
     bio: "A calm and elegant Stellaron Hunter who always seems to be one step ahead of everyone else." },
-  { slug: "silver-wolf", gameId: "1006", name: "Silver Wolf", rarity: 5, elementSlug: "quantum", pathSlug: "nihility",
+  { slug: "silver-wolf", art: "1006", name: "Silver Wolf", rarity: 5, elementSlug: "quantum", pathSlug: "nihility",
     factionSlug: "stellaron-hunters", worldSlug: null, releaseVersion: "1.1", spoilerVersion: null,
     bio: "A genius hacker who treats the universe like an immersive game to be beaten." },
-  { slug: "blade", gameId: "1205", name: "Blade", rarity: 5, elementSlug: "wind", pathSlug: "destruction",
+  { slug: "blade", art: "1205", name: "Blade", rarity: 5, elementSlug: "wind", pathSlug: "destruction",
     factionSlug: "stellaron-hunters", worldSlug: null, releaseVersion: "1.2", spoilerVersion: null,
     bio: "A swordsman cursed with an undying body, seeking an end that never comes." },
   // Her Stellaron Hunter affiliation is a Penacony story reveal.
-  { slug: "firefly", gameId: "1310", name: "Firefly", rarity: 5, elementSlug: "fire", pathSlug: "destruction",
+  { slug: "firefly", art: "1310", name: "Firefly", rarity: 5, elementSlug: "fire", pathSlug: "destruction",
     factionSlug: "stellaron-hunters", worldSlug: "penacony", releaseVersion: "2.3", spoilerVersion: "2.1",
     bio: "A girl bearing a short lifespan who fights for the chance to truly live." },
-  { slug: "seele", gameId: "1102", name: "Seele", rarity: 5, elementSlug: "quantum", pathSlug: "hunt",
+  { slug: "seele", art: "1102", name: "Seele", rarity: 5, elementSlug: "quantum", pathSlug: "hunt",
     factionSlug: "wildfire", worldSlug: "jarilo-vi", releaseVersion: "1.0", spoilerVersion: null,
     bio: "A sharp-tongued fighter from the Underworld of Belobog, quick as a butterfly." },
-  { slug: "jing-yuan", gameId: "1204", name: "Jing Yuan", rarity: 5, elementSlug: "lightning", pathSlug: "erudition",
+  { slug: "jing-yuan", art: "1204", name: "Jing Yuan", rarity: 5, elementSlug: "lightning", pathSlug: "erudition",
     factionSlug: "xianzhou-alliance", worldSlug: "xianzhou-luofu", releaseVersion: "1.0", spoilerVersion: null,
     bio: "The General of the Cloud Knights, seemingly idle yet always in command." },
-  { slug: "fu-xuan", gameId: "1208", name: "Fu Xuan", rarity: 5, elementSlug: "quantum", pathSlug: "preservation",
+  { slug: "fu-xuan", art: "1208", name: "Fu Xuan", rarity: 5, elementSlug: "quantum", pathSlug: "preservation",
     factionSlug: "xianzhou-alliance", worldSlug: "xianzhou-luofu", releaseVersion: "1.6", spoilerVersion: null,
     bio: "Master Diviner of the Luofu, who reads fate through the Matrix of Prescience." },
-  { slug: "huohuo", gameId: "1217", name: "Huohuo", rarity: 5, elementSlug: "wind", pathSlug: "abundance",
+  { slug: "huohuo", art: "1217", name: "Huohuo", rarity: 5, elementSlug: "wind", pathSlug: "abundance",
     factionSlug: "xianzhou-alliance", worldSlug: "xianzhou-luofu", releaseVersion: "1.7", spoilerVersion: null,
     bio: "A timid Foxian Judge-in-training who carries a heliobus named Tail on her tail." },
-  { slug: "dr-ratio", gameId: "1305", name: "Dr. Ratio", rarity: 5, elementSlug: "imaginary", pathSlug: "hunt",
+  { slug: "dr-ratio", art: "1305", name: "Dr. Ratio", rarity: 5, elementSlug: "imaginary", pathSlug: "hunt",
     factionSlug: "intelligentsia-guild", worldSlug: null, releaseVersion: "1.6", spoilerVersion: null,
     bio: "A brilliant scholar who never removes his plaster bust and has no patience for ignorance." },
-  { slug: "ruan-mei", gameId: "1303", name: "Ruan Mei", rarity: 5, elementSlug: "ice", pathSlug: "harmony",
+  { slug: "ruan-mei", art: "1303", name: "Ruan Mei", rarity: 5, elementSlug: "ice", pathSlug: "harmony",
     factionSlug: "genius-society", worldSlug: null, releaseVersion: "1.6", spoilerVersion: null,
     bio: "A member of the Genius Society devoted to unraveling the secrets of life itself." },
-  { slug: "acheron", gameId: "1308", name: "Acheron", rarity: 5, elementSlug: "lightning", pathSlug: "nihility",
+  { slug: "acheron", art: "1308", name: "Acheron", rarity: 5, elementSlug: "lightning", pathSlug: "nihility",
     factionSlug: "galaxy-rangers", worldSlug: "penacony", releaseVersion: "2.1", spoilerVersion: null,
     bio: "A self-proclaimed Galaxy Ranger who walks alone, carrying a blade that cuts through sorrow." },
-  { slug: "robin", gameId: "1309", name: "Robin", rarity: 5, elementSlug: "physical", pathSlug: "harmony",
+  { slug: "robin", art: "1309", name: "Robin", rarity: 5, elementSlug: "physical", pathSlug: "harmony",
     factionSlug: "the-family", worldSlug: "penacony", releaseVersion: "2.2", spoilerVersion: null,
     bio: "A beloved Halovian singer whose voice resonates across the cosmos." },
-  { slug: "aglaea", gameId: "1402", name: "Aglaea", rarity: 5, elementSlug: "lightning", pathSlug: "remembrance",
+  { slug: "aglaea", art: "1402", name: "Aglaea", rarity: 5, elementSlug: "lightning", pathSlug: "remembrance",
     factionSlug: "chrysos-heirs", worldSlug: "amphoreus", releaseVersion: "3.0", spoilerVersion: null,
     bio: "A Chrysos Heir of Amphoreus who weaves fate through threads of gold." },
-  { slug: "castorice", gameId: "1407", name: "Castorice", rarity: 5, elementSlug: "quantum", pathSlug: "remembrance",
+  { slug: "castorice", art: "1407", name: "Castorice", rarity: 5, elementSlug: "quantum", pathSlug: "remembrance",
     factionSlug: "chrysos-heirs", worldSlug: "amphoreus", releaseVersion: "3.2", spoilerVersion: null,
     bio: "A gentle Chrysos Heir whose touch brings death, accompanied by the great dragon Pollux." },
-  { slug: "asta", gameId: "1009", name: "Asta", rarity: 4, elementSlug: "fire", pathSlug: "harmony",
+  { slug: "asta", art: "1009", name: "Asta", rarity: 4, elementSlug: "fire", pathSlug: "harmony",
     factionSlug: "herta-space-station", worldSlug: "herta-space-station", releaseVersion: "1.0", spoilerVersion: null,
     bio: "The lively lead researcher of the Herta Space Station, with an eye for the stars." },
 ];

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { CharacterCard, Stars } from "@/components/characters/CharacterCard";
+import { PortraitShowcase } from "@/components/characters/PortraitShowcase";
 import { LoreText } from "@/components/glossary/LoreText";
-import { Spoiler, SpoilerSwap } from "@/components/Spoiler";
-import { characterPortrait, characterPreview } from "@/lib/images";
+import { Spoiler } from "@/components/Spoiler";
+import { characterPreview } from "@/lib/images";
 import { getCharacter, getCharacters } from "@/lib/queries";
 import { colorVar } from "@/lib/theme";
 
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps<"/characters/[slug]
   return {
     title: c.name,
     description: `${c.name} — ${c.element.name} · ${c.path.name}. ${c.bio}`,
-    openGraph: c.gameId ? { images: [characterPreview(c.gameId)] } : undefined,
+    openGraph: c.art[0] ? { images: [characterPreview(c.art[0].gameId)] } : undefined,
   };
 }
 
@@ -38,27 +38,14 @@ export default async function CharacterPage({ params }: PageProps<"/characters/[
         ← Character Archive
       </Link>
 
-      <header className="mt-8 grid items-center gap-8 md:grid-cols-[minmax(0,460px)_1fr]">
-        <div className="glass relative grid aspect-square place-items-center overflow-hidden rounded-3xl bg-[radial-gradient(circle_at_50%_45%,color-mix(in_srgb,var(--c)_40%,transparent),transparent_70%)]">
-          {c.gameId ? (
-            // Full splash art can show story reveals (Firefly's is SAM), so spoiler-tagged
-            // characters show the bust shot until the reader's progress covers it.
-            <SpoilerSwap
-              version={c.spoilerVersion}
-              fallback={
-                <Image src={characterPreview(c.gameId)} alt={c.name} fill priority sizes="(min-width: 768px) 460px, 100vw"
-                  className="object-contain object-top [mask-image:linear-gradient(to_bottom,black_70%,transparent)]" />
-              }
-            >
-              <Image src={characterPortrait(c.gameId)} alt={c.name} fill priority sizes="(min-width: 768px) 460px, 100vw"
-                className="object-contain drop-shadow-[0_0_30px_color-mix(in_srgb,var(--c)_40%,transparent)]" />
-            </SpoilerSwap>
-          ) : (
-            <span aria-hidden="true" className="font-display text-9xl font-bold text-[var(--c)] drop-shadow-[0_0_30px_var(--c)]">
-              {c.name.charAt(0)}
-            </span>
-          )}
-        </div>
+      <header className="mt-8 grid items-start gap-8 md:grid-cols-[minmax(0,460px)_1fr] md:items-center">
+        <PortraitShowcase
+          slug={c.slug}
+          name={c.name}
+          caption={`${c.element.name} · ${c.path.name}`}
+          art={c.art}
+          spoilerVersion={c.spoilerVersion}
+        />
         <div>
           <p className="eyebrow !text-[var(--c)]">
             {c.element.name} · {c.path.name}

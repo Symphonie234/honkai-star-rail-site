@@ -48,8 +48,3 @@ export function Spoiler({ version, block = false, children }: { version: string;
   );
 }
 
-/** Renders `fallback` until the reader's progress covers `version` — for spoilers that can't be blurred, like art. */
-export function SpoilerSwap({ version, fallback, children }: { version: string | null; fallback: ReactNode; children: ReactNode }) {
-  const progress = useStoryProgress();
-  return <>{isRevealed(version, progress) ? children : fallback}</>;
-}
