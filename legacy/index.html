@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Astral Express — A Honkai: Star Rail Fan Showcase</title>
+  <meta name="description" content="An interactive fan showcase of Honkai: Star Rail — Paths, combat types, characters and worlds." />
+  <meta name="theme-color" content="#0b0f24" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Animated starfield behind everything -->
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#home" class="nav__brand" aria-label="Astral Express home">
+        <span class="nav__logo" aria-hidden="true">✦</span>
+        <span>Astral Express</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav__menu" id="navMenu" aria-label="Primary">
+        <a href="#paths" class="nav__link">Paths</a>
+        <a href="#elements" class="nav__link">Combat Types</a>
+        <a href="#characters" class="nav__link">Characters</a>
+        <a href="#worlds" class="nav__link">Worlds</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <div class="container hero__content">
+        <p class="eyebrow reveal">May this journey lead us starward</p>
+        <h1 class="hero__title reveal">
+          <span>Honkai</span>
+          <span class="text-gold">Star Rail</span>
+        </h1>
+        <p class="hero__lead reveal">
+          Board the Astral Express and follow the Trailblaze across the cosmos —
+          explore the Paths, the combat types, the travelers, and the worlds between the stars.
+        </p>
+        <div class="hero__actions reveal">
+          <a href="#characters" class="btn btn--primary">Meet the Crew</a>
+          <a href="#worlds" class="btn btn--ghost">Explore Worlds</a>
+        </div>
+      </div>
+      <a href="#paths" class="hero__scroll" aria-label="Scroll to content">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- ============ PATHS ============ -->
+    <section class="section" id="paths">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">The Aeons' Footsteps</p>
+          <h2 class="section__title">Paths</h2>
+          <p class="section__desc">Every traveler walks a Path, shaped by an Aeon's will. Select one to learn more.</p>
+        </header>
+
+        <div class="paths">
+          <div class="paths__grid" id="pathsGrid" role="tablist" aria-label="Paths">
+            <!-- Filled by JS from data in js/data.js -->
+          </div>
+          <article class="paths__detail glass" id="pathDetail" role="tabpanel" aria-live="polite">
+            <!-- Filled by JS -->
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMBAT TYPES ============ -->
+    <section class="section section--alt" id="elements">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Weakness Break</p>
+          <h2 class="section__title">Combat Types</h2>
+          <p class="section__desc">Seven types of damage. Strike an enemy's weakness to break its Toughness.</p>
+        </header>
+
+        <ul class="elements" id="elementsList">
+          <!-- Filled by JS -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ CHARACTERS ============ -->
+    <section class="section" id="characters">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Fellow Travelers</p>
+          <h2 class="section__title">Characters</h2>
+          <p class="section__desc">Filter by combat type or search by name.</p>
+        </header>
+
+        <div class="toolbar reveal">
+          <label class="search">
+            <span class="visually-hidden">Search characters</span>
+            <input type="search" id="charSearch" placeholder="Search characters…" autocomplete="off" />
+          </label>
+          <div class="chips" id="charFilters" role="group" aria-label="Filter by combat type">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+
+        <div class="cards" id="charGrid">
+          <!-- Filled by JS -->
+        </div>
+        <p class="empty" id="charEmpty" hidden>No travelers match that search.</p>
+      </div>
+    </section>
+
+    <!-- ============ WORLDS ============ -->
+    <section class="section section--alt" id="worlds">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Next Stop</p>
+          <h2 class="section__title">Worlds</h2>
+          <p class="section__desc">The stations and planets the Express has visited along the Trailblaze.</p>
+        </header>
+
+        <div class="worlds" id="worldsTrack">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ CHARACTER MODAL ============ -->
+  <dialog class="modal" id="charModal" aria-labelledby="modalTitle">
+    <button class="modal__close" id="modalClose" aria-label="Close">×</button>
+    <div class="modal__body" id="modalBody"></div>
+  </dialog>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>Fan-made showcase. Honkai: Star Rail and all related names are trademarks of HoYoverse.</p>
+      <a href="#home" class="footer__top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

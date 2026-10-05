@@ -1,0 +1,17 @@
+# Local PostgreSQL for development. Production uses a hosted Postgres (e.g. Neon)
+# via DATABASE_URL. Port 5433 avoids clashing with any Postgres already on 5432.
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: express
+      POSTGRES_PASSWORD: express
+      POSTGRES_DB: express_archive
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/*
+ * Palette carried over from the original static site (see legacy/css/styles.css):
+ * deep-space navy base, Trailblaze gold for primary accents, cyan + violet for glow.
+ * Element colors are exposed as --color-<element> so components can set
+ * `--c: var(--color-fire)` and style against `var(--c)`.
+ */
+@theme {
+  --color-space: #0b0f24;
+  --color-space-2: #10163a;
+  --color-surface: rgb(27 35 80 / 0.55);
+  --color-surface-solid: #161d45;
+  --color-line: rgb(167 176 214 / 0.16);
+  --color-ink: #eef1ff;
+  --color-muted: #a7b0d6;
+
+  --color-gold: #e8c46a;
+  --color-gold-strong: #f3d58a;
+  --color-gold-ink: #1a1405;
+  --color-cyan: #6fd3ff;
+  --color-violet: #a98bff;
+
+  --color-physical: #c9ced8;
+  --color-fire: #ff6b4a;
+  --color-ice: #7fd8ff;
+  --color-lightning: #c27bff;
+  --color-wind: #5fe0b0;
+  --color-quantum: #7a6bff;
+  --color-imaginary: #ffd84d;
+
+  --font-display: var(--font-cinzel), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  color: var(--color-ink);
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgb(169 139 255 / 0.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgb(111 211 255 / 0.1), transparent 60%),
+    var(--color-space);
+  background-attachment: fixed;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@layer components {
+  .glass {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    backdrop-filter: blur(14px);
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-cyan);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
