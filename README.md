@@ -38,13 +38,22 @@ npm run dev              # http://localhost:3000
 | --- | --- |
 | `/` | Hero + animated star map (the Astral Express rides the rail) |
 | `/characters`, `/characters/[slug]` | 80 characters: search, filter by type / Path / rarity, sort by release; full splash art viewer |
-| `/worlds`, `/worlds/[slug]` | World hubs with in-game art, spoiler-tagged story recaps, and their people |
+| `/worlds`, `/worlds/[slug]` | World hubs with in-game art, the main story arc by arc (33 chapters, 1.0–3.8), and their people |
 | `/aeons`, `/aeons/[slug]` | Interactive web of Aeons, factions and characters; a lore page per Aeon with official art |
-| `/versions` | Every version 1.0–3.8: official title, release date, characters released |
+| `/versions` | Every version 1.0–3.8: official title, release date, its story chapters and characters released |
 | `/glossary` | Lore terms; underlined terms anywhere on the site show their definition |
 
-**Spoilers:** the header's story-progress picker (saved per browser) reveals everything tagged up to the chosen version.
-Spoiler-tagged facts, chapters, lore sections, splash art and faction ties stay hidden until then.
+**Story progress / time travel:** the header's picker (saved per browser) has three kinds of setting:
+
+| Setting | Effect |
+| --- | --- |
+| Everything · spoilers hidden (default) | Everything is listed; spoiler-tagged facts, chapters, lore, splash art and faction ties are blurred |
+| **View as of vX.Y** | The archive as it stood at that version: later characters, worlds (map stops), Aeons, factions, chapters, lore, versions and glossary terms disappear; spoilers up to it are revealed. A banner shows the version, with a way back |
+| Everything · spoilers shown | Nothing hidden |
+
+Every piece of content therefore carries the version it entered the game (`releaseVersion`, `introducedVersion`
+or `version`) and, separately, a `spoilerVersion` for what it gives away. Pages wrap version-gated content in
+`<AsOf>`; pages whose subject doesn't exist yet show a "not on the rails yet" notice.
 
 ## Project layout
 
@@ -55,7 +64,7 @@ src/
   db/
     schema.ts          tables: versions, paths, aeons, aeon_lore, elements, worlds, world_chapters, factions,
                        characters, glossary_terms
-    data/              the big content sets: characters.ts, aeons.ts (with lore), versions.ts
+    data/              the big content sets: characters.ts, story.ts (chapters), aeons.ts (with lore), versions.ts
     seed-data.ts       everything else (Paths, elements, worlds + chapters, factions, glossary)
     seed.ts            upserts the data and prunes rows that were removed or renamed
   lib/
@@ -85,7 +94,10 @@ legacy/                the original static site, kept for reference
 **Aeon lore** — `src/db/data/aeons.ts`: sections per Aeon, each with its own `spoilerVersion`. `artFile` names the
 official art on the wiki for `art:fetch`.
 
-**World chapters, factions, glossary** — `src/db/seed-data.ts`. Any text rendered through `<LoreText>` links the first
+**Story chapters** — `src/db/data/story.ts`, one per story arc with the `version` it released in. Written in our own
+words from the Trailblaze Mission summaries.
+
+**Factions, glossary** — `src/db/seed-data.ts` (each with the version it enters the story). Any text rendered through `<LoreText>` links the first
 mention of each glossary term to a hover definition.
 
 > Schema changes: `db:push` can't add required columns to tables that already have rows. Locally, since everything

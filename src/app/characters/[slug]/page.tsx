@@ -8,6 +8,7 @@ import { PortraitShowcase } from "@/components/characters/PortraitShowcase";
 import { LoreText } from "@/components/glossary/LoreText";
 import { JsonLd } from "@/components/JsonLd";
 import { Spoiler } from "@/components/Spoiler";
+import { AsOf, NotYet } from "@/components/spoilers/AsOf";
 import { characterPreview, pathIcon } from "@/lib/images";
 import { getAeons, getCharacter, getCharacters } from "@/lib/queries";
 import { breadcrumbs } from "@/lib/site";
@@ -46,89 +47,93 @@ export default async function CharacterPage({ params }: PageProps<"/characters/[
   const faction = c.faction?.name ?? "Unaffiliated";
 
   return (
-    <article style={colorVar(c.elementSlug)} className="mx-auto w-[min(100%-2rem,1200px)] py-12">
-      <JsonLd data={breadcrumbs([{ name: "Characters", path: "/characters" }, { name: c.name, path: `/characters/${c.slug}` }])} />
-      <nav aria-label="Breadcrumb" className="text-sm text-muted">
-        <Link href="/characters" className="transition-colors hover:text-ink">← Character Archive</Link>
-      </nav>
+    <AsOf version={c.releaseVersion} fallback={<NotYet what={c.name} version={c.releaseVersion} />}>
+      <article style={colorVar(c.elementSlug)} className="mx-auto w-[min(100%-2rem,1200px)] py-12">
+        <JsonLd data={breadcrumbs([{ name: "Characters", path: "/characters" }, { name: c.name, path: `/characters/${c.slug}` }])} />
+        <nav aria-label="Breadcrumb" className="text-sm text-muted">
+          <Link href="/characters" className="transition-colors hover:text-ink">← Character Archive</Link>
+        </nav>
 
-      <header className="mt-8 grid items-start gap-8 md:grid-cols-[minmax(0,460px)_1fr] md:items-center">
-        <PortraitShowcase
-          name={c.name}
-          caption={`${c.element.name} · ${c.path.name}`}
-          art={c.art}
-          spoilerVersion={c.spoilerVersion}
-        />
-        <div>
-          <p className="eyebrow !text-[var(--c)]">
-            {c.element.name} · {c.path.name}
-          </p>
-          <h1 className="mt-3 font-display text-4xl font-bold sm:text-6xl">{c.name}</h1>
-          <p className="mt-3 text-lg"><Stars rarity={c.rarity} /></p>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted"><LoreText text={c.bio} /></p>
+        <header className="mt-8 grid items-start gap-8 md:grid-cols-[minmax(0,460px)_1fr] md:items-center">
+          <PortraitShowcase
+            name={c.name}
+            caption={`${c.element.name} · ${c.path.name}`}
+            art={c.art}
+            spoilerVersion={c.spoilerVersion}
+          />
+          <div>
+            <p className="eyebrow !text-[var(--c)]">
+              {c.element.name} · {c.path.name}
+            </p>
+            <h1 className="mt-3 font-display text-4xl font-bold sm:text-6xl">{c.name}</h1>
+            <p className="mt-3 text-lg"><Stars rarity={c.rarity} /></p>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted"><LoreText text={c.bio} /></p>
 
-          <dl className="mt-8 grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-3">
-            <Fact label="Faction">
-              {c.spoilerVersion ? <Spoiler version={c.spoilerVersion}>{faction}</Spoiler> : faction}
-            </Fact>
-            <Fact label="Home world">
-              {c.world ? (
-                <Link href={`/worlds/${c.world.slug}`} className="text-gold hover:text-gold-strong">{c.world.name}</Link>
-              ) : "—"}
-            </Fact>
-            <Fact label="Released">
-              <Link href={`/versions#v${c.releaseVersion}`} className="text-gold hover:text-gold-strong">
-                Version {c.releaseVersion}
+            <dl className="mt-8 grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-3">
+              <Fact label="Faction">
+                {c.spoilerVersion ? <Spoiler version={c.spoilerVersion}>{faction}</Spoiler> : faction}
+              </Fact>
+              <Fact label="Home world">
+                {c.world ? (
+                  <Link href={`/worlds/${c.world.slug}`} className="text-gold hover:text-gold-strong">{c.world.name}</Link>
+                ) : "—"}
+              </Fact>
+              <Fact label="Released">
+                <Link href={`/versions#v${c.releaseVersion}`} className="text-gold hover:text-gold-strong">
+                  Version {c.releaseVersion}
+                </Link>
+                <span className="mt-0.5 block text-sm font-normal text-muted">
+                  {c.version.title} · <time dateTime={c.releaseDate}>{formatDate(c.releaseDate)}</time>
+                </span>
+              </Fact>
+              <Fact label="Signature Light Cone">{c.lightCone ?? <span className="text-muted">None</span>}</Fact>
+              <Fact label="English voice">{c.voiceEn ?? <span className="text-muted">—</span>}</Fact>
+            </dl>
+          </div>
+        </header>
+
+        <section className="mt-16 grid gap-6 md:grid-cols-2" aria-label="Path and combat type">
+          <div className="glass rounded-2xl p-6">
+            <p className="eyebrow">
+              Path ·{" "}
+              {aeon ? (
+                <Link href={`/aeons/${aeon.slug}`} className="hover:text-gold">Aeon {aeon.name}</Link>
+              ) : (
+                <>Aeon {c.path.aeon}</>
+              )}
+            </p>
+            <h2 className="mt-2 flex items-center gap-3 font-display text-2xl font-bold">
+              <Image src={pathIcon(c.pathSlug)} alt="" width={32} height={32} />
+              {c.path.name}
+            </h2>
+            <p className="mt-3 text-muted"><LoreText text={c.path.blurb} /></p>
+            {aeon && (
+              <Link href={`/aeons/${aeon.slug}`} className="mt-4 inline-block text-sm font-semibold text-gold hover:text-gold-strong">
+                Read about {aeon.name}, the Aeon of {aeon.concept} →
               </Link>
-              <span className="mt-0.5 block text-sm font-normal text-muted">
-                {c.version.title} · <time dateTime={c.releaseDate}>{formatDate(c.releaseDate)}</time>
-              </span>
-            </Fact>
-            <Fact label="Signature Light Cone">{c.lightCone ?? <span className="text-muted">None</span>}</Fact>
-            <Fact label="English voice">{c.voiceEn ?? <span className="text-muted">—</span>}</Fact>
-          </dl>
-        </div>
-      </header>
-
-      <section className="mt-16 grid gap-6 md:grid-cols-2" aria-label="Path and combat type">
-        <div className="glass rounded-2xl p-6">
-          <p className="eyebrow">
-            Path ·{" "}
-            {aeon ? (
-              <Link href={`/aeons/${aeon.slug}`} className="hover:text-gold">Aeon {aeon.name}</Link>
-            ) : (
-              <>Aeon {c.path.aeon}</>
             )}
-          </p>
-          <h2 className="mt-2 flex items-center gap-3 font-display text-2xl font-bold">
-            <Image src={pathIcon(c.pathSlug)} alt="" width={32} height={32} />
-            {c.path.name}
-          </h2>
-          <p className="mt-3 text-muted"><LoreText text={c.path.blurb} /></p>
-          {aeon && (
-            <Link href={`/aeons/${aeon.slug}`} className="mt-4 inline-block text-sm font-semibold text-gold hover:text-gold-strong">
-              Read about {aeon.name}, the Aeon of {aeon.concept} →
-            </Link>
-          )}
-        </div>
-        <div className="glass rounded-2xl p-6">
-          <p className="eyebrow">Combat type</p>
-          <h2 className="mt-2 font-display text-2xl font-bold text-[var(--c)]">{c.element.name}</h2>
-          <p className="mt-3 text-muted">{c.element.description}</p>
-        </div>
-      </section>
-
-      {pathmates.length > 0 && (
-        <section className="mt-16" aria-labelledby="pathmates">
-          <h2 id="pathmates" className="font-display text-2xl font-bold">Also walking {c.path.name}</h2>
-          <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {pathmates.map((o) => (
-              <li key={o.slug}><CharacterCard c={o} /></li>
-            ))}
-          </ul>
+          </div>
+          <div className="glass rounded-2xl p-6">
+            <p className="eyebrow">Combat type</p>
+            <h2 className="mt-2 font-display text-2xl font-bold text-[var(--c)]">{c.element.name}</h2>
+            <p className="mt-3 text-muted">{c.element.description}</p>
+          </div>
         </section>
-      )}
-    </article>
+
+        {pathmates.length > 0 && (
+          <section className="mt-16" aria-labelledby="pathmates">
+            <h2 id="pathmates" className="font-display text-2xl font-bold">Also walking {c.path.name}</h2>
+            <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {pathmates.map((o) => (
+                <AsOf key={o.slug} version={o.releaseVersion}>
+                  <li><CharacterCard c={o} /></li>
+                </AsOf>
+              ))}
+            </ul>
+          </section>
+        )}
+      </article>
+    </AsOf>
   );
 }
 

@@ -35,19 +35,21 @@ export const getGlossary = cache(() => db.query.glossaryTerms.findMany({ orderBy
 
 export type GlossaryTerm = Awaited<ReturnType<typeof getGlossary>>[number];
 
-/** Versions, newest first, with the characters each released. */
+/** Versions, newest first, with the characters and story chapters each released. */
 export const getVersions = cache(() =>
   db.query.versions.findMany({
     orderBy: [desc(versions.major), desc(versions.minor)],
-    with: { characters: { with: withRefs, orderBy: asc(characters.name) } },
+    with: {
+      characters: { with: withRefs, orderBy: asc(characters.name) },
+      chapters: { with: { world: true }, orderBy: asc(worldChapters.sortOrder) },
+    },
   }),
 );
 
-/** Every version, ascending — the story-progress choices. */
-export const getStoryVersions = cache(async () => {
-  const rows = await db.select({ v: versions.version }).from(versions).orderBy(asc(versions.major), asc(versions.minor));
-  return rows.map((r) => r.v);
-});
+/** Every version with its title, ascending — the story-progress choices. */
+export const getStoryVersions = cache(() =>
+  db.select({ version: versions.version, title: versions.title }).from(versions).orderBy(asc(versions.major), asc(versions.minor)),
+);
 
 export const getAeons = cache(() =>
   db.query.aeons.findMany({ with: { path: true, factions: true }, orderBy: asc(aeons.sortOrder) }),
@@ -71,7 +73,9 @@ export const getAeonWeb = cache(async () => {
     db.query.aeons.findMany({ with: { path: true }, orderBy: asc(aeons.sortOrder) }),
     db.query.factions.findMany({ orderBy: asc(factions.name) }),
     db.query.characters.findMany({
-      columns: { slug: true, name: true, pathSlug: true, factionSlug: true, elementSlug: true, art: true, spoilerVersion: true },
+      columns: {
+        slug: true, name: true, pathSlug: true, factionSlug: true, elementSlug: true, art: true, spoilerVersion: true, releaseVersion: true,
+      },
       orderBy: asc(characters.name),
     }),
   ]);

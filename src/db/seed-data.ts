@@ -4,6 +4,7 @@ import type { ArtVariant } from "./schema";
 
 export { AEON_LORE, AEONS } from "./data/aeons";
 export { CHARACTERS } from "./data/characters";
+export { WORLD_CHAPTERS } from "./data/story";
 export { VERSIONS } from "./data/versions";
 
 /*
@@ -71,104 +72,43 @@ export const WORLDS = [
     description: "A world of myth and Titans, where Chrysos Heirs pursue the Flame-Chase to reclaim their gods' fire." },
 ].map((w, i) => ({ ...w, arcOrder: i + 1, image: WORLD_ART_SOURCES[w.slug] ? worldImage(w.slug) : null }));
 
-type ChapterSeed = { title: string; spoilerVersion: string | null; body: string };
-
-// Story recaps, in order per world. The first chapter of each world is setup and
-// spoiler-free; later chapters carry the version that reveals them.
-const CHAPTERS_BY_WORLD: Record<string, ChapterSeed[]> = {
-  "herta-space-station": [
-    { title: "Awakening", spoilerVersion: null, body:
-`The Trailblaze begins in chaos. The Antimatter Legion has overrun Herta Space Station, and amid the wreckage two Stellaron Hunters — Kafka and Silver Wolf — seal a Stellaron inside a newly awakened traveler, then slip away.
-
-March 7th and Dan Heng of the Astral Express find the stranger. Together with the station's researchers they fight their way through the besieged zones, ending in a clash with the Doomsday Beast.` },
-    { title: "All Aboard", spoilerVersion: null, body:
-`Himeko, the Express's navigator, offers the traveler a seat aboard — and a choice. The Express follows the Trails once laid by the Aeon Akivili, and a Stellaron, the "cancer of all worlds", is calling from a frozen planet: Jarilo-VI.
-
-The Trailblazer decides to come along.` },
-  ],
-  "jarilo-vi": [
-    { title: "The Last City", spoilerVersion: null, body:
-`Jarilo-VI has been buried in an Eternal Freeze for centuries. Its last refuge is Belobog, ruled by the Supreme Guardian Cocolia and defended by the Silvermane Guards.
-
-Outsiders are not welcome. Soon after arriving, the crew are branded intruders and pursued by Silvermane officer Gepard, while Cocolia's daughter Bronya watches them closely.` },
-    { title: "The Underworld", spoilerVersion: null, body:
-`Beneath the city lies the Underworld, a mining district the Overworld left behind. There the crew find Natasha's clinic, the Wildfire resistance, and Seele — and begin to learn how the spreading Fragmentum is tied to the Stellaron.` },
-    { title: "The Supreme Guardian", spoilerVersion: "1.0", body:
-`Cocolia, it turns out, has long been listening to the Stellaron's whispers. Convinced that it alone can save Belobog, she turns against her own people and her own daughter.
-
-The Trailblazer, Bronya and their allies confront her at the heart of the Fragmentum. Afterwards Bronya takes up her mother's mantle, and the Overworld and Underworld begin to close the divide between them.` },
-  ],
-  "xianzhou-luofu": [
-    { title: "A Ship in Crisis", spoilerVersion: null, body:
-`The Xianzhou Luofu is a vast starskiff of the Alliance — home to long-lived Xianzhou natives, Vidyadhara and Foxians — and it is in trouble. A Stellaron has surfaced aboard, the Stellaron Hunters are on the ship, and mara, the madness that comes with too long a life, haunts its people.
-
-General Jing Yuan of the Cloud Knights enlists the Express crew, while keeping his own counsel about how much he already knows.` },
-    { title: "The Ambrosial Arbor", spoilerVersion: "1.0", body:
-`The threads lead to Phantylia the Unknowing, a Lord Ravager of the Antimatter Legion who has taken the guise of the Luofu's envoy Tingyun. Her plan is to reawaken the Ambrosial Arbor, a remnant of the Aeon of Abundance, and drown the ship in uncontrolled life.
-
-Along the way Dan Heng's past surfaces: he is the reincarnation of Dan Feng, the Vidyadhara High Elder known as Imbibitor Lunae. In the end Jing Yuan calls down his Lightning-Lord and brings Phantylia down.` },
-  ],
-  penacony: [
-    { title: "The Charmony Festival", spoilerVersion: null, body:
-`The Express receives an invitation from the Family to Penacony's Charmony Festival. Once a frontier prison of the IPC, Penacony is now a planet of dreams: guests fall asleep in the Hotel Reverie and wake in a shared Dreamscape of endless celebration.
-
-Among the guests are figures from across the cosmos — the Galaxy Ranger Acheron, the IPC's Aventurine, the Masked Fool Sparkle, and a quiet girl named Firefly.` },
-    { title: "A Death in the Dream", spoilerVersion: "2.0", body:
-`Death in the Dreamscape should be impossible — dreamers simply wake up. Then Robin, the Halovian singer set to headline the festival, is found dead within the dream.
-
-The Trailblazer's investigation pulls them into the hidden layers of the Dreamscape and the secrets the Family keeps.` },
-    { title: "Sunday's Paradise", spoilerVersion: "2.2", body:
-`Behind the festival stands Sunday, head of the Oak Family and Robin's brother. Believing people deserve to be shielded from suffering, he plans to seal everyone into an eternal, perfect dream modelled on the ideals of the vanished Aeon of Order.
-
-With allies old and new — among them Firefly, revealed as the Stellaron Hunter Sam — the Trailblazer stands against him.` },
-  ],
-  amphoreus: [
-    { title: "The Flame-Chase", spoilerVersion: null, body:
-`Amphoreus is a world of myth, sealed away from the wider cosmos. Its Titans once shaped every part of existence; now many have turned against mortals, and the encroaching Black Tide devours the land.
-
-From the city-state of Okhema, the Chrysos Heirs — Aglaea among them — undertake the Flame-Chase: a journey to claim the Titans' fire and remake the world. The Trailblazer arrives and is drawn into the quest.` },
-  ],
-};
-
-export const WORLD_CHAPTERS = Object.entries(CHAPTERS_BY_WORLD).flatMap(([worldSlug, chapters]) =>
-  chapters.map((c, i) => ({ ...c, slug: `${worldSlug}-${i + 1}`, worldSlug, sortOrder: i + 1 })),
-);
 
 // aeonSlug is the Aeon a faction is devoted to, where that tie is well established.
+// introducedVersion is the faction's first story appearance ("view as of" hides it before).
 export const FACTIONS = [
-  { slug: "astral-express", name: "Astral Express", aeonSlug: "akivili",
+  { slug: "astral-express", name: "Astral Express", introducedVersion: "1.0", aeonSlug: "akivili",
     description: "The crew of the train once ridden by Akivili, travelling the star rails on the Trailblaze." },
-  { slug: "stellaron-hunters", name: "Stellaron Hunters", aeonSlug: null,
+  { slug: "stellaron-hunters", name: "Stellaron Hunters", introducedVersion: "1.0", aeonSlug: null,
     description: "Wanted fugitives led by Elio, following a script that seems to foresee the future." },
-  { slug: "wildfire", name: "Wildfire", aeonSlug: null,
+  { slug: "wildfire", name: "Wildfire", introducedVersion: "1.0", aeonSlug: null,
     description: "The resistance of Belobog's Underworld on Jarilo-VI." },
-  { slug: "xianzhou-alliance", name: "Xianzhou Alliance", aeonSlug: "lan",
+  { slug: "xianzhou-alliance", name: "Xianzhou Alliance", introducedVersion: "1.0", aeonSlug: "lan",
     description: "A fleet of colossal starskiffs devoted to Lan, waging an ancient war against the Abundance." },
-  { slug: "intelligentsia-guild", name: "Intelligentsia Guild", aeonSlug: "nous",
+  { slug: "intelligentsia-guild", name: "Intelligentsia Guild", introducedVersion: "1.6", aeonSlug: "nous",
     description: "A scholarly guild walking the Path of Erudition." },
-  { slug: "genius-society", name: "Genius Society", aeonSlug: "nous",
+  { slug: "genius-society", name: "Genius Society", introducedVersion: "1.0", aeonSlug: "nous",
     description: "An exclusive circle of geniuses recognized by Nous, the Aeon of Erudition." },
-  { slug: "galaxy-rangers", name: "Galaxy Rangers", aeonSlug: null,
+  { slug: "galaxy-rangers", name: "Galaxy Rangers", introducedVersion: "2.0", aeonSlug: null,
     description: "Wanderers who roam the cosmos righting wrongs." },
-  { slug: "the-family", name: "The Family", aeonSlug: "xipe",
+  { slug: "the-family", name: "The Family", introducedVersion: "2.0", aeonSlug: "xipe",
     description: "The alliance of clans that governs Penacony, devoted to Xipe, the Aeon of Harmony." },
-  { slug: "chrysos-heirs", name: "Chrysos Heirs", aeonSlug: null,
+  { slug: "chrysos-heirs", name: "Chrysos Heirs", introducedVersion: "3.0", aeonSlug: null,
     description: "Heroes of Amphoreus chosen to undertake the Flame-Chase." },
-  { slug: "herta-space-station", name: "Herta Space Station", aeonSlug: null,
+  { slug: "herta-space-station", name: "Herta Space Station", introducedVersion: "1.0", aeonSlug: null,
     description: "The research station of Herta, a member of the Genius Society." },
-  { slug: "ipc", name: "Interastral Peace Corporation", aeonSlug: "qlipoth",
+  { slug: "ipc", name: "Interastral Peace Corporation", introducedVersion: "1.0", aeonSlug: "qlipoth",
     description: "A vast interstellar trading power that reveres Qlipoth, the Aeon of Preservation." },
-  { slug: "antimatter-legion", name: "Antimatter Legion", aeonSlug: "nanook",
+  { slug: "antimatter-legion", name: "Antimatter Legion", introducedVersion: "1.0", aeonSlug: "nanook",
     description: "The endless armies of Nanook, bent on wiping out all life." },
-  { slug: "masked-fools", name: "Masked Fools", aeonSlug: "aha",
+  { slug: "masked-fools", name: "Masked Fools", introducedVersion: "1.0", aeonSlug: "aha",
     description: "Jesters who follow Aha, the Aeon of Elation, seeking amusement above all else." },
-  { slug: "belobog", name: "Belobog", aeonSlug: "qlipoth",
+  { slug: "belobog", name: "Belobog", introducedVersion: "1.0", aeonSlug: "qlipoth",
     description: "The last city of Jarilo-VI, split between the Overworld and the Underworld, whose people revere Qlipoth." },
-  { slug: "silvermane-guards", name: "Silvermane Guards", aeonSlug: null,
+  { slug: "silvermane-guards", name: "Silvermane Guards", introducedVersion: "1.0", aeonSlug: null,
     description: "Belobog's army, sworn to defend the last city against the Fragmentum." },
-  { slug: "garden-of-recollection", name: "Garden of Recollection", aeonSlug: "fuli",
+  { slug: "garden-of-recollection", name: "Garden of Recollection", introducedVersion: "2.0", aeonSlug: "fuli",
     description: "Home of the Memokeepers, who serve Fuli by gathering and preserving memories." },
-  { slug: "knights-of-beauty", name: "Knights of Beauty", aeonSlug: "idrila",
+  { slug: "knights-of-beauty", name: "Knights of Beauty", introducedVersion: "1.5", aeonSlug: "idrila",
     description: "Wandering knights who spread the glory of Idrila, the vanished Aeon of Beauty." },
 ];
 
@@ -178,6 +118,9 @@ export const artOf = (c: CharacterSeed): ArtVariant[] =>
 
 // Lore terms. Wherever a term (or alias) appears in lore text, it gets a hover
 // definition. Longer names win, so "Stellaron Hunters" isn't read as "Stellaron".
+// TERM_VERSIONS marks terms that enter the story after 1.0.
+const TERM_VERSIONS: Record<string, string> = { "dreamscape": "2.0", "the-family": "2.0", "memokeeper": "2.0", "self-annihilator": "2.1", "memosprite": "3.0", "titans": "3.0", "chrysos-heirs": "3.0", "flame-chase": "3.0", "black-tide": "3.0" };
+
 export const GLOSSARY = [
   { slug: "stellaron", term: "Stellaron", aliases: [], spoilerVersion: null,
     definition: "A mysterious seed of calamity that brings disaster to any world it lands on. The Genius Society calls it \"the cancer of all worlds\"." },
@@ -239,4 +182,4 @@ export const GLOSSARY = [
     definition: "Akivili's travelling companions — and everyone since who has ridden the Astral Express along the Trailblaze." },
   { slug: "black-tide", term: "Black Tide", aliases: [], spoilerVersion: null,
     definition: "A corrupting tide that is steadily swallowing the lands of Amphoreus." },
-];
+].map((g) => ({ ...g, version: TERM_VERSIONS[g.slug] ?? "1.0" }));

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getStoryVersions } from "@/lib/queries";
+import { TimeTravelBanner } from "./spoilers/AsOf";
 import { StoryProgressPicker } from "./spoilers/story-progress";
 
 const links = [
@@ -31,6 +32,7 @@ export async function SiteHeader() {
           <StoryProgressPicker versions={versions} />
         </div>
       </div>
+      <TimeTravelBanner versions={versions} />
     </header>
   );
 }

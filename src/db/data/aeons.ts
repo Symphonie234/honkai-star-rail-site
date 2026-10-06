@@ -3,53 +3,57 @@
  * catalogued by the Honkai: Star Rail Wiki). Lore sections carry a spoilerVersion
  * when they rely on story reveals; sections with null are safe for new players.
  *
+ * introducedVersion is when the story first brings the Aeon up; a lore section's
+ * version (when it enters the story) defaults to its spoilerVersion, else the
+ * Aeon's introducedVersion. "View as of" hides anything later.
+ *
  * pathSlug links an Aeon to its playable Path. artFile names the official art on
  * the wiki that `npm run art:fetch` downloads (null where none is published).
  */
 
 export const AEONS = [
-  { slug: "nanook", name: "Nanook", concept: "Destruction", pathSlug: "destruction", glyph: "✸",
+  { slug: "nanook", introducedVersion: "1.0", name: "Nanook", concept: "Destruction", pathSlug: "destruction", glyph: "✸",
     epithets: ["The Destruction", "Great Destroyer", "Ruin Author"], artFile: "Aeon_Nanook.png",
     description: "The Aeon of Destruction, who sees all existence as a mistake to be erased. Its Antimatter Legion wages war on every living world." },
-  { slug: "lan", name: "Lan", concept: "The Hunt", pathSlug: "hunt", glyph: "➹",
+  { slug: "lan", introducedVersion: "1.0", name: "Lan", concept: "The Hunt", pathSlug: "hunt", glyph: "➹",
     epithets: ["The Hunt", "Reignbow Arbiter"], artFile: "Aeon_Lan.png",
     description: "The Aeon of the Hunt, an archer forever pursuing its quarry. The Xianzhou Alliance fights in its name against the creations of the Abundance." },
-  { slug: "nous", name: "Nous", concept: "Erudition", pathSlug: "erudition", glyph: "✧",
+  { slug: "nous", introducedVersion: "1.0", name: "Nous", concept: "Erudition", pathSlug: "erudition", glyph: "✧",
     epithets: ["The Erudition"], artFile: "Aeon_Nous.png",
     description: "The Aeon of Erudition, a vast intelligence devoted to solving the universe. It invites the most brilliant minds into the Genius Society." },
-  { slug: "xipe", name: "Xipe", concept: "Harmony", pathSlug: "harmony", glyph: "♫",
+  { slug: "xipe", introducedVersion: "1.0", name: "Xipe", concept: "Harmony", pathSlug: "harmony", glyph: "♫",
     epithets: ["The Harmony", "The Great One"], artFile: "Aeon_Xipe.png",
     description: "The Aeon of Harmony, who unites countless voices into a single chorus. Penacony's Family sings in its name." },
-  { slug: "ix", name: "IX", concept: "Nihility", pathSlug: "nihility", glyph: "◌",
+  { slug: "ix", introducedVersion: "1.0", name: "IX", concept: "Nihility", pathSlug: "nihility", glyph: "◌",
     epithets: ["The Nihility"], artFile: "Aeon_IX.png",
     description: "The Aeon of Nihility, an indifferent void whose very existence draws all things toward meaninglessness." },
-  { slug: "qlipoth", name: "Qlipoth", concept: "Preservation", pathSlug: "preservation", glyph: "⛨",
+  { slug: "qlipoth", introducedVersion: "1.0", name: "Qlipoth", concept: "Preservation", pathSlug: "preservation", glyph: "⛨",
     epithets: ["The Preservation", "Amber Lord", "Firmamend Arbiter"], artFile: "Aeon_Qlipoth.png",
     description: "The Aeon of Preservation, builder of walls against the dark. The Interastral Peace Corporation reveres it." },
-  { slug: "yaoshi", name: "Yaoshi", concept: "Abundance", pathSlug: "abundance", glyph: "❀",
+  { slug: "yaoshi", introducedVersion: "1.0", name: "Yaoshi", concept: "Abundance", pathSlug: "abundance", glyph: "❀",
     epithets: ["The Abundance", "Sanctus Medicus", "The Merciful One"], artFile: "Aeon_Yaoshi.png",
     description: "The Aeon of Abundance, who answers suffering with the gift of endless life — a blessing the Xianzhou regard as a curse." },
-  { slug: "fuli", name: "Fuli", concept: "Remembrance", pathSlug: "remembrance", glyph: "❖",
+  { slug: "fuli", introducedVersion: "1.0", name: "Fuli", concept: "Remembrance", pathSlug: "remembrance", glyph: "❖",
     epithets: ["The Remembrance"], artFile: "Aeon_Fuli.png",
     description: "The Aeon of Remembrance, who gathers and preserves memories from across the cosmos." },
-  { slug: "aha", name: "Aha", concept: "Elation", pathSlug: "elation", glyph: "✺",
+  { slug: "aha", introducedVersion: "1.0", name: "Aha", concept: "Elation", pathSlug: "elation", glyph: "✺",
     epithets: ["The Elation", "Joyseeker", "Everlasting Glee"], artFile: "Aeon_Aha.png",
     description: "The Aeon of Elation, a trickster who finds the universe hilarious. The Masked Fools follow its lead." },
-  { slug: "akivili", name: "Akivili", concept: "Trailblaze", pathSlug: null, glyph: "✦",
+  { slug: "akivili", introducedVersion: "1.0", name: "Akivili", concept: "Trailblaze", pathSlug: null, glyph: "✦",
     epithets: ["The Trailblaze", "Cloudstrider"], artFile: "Path_Trailblaze.png",
     description: "The Aeon of the Trailblaze, who laid the star rails between worlds and rode the Astral Express. Said to have perished long ago." },
-  { slug: "long", name: "Long", concept: "Permanence", pathSlug: null, glyph: "❂",
+  { slug: "long", introducedVersion: "1.0", name: "Long", concept: "Permanence", pathSlug: null, glyph: "❂",
     epithets: ["The Permanence", "Progenitor of All Dragons"], artFile: "Aeon_Long.png",
     description: "The Aeon of Permanence and progenitor of all dragons, revered by the Vidyadhara. Long since fallen." },
-  { slug: "ena", name: "Ena", concept: "Order", pathSlug: null, glyph: "⌘",
+  { slug: "ena", introducedVersion: "2.0", name: "Ena", concept: "Order", pathSlug: null, glyph: "⌘",
     epithets: ["The Order"], artFile: "Aeon_Ena.png",
     description: "The Aeon of Order, who sought to fit every life into a single, perfect design — and is long absent from the cosmos." },
-  { slug: "idrila", name: "Idrila", concept: "Beauty", pathSlug: null, glyph: "❁",
+  { slug: "idrila", introducedVersion: "1.5", name: "Idrila", concept: "Beauty", pathSlug: null, glyph: "❁",
     epithets: ["The Beauty", "Wondergazer"], artFile: "Path_Beauty.png",
     description: "The Aeon of Beauty, vanished from the cosmos. The Knights of Beauty still carry its glory between the stars." },
 ].map((a, i) => ({ ...a, sortOrder: i }));
 
-type LoreSeed = { title: string; spoilerVersion: string | null; body: string };
+type LoreSeed = { title: string; spoilerVersion: string | null; version?: string; body: string };
 
 const LORE_BY_AEON: Record<string, LoreSeed[]> = {
   nanook: [
@@ -131,7 +135,7 @@ The Alliance came to resent Yaoshi's gift and swore itself to Lan the Hunt. The 
 `Aha is the Aeon of Elation, a trickster who finds the universe hilarious. Aha's ascension came with a laughter said to have torn through the universe — a metaphor to most, but the Masked Fools insist it was literal, and point to the Echo of Primordial Laughter as proof.` },
     { title: "The Masked Fools", spoilerVersion: null, body:
 `Aha's followers, the Masked Fools, pursue amusement above all else. They turn up wherever there's a show to be put on or a joke to be made, often at someone else's expense. Sparkle is one of them.` },
-    { title: "A Path Opens", spoilerVersion: null, body:
+    { title: "A Path Opens", spoilerVersion: null, version: "3.8", body:
 `Elation became a playable Path in Version 4.0, "No Aha At Full Moon" — after the period this archive covers, which is why no travelers here walk it yet.` },
   ],
   akivili: [
@@ -166,6 +170,14 @@ The Alliance came to resent Yaoshi's gift and swore itself to Lan the Hunt. The 
   ],
 };
 
+const introduced = Object.fromEntries(AEONS.map((x) => [x.slug, x.introducedVersion]));
+
 export const AEON_LORE = Object.entries(LORE_BY_AEON).flatMap(([aeonSlug, sections]) =>
-  sections.map((s, i) => ({ ...s, slug: `${aeonSlug}-${i + 1}`, aeonSlug, sortOrder: i + 1 })),
+  sections.map((s, i) => ({
+    ...s,
+    version: s.version ?? s.spoilerVersion ?? introduced[aeonSlug],
+    slug: `${aeonSlug}-${i + 1}`,
+    aeonSlug,
+    sortOrder: i + 1,
+  })),
 );

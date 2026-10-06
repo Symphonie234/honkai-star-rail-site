@@ -1,6 +1,9 @@
 /**
- * Story progress is the latest game version the reader has caught up to ("2.2"),
- * "all" to show every spoiler, or null (the default) to hide them all.
+ * The reader's story-progress setting:
+ *  - null (default): everything is listed, spoilers hidden
+ *  - a version ("2.2"): view the archive as of that version — anything newer is
+ *    hidden entirely, and spoilers up to it are revealed
+ *  - "all": everything, spoilers shown
  */
 export type StoryProgress = string | null;
 
@@ -13,6 +16,17 @@ export function compareVersions(a: string, b: string) {
     if (diff !== 0) return diff;
   }
   return 0;
+}
+
+/** The version the archive is being viewed as of, or null when showing everything. */
+export function viewingAsOf(progress: StoryProgress) {
+  return progress && progress !== "all" ? progress : null;
+}
+
+/** Whether something that entered the game in `version` exists at this progress setting. */
+export function isAvailable(version: string, progress: StoryProgress) {
+  const asOf = viewingAsOf(progress);
+  return !asOf || compareVersions(version, asOf) <= 0;
 }
 
 /** Whether content tagged with `spoilerVersion` is safe to show at this progress. */

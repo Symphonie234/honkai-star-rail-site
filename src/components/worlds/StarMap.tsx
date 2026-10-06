@@ -3,7 +3,9 @@
 import { MotionConfig, motion } from "framer-motion";
 import Link from "next/link";
 import { colorVar } from "@/lib/theme";
+import { isAvailable } from "@/lib/spoilers";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
+import { useStoryProgress } from "../spoilers/story-progress";
 import { StarMapBackdrop } from "./StarMapBackdrop";
 import { WorldArt } from "./WorldArt";
 
@@ -84,8 +86,11 @@ function ExpressTrain() {
   );
 }
 
-export function StarMap({ worlds }: { worlds: MapWorld[] }) {
+export function StarMap({ worlds: allWorlds }: { worlds: MapWorld[] }) {
   const reduceMotion = usePrefersReducedMotion();
+  // Viewing as of a version: only the stops the Express had reached by then.
+  const progress = useStoryProgress();
+  const worlds = allWorlds.filter((w) => isAvailable(w.releaseVersion, progress));
   const rail = railPath(worlds.map((w) => ({ x: (w.mapX / 100) * VIEW_W, y: (w.mapY / 100) * VIEW_H })));
 
   return (

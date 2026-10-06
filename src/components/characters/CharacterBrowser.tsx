@@ -6,7 +6,7 @@ import { useMemo, useState, type ReactNode } from "react";
 import { elementIcon, pathIcon } from "@/lib/images";
 import { setPref, usePref } from "@/lib/local-pref";
 import type { CharacterWithRefs } from "@/lib/queries";
-import { compareVersions, isRevealed } from "@/lib/spoilers";
+import { compareVersions, isAvailable, isRevealed } from "@/lib/spoilers";
 import { colorVar } from "@/lib/theme";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 import { CompactIcon, GridIcon, ListIcon } from "../icons";
@@ -55,6 +55,7 @@ export function CharacterBrowser({ characters, elements, paths }: Props) {
       isRevealed(c.spoilerVersion, progress) && !!c.faction?.name.toLowerCase().includes(q);
     const list = characters.filter(
       (c) =>
+        isAvailable(c.releaseVersion, progress) &&
         (!element || c.elementSlug === element) &&
         (!path || c.pathSlug === path) &&
         (!rarity || String(c.rarity) === rarity) &&

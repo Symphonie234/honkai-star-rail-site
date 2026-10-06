@@ -10,7 +10,7 @@ import {
 } from "@/lib/aeon-web";
 import { characterIcon, pathIcon } from "@/lib/images";
 import type { AeonWebData } from "@/lib/queries";
-import { isRevealed } from "@/lib/spoilers";
+import { isAvailable, isRevealed } from "@/lib/spoilers";
 import { colorVar } from "@/lib/theme";
 import { useArtVariant } from "../characters/art-variant";
 import { CloseIcon } from "../icons";
@@ -70,8 +70,17 @@ function Label({ children, ...props }: SVGProps<SVGTextElement>) {
   );
 }
 
-export function AeonWeb({ data }: { data: AeonWebData }) {
+export function AeonWeb({ data: allData }: { data: AeonWebData }) {
   const progress = useStoryProgress();
+  // Viewing as of a version: only what the story had introduced by then.
+  const data = useMemo(
+    () => ({
+      aeons: allData.aeons.filter((a) => isAvailable(a.introducedVersion, progress)),
+      factions: allData.factions.filter((f) => isAvailable(f.introducedVersion, progress)),
+      characters: allData.characters.filter((c) => isAvailable(c.releaseVersion, progress)),
+    }),
+    [allData, progress],
+  );
   const [selected, setSelected] = useState<NodeId | null>(null);
   const [hovered, setHovered] = useState<NodeId | null>(null);
   const [showCharacters, setShowCharacters] = useState(true);

@@ -4,9 +4,12 @@ import { integer, jsonb, pgTable, text } from "drizzle-orm/pg-core";
 /*
  * Slugs are primary keys: they're stable, human-readable, and double as URL segments.
  *
- * Versions ("1.0", "2.3") are stored as text. `spoilerVersion` marks content that
- * reveals story from that version onward; null means spoiler-free. The spoiler
- * system (Phase 3) compares it against the reader's progress.
+ * Versions ("1.0", "2.3") are stored as text. Two kinds, compared against the
+ * reader's story-progress setting:
+ *  - when something entered the game (releaseVersion / introducedVersion / version):
+ *    "view as of vX" hides anything newer;
+ *  - `spoilerVersion`: what it gives away; hidden until the reader's progress
+ *    covers it. Null means spoiler-free.
  */
 
 /** Game versions, with their official titles. Characters reference their release version. */
@@ -59,6 +62,8 @@ export const worldChapters = pgTable("world_chapters", {
   title: text("title").notNull(),
   /** Plain text; paragraphs separated by blank lines. */
   body: text("body").notNull(),
+  /** The update whose story this chapter covers. */
+  version: text("version").notNull().references(() => versions.version),
   spoilerVersion: text("spoiler_version"),
 });
 
@@ -69,6 +74,8 @@ export const aeons = pgTable("aeons", {
   /** The concept the Aeon embodies, e.g. "Destruction". */
   concept: text("concept").notNull(),
   pathSlug: text("path_slug").references(() => paths.slug),
+  /** When the story first brings the Aeon up. */
+  introducedVersion: text("introduced_version").notNull().references(() => versions.version),
   /** Shown when the Aeon has no Path icon. */
   glyph: text("glyph").notNull(),
   /** Titles the Aeon is known by, e.g. "Amber Lord". */
@@ -88,6 +95,8 @@ export const aeonLore = pgTable("aeon_lore", {
   title: text("title").notNull(),
   /** Plain text; paragraphs separated by blank lines. */
   body: text("body").notNull(),
+  /** When this part of the lore enters the story. */
+  version: text("version").notNull().references(() => versions.version),
   spoilerVersion: text("spoiler_version"),
 });
 
@@ -95,6 +104,8 @@ export const factions = pgTable("factions", {
   slug: text("slug").primaryKey(),
   name: text("name").notNull(),
   description: text("description"),
+  /** The faction's first story appearance. */
+  introducedVersion: text("introduced_version").notNull().references(() => versions.version),
   /** The Aeon the faction is devoted to, if any. */
   aeonSlug: text("aeon_slug").references(() => aeons.slug),
 });
@@ -132,6 +143,8 @@ export const glossaryTerms = pgTable("glossary_terms", {
   /** Other spellings that should link to this term (matched case-insensitively). */
   aliases: text("aliases").array().notNull().default(sql`'{}'::text[]`),
   definition: text("definition").notNull(),
+  /** When the term enters the story. */
+  version: text("version").notNull().references(() => versions.version),
   spoilerVersion: text("spoiler_version"),
 });
 
@@ -143,7 +156,10 @@ export const charactersRelations = relations(characters, ({ one }) => ({
   version: one(versions, { fields: [characters.releaseVersion], references: [versions.version] }),
 }));
 
-export const versionsRelations = relations(versions, ({ many }) => ({ characters: many(characters) }));
+export const versionsRelations = relations(versions, ({ many }) => ({
+  characters: many(characters),
+  chapters: many(worldChapters),
+}));
 
 export const pathsRelations = relations(paths, ({ many }) => ({ characters: many(characters) }));
 export const elementsRelations = relations(elements, ({ many }) => ({ characters: many(characters) }));
@@ -168,4 +184,5 @@ export const worldsRelations = relations(worlds, ({ many }) => ({
 
 export const worldChaptersRelations = relations(worldChapters, ({ one }) => ({
   world: one(worlds, { fields: [worldChapters.worldSlug], references: [worlds.slug] }),
+  version: one(versions, { fields: [worldChapters.version], references: [versions.version] }),
 }));

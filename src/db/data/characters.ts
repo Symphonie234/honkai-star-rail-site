@@ -305,7 +305,7 @@ export const CHARACTERS: CharacterSeed[] = [
     elementSlug: "imaginary", pathSlug: "hunt", factionSlug: "astral-express", worldSlug: "xianzhou-luofu",
     releaseVersion: "2.4", releaseDate: "2024-07-31", spoilerVersion: null,
     lightCone: null, voiceEn: "Skyler Davenport",
-    bio: "March 7th as a swordswoman of the Hunt, taking up Xianzhou swordplay during the Express's stay on the Luofu." },
+    bio: "March 7th as a swordswoman of the Hunt, trained in Xianzhou swordplay for the Wardance by Yanqing and Yunli, the star pupils of two generals." },
   { slug: "yunli", name: "Yunli", art: "1221", rarity: 5,
     elementSlug: "physical", pathSlug: "destruction", factionSlug: "xianzhou-alliance", worldSlug: null,
     releaseVersion: "2.4", releaseDate: "2024-07-31", spoilerVersion: null,

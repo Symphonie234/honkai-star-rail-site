@@ -90,7 +90,8 @@ export function layoutWeb({ aeons, factions, characters }: AeonWebData, options:
       .filter((c) => c.factionSlug === f.slug && !options.hiddenMemberships.has(c.slug))
       .map((c) => characterAngle.get(c.slug))
       .filter((a): a is number => a !== undefined);
-    const angle = f.aeonSlug ? aeonAngle.get(f.aeonSlug)! : memberAngles.length ? circularMean(memberAngles) : 0;
+    const aeon = f.aeonSlug ? aeonAngle.get(f.aeonSlug) : undefined;
+    const angle = aeon ?? (memberAngles.length ? circularMean(memberAngles) : 0);
     return { f, angle: norm(angle + 90) }; // measured from the top, so sorting starts there
   });
   preferred.sort((a, b) => a.angle - b.angle);
@@ -103,11 +104,11 @@ export function layoutWeb({ aeons, factions, characters }: AeonWebData, options:
   if (overflow > 0) preferred.forEach((p, i) => (p.angle -= (overflow * i) / preferred.length));
   for (const { f, angle } of preferred) {
     positions.set(`f:${f.slug}`, polar(R_FACTION, angle - 90));
-    if (f.aeonSlug) edges.push({ from: `a:${f.aeonSlug}`, to: `f:${f.slug}`, kind: "devotion" });
+    if (f.aeonSlug && aeonAngle.has(f.aeonSlug)) edges.push({ from: `a:${f.aeonSlug}`, to: `f:${f.slug}`, kind: "devotion" });
   }
 
   for (const c of characters) {
-    if (c.factionSlug && !options.hiddenMemberships.has(c.slug)) {
+    if (c.factionSlug && positions.has(`f:${c.factionSlug}`) && positions.has(`c:${c.slug}`) && !options.hiddenMemberships.has(c.slug)) {
       edges.push({ from: `f:${c.factionSlug}`, to: `c:${c.slug}`, kind: "membership" });
     }
   }

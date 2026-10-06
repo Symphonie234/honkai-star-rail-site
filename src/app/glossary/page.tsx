@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { LoreText } from "@/components/glossary/LoreText";
 import { Spoiler } from "@/components/Spoiler";
+import { AsOf } from "@/components/spoilers/AsOf";
+import { compareVersions } from "@/lib/spoilers";
 import { getGlossary } from "@/lib/queries";
 
 export const metadata: Metadata = {
@@ -30,29 +32,32 @@ export default async function GlossaryPage() {
 
       <div className="flex flex-col gap-12">
         {[...groups].map(([letter, group]) => (
-          <section key={letter} aria-labelledby={`letter-${letter}`}>
-            <h2 id={`letter-${letter}`} className="font-display text-3xl font-bold text-gold">{letter}</h2>
-            <dl className="mt-4 grid gap-4 md:grid-cols-2">
-              {group.map((t) => {
-                const entry = (
-                  <div id={t.slug} className="glass h-full scroll-mt-24 rounded-2xl p-6">
-                    <dt className="font-display text-xl font-bold">{t.term}</dt>
-                    {t.aliases.length > 0 && (
-                      <dd className="mt-1 text-xs tracking-wide text-muted uppercase">Also: {t.aliases.join(", ")}</dd>
-                    )}
-                    <dd className="mt-3 leading-relaxed text-muted">
-                      <LoreText text={t.definition} exclude={t.slug} />
-                    </dd>
-                  </div>
-                );
-                return t.spoilerVersion ? (
-                  <Spoiler key={t.slug} version={t.spoilerVersion} block>{entry}</Spoiler>
-                ) : (
-                  <div key={t.slug}>{entry}</div>
-                );
-              })}
-            </dl>
-          </section>
+          // A letter appears once its earliest term has entered the story.
+          <AsOf key={letter} version={group.map((t) => t.version).sort(compareVersions)[0]}>
+            <section aria-labelledby={`letter-${letter}`}>
+              <h2 id={`letter-${letter}`} className="font-display text-3xl font-bold text-gold">{letter}</h2>
+              <dl className="mt-4 grid gap-4 md:grid-cols-2">
+                {group.map((t) => {
+                  const entry = (
+                    <div id={t.slug} className="glass h-full scroll-mt-24 rounded-2xl p-6">
+                      <dt className="font-display text-xl font-bold">{t.term}</dt>
+                      {t.aliases.length > 0 && (
+                        <dd className="mt-1 text-xs tracking-wide text-muted uppercase">Also: {t.aliases.join(", ")}</dd>
+                      )}
+                      <dd className="mt-3 leading-relaxed text-muted">
+                        <LoreText text={t.definition} exclude={t.slug} />
+                      </dd>
+                    </div>
+                  );
+                  return (
+                    <AsOf key={t.slug} version={t.version}>
+                      {t.spoilerVersion ? <Spoiler version={t.spoilerVersion} block>{entry}</Spoiler> : <div>{entry}</div>}
+                    </AsOf>
+                  );
+                })}
+              </dl>
+            </section>
+          </AsOf>
         ))}
       </div>
     </div>
