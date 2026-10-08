@@ -1,5 +1,5 @@
 /*
- * Game versions through 3.8, the end of the Amphoreus (3.x) era, with their
+ * Game versions through 4.6 (Planarcadia, the 4.x era), with their
  * official titles and release dates (per the Honkai: Star Rail Wiki).
  * These are also the choices in the story-progress picker.
  */
@@ -28,6 +28,13 @@ export const VERSIONS = [
   ["3.6", "Back to Earth in Evernight", "2025-09-24"],
   ["3.7", "As Tomorrow Became Yesterday", "2025-11-05"],
   ["3.8", "Memories are the Prelude to Dreams", "2025-12-17"],
+  ["4.0", "No Aha At Full Moon", "2026-02-13"],
+  ["4.1", "Unraveled for Daybreak", "2026-03-25"],
+  ["4.2", "So Laughed the Masses", "2026-04-22"],
+  ["4.3", "The Lethe Below the Living", "2026-06-01"],
+  ["4.4", "In Ravages Does the Whistle Sound", "2026-07-15"],
+  ["4.5", "To Roll the Stars in Astropolis", "2026-08-26"],
+  ["4.6", "Dance With the Beast Before Moonrise", "2026-09-28"],
 ].map(([version, title, releaseDate]) => {
   const [major, minor] = version.split(".").map(Number);
   return { version, title, releaseDate, major, minor };

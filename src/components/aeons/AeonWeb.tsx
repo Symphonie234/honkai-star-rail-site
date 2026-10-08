@@ -88,7 +88,7 @@ export function AeonWeb({ data: allData }: { data: AeonWebData }) {
 
   // Faction ties that are story reveals (Firefly) stay hidden until the reader's progress covers them.
   const hiddenKey = data.characters.filter((c) => !isRevealed(c.spoilerVersion, progress)).map((c) => c.slug).join();
-  const { positions, edges, labelLevels } = useMemo(
+  const { positions, edges, labelLevels, aeonLabels } = useMemo(
     () => layoutWeb(data, { hiddenMemberships: new Set(hiddenKey ? hiddenKey.split(",") : []) }),
     [data, hiddenKey],
   );
@@ -177,7 +177,7 @@ export function AeonWeb({ data: allData }: { data: AeonWebData }) {
               <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
                 {data.aeons.map((a) => {
                   const id: NodeId = `a:${a.slug}`;
-                  return <AeonNode key={a.slug} aeon={a} at={positions.get(id)!} opacity={dim(id)} selected={selected === id} handlers={handlers} />;
+                  return <AeonNode key={a.slug} aeon={a} at={positions.get(id)!} label={aeonLabels.get(a.slug)!} opacity={dim(id)} selected={selected === id} handlers={handlers} />;
                 })}
               </motion.g>
 
@@ -252,11 +252,10 @@ function Toggle({ pressed, onChange, children }: { pressed: boolean; onChange: (
 
 type NodeBase = { at: Point; opacity: number; selected: boolean; handlers: NodeHandlers };
 
-function AeonNode({ aeon, at, opacity, selected, handlers }: NodeBase & { aeon: Aeon }) {
+function AeonNode({ aeon, at, label, opacity, selected, handlers }: NodeBase & { aeon: Aeon; label: { x: number; y: number } }) {
   const id: NodeId = `a:${aeon.slug}`;
-  // Labels sit inside the ring, toward the center, clear of the characters outside.
-  const inward = (d: number) => offset(at.angle, -d);
-  const label = inward(58);
+  // The label sits inside the ring, toward the center, clear of the characters outside
+  // (slid aside where neighbours would collide; see layoutWeb).
   return (
     <g transform={`translate(${at.x} ${at.y})`} style={{ opacity }} {...nodeProps(id, `${aeon.name}, Aeon of ${aeon.concept}`, selected, handlers)}>
       <circle r={39} fill="none" stroke="var(--color-gold)" strokeWidth={3} className="opacity-0 in-focus-visible:opacity-100" />

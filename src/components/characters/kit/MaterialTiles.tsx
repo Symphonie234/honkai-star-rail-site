@@ -1,0 +1,50 @@
+import Image from "next/image";
+import { gameIcon } from "@/lib/images";
+import type { Material } from "@/lib/kit";
+
+/** Rarity backgrounds in the game's own order: gray, green, blue, purple, gold. */
+const RARITY_BG = [
+  "",
+  "from-[#5b5f6b] to-[#2e3140]",
+  "from-[#3f7a5c] to-[#1f3b2e]",
+  "from-[#3d6fb0] to-[#1d3358]",
+  "from-[#7b55c7] to-[#3a2763]",
+  "from-[#c99a45] to-[#6b4e1d]",
+];
+
+/**
+ * Material tiles in the game's rarity colors, with totals. Names wrap in full
+ * (some run to 49 characters, e.g. "Four Phases, Crossing the River to Check the
+ * King"); tiles in a row stretch to the tallest so the grid stays even.
+ */
+export function MaterialGroup({
+  title, items, materials,
+}: {
+  title: string;
+  items: { id: string; num: number }[];
+  materials: Map<string, Material>;
+}) {
+  return (
+    <div>
+      <h4 className="text-xs font-semibold tracking-widest text-muted uppercase">{title}</h4>
+      <ul className="mt-3 grid grid-cols-[repeat(auto-fill,minmax(6.75rem,1fr))] gap-2">
+        {items.map(({ id, num }) => {
+          const m = materials.get(id);
+          if (!m) return null;
+          return (
+            <li key={id} title={m.sources.length ? `${m.name}\nFrom: ${m.sources.join(", ")}` : m.name}
+              className="glass flex flex-col items-center overflow-hidden rounded-xl text-center">
+              <span className={`grid w-full place-items-center bg-gradient-to-b py-2 ${RARITY_BG[m.rarity] ?? RARITY_BG[1]}`}>
+                <Image src={gameIcon(m.icon)} alt="" width={48} height={48} />
+              </span>
+              <span className="w-full px-1 pt-1 text-sm font-semibold tabular-nums">{num.toLocaleString("en-US")}</span>
+              <span lang="en" className="w-full px-2 pb-2 text-[0.7rem] leading-snug text-balance text-muted hyphens-auto [overflow-wrap:anywhere]">
+                {m.name}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}

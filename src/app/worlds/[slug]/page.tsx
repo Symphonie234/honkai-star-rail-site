@@ -49,19 +49,19 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
           ← Star map
         </Link>
 
-        <header className="mt-8 grid items-center gap-10 md:grid-cols-[1fr_auto]">
+        <header className="mt-8 grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_auto]">
           <div>
             <p className="eyebrow !text-[var(--c)]">
               Stop {String(w.arcOrder).padStart(2, "0")} · Since version {w.releaseVersion}
             </p>
-            <h1 className="mt-3 font-display text-4xl font-bold sm:text-6xl">{w.name}</h1>
+            <h1 className="mt-3 font-display text-4xl font-bold sm:text-5xl lg:text-6xl">{w.name}</h1>
             <p className="mt-3 font-display text-xl text-[var(--c)]">{w.tagline}</p>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted"><LoreText text={w.description} /></p>
           </div>
           <div className="relative order-first mx-auto grid place-items-center md:order-none md:px-6">
             {/* A soft halo in the world's color behind the render. */}
             <span aria-hidden="true" className="absolute inset-0 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--c)_25%,transparent),transparent_65%)] blur-2xl" />
-            <WorldArt image={w.image} size="size-56 sm:size-72 md:size-80" sizes="(min-width: 768px) 320px, 288px" float priority />
+            <WorldArt image={w.image} size="size-56 sm:size-72 md:size-64 lg:size-80" sizes="(min-width: 1024px) 320px, 288px" float priority />
           </div>
         </header>
 

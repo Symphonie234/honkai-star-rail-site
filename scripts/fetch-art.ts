@@ -11,15 +11,18 @@
  * only download what is new.
  *
  * Sources (art © HoYoverse):
- *  - Characters and Path icons: StarRailRes (github.com/Mar-7th/StarRailRes)
- *  - World renders and Aeon art: the Honkai: Star Rail Wiki on Fandom
+ *  - Characters, Light Cones, icons: StarRailRes (github.com/Mar-7th/StarRailRes)
+ *  - World renders, Aeon art and Eidolon art: the Honkai: Star Rail Wiki on Fandom
  */
 import { existsSync } from "node:fs";
 import { copyFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import sharp, { type Sharp } from "sharp";
-import { AEONS, artOf, CHARACTERS, ELEMENTS, KITS, MATERIALS, PATHS, WORLD_ART_SOURCES } from "../src/db/seed-data";
-import { aeonImage, characterIcon, characterPortrait, characterPreview, elementIcon, gameIcon, pathIcon, worldImage } from "../src/lib/images";
+import { AEONS, artOf, CHARACTERS, ELEMENTS, KITS, LIGHT_CONES, MATERIALS, PATHS, WORLD_ART_SOURCES } from "../src/db/seed-data";
+import {
+  aeonImage, characterIcon, characterPortrait, characterPreview, eidolonArt, elementIcon, gameIcon,
+  lightConeIcon, lightConePortrait, lightConePreview, pathIcon, worldImage,
+} from "../src/lib/images";
 
 const CACHE_DIR = path.join(".next", "cache", "hsr-art");
 
@@ -108,6 +111,27 @@ function jobs(): Job[] {
   }
   for (const icon of icons) {
     list.push({ label: `icon ${icon}`, out: gameIcon(icon), source: async () => `${STARRAILRES}/${icon}`, convert: (i) => webp(i.resize(128, 128, { fit: "inside", withoutEnlargement: true }), 88) });
+  }
+  for (const lc of LIGHT_CONES) {
+    list.push(
+      { label: `light cone ${lc.id}`, out: lightConePortrait(lc.id), source: async () => `${STARRAILRES}/image/light_cone_portrait/${lc.id}.png`, convert: (i) => webp(i, 86) },
+      { label: `light cone preview ${lc.id}`, out: lightConePreview(lc.id), source: async () => `${STARRAILRES}/image/light_cone_preview/${lc.id}.png`, convert: (i) => webp(i, 86) },
+      { label: `light cone icon ${lc.id}`, out: lightConeIcon(lc.id), source: async () => `${STARRAILRES}/icon/light_cone/${lc.id}.png`, convert: (i) => webp(i, 86) },
+    );
+  }
+  for (const kit of Object.values(KITS)) {
+    for (const e of kit.eidolons) {
+      if (!e.art) continue;
+      const file = e.art;
+      list.push({
+        label: `eidolon ${kit.gameId}-${e.rank}`,
+        out: eidolonArt(kit.gameId, e.rank),
+        source: () => wikiFileUrl(file),
+        headers: BROWSER_HEADERS,
+        // 2048px with wide transparent margins: trim, then cap the size.
+        convert: (i) => webp(i.trim().resize(900, 900, { fit: "inside", withoutEnlargement: true }), 84),
+      });
+    }
   }
   for (const a of AEONS) {
     if (!a.artFile) continue;

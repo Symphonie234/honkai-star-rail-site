@@ -637,6 +637,206 @@
    ]
   },
   {
+   "id": "110261",
+   "name": "The Fluffy Hand-drawn Storyboards",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110261.png",
+   "sources": [
+    "Calyx: \"World's End\" Tavern",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110262",
+   "name": "The Fluffy Serialization Memorial Issue",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110262.png",
+   "sources": [
+    "Calyx: \"World's End\" Tavern",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110263",
+   "name": "The Fluffy Collector's Edition",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110263.png",
+   "sources": [
+    "Calyx: \"World's End\" Tavern",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110271",
+   "name": "Grit of Strife",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110271.png",
+   "sources": [
+    "Calyx: \"Memortis Shore\" Ruins of Time",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110272",
+   "name": "Resin of Valor",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110272.png",
+   "sources": [
+    "Calyx: \"Memortis Shore\" Ruins of Time",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110273",
+   "name": "Lance of Retribution",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110273.png",
+   "sources": [
+    "Calyx: \"Memortis Shore\" Ruins of Time",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110281",
+   "name": "Four Phases, Crossing the River to Check the King",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110281.png",
+   "sources": [
+    "Calyx: Inkford Hermitage",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110282",
+   "name": "Sixen, King-Rook Fork",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110282.png",
+   "sources": [
+    "Calyx: Inkford Hermitage",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110283",
+   "name": "Omnicolor, Fool's Own",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110283.png",
+   "sources": [
+    "Calyx: Inkford Hermitage",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110291",
+   "name": "Celestial Globe",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110291.png",
+   "sources": [
+    "Calyx: Seafeld TV Tower",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110292",
+   "name": "Galaxy Framework",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110292.png",
+   "sources": [
+    "Calyx: Seafeld TV Tower",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110293",
+   "name": "Cosmic Sandpit",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110293.png",
+   "sources": [
+    "Calyx: Seafeld TV Tower",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110311",
+   "name": "Tear of Phagousa",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110311.png",
+   "sources": [
+    "Calyx \"\"Radiant Scarwood\" Grove of Epiphany\"",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110312",
+   "name": "Wine of Phagousa",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110312.png",
+   "sources": [
+    "Calyx \"\"Radiant Scarwood\" Grove of Epiphany\"",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110313",
+   "name": "Heart of Phagousa",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110313.png",
+   "sources": [
+    "Calyx \"\"Radiant Scarwood\" Grove of Epiphany\"",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
    "id": "110400",
    "name": "Enigmatic Ectostella",
    "rarity": 4,
@@ -937,6 +1137,18 @@
    ]
   },
   {
+   "id": "110434",
+   "name": "Thunder Strum",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110434.png",
+   "sources": [
+    "Stagnant Shadow: Dovebrook District",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
    "id": "110435",
    "name": "Charred Bud of Twilight",
    "rarity": 4,
@@ -969,6 +1181,18 @@
    "icon": "icon/item/110437.png",
    "sources": [
     "Stagnant Shadow: \"Abyss of Fate\" Janusopolis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110443",
+   "name": "Sneering Harlequin",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110443.png",
+   "sources": [
+    "Stagnant Shadow: Inkford Hermitage",
     "Omni-Synthesizer — Material Exchange"
    ]
   },
@@ -1058,6 +1282,17 @@
    "icon": "icon/item/110508.png",
    "sources": [
     "Echo of War: \"Memortis Shore\" Ruins of Time"
+   ]
+  },
+  {
+   "id": "110509",
+   "name": "High Hopes of the Falsely Enlightened",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/110509.png",
+   "sources": [
+    "Echo of War: Desolate Maw's Demonhold"
    ]
   },
   {
@@ -1530,6 +1765,53 @@
    "icon": "icon/item/115013.png",
    "sources": [
     "Black Tide Creature at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Divergent Universe enemies",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "116001",
+   "name": "Whimsy Wax",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/116001.png",
+   "sources": [
+    "Drops from imagenated creatures",
+    "Divergent Universe enemies",
+    "Simulated Universe enemies",
+    "Assignment Rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "116002",
+   "name": "Dreamweave Steel",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/116002.png",
+   "sources": [
+    "Drops from imagenated creatures at Equilibrium Level 2",
+    "Omni-Synthesizer — Material Synthesis",
+    "Divergent Universe enemies",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "116003",
+   "name": "Lucid Awl",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/116003.png",
+   "sources": [
+    "Drops from imagenated creatures at Equilibrium Level 4",
     "Omni-Synthesizer — Material Synthesis",
     "Divergent Universe enemies",
     "Simulated Universe enemies",

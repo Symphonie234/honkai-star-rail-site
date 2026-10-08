@@ -51,6 +51,9 @@ export const AEONS = [
   { slug: "idrila", introducedVersion: "1.5", name: "Idrila", concept: "Beauty", pathSlug: null, glyph: "❁",
     epithets: ["The Beauty", "Wondergazer"], artFile: "Path_Beauty.png",
     description: "The Aeon of Beauty, vanished from the cosmos. The Knights of Beauty still carry its glory between the stars." },
+  { slug: "oroboros", introducedVersion: "1.0", name: "Oroboros", concept: "Voracity", pathSlug: null, glyph: "◉",
+    epithets: ["The Voracity", "Beast of Calamity", "Star Devourer", "Void Maw"], artFile: "Aeon_Oroboros.png",
+    description: "The ancient Aeon of Voracity, an unsatisfied devourer of worlds — said to be both an Aeon and a Leviathan. Vanished long ago." },
 ].map((a, i) => ({ ...a, sortOrder: i }));
 
 type LoreSeed = { title: string; spoilerVersion: string | null; version?: string; body: string };
@@ -135,8 +138,12 @@ The Alliance came to resent Yaoshi's gift and swore itself to Lan the Hunt. The 
 `Aha is the Aeon of Elation, a trickster who finds the universe hilarious. Aha's ascension came with a laughter said to have torn through the universe — a metaphor to most, but the Masked Fools insist it was literal, and point to the Echo of Primordial Laughter as proof.` },
     { title: "The Masked Fools", spoilerVersion: null, body:
 `Aha's followers, the Masked Fools, pursue amusement above all else. They turn up wherever there's a show to be put on or a joke to be made, often at someone else's expense. Sparkle is one of them.` },
-    { title: "A Path Opens", spoilerVersion: null, version: "3.8", body:
-`Elation became a playable Path in Version 4.0, "No Aha At Full Moon" — after the period this archive covers, which is why no travelers here walk it yet.` },
+    { title: "The Phantasmoon Games", spoilerVersion: null, version: "4.0", body:
+`Aha created the Phantasmoon, an imagenae moon, and with it the Phantasmoon Games — a stage for factions and civilizations alike, from the Masked Fools to the Mourning Actors. On Planarcadia the Games still run under each full Phantasmoon: eight Supplicants chosen by Masks of Elation compete for Wishpower, and the victor is granted an audience with Aha and one minute of THEIR authority.` },
+    { title: "A Path Opens", spoilerVersion: null, version: "4.0", body:
+`Elation became a playable Path in Version 4.0, "No Aha At Full Moon". Its Pathstriders devise punchlines to entice Aha into the revelry, and in battle they can follow up with an Elation Skill.` },
+    { title: "Behind the Mask", spoilerVersion: "4.5", body:
+`The overdue artist Nihilux — author of The Fluffy and former editor-in-chief of Furbobo Weekly, who guided the Trailblazer around Planarcadia — finally confesses her true identity once Planarcadia is saved: she is Aha, the Aeon of Elation. Before the Phantasmoon Games restart, it is Nihilux who briefs the Fools and Actors on a performance meant to hunt the Voracity.` },
   ],
   akivili: [
     { title: "The Trailblazer of the Stars", spoilerVersion: null, body:
@@ -161,6 +168,16 @@ The Alliance came to resent Yaoshi's gift and swore itself to Lan the Hunt. The 
 `Near the end of the Swarm Disaster, Xipe's ascension collided with Ena's Path, and the Aeon of Order was absorbed into Harmony. Order survives only as an ideal — one that some of the Family still hold dear.` },
     { title: "Penacony's Shadow", spoilerVersion: "2.2", body:
 `On Penacony, Sunday's dream of a perfect paradise draws on Order's ideals — and for a moment, the Aeon of Order stirs again.` },
+  ],
+  oroboros: [
+    { title: "The Last Dusk Leviathan", spoilerVersion: null, body:
+`Oroboros is among the oldest Aeons, as ancient as Qlipoth: the last of the Dusk Leviathans, a species the IPC claims vanished when Qlipoth ascended, and the only known Aeon to have ascended from one. THEY are remembered as a vast, fanged, tentacled neck of writhing flesh with many forms, and as a voice beautiful enough to lure victims in.` },
+    { title: "Devourer of the Swarm", spoilerVersion: null, body:
+`At the height of the Swarm Disaster, Oroboros devoured countless heirs of Tayzzyronth along with whole galaxies; Fuli preserved the crystallized memories of the civilizations THEY consumed. In the war's final phase Oroboros vanished — together with Ena, who had been watching THEM unseen. Herta suspects Ena made a secret deal with Qlipoth over Oroboros.` },
+    { title: "The Stolen Aftertaste", spoilerVersion: null, body:
+`At some point Aha stole the concept of "Aftertaste" from the Path of Voracity. Every creation of Voracity lost its sense of taste — which is why beings like the Void Song Whales became biological black holes, consuming without discrimination.` },
+    { title: "Sealed Beneath Planarcadia", spoilerVersion: "4.2", body:
+`Oroboros's body was scattered across many worlds, and remains of the Voracity lie sealed beneath Planarcadia, held down by the Phantasmoon Games — the prize the IPC is suspected of seeking there. When the husk stirs, keeping it asleep becomes the whole world's problem, and restarting the Games to hunt it becomes the plan.` },
   ],
   idrila: [
     { title: "The Beauty", spoilerVersion: null, body:

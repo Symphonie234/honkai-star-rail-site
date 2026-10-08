@@ -2,7 +2,8 @@
  * Game art lives in public/art, downloaded and converted to WebP by
  * `npm run art:fetch` (scripts/fetch-art.ts). Art © HoYoverse.
  *  - Characters and Path icons: StarRailRes (github.com/Mar-7th/StarRailRes)
- *  - World renders: the Honkai: Star Rail Wiki on Fandom (in-game star chart art)
+ *  - Light Cones: StarRailRes
+ *  - World renders, Eidolon art: the Honkai: Star Rail Wiki on Fandom (in-game art)
  */
 export const ART_DIR = "art";
 
@@ -36,3 +37,19 @@ export const gameIcon = (iconPath: string) => `/${ART_DIR}/game/${iconPath.repla
 
 /** Official Aeon art (or, for Aeons never depicted, their Path emblem). */
 export const aeonImage = (slug: string) => `/${ART_DIR}/aeons/${slug}.webp`;
+
+export type LightConeArtKind = "portrait" | "preview" | "icon";
+
+const lightConeArt = (kind: LightConeArtKind) => (gameId: string) => `/${ART_DIR}/light-cones/${kind}/${gameId}.webp`;
+
+/** 904×1260 framed card art. Used on Light Cone pages. */
+export const lightConePortrait = lightConeArt("portrait");
+
+/** 348×408 card art without the frame. Used in lists and on character pages. */
+export const lightConePreview = lightConeArt("preview");
+
+/** 128×128 icon. */
+export const lightConeIcon = lightConeArt("icon");
+
+/** An Eidolon's card art (in-game, irregular shape on a transparent background), by character game ID and rank. */
+export const eidolonArt = (gameId: string, rank: number) => `/${ART_DIR}/eidolons/${gameId}-${rank}.webp`;

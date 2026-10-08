@@ -1,5 +1,5 @@
 /*
- * Every playable character through Version 3.8, the end of the Amphoreus (3.x) era.
+ * Every playable character through Version 4.6 (Planarcadia, the 4.x era).
  *
  * Facts (game ID, rarity, element, Path, release version and date, signature Light
  * Cone, English voice actor) were taken from the Honkai: Star Rail Wiki. Affiliations
@@ -443,4 +443,76 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "3.8", releaseDate: "2025-12-17", spoilerVersion: null,
     lightCone: "Never Forget Her Flame", voiceEn: "Cristina Vee",
     bio: "A captivating woman of fire who calls herself Constance — and whose memories are, in her own words, quite thorny." },
+  // 4.0
+  { slug: "yao-guang", name: "Yao Guang", art: "1502", rarity: 5,
+    elementSlug: "physical", pathSlug: "elation", factionSlug: "xianzhou-alliance", worldSlug: "planarcadia",
+    releaseVersion: "4.0", releaseDate: "2026-02-13", spoilerVersion: null,
+    lightCone: "When She Decided to See", voiceEn: "Ari Thrash",
+    bio: "General Yao Guang, Seer Strategist of the Xianzhou Yuque — \"Madam Yao\" to everyone — who could divine how any meeting will go, but would rather find out in person." },
+  { slug: "sparxie", name: "Sparxie", art: "1501", rarity: 5,
+    elementSlug: "fire", pathSlug: "elation", factionSlug: "masked-fools", worldSlug: "planarcadia",
+    releaseVersion: "4.0", releaseDate: "2026-03-03", spoilerVersion: null,
+    lightCone: "Dazzled by a Flowery World", voiceEn: "Lizzie Freeman",
+    bio: "Planarcadia's self-proclaimed \"real Sparkle\" and Queen of Arcadia, a streamer whose every broadcast promises a day overflowing with dopamine." },
+  // 4.1
+  { slug: "ashveil", name: "Ashveil", art: "1504", rarity: 5,
+    elementSlug: "lightning", pathSlug: "hunt", factionSlug: "galaxy-rangers", worldSlug: "planarcadia",
+    releaseVersion: "4.1", releaseDate: "2026-03-25", spoilerVersion: null,
+    lightCone: "The Finale of a Lie", voiceEn: "Blythe Melin",
+    bio: "Ace of the Ashen Detective Agency, who takes any case going — lost pets, stand-in parents at school nights, interstellar fugitives, the whereabouts of an Aeon." },
+  // 4.2
+  { slug: "silver-wolf-lv-999", name: "Silver Wolf LV.999", art: "1506", rarity: 5,
+    elementSlug: "imaginary", pathSlug: "elation", factionSlug: "stellaron-hunters", worldSlug: "planarcadia",
+    releaseVersion: "4.2", releaseDate: "2026-04-22", spoilerVersion: null,
+    lightCone: "Welcome to the Cosmic City", voiceEn: "Melissa Fahn",
+    bio: "Silver Wolf in her \"final form\": the Godmode Player, Last Emperor of the Dark Zone, offering to carry you through any raid with one button." },
+  { slug: "trailblazer-elation", name: "Trailblazer (Elation)", art: [{ label: "Stelle", gameId: "8010" }, { label: "Caelus", gameId: "8009" }], rarity: 5,
+    elementSlug: "lightning", pathSlug: "elation", factionSlug: "astral-express", worldSlug: "planarcadia",
+    releaseVersion: "4.2", releaseDate: "2026-04-22", spoilerVersion: null,
+    lightCone: null, voiceEn: null,
+    bio: "The Trailblazer on the Path of Elation, trading punchlines with the masses of Planarcadia." },
+  { slug: "evanescia", name: "Evanescia", art: "1505", rarity: 5,
+    elementSlug: "physical", pathSlug: "elation", factionSlug: null, worldSlug: "planarcadia",
+    releaseVersion: "4.2", releaseDate: "2026-05-13", spoilerVersion: null,
+    lightCone: "Until the Flowers Bloom Again", voiceEn: "Nathalie Ferare",
+    bio: "The Swordsinger of Planarcadia, an imagenae who keeps the Phantasmoon Games running smoothly — and who finds sharing the stage with you rather appealing." },
+  // 4.3
+  { slug: "mortenax-blade", name: "Mortenax Blade", art: "1507", rarity: 5,
+    elementSlug: "fire", pathSlug: "nihility", factionSlug: "stellaron-hunters", worldSlug: "planarcadia",
+    releaseVersion: "4.3", releaseDate: "2026-06-01", spoilerVersion: null,
+    lightCone: "Reforged in Hellfire", voiceEn: "Daman Mills",
+    bio: "Blade, tempered anew: the same Stellaron Hunter, sharper for everything time has put him through." },
+  // 4.4
+  { slug: "himeko-nova", name: "Himeko • Nova", art: "1510", rarity: 5,
+    elementSlug: "fire", pathSlug: "erudition", factionSlug: "astral-express", worldSlug: "planarcadia",
+    releaseVersion: "4.4", releaseDate: "2026-07-15", spoilerVersion: null,
+    lightCone: "A Star That Lights the Night", voiceEn: "Cia Court",
+    bio: "Himeko as the Star-Chasing Navigator — the Express's navigator and its family, always looking toward the same horizon as her crew." },
+  { slug: "rin-tohsaka", name: "Rin Tohsaka", art: "1508", rarity: 5,
+    elementSlug: "quantum", pathSlug: "erudition", factionSlug: null, worldSlug: null,
+    releaseVersion: "4.4", releaseDate: "2026-07-24", spoilerVersion: null,
+    lightCone: "Flickering Stars", voiceEn: null,
+    bio: "A gifted mage and head of the Tohsaka family, crossing planes in the Fate/stay night [Unlimited Blade Works] collaboration — with a contract to make." },
+  { slug: "gilgamesh", name: "Gilgamesh", art: "1509", rarity: 5,
+    elementSlug: "lightning", pathSlug: "destruction", factionSlug: null, worldSlug: null,
+    releaseVersion: "4.4", releaseDate: "2026-07-24", spoilerVersion: null,
+    lightCone: "I Am As You Behold", voiceEn: null,
+    bio: "The King of Heroes, a Heroic Spirit from the Fate/stay night [Unlimited Blade Works] collaboration, who counts the Stellaron among the treasures he means to keep." },
+  // 4.5
+  { slug: "robin-summeretto", name: "Robin • Summeretto", art: "1512", rarity: 5,
+    elementSlug: "wind", pathSlug: "remembrance", factionSlug: "the-family", worldSlug: "astropolis",
+    releaseVersion: "4.5", releaseDate: "2026-08-26", spoilerVersion: null,
+    lightCone: "Rise and Sing", voiceEn: "Alice Himora",
+    bio: "Robin on a summer break in Astropolis, strolling the beaches for the sound of sea conchs and the inspiration for a new song." },
+  { slug: "aventurine-waveflair", name: "Aventurine • Waveflair", art: "1513", rarity: 5,
+    elementSlug: "quantum", pathSlug: "elation", factionSlug: "ipc", worldSlug: "astropolis",
+    releaseVersion: "4.5", releaseDate: "2026-09-12", spoilerVersion: null,
+    lightCone: "Summer Rides the Surf", voiceEn: "Camden Sutkowski",
+    bio: "Aventurine, freshly promoted to P46 and finally on vacation, promising an unforgettable getaway to anyone who joins him." },
+  // 4.6
+  { slug: "pearl", name: "Pearl", art: "1503", rarity: 5,
+    elementSlug: "ice", pathSlug: "elation", factionSlug: "ipc", worldSlug: "planarcadia",
+    releaseVersion: "4.6", releaseDate: "2026-09-28", spoilerVersion: null,
+    lightCone: "Colors for Tomorrow", voiceEn: "Cat Protano",
+    bio: "The Stoneheart of Appraisal: an artwork investment specialist of the IPC's Strategic Investment Department, and Planarcadia's CEO." },
 ];

@@ -12,10 +12,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: `${SITE_NAME} — ${SITE_TAGLINE}`, template: `%s · ${SITE_NAME}` },
   description:
-    "A fan-made, spoiler-aware Honkai: Star Rail archive: every playable character through the Amphoreus era, " +
-    "the Aeons and their lore, the worlds of the Trailblaze, and a version-by-version timeline.",
+    "A fan-made, spoiler-aware Honkai: Star Rail archive: every playable character and Light Cone through Version 4.6, " +
+    "full kits and Eidolons, the Aeons and their lore, the worlds of the Trailblaze, and a version-by-version timeline.",
   applicationName: SITE_NAME,
-  keywords: ["Honkai: Star Rail", "HSR", "characters", "Aeons", "Paths", "lore", "Amphoreus", "Penacony", "Trailblaze"],
+  keywords: ["Honkai: Star Rail", "HSR", "characters", "Light Cones", "Eidolons", "Aeons", "Paths", "lore", "Planarcadia", "Amphoreus", "Penacony", "Trailblaze"],
   openGraph: { type: "website", siteName: SITE_NAME, locale: "en_US" },
   twitter: { card: "summary_large_image" },
 };

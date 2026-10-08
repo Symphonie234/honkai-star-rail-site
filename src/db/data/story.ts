@@ -1,5 +1,5 @@
 /*
- * The main story, chapter by chapter, through Version 3.8 — one entry per story
+ * The main story, chapter by chapter, through Version 4.6 — one entry per story
  * arc, filed under the world where it happens.
  *
  * Written in our own words from the Trailblaze Mission summaries (as catalogued by
@@ -151,6 +151,48 @@ The Trailblazer escapes Evernight's tide of memories with help from Sunday and C
 `To complete the final trial, the Trailblazer sleeps for a millennium and wakes as the Worldbearing Titan, while forces from across the cosmos rally under the Express against Irontomb, the Lord Ravager. Herta convenes the Genius Society and resolves to break Irontomb's seal.
 
 In the Ruins of Time, alongside the former Chrysos Heirs — now Titans — the Trailblazer releases Khaslana's obsession and faces Irontomb. Herta completes her "coronation", Cyrene shelters the memories of all cosmic life, and the Trailblazer truly walks the Path of Remembrance to extinguish the flame of Destruction. Afterward, Cyrene steps into the past to make sure Amphoreus's story closes its loop — the journey's beginning was also its end.` },
+  ],
+  planarcadia: [
+    { title: "One Minute of Godhood", version: "4.0", spoilerVersion: null, body:
+`Having turned down Jade's offer of an alliance, the Astral Express accepts her other proposal and sets course to resupply at Planarcadia — Himeko's homeland, a world of entertainment restored from a painted scroll. They arrive under a full Phantasmoon, just as the Phantasmoon Games are about to begin.
+
+The rules are simple and outrageous: eight Supplicants, each chosen by a Mask of Elation, compete to gather Wishpower from the masses. The victor wins an audience with Aha, the Aeon of Elation — and one minute of THEIR authority. Himeko leaves it to the Trailblazer to decide whether, and how, to join in.` },
+    { title: "Welcome to Arcadia", version: "4.0", spoilerVersion: "4.0", body:
+`Sparkle, disguised as a tour guide, shows the crew around — and the first rival appears at once: Sparxie, a streamer and self-styled "real Sparkle" who turns her fans against the Express. Himeko and Welt meet Pearl, the IPC's CEO of Planarcadia, to decline the alliance while offering cooperation; Pearl, holding three Masks herself, means to steer the Games with the IPC's resources.
+
+Sent to Graphia Academy to recover the Graphia family's heirloom Mask, the Trailblazer is trapped in a false school life by Sparxie's "Cognition Modification" and finds she has already swindled the Mask. Evanescia, arbiter of the Games, pulls them out and lends them her power — and a raccoon mask. Elsewhere, Yao Guang foresees through the Eye of Īśvara that "an Arbiter General will fall" here, and makes Sunday a Supplicant to carve out some hope; Silver Wolf hires the detective Ashveil to find a stolen mask.
+
+At the "World's End" Tavern the crew learn that purging Sparxie would mean "cremating Sparkle". Instead, armed with a memetic weapon bestowed by Aha, they restore the Graphia Academy students and defeat Sparxie. Then a brutal murder at the Synwish Syndicate, in the style of the "Herald of Death", draws Ashveil into the Games to keep order — and with Silver Wolf's bargain for a mask, all eight Supplicants are chosen.` },
+    { title: "Unraveled for Daybreak", version: "4.1", spoilerVersion: "4.1", body:
+`Himeko's father Ryusuke tours the Express, relieved she has overcome the "Weathering Curse". Pearl reveals herself as a Supplicant and proposes a Star Rail expo, while Ashveil and Kuchiba trace the Dovebrook massacre to the Research Society of Happy Smiles, its founder Fulwish, and a "Happiness Surgery". Blade warns Dan Heng that other powers of the Abundance are at work on Planarcadia.
+
+At the Star Rail FEST, Fulwish TV twists the Trailblazer's interview into public outrage, and the Daybreak Squadron — local heroes in the Alloy King Pom-Pom — attack atop the tower. Everyone falls into the unknown. Ashveil executes three Daybreak Warriors in retribution for Dovebrook, only for it to emerge that they were Supplicants already converted by the Abundance. Pearl suspects Fulwish has a powerful backer, and the Phantasmoon raises the stakes: the winner will now become a true, permanent Aeon of Elation.` },
+    { title: "So Laughed the Masses", version: "4.2", spoilerVersion: "4.2", body:
+`With Fulwish stirring the public against the Express, Himeko searches Graphia Academy's sealed archives. Fulwish declares herself a survivor of the earlier "Bloodstained Games" and enters the contest. Evanescia and Yao Guang find all of Seafeld City under the Abundance; Blade reveals the surgery's cells come from Shuhu, an Emanator of the Abundance, dismembered and parasitizing its recipients. A "Joy Ascendant" outbreak sweeps the city, and Silver Wolf traces a signal — "Unhappiness is a sin" — to a fake Pearl and the shadowy "Mr. Meanie".
+
+When Fulwish dons a mask to bring down the Games, the Trailblazer gathers the people's Wishpower through the Stellaron, recasts a mask, and defeats her as a Supplicant. Blade draws every Shuhu cell on the planet into himself; tuned by Sunday and compressed by Silver Wolf, Shuhu's giant tree is sealed in Blade's body, held together by the Shard Sword. Evanescia, spent from healing the victims, warns before her hibernation that the Lord Ravager Asat Pramad has returned — and Kuchiba claims what Pearl and the IPC really seek is the remains of Oroboros the Voracity, sealed beneath Planarcadia.` },
+    { title: "The Lethe Below the Living", version: "4.3", spoilerVersion: "4.3", body:
+`With a Lord Ravager's shadow over the world and the Voracity's husk restless, the Trailblazer sets out for the World in Canvas, sent off with a party in the Express's Party Car. Yao Guang raises her Deca-Light Reflection Barrier to watch for Asat Pramad. Ashveil uncovers ties between the Masked Fool "Enroute", the Navigator "Isee" and Asat Pramad — and is swept away by an unknown force.
+
+Guided by the overdue artist Nihilux to the Inkford Hermitage, the Trailblazer summons Graphia and rides her ferry into the canvas with Blade and Silver Wolf, where Blade leaps into the maw of Voracity and imprisons Shuhu inside himself, forging his own rebirth. Meanwhile Himeko presses Ryusuke about the Bloodstained Games fifteen years ago, and exposes him: "Ryusuke" was Asat Pramad in disguise. Casting off all pretense, he appears across Planarcadia at once and vows to bring its overdue Destruction.` },
+    { title: "In Ravages Does the Whistle Sound", version: "4.4", spoilerVersion: "4.4", body:
+`Asat Pramad enters the Phantasmoon Games as a Supplicant, turning Planarcadia into an apocalyptic wasteland as his "miracle", and carries Himeko off into the World in Canvas. Her last request: ignite the Express's engine and win the Games. Imagenae driven mad by the Demonic Moon fill the streets, and at Perdido Station the crew find the Express buried in ruins.
+
+Inside the painting, Himeko's past unfolds: struck by the Weathering Curse, she found the stranded Express and restored it, with "Motoko" — an imagenated, grown-up version of herself — as her assistant, before flying it into the stars after the Bloodstained Games. Decoding her message, the crew learn that Asat Pramad manipulates possibility itself. Yao Guang anchors his true form by observation and falls between existence and non-existence. In the final struggle Himeko tries to sacrifice herself; the Stellaron answers the Trailblazer's wish to keep the Trailblaze going, sends them back before the point of no return, and together the crew defeat Asat Pramad. Deep underground, the Voracity's husk begins to wake.` },
+    { title: "Imagenae: Holy Grail War", version: "4.4", spoilerVersion: "4.4", body:
+`A Trailblaze Continuance from the Fate/stay night [Unlimited Blade Works] collaboration. Chasing a stolen Holy Grail, the Trailblazer ends up bound by contract to Rin Tohsaka, a mage travelling between planes, and drawn into an Imagenae Holy Grail War. Gilgamesh, King of Heroes, joins them (insisting it is the "Uruk Cultural Heritage Foundation").
+
+The true mastermind turns out to be the goddess Ishtar, hiding in Rin's earring. Rin seizes every contract and Command Spell to raise an army even a goddess must respect; the goddess is defeated and reconciled, and before Rin leaves for the next plane she summons all seven Master-Servant pairs once more so everyone can make a wish.` },
+  ],
+  astropolis: [
+    { title: "To Roll the Stars in Astropolis", version: "4.5", spoilerVersion: "4.5", body:
+`Asat Pramad gives himself to sate the Voracity's husk, but its awakening is inevitable and Planarcadia teeters. Himeko names the Trailblazer Navigator, and the Express carries refugees to Astropolis — the IPC's City of Converging Stars — to shelter under the Preservation.
+
+There, the six IPC department heads deadlock over Planarcadia's fate, leaving the deciding vote to Arita of the Traditional Project Department. Turned away, the Trailblazer breaks the news of the husk's awakening to the whole city, fights out of a stalling "Pan-Cosmic Trade Summit" at Lodestar Tower, and threatens to roll Asat Pramad's Die to win a face-to-face meeting. The proposal: restart the Phantasmoon Games and use Elation's authority to suppress the husk. Guided by Louis Fleming, Arita votes for the plan and Planarcadia is saved — and Nihilux confesses who she truly is: Aha, the Aeon of Elation.` },
+    { title: "Dance With the Beast Before Moonrise", version: "4.6", spoilerVersion: "4.6", body:
+`Before the Games restart, Nihilux briefs the Fools and Actors on a performance meant to hunt the Voracity, and needs bait. At Yabuli's Life Sciences Institute, the Trailblazer finds leviathan flesh and blood on the imagenae production line, while Ashveil and Kuchiba, sent by Pearl, learn that Yabuli's hunger for leviathan wisdom lies behind the Herald of Death murders.
+
+Overdosed on Leviathan Essence, Yabuli becomes a frenzied beast and is defeated, and Kuchiba uses the Voracity's shadow to devour the remaining Essence. As Astropolis's Wishpower loop collapses, Lighthouse — who learned through the Die that he was once the Herald of Death — gives up all his Wishpower to keep the city's imagenae alive. With Asat Pramad's Die as the bait instead, Pearl charts a route back to the Phantasmoon Courtyard, and Nihilux summons a gondola to the grandest Phantasmoon Games in the arcadia's history.` },
   ],
 };
 

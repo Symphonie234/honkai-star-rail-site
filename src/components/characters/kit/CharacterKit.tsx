@@ -1,8 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
-import { gameIcon } from "@/lib/images";
+import { eidolonArt, gameIcon, lightConePreview, pathIcon } from "@/lib/images";
 import { formatBonus, type Kit, type KitSkill, type Material } from "@/lib/kit";
+import type { LightCone } from "@/lib/light-cone";
+import { LightConePassive } from "../../light-cones/LightConePassive";
+import { Stars } from "../CharacterCard";
 import { KitDescription } from "./KitDescription";
+import { MaterialGroup } from "./MaterialTiles";
 import { SkillCard } from "./SkillCard";
 
 const SECTIONS = [
@@ -10,6 +15,7 @@ const SECTIONS = [
   { id: "memosprite", label: "Memosprite" },
   { id: "traces", label: "Traces" },
   { id: "eidolons", label: "Eidolons" },
+  { id: "light-cone", label: "Light Cone" },
   { id: "stats", label: "Stats & materials" },
 ] as const;
 
@@ -20,10 +26,20 @@ const ROMAN = ["", "I", "II", "III", "IV", "V", "VI"];
  * A character's full kit — skills, memosprite, Traces, Eidolons, stats and upgrade
  * materials — from imported game data (current game values).
  */
-export function CharacterKit({ name, kit, materials }: { name: string; kit: Kit; materials: Map<string, Material> }) {
+export function CharacterKit({
+  name, kit, materials, lightCone,
+}: {
+  name: string;
+  kit: Kit;
+  materials: Map<string, Material>;
+  /** The character's signature Light Cone, if any. */
+  lightCone?: LightCone | null;
+}) {
   const skills = kit.skills.filter((s) => !isMemosprite(s));
   const memosprite = kit.skills.filter(isMemosprite);
-  const sections = SECTIONS.filter((s) => s.id !== "memosprite" || memosprite.length > 0);
+  const sections = SECTIONS.filter(
+    (s) => (s.id !== "memosprite" || memosprite.length > 0) && (s.id !== "light-cone" || lightCone),
+  );
   const max = kit.stats.at(-1)!;
 
   return (
@@ -90,24 +106,68 @@ export function CharacterKit({ name, kit, materials }: { name: string; kit: Kit;
       </KitSection>
 
       <KitSection id="eidolons" title="Eidolons">
-        <ol className="grid gap-4 md:grid-cols-2">
+        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {kit.eidolons.map((e) => (
-            <li key={e.rank} className="glass flex gap-4 rounded-2xl p-5">
-              <span className="relative grid size-14 shrink-0 place-items-center rounded-full border border-violet/50 bg-space">
-                <Image src={gameIcon(e.icon)} alt="" width={40} height={40} className="rounded-full" />
-                <span className="absolute -right-1 -bottom-1 grid size-6 place-items-center rounded-full bg-violet text-[0.65rem] font-bold text-space">
-                  E{e.rank}
+            <li key={e.rank} className="glass flex flex-col overflow-hidden rounded-2xl">
+              {/* The Eidolon's card art from the game, on a glow in the character's color. */}
+              {e.art && (
+                <div className="relative aspect-[4/3] bg-[radial-gradient(circle_at_50%_45%,color-mix(in_srgb,var(--c)_28%,transparent),transparent_70%)]">
+                  <Image
+                    src={eidolonArt(kit.gameId, e.rank)}
+                    alt={`${name}'s Eidolon ${e.rank}: ${e.name}`}
+                    fill
+                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 90vw"
+                    className="object-contain p-3 drop-shadow-[0_10px_24px_rgb(0_0_0/0.5)]"
+                  />
+                </div>
+              )}
+              <div className="flex flex-1 gap-4 p-5">
+                <span className="relative grid size-12 shrink-0 place-items-center rounded-full border border-violet/50 bg-space">
+                  <Image src={gameIcon(e.icon)} alt="" width={34} height={34} className="rounded-full" />
+                  <span className="absolute -right-1 -bottom-1 grid size-6 place-items-center rounded-full bg-violet text-[0.65rem] font-bold text-space">
+                    E{e.rank}
+                  </span>
                 </span>
-              </span>
-              <div className="min-w-0">
-                <p className="text-xs font-semibold tracking-widest text-violet uppercase">Eidolon {ROMAN[e.rank]}</p>
-                <h4 className="font-display text-lg leading-tight font-bold">{e.name}</h4>
-                <KitDescription desc={e.desc} className="mt-2 text-sm" />
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold tracking-widest text-violet uppercase">Eidolon {ROMAN[e.rank]}</p>
+                  <h4 className="font-display text-lg leading-tight font-bold">{e.name}</h4>
+                  <KitDescription desc={e.desc} className="mt-2 text-sm" />
+                </div>
               </div>
             </li>
           ))}
         </ol>
       </KitSection>
+
+      {lightCone && (
+        <KitSection id="light-cone" title="Signature Light Cone">
+          <div className="glass grid gap-6 rounded-2xl p-5 sm:grid-cols-[180px_1fr] sm:p-6">
+            <Link href={`/light-cones/${lightCone.slug}`} className="group mx-auto block w-40 sm:w-full">
+              <Image
+                src={lightConePreview(lightCone.id)}
+                alt={lightCone.name}
+                width={348}
+                height={408}
+                sizes="180px"
+                className="w-full drop-shadow-[0_12px_24px_rgb(0_0_0/0.5)] transition duration-300 ease-out-expo group-hover:-translate-y-1"
+              />
+            </Link>
+            <div className="min-w-0">
+              <p className="flex items-center gap-2 text-sm">
+                <Stars rarity={lightCone.rarity} />
+                <Image src={pathIcon(lightCone.pathSlug)} alt="" width={18} height={18} />
+              </p>
+              <h3 className="mt-1 font-display text-2xl font-bold">
+                <Link href={`/light-cones/${lightCone.slug}`} className="hover:text-gold">{lightCone.name}</Link>
+              </h3>
+              <LightConePassive skill={lightCone.skill} desc={lightCone.desc} params={lightCone.params} heading="h4" className="mt-4" />
+              <Link href={`/light-cones/${lightCone.slug}`} className="mt-4 inline-block text-sm font-semibold text-gold hover:text-gold-strong">
+                Stats, materials and story →
+              </Link>
+            </div>
+          </div>
+        </KitSection>
+      )}
 
       <KitSection id="stats" title="Stats & materials">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
@@ -179,40 +239,6 @@ function StatPill({ label, value }: { label: string; value: string | number }) {
     <div className="glass rounded-xl px-3 py-2">
       <dt className="text-[0.65rem] tracking-widest text-muted uppercase">{label}</dt>
       <dd className="font-semibold tabular-nums">{typeof value === "number" ? Math.round(value).toLocaleString("en-US") : value}</dd>
-    </div>
-  );
-}
-
-/** Rarity backgrounds in the game's own order: gray, green, blue, purple, gold. */
-const RARITY_BG = [
-  "",
-  "from-[#5b5f6b] to-[#2e3140]",
-  "from-[#3f7a5c] to-[#1f3b2e]",
-  "from-[#3d6fb0] to-[#1d3358]",
-  "from-[#7b55c7] to-[#3a2763]",
-  "from-[#c99a45] to-[#6b4e1d]",
-];
-
-function MaterialGroup({ title, items, materials }: { title: string; items: { id: string; num: number }[]; materials: Map<string, Material> }) {
-  return (
-    <div>
-      <h4 className="text-xs font-semibold tracking-widest text-muted uppercase">{title}</h4>
-      <ul className="mt-3 grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-2">
-        {items.map(({ id, num }) => {
-          const m = materials.get(id);
-          if (!m) return null;
-          return (
-            <li key={id} title={m.sources.length ? `${m.name}\nFrom: ${m.sources.join(", ")}` : m.name}
-              className="glass flex flex-col items-center overflow-hidden rounded-xl text-center">
-              <span className={`grid w-full place-items-center bg-gradient-to-b py-2 ${RARITY_BG[m.rarity] ?? RARITY_BG[1]}`}>
-                <Image src={gameIcon(m.icon)} alt="" width={48} height={48} />
-              </span>
-              <span className="w-full px-1 pt-1 text-sm font-semibold tabular-nums">{num.toLocaleString("en-US")}</span>
-              <span className="line-clamp-2 w-full px-1.5 pb-2 text-[0.7rem] leading-tight text-muted">{m.name}</span>
-            </li>
-          );
-        })}
-      </ul>
     </div>
   );
 }

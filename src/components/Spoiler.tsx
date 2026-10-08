@@ -48,3 +48,9 @@ export function Spoiler({ version, block = false, children }: { version: string;
   );
 }
 
+
+/** A label (e.g. a link's text) that names a spoiler only once the reader's progress covers it — plain text, no reveal button. */
+export function SpoilerLabel({ version, children }: { version: string; children: ReactNode }) {
+  const progress = useStoryProgress();
+  return isRevealed(version, progress) ? <>{children}</> : <span className="italic">v{version} spoiler</span>;
+}

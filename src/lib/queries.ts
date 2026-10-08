@@ -2,7 +2,7 @@ import { asc, desc, eq } from "drizzle-orm";
 import { cache } from "react";
 import { db } from "@/db";
 import {
-  aeonLore, aeons, characterKits, characters, elements, factions, glossaryTerms, materials, paths, versions, worldChapters, worlds,
+  aeonLore, aeons, characterKits, characters, elements, factions, glossaryTerms, lightCones, materials, paths, versions, worldChapters, worlds,
 } from "@/db/schema";
 
 const withRefs = { element: true, path: true, faction: true, world: true, version: true } as const;
@@ -27,6 +27,23 @@ export const getCharacterKit = cache(async (slug: string) => {
 export const getMaterials = cache(async () => {
   const rows = await db.select().from(materials);
   return new Map(rows.map((m) => [m.id, m]));
+});
+
+/** Every Light Cone, with its Path (rarest first, then by name). */
+export const getLightCones = cache(() =>
+  db.query.lightCones.findMany({ with: { path: true }, orderBy: [desc(lightCones.rarity), asc(lightCones.name)] }),
+);
+
+export type LightConeWithPath = Awaited<ReturnType<typeof getLightCones>>[number];
+
+export const getLightCone = cache((slug: string) =>
+  db.query.lightCones.findFirst({ where: eq(lightCones.slug, slug), with: { path: true } }),
+);
+
+/** A character's signature Light Cone, by its name as stored on the character. */
+export const getLightConeByName = cache(async (name: string) => {
+  const row = await db.query.lightCones.findFirst({ where: eq(lightCones.name, name) });
+  return row?.data ?? null;
 });
 
 export const getElements = cache(() => db.query.elements.findMany({ orderBy: asc(elements.sortOrder) }));

@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { CharacterCard } from "@/components/characters/CharacterCard";
 import { LoreText } from "@/components/glossary/LoreText";
 import { JsonLd } from "@/components/JsonLd";
-import { Spoiler } from "@/components/Spoiler";
+import { Spoiler, SpoilerLabel } from "@/components/Spoiler";
 import { AsOf, NotYet } from "@/components/spoilers/AsOf";
 import { pathIcon } from "@/lib/images";
 import { getAeon, getAeons, getPathCharacters } from "@/lib/queries";
@@ -111,7 +111,10 @@ export default async function AeonPage({ params }: PageProps<"/aeons/[slug]">) {
                 {a.lore.map((s) => (
                   <AsOf key={s.slug} version={s.version}>
                     <li>
-                      <a href={`#${anchor(s.title)}`} className="text-muted transition-colors hover:text-gold">{s.title}</a>
+                      <a href={`#${anchor(s.title)}`} className="text-muted transition-colors hover:text-gold">
+                        {/* A spoiler section's title can give the reveal away too. */}
+                        {s.spoilerVersion ? <SpoilerLabel version={s.spoilerVersion}>{s.title}</SpoilerLabel> : s.title}
+                      </a>
                     </li>
                   </AsOf>
                 ))}

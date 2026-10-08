@@ -11,7 +11,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { Spoiler } from "@/components/Spoiler";
 import { AsOf, NotYet } from "@/components/spoilers/AsOf";
 import { characterPreview, pathIcon } from "@/lib/images";
-import { getAeons, getCharacter, getCharacterKit, getCharacters, getMaterials } from "@/lib/queries";
+import { getAeons, getCharacter, getCharacterKit, getCharacters, getLightConeByName, getMaterials } from "@/lib/queries";
 import { breadcrumbs } from "@/lib/site";
 import { colorVar } from "@/lib/theme";
 
@@ -42,7 +42,9 @@ export default async function CharacterPage({ params }: PageProps<"/characters/[
   const c = await getCharacter((await params).slug);
   if (!c) notFound();
 
-  const [all, aeons, kit, materials] = await Promise.all([getCharacters(), getAeons(), getCharacterKit(c.slug), getMaterials()]);
+  const [all, aeons, kit, materials, lightCone] = await Promise.all([
+    getCharacters(), getAeons(), getCharacterKit(c.slug), getMaterials(), c.lightCone ? getLightConeByName(c.lightCone) : null,
+  ]);
   const pathmates = all.filter((o) => o.pathSlug === c.pathSlug && o.slug !== c.slug);
   const aeon = aeons.find((a) => a.pathSlug === c.pathSlug);
   const faction = c.faction?.name ?? "Unaffiliated";
@@ -87,7 +89,11 @@ export default async function CharacterPage({ params }: PageProps<"/characters/[
                   {c.version.title} · <time dateTime={c.releaseDate}>{formatDate(c.releaseDate)}</time>
                 </span>
               </Fact>
-              <Fact label="Signature Light Cone">{c.lightCone ?? <span className="text-muted">None</span>}</Fact>
+              <Fact label="Signature Light Cone">
+                {lightCone ? (
+                  <Link href={`/light-cones/${lightCone.slug}`} className="text-gold hover:text-gold-strong">{lightCone.name}</Link>
+                ) : (c.lightCone ?? <span className="text-muted">None</span>)}
+              </Fact>
               <Fact label="English voice">{c.voiceEn ?? <span className="text-muted">—</span>}</Fact>
             </dl>
           </div>
@@ -121,7 +127,7 @@ export default async function CharacterPage({ params }: PageProps<"/characters/[
           </div>
         </section>
 
-        {kit && <CharacterKit name={c.name} kit={kit} materials={materials} />}
+        {kit && <CharacterKit name={c.name} kit={kit} materials={materials} lightCone={lightCone} />}
 
         {pathmates.length > 0 && (
           <section className="mt-16" aria-labelledby="pathmates">

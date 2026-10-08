@@ -6,10 +6,10 @@ import type { PgColumn, PgTable, PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { aeonImage } from "../lib/images";
 import { db } from "./index";
 import {
-  aeonLore, aeons, characterKits, characters, elements, factions, glossaryTerms, materials, paths, versions, worldChapters, worlds,
+  aeonLore, aeons, characterKits, characters, elements, factions, glossaryTerms, lightCones, materials, paths, versions, worldChapters, worlds,
 } from "./schema";
 import {
-  AEON_LORE, AEONS, artOf, CHARACTERS, ELEMENTS, FACTIONS, GLOSSARY, KITS, MATERIALS, PATHS, VERSIONS, WORLD_CHAPTERS, WORLDS,
+  AEON_LORE, AEONS, artOf, CHARACTERS, ELEMENTS, FACTIONS, GLOSSARY, KITS, LIGHT_CONES, MATERIALS, PATHS, VERSIONS, WORLD_CHAPTERS, WORLDS,
 } from "./seed-data";
 
 const toSnake = (s: string) => s.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
@@ -47,9 +47,14 @@ async function main() {
   await upsert(materials, materials.id, MATERIALS);
   const kitRows = Object.entries(KITS).map(([characterSlug, kit]) => ({ characterSlug, kit }));
   await upsert(characterKits, characterKits.characterSlug, kitRows);
+  const coneRows = LIGHT_CONES.map((lc) => ({
+    slug: lc.slug, gameId: lc.id, name: lc.name, rarity: lc.rarity, pathSlug: lc.pathSlug, releaseVersion: lc.releaseVersion, data: lc,
+  }));
+  await upsert(lightCones, lightCones.slug, coneRows);
 
   // Dependents first, so nothing still references a pruned row.
   await prune(characterKits, characterKits.characterSlug, kitRows.map((k) => k.characterSlug));
+  await prune(lightCones, lightCones.slug, coneRows.map((l) => l.slug));
   await prune(materials, materials.id, MATERIALS.map((m) => m.id));
   await prune(characters, characters.slug, CHARACTERS.map((c) => c.slug));
   await prune(worldChapters, worldChapters.slug, WORLD_CHAPTERS.map((c) => c.slug));
@@ -62,7 +67,8 @@ async function main() {
   console.log(
     `Seeded ${VERSIONS.length} versions, ${PATHS.length} paths, ${AEONS.length} aeons (${AEON_LORE.length} lore sections), ` +
       `${ELEMENTS.length} elements, ${WORLDS.length} worlds, ${FACTIONS.length} factions, ${CHARACTERS.length} characters, ` +
-      `${WORLD_CHAPTERS.length} chapters, ${GLOSSARY.length} glossary terms, ${kitRows.length} kits, ${MATERIALS.length} materials.`,
+      `${WORLD_CHAPTERS.length} chapters, ${GLOSSARY.length} glossary terms, ${kitRows.length} kits, ${coneRows.length} Light Cones, ` +
+      `${MATERIALS.length} materials.`,
   );
 }
 

@@ -26,6 +26,10 @@ export const R_LABEL = 490;
 export const R_FACTION = 150;
 /** The least angular space an Aeon gets, in character slots. */
 const MIN_SLOTS = 5;
+/** Aeon labels (name over concept) sit this far inside the ring, toward the center. */
+const R_AEON_LABEL = R_AEON - 58;
+/** How far a label may slide along the ring, in degrees, to clear a neighbour. */
+const MAX_LABEL_SLIDE = 14;
 
 export type NodeId = `a:${string}` | `f:${string}` | `c:${string}`;
 export type Point = { x: number; y: number; angle: number };
@@ -55,6 +59,8 @@ export function layoutWeb({ aeons, factions, characters }: AeonWebData, options:
   const edges: Edge[] = [];
   /** Alternating 0/1 within an Aeon's group: which character ring, and which label row. */
   const labelLevels = new Map<NodeId, number>();
+  /** Per Aeon, where its label sits, relative to the Aeon. */
+  const aeonLabels = new Map<string, { x: number; y: number }>();
 
   // Group characters under the Aeon of their Path.
   const aeonByPath = new Map(aeons.filter((a) => a.pathSlug).map((a) => [a.pathSlug!, a.slug]));
@@ -81,6 +87,38 @@ export function layoutWeb({ aeons, factions, characters }: AeonWebData, options:
       edges.push({ from: `a:${a.slug}`, to: id, kind: "path" });
     });
     cursor += slots[i] * step;
+  });
+
+  // Aeon labels: centered toward the middle, under each Aeon. Near the top and bottom of
+  // the ring they run side by side, so where neighbours would overlap, slide both apart
+  // along the ring (sizes measured from the rendered labels: ~15px per letter of the
+  // name, ~10px per letter of the concept; two lines, ~46px tall).
+  const labelAngle = aeons.map((a) => aeonAngle.get(a.slug)!);
+  const halfWidth = aeons.map((a) => Math.max(a.name.length * 15, a.concept.length * 10) / 2 + 4);
+  const box = (i: number) => {
+    const p = polar(R_AEON_LABEL, labelAngle[i]);
+    return { x1: p.x - halfWidth[i], x2: p.x + halfWidth[i], y1: p.y - 22, y2: p.y + 26 };
+  };
+  const overlap = (i: number, j: number) => {
+    const a = box(i), b = box(j);
+    return a.x1 < b.x2 && b.x1 < a.x2 && a.y1 < b.y2 && b.y1 < a.y2;
+  };
+  for (let round = 0; round < 200; round++) {
+    let moved = false;
+    for (let i = 0; i < aeons.length; i++) {
+      const j = (i + 1) % aeons.length; // ring order, so the last neighbours the first
+      if (i === j || !overlap(i, j)) continue;
+      const home = (k: number) => aeonAngle.get(aeons[k].slug)!;
+      if (labelAngle[i] - home(i) > -MAX_LABEL_SLIDE) labelAngle[i] -= 0.5;
+      if (labelAngle[j] - home(j) < MAX_LABEL_SLIDE) labelAngle[j] += 0.5;
+      moved = true;
+    }
+    if (!moved) break;
+  }
+  aeons.forEach((a, i) => {
+    const at = positions.get(`a:${a.slug}`)!;
+    const p = polar(R_AEON_LABEL, labelAngle[i]);
+    aeonLabels.set(a.slug, { x: round(p.x - at.x), y: round(p.y - at.y) });
   });
 
   // Factions: prefer the angle of their Aeon, else the middle of their members;
@@ -113,7 +151,7 @@ export function layoutWeb({ aeons, factions, characters }: AeonWebData, options:
     }
   }
 
-  return { positions, edges, labelLevels };
+  return { positions, edges, labelLevels, aeonLabels };
 }
 
 /** A gentle curve between two points, bowed toward the center so lines read as a web. */

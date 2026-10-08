@@ -9,7 +9,7 @@ import { getAeonWeb } from "@/lib/queries";
 export const metadata: Metadata = {
   title: "Aeons & Paths",
   description:
-    "The Aeons of Honkai: Star Rail — Nanook, Lan, Nous, Xipe, IX, Qlipoth, Yaoshi, Fuli, Aha, Akivili and more: their lore, Paths, followers and the characters who walk them.",
+    "The Aeons of Honkai: Star Rail — Nanook, Lan, Nous, Xipe, IX, Qlipoth, Yaoshi, Fuli, Aha, Akivili, Oroboros and more: their lore, Paths, followers and the characters who walk them.",
   alternates: { canonical: "/aeons" },
 };
 

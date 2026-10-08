@@ -9,11 +9,12 @@ import { getVersions } from "@/lib/queries";
 export const metadata: Metadata = {
   title: "Version Timeline — Every Update & Character Release",
   description:
-    "Every Honkai: Star Rail version from 1.0 to 3.8 — official update titles, release dates and the characters each one introduced.",
+    "Every Honkai: Star Rail version from 1.0 to 4.6 — official update titles, release dates and the characters each one introduced.",
   alternates: { canonical: "/versions" },
 };
 
 const ERAS: Record<number, { title: string; blurb: string }> = {
+  4: { title: "The Planarcadia Era", blurb: "Himeko's homeland, the Phantasmoon Games and the Path of Elation — then on to Astropolis." },
   3: { title: "The Amphoreus Era", blurb: "From Paean of Era Nova to the end of the Flame-Chase, and its epilogue." },
   2: { title: "The Penacony Era", blurb: "The Planet of Festivities, its Dreamscape — and new trouble across the Xianzhou fleet." },
   1: { title: "The Journey Begins", blurb: "Herta Space Station, Jarilo-VI and the Xianzhou Luofu." },
@@ -30,10 +31,10 @@ export default async function VersionsPage() {
     <div className="mx-auto w-[min(100%-2rem,1200px)] py-16">
       <header className="mb-12">
         <p className="eyebrow">Version timeline</p>
-        <h1 className="mt-3 font-display text-4xl font-bold sm:text-5xl">Every Update, 1.0 – 3.8</h1>
+        <h1 className="mt-3 font-display text-4xl font-bold sm:text-5xl">Every Update, 1.0 – 4.6</h1>
         <p className="mt-4 max-w-2xl text-muted">
-          Each version&apos;s official title, release date and the travelers it brought aboard — newest first, through the
-          end of the Amphoreus era.
+          Each version&apos;s official title, release date and the travelers it brought aboard — newest first, through
+          Version 4.6 on Planarcadia and Astropolis.
         </p>
       </header>
 

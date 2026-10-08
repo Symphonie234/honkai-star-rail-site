@@ -5,8 +5,8 @@ import { getCharacters, getElements, getPaths } from "@/lib/queries";
 export const metadata: Metadata = {
   title: "Character Archive — Every Playable Character",
   description:
-    "All 80 Honkai: Star Rail playable characters through Version 3.8 — filter by combat type, Path and rarity, " +
-    "and sort by release. Every Trailblazer Path and both March 7th forms included.",
+    "Every Honkai: Star Rail playable character through Version 4.6 — filter by combat type, Path and rarity, " +
+    "and sort by release. Full kits, Eidolons, every Trailblazer Path and both March 7th forms included.",
   alternates: { canonical: "/characters" },
 };
 
@@ -24,7 +24,7 @@ export default async function CharactersPage() {
       </header>
       <CharacterBrowser
         characters={characters}
-        // Only offer filters that match someone (no one walks Elation through 3.8).
+        // Only offer filters that match someone.
         elements={elements.filter((e) => characters.some((c) => c.elementSlug === e.slug)).map(({ slug, name }) => ({ slug, name }))}
         paths={paths.filter((p) => characters.some((c) => c.pathSlug === p.slug)).map(({ slug, name }) => ({ slug, name }))}
       />

@@ -4,7 +4,7 @@
  */
 
 export type SkillKind =
-  | "basic" | "skill" | "ultimate" | "talent" | "technique" | "memosprite-skill" | "memosprite-talent";
+  | "basic" | "skill" | "ultimate" | "talent" | "technique" | "elation-skill" | "assist" | "memosprite-skill" | "memosprite-talent";
 
 export type KitSkill = {
   id: string;
@@ -36,7 +36,11 @@ export type Kit = {
   majorTraces: { name: string; desc: string; params: number[]; icon: string; /** Ascension phase that unlocks it. */ unlock: number }[];
   /** Minor stat Traces, summed. */
   statBonuses: { type: string; name: string; value: number; percent: boolean; icon: string | null }[];
-  eidolons: { rank: number; name: string; desc: string; icon: string; levelUps: { skill: string; levels: number }[] }[];
+  eidolons: {
+    rank: number; name: string; desc: string; icon: string; levelUps: { skill: string; levels: number }[];
+    /** The Eidolon's full card art, as a wiki file name (null if the wiki has none). */
+    art: string | null;
+  }[];
   stats: { level: number; ascension: number; hp: number; atk: number; def: number; spd: number }[];
   critRate: number;
   critDmg: number;

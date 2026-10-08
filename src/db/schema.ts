@@ -1,6 +1,7 @@
 import { relations, sql } from "drizzle-orm";
 import { integer, jsonb, pgTable, text } from "drizzle-orm/pg-core";
 import type { Kit } from "../lib/kit";
+import type { LightCone } from "../lib/light-cone";
 
 /*
  * Slugs are primary keys: they're stable, human-readable, and double as URL segments.
@@ -143,6 +144,17 @@ export const characterKits = pgTable("character_kits", {
   kit: jsonb("kit").$type<Kit>().notNull(),
 });
 
+/** Light Cones, imported from game data. Listed columns are for querying; `data` holds the rest. */
+export const lightCones = pgTable("light_cones", {
+  slug: text("slug").primaryKey(),
+  gameId: text("game_id").notNull(),
+  name: text("name").notNull(),
+  rarity: integer("rarity").notNull(),
+  pathSlug: text("path_slug").notNull().references(() => paths.slug),
+  releaseVersion: text("release_version").references(() => versions.version),
+  data: jsonb("data").$type<LightCone>().notNull(),
+});
+
 /** Upgrade materials (ascension, Traces), imported from game data. */
 export const materials = pgTable("materials", {
   id: text("id").primaryKey(),
@@ -186,7 +198,11 @@ export const versionsRelations = relations(versions, ({ many }) => ({
   chapters: many(worldChapters),
 }));
 
-export const pathsRelations = relations(paths, ({ many }) => ({ characters: many(characters) }));
+export const pathsRelations = relations(paths, ({ many }) => ({ characters: many(characters), lightCones: many(lightCones) }));
+
+export const lightConesRelations = relations(lightCones, ({ one }) => ({
+  path: one(paths, { fields: [lightCones.pathSlug], references: [paths.slug] }),
+}));
 export const elementsRelations = relations(elements, ({ many }) => ({ characters: many(characters) }));
 export const factionsRelations = relations(factions, ({ one, many }) => ({
   characters: many(characters),
