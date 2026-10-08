@@ -21,6 +21,8 @@ export default async function Home() {
           url: SITE_URL,
           inLanguage: "en",
           about: { "@type": "VideoGame", name: "Honkai: Star Rail", publisher: { "@type": "Organization", name: "HoYoverse" } },
+          // Lets search engines offer a search box for the site.
+          potentialAction: { "@type": "SearchAction", target: `${SITE_URL}/search?q={search_term_string}`, "query-input": "required name=search_term_string" },
         }}
       />
       <section className="pt-20 pb-14 sm:pt-28">

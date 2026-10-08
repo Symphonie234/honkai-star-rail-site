@@ -51,5 +51,23 @@ export const lightConePreview = lightConeArt("preview");
 /** 128×128 icon. */
 export const lightConeIcon = lightConeArt("icon");
 
+/** In-game art of a world's area. */
+export const areaImage = (slug: string) => `/${ART_DIR}/areas/${slug}.webp`;
+
+/** An area's in-game map, per floor ("F1", "B2", "Map"). */
+export const mapImage = (areaSlug: string, floor: string) => `/${ART_DIR}/maps/${areaSlug}-${floor.toLowerCase()}.webp`;
+
+const fileSlug = (file: string) =>
+  file.replace(/\.\w+$/, "").toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+/** In-game screenshot of a map marker's spot, by its wiki file name. */
+export const mapPinImage = (file: string) => `/${ART_DIR}/maps/pins/${fileSlug(file)}.webp`;
+
+/** A map marker category's icon, by its wiki file name. */
+export const mapIcon = (file: string) => `/${ART_DIR}/maps/icons/${fileSlug(file)}.webp`;
+
+/** An enemy's art. */
+export const enemyImage = (slug: string) => `/${ART_DIR}/enemies/${slug}.webp`;
+
 /** An Eidolon's card art (in-game, irregular shape on a transparent background), by character game ID and rank. */
 export const eidolonArt = (gameId: string, rank: number) => `/${ART_DIR}/eidolons/${gameId}-${rank}.webp`;

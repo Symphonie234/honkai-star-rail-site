@@ -3,13 +3,16 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { getTableName, notInArray, sql } from "drizzle-orm";
 import type { PgColumn, PgTable, PgUpdateSetSource } from "drizzle-orm/pg-core";
+import { areaSlug } from "../lib/area";
 import { aeonImage } from "../lib/images";
 import { db } from "./index";
 import {
-  aeonLore, aeons, characterKits, characters, elements, factions, glossaryTerms, lightCones, materials, paths, versions, worldChapters, worlds,
+  aeonLore, aeons, areas, characterKits, characters, elements, enemies, factions, glossaryTerms, lightCones, materials, paths, relicSets,
+  versions, worldChapters, worlds,
 } from "./schema";
 import {
-  AEON_LORE, AEONS, artOf, CHARACTERS, ELEMENTS, FACTIONS, GLOSSARY, KITS, LIGHT_CONES, MATERIALS, PATHS, VERSIONS, WORLD_CHAPTERS, WORLDS,
+  AEON_LORE, AEONS, AREAS, artOf, CHARACTERS, ELEMENTS, ENEMIES, FACTIONS, GLOSSARY, KITS, LIGHT_CONES, MATERIALS, PATHS, RELIC_SETS, VERSIONS,
+  WORLD_CHAPTERS, WORLDS,
 } from "./seed-data";
 
 const toSnake = (s: string) => s.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
@@ -44,17 +47,31 @@ async function main() {
   await upsert(worldChapters, worldChapters.slug, WORLD_CHAPTERS);
   await upsert(aeonLore, aeonLore.slug, AEON_LORE);
   await upsert(glossaryTerms, glossaryTerms.slug, GLOSSARY);
-  await upsert(materials, materials.id, MATERIALS);
+  await upsert(materials, materials.id, MATERIALS.map((m) => ({ ...m, slug: areaSlug(m.name) })));
   const kitRows = Object.entries(KITS).map(([characterSlug, kit]) => ({ characterSlug, kit }));
   await upsert(characterKits, characterKits.characterSlug, kitRows);
   const coneRows = LIGHT_CONES.map((lc) => ({
     slug: lc.slug, gameId: lc.id, name: lc.name, rarity: lc.rarity, pathSlug: lc.pathSlug, releaseVersion: lc.releaseVersion, data: lc,
   }));
   await upsert(lightCones, lightCones.slug, coneRows);
+  const relicRows = RELIC_SETS.map((r) => ({ slug: r.slug, gameId: r.id, name: r.name, kind: r.kind, releaseVersion: r.releaseVersion, data: r }));
+  await upsert(relicSets, relicSets.slug, relicRows);
+  const areaRows = AREAS.map((a) => ({
+    slug: a.slug, worldSlug: a.worldSlug, name: a.name, region: a.region, releaseVersion: a.releaseVersion,
+    spoilerVersion: a.spoilerVersion, sortOrder: a.sortOrder, data: a,
+  }));
+  await upsert(areas, areas.slug, areaRows);
+  const enemyRows = ENEMIES.map((e) => ({
+    slug: e.slug, name: e.name, tier: e.tier, faction: e.faction, releaseVersion: e.releaseVersion, spoilerVersion: e.spoilerVersion, data: e,
+  }));
+  await upsert(enemies, enemies.slug, enemyRows);
 
   // Dependents first, so nothing still references a pruned row.
   await prune(characterKits, characterKits.characterSlug, kitRows.map((k) => k.characterSlug));
   await prune(lightCones, lightCones.slug, coneRows.map((l) => l.slug));
+  await prune(relicSets, relicSets.slug, relicRows.map((r) => r.slug));
+  await prune(areas, areas.slug, areaRows.map((a) => a.slug));
+  await prune(enemies, enemies.slug, enemyRows.map((e) => e.slug));
   await prune(materials, materials.id, MATERIALS.map((m) => m.id));
   await prune(characters, characters.slug, CHARACTERS.map((c) => c.slug));
   await prune(worldChapters, worldChapters.slug, WORLD_CHAPTERS.map((c) => c.slug));
@@ -68,6 +85,7 @@ async function main() {
     `Seeded ${VERSIONS.length} versions, ${PATHS.length} paths, ${AEONS.length} aeons (${AEON_LORE.length} lore sections), ` +
       `${ELEMENTS.length} elements, ${WORLDS.length} worlds, ${FACTIONS.length} factions, ${CHARACTERS.length} characters, ` +
       `${WORLD_CHAPTERS.length} chapters, ${GLOSSARY.length} glossary terms, ${kitRows.length} kits, ${coneRows.length} Light Cones, ` +
+      `${relicRows.length} relic sets, ${areaRows.length} areas, ${enemyRows.length} enemies, ` +
       `${MATERIALS.length} materials.`,
   );
 }

@@ -1,10 +1,15 @@
 /*
- * Imports character kits and Light Cones from StarRailRes's game data index
- * (github.com/Mar-7th/StarRailRes, index_new/en), and writes the result into the repo:
+ * Imports character kits, Light Cones, relics and materials from StarRailRes's game data
+ * index (github.com/Mar-7th/StarRailRes, index_new/en), with in-game text (stories,
+ * descriptions — keeping the game's paragraphs and italics) from Yatta (sr.yatta.moe),
+ * and writes the result into the repo:
  *
  *   src/db/data/game/kits.json         skills, Traces, Eidolons, stats, material totals
- *   src/db/data/game/light-cones.json  every Light Cone: passive, stats, materials, lore
- *   src/db/data/game/materials.json    every material those use
+ *   src/db/data/game/light-cones.json  every Light Cone: passive, stats, materials, story
+ *   src/db/data/game/relics.json       every Cavern Relic and Planar Ornament set, its pieces
+ *                                      and their stories; main/sub stat values
+ *   src/db/data/game/materials.json    every upgrade material: description, story, sources,
+ *                                      synthesis recipe
  *
  * From the Honkai: Star Rail Wiki it adds what the game data lacks: each Light
  * Cone's release version (from the wiki's version pages) and the file names of
@@ -21,10 +26,13 @@ import path from "node:path";
 import { artOf, CHARACTERS, VERSIONS } from "../src/db/seed-data";
 import type { Kit, KitSkill, Material, SkillKind } from "../src/lib/kit";
 import { lightConeSlug, type LightCone } from "../src/lib/light-cone";
+import type { RelicSet, RelicSlot, RelicStats } from "../src/lib/relic";
+import { cleanGameText } from "./lib/wikitext";
 
 const INDEX = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en";
 const OUT_DIR = path.join("src", "db", "data", "game");
 const WIKI_API = "https://honkai-star-rail.fandom.com/api.php";
+const YATTA = "https://sr.yatta.moe/api/v2/en";
 const WIKI_HEADERS = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36" };
 
 type Raw = Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -54,6 +62,31 @@ const cleanText = (text: string) =>
     .replace(/\{M#([^}]*)\}\{F#([^}]*)\}/g, "$1/$2")
     .replace(/\{F#([^}]*)\}\{M#([^}]*)\}/g, "$2/$1");
 
+/** A Yatta API document (`data`), or null if it has none. */
+async function yatta(pathname: string): Promise<Raw | null> {
+  for (let i = 1; ; i++) {
+    try {
+      const res = await fetch(`${YATTA}/${pathname}`, { headers: WIKI_HEADERS, signal: AbortSignal.timeout(60_000) });
+      if (res.status === 404) return null;
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return ((await res.json()) as Raw).data ?? null;
+    } catch (err) {
+      if (i >= 4) throw new Error(`yatta ${pathname}: ${err}`);
+      await new Promise((r) => setTimeout(r, 1500 * i));
+    }
+  }
+}
+
+/** Runs fn over items, a few at a time. */
+async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
+  const out: R[] = new Array(items.length);
+  let next = 0;
+  await Promise.all(Array.from({ length: limit }, async () => {
+    for (let i = next++; i < items.length; i = next++) out[i] = await fn(items[i]);
+  }));
+  return out;
+}
+
 async function wiki(params: Record<string, string>) {
   const url = `${WIKI_API}?${new URLSearchParams({ format: "json", ...params })}`;
   for (let i = 1; ; i++) {
@@ -68,19 +101,49 @@ async function wiki(params: Record<string, string>) {
   }
 }
 
-/** Light Cone name (lowercased) → the version whose wiki page introduces it ("Light Cone Intro"). */
-async function lightConeVersions() {
-  const found = new Map<string, string>();
+/**
+ * From the wiki's version pages: Light Cone name (lowercased) → the version that introduced
+ * it ("Light Cone Intro"), and the same for relic sets (the "Relics" section's links).
+ */
+async function releaseVersions() {
+  const lightCones = new Map<string, string>();
+  const relics = new Map<string, string>();
   for (const { version } of VERSIONS) {
-    const data = await wiki({ action: "parse", page: `Version ${version}`, prop: "wikitext", redirects: "1" });
-    const text: string = data.parse?.wikitext?.["*"] ?? "";
+    let text = "";
+    // The wiki occasionally answers with an error body; retry rather than lose a version.
+    for (let attempt = 1; !text && attempt <= 4; attempt++) {
+      const data = await wiki({ action: "parse", page: `Version ${version}`, prop: "wikitext", redirects: "1" });
+      text = data.parse?.wikitext?.["*"] ?? "";
+      if (!text) await new Promise((r) => setTimeout(r, 2000 * attempt));
+    }
+    if (!text) throw new Error(`wiki page "Version ${version}" unavailable`);
     for (const m of text.matchAll(/Light Cone Intro\|([^}|]+)/g)) {
       const name = m[1].replace(/\s*\(Light Cone\)\s*$/, "").replace(/&#39;/g, "'").trim().toLowerCase();
-      if (!found.has(name)) found.set(name, version);
+      if (!lightCones.has(name)) lightCones.set(name, version);
+    }
+    const heading = /^===\s*Relics\s*===[ \t]*$/m.exec(text);
+    if (heading) {
+      const rest = text.slice(heading.index + heading[0].length);
+      const end = rest.search(/^===?[^=]/m);
+      // Both the link target and its label ("[[Tengoku Livestream|Tengoku&commat;Livestream]]").
+      for (const m of (end >= 0 ? rest.slice(0, end) : rest).matchAll(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g)) {
+        for (const raw of [m[1], m[2]]) {
+          const name = raw?.replace(/&commat;/g, "@").replace(/&#39;/g, "'").trim().toLowerCase();
+          if (name && !relics.has(name)) relics.set(name, version);
+        }
+      }
     }
   }
-  return found;
+  // Sets renamed since their release.
+  for (const [now, then] of Object.entries(RELIC_RENAMES)) {
+    if (relics.has(then) && !relics.has(now)) relics.set(now, relics.get(then)!);
+  }
+  return { lightCones, relics };
 }
+
+const RELIC_RENAMES: Record<string, string> = {
+  "pan-cosmic commercial enterprise": "pan-galactic commercial enterprise",
+};
 
 // How the wiki names each character's Eidolon art, where it differs from the character's name.
 const EIDOLON_ART_NAME: Record<string, string> = { "march-7th": "March 7th (Preservation)" };
@@ -110,12 +173,13 @@ function addTo(totals: Map<string, number>, materials: { id: string; num: number
 }
 
 async function main() {
-  const [chars, skills, trees, ranks, promotions, items, properties, cones, coneRanks, conePromotions] = await Promise.all(
-    [
-      "characters", "character_skills", "character_skill_trees", "character_ranks", "character_promotions", "items", "properties",
-      "light_cones", "light_cone_ranks", "light_cone_promotions",
-    ].map(load),
-  );
+  const [chars, skills, trees, ranks, promotions, items, properties, cones, coneRanks, conePromotions, relicSets, relicPieces, mainAffixes, subAffixes] =
+    await Promise.all(
+      [
+        "characters", "character_skills", "character_skill_trees", "character_ranks", "character_promotions", "items", "properties",
+        "light_cones", "light_cone_ranks", "light_cone_promotions", "relic_sets", "relics", "relic_main_affixes", "relic_sub_affixes",
+      ].map(load),
+    );
 
   const kits: Record<string, Kit> = {};
   const usedItems = new Set<string>();
@@ -224,7 +288,14 @@ async function main() {
   }
 
   // Light Cones.
-  const versions = await lightConeVersions();
+  const released = await releaseVersions();
+  const versions = released.lightCones;
+  // Their stories as the game formats them (the index above flattens the paragraphs).
+  const coneStories = new Map<string, string>();
+  await mapLimit(Object.keys(cones), 6, async (id) => {
+    const d = await yatta(`equipment/${id}`);
+    if (d?.description) coneStories.set(id, cleanGameText(d.description));
+  });
   const signatures = new Map<string, string[]>();
   for (const c of CHARACTERS) {
     if (c.lightCone) signatures.set(c.lightCone.toLowerCase(), [...(signatures.get(c.lightCone.toLowerCase()) ?? []), c.slug]);
@@ -243,7 +314,7 @@ async function main() {
     if (!releaseVersion) console.warn(`  no release version for Light Cone ${lc.name}`);
     return {
       id: lc.id, slug: lightConeSlug(lc.name), name: lc.name, rarity: lc.rarity, pathSlug: PATH_SLUG[lc.path] ?? lc.path,
-      releaseVersion, lore: cleanText(lc.desc), skill: rank.skill, desc: cleanText(rank.desc), params: rank.params,
+      releaseVersion, lore: coneStories.get(lc.id) ?? cleanText(lc.desc), skill: rank.skill, desc: cleanText(rank.desc), params: rank.params,
       stats: MILESTONES.map(([level, phase]) => statAt(level, phase)),
       materials: [...total].map(([id, num]) => { usedItems.add(id); return { id, num }; }).sort((a, b) => Number(a.id) - Number(b.id)),
       signature: signatures.get(lc.name.toLowerCase()) ?? [],
@@ -254,17 +325,87 @@ async function main() {
     if (!lightCones.some((l) => l.name.toLowerCase() === name)) console.warn(`  signature Light Cone not found: ${name}`);
   }
 
+  // Relic sets: bonuses and pieces from StarRailRes, each piece's text from Yatta.
+  const relics: RelicSet[] = await mapLimit(Object.values(relicSets as Record<string, Raw>), 6, async (set) => {
+    const d = await yatta(`relic/${set.id}`);
+    const pieces = (Object.values(relicPieces as Record<string, Raw>))
+      .filter((p) => p.set_id === set.id && p.rarity === 5)
+      .map((p) => ({
+        slot: p.type as RelicSlot,
+        name: p.name,
+        description: cleanGameText(d?.suite?.[p.type]?.description ?? ""),
+        story: cleanGameText(d?.suite?.[p.type]?.story ?? ""),
+        icon: p.icon,
+      }));
+    const planar = pieces.some((p) => p.slot === "NECK" || p.slot === "OBJECT");
+    const releaseVersion = released.relics.get(set.name.toLowerCase()) ?? null;
+    if (!releaseVersion) console.warn(`  no release version for relic set ${set.name}`);
+    return {
+      id: set.id, slug: lightConeSlug(set.name), name: set.name, kind: planar ? "planar" : "cavern", releaseVersion,
+      bonuses: (set.desc as string[]).map((desc, i) => ({ pieces: i === 0 ? 2 : 4, desc: cleanGameText(desc) })),
+      pieces, icon: set.icon,
+    } satisfies RelicSet;
+  });
+  // Stat reference, from the 5★ affix groups (main: 51–56 by slot; sub: 5).
+  const SLOTS: RelicSlot[] = ["HEAD", "HAND", "BODY", "FOOT", "NECK", "OBJECT"];
+  const relicStats: RelicStats = {
+    main: SLOTS.map((slot, i) => ({
+      slot,
+      stats: Object.values(mainAffixes[String(51 + i)].affixes as Record<string, Raw>).map((a) => ({
+        name: properties[a.property]?.name ?? a.property,
+        max: Math.round((a.base + a.step * 15) * 10000) / 10000,
+        percent: !!properties[a.property]?.percent,
+      })),
+    })),
+    sub: Object.values(subAffixes["5"].affixes as Record<string, Raw>).map((a) => ({
+      name: properties[a.property]?.name ?? a.property,
+      rolls: [0, 1, 2].map((k) => Math.round((a.base + a.step * k) * 100000) / 100000) as [number, number, number],
+      percent: !!properties[a.property]?.percent,
+    })),
+  };
+
+  // Materials: every upgrade material the game groups as one (Yatta's material types),
+  // plus anything a kit or Light Cone uses.
+  const MATERIAL_TYPES = new Set([1, 2, 3, 4, 5, 6, 7, 11, 17, 18]);
+  const itemList = await yatta("item");
+  const typeNames: Record<string, string> = itemList?.types ?? {};
+  for (const it of Object.values((itemList?.items ?? {}) as Record<string, Raw>)) {
+    if (MATERIAL_TYPES.has(it.type) && items[String(it.id)]) usedItems.add(String(it.id));
+  }
+  const details = new Map<string, Raw>();
+  await mapLimit([...usedItems], 8, async (id) => {
+    const d = await yatta(`item/${id}`);
+    if (d) details.set(id, d);
+  });
+
   const materials: Material[] = [...usedItems].sort((a, b) => Number(a) - Number(b)).map((id) => {
     const it = items[id];
-    return { id, name: it.name, rarity: it.rarity, type: it.type, subType: it.sub_type, icon: it.icon, sources: it.come_from ?? [] };
+    const d = details.get(id);
+    const synthesis = (d?.source as Raw[] | undefined)?.flatMap((src) => src.recipe ?? []).find((r: Raw) => r.materialCost);
+    // Unresolved game text ("{TextID#…}") is left out.
+    const sources = ((d?.source as Raw[] | undefined)?.map((src) => cleanGameText(src.description)) ?? it.come_from ?? [])
+      .filter((src: string) => src && !src.includes("{"));
+    return {
+      id, name: it.name, rarity: it.rarity, type: it.type, subType: it.sub_type, icon: it.icon, sources,
+      category: cleanGameText(String(d?.type?.name ?? typeNames[d?.type?.id] ?? it.sub_type)).replace(/\n/g, " · "),
+      description: cleanGameText(d?.description ?? ""),
+      story: cleanGameText(d?.story ?? ""),
+      synthesis: synthesis
+        ? {
+            items: Object.entries(synthesis.materialCost as Record<string, Raw>).map(([mid, m]) => ({ id: mid, count: m.count })),
+            credits: synthesis.coinCost ?? null,
+          }
+        : null,
+    };
   });
 
   await mkdir(OUT_DIR, { recursive: true });
-  const meta = { source: "https://github.com/Mar-7th/StarRailRes (index_new/en)", importedAt: new Date().toISOString().slice(0, 10) };
+  const meta = { source: "https://github.com/Mar-7th/StarRailRes (index_new/en); text: https://sr.yatta.moe", importedAt: new Date().toISOString().slice(0, 10) };
   await writeFile(path.join(OUT_DIR, "kits.json"), JSON.stringify({ ...meta, kits }, null, 1) + "\n");
   await writeFile(path.join(OUT_DIR, "light-cones.json"), JSON.stringify({ ...meta, lightCones }, null, 1) + "\n");
+  await writeFile(path.join(OUT_DIR, "relics.json"), JSON.stringify({ ...meta, relics, stats: relicStats }, null, 1) + "\n");
   await writeFile(path.join(OUT_DIR, "materials.json"), JSON.stringify({ ...meta, materials }, null, 1) + "\n");
-  console.log(`Imported ${Object.keys(kits).length} kits, ${lightCones.length} Light Cones and ${materials.length} materials.`);
+  console.log(`Imported ${Object.keys(kits).length} kits, ${lightCones.length} Light Cones, ${relics.length} relic sets and ${materials.length} materials.`);
 }
 
 main().catch((err) => { console.error(err); process.exit(1); });

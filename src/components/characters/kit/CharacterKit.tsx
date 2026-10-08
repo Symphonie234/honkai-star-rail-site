@@ -6,6 +6,7 @@ import { formatBonus, type Kit, type KitSkill, type Material } from "@/lib/kit";
 import type { LightCone } from "@/lib/light-cone";
 import { LightConePassive } from "../../light-cones/LightConePassive";
 import { Stars } from "../CharacterCard";
+import { EidolonGallery } from "./EidolonGallery";
 import { KitDescription } from "./KitDescription";
 import { MaterialGroup } from "./MaterialTiles";
 import { SkillCard } from "./SkillCard";
@@ -20,7 +21,6 @@ const SECTIONS = [
 ] as const;
 
 const isMemosprite = (s: KitSkill) => s.kind.startsWith("memosprite");
-const ROMAN = ["", "I", "II", "III", "IV", "V", "VI"];
 
 /**
  * A character's full kit — skills, memosprite, Traces, Eidolons, stats and upgrade
@@ -106,37 +106,13 @@ export function CharacterKit({
       </KitSection>
 
       <KitSection id="eidolons" title="Eidolons">
-        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {kit.eidolons.map((e) => (
-            <li key={e.rank} className="glass flex flex-col overflow-hidden rounded-2xl">
-              {/* The Eidolon's card art from the game, on a glow in the character's color. */}
-              {e.art && (
-                <div className="relative aspect-[4/3] bg-[radial-gradient(circle_at_50%_45%,color-mix(in_srgb,var(--c)_28%,transparent),transparent_70%)]">
-                  <Image
-                    src={eidolonArt(kit.gameId, e.rank)}
-                    alt={`${name}'s Eidolon ${e.rank}: ${e.name}`}
-                    fill
-                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 90vw"
-                    className="object-contain p-3 drop-shadow-[0_10px_24px_rgb(0_0_0/0.5)]"
-                  />
-                </div>
-              )}
-              <div className="flex flex-1 gap-4 p-5">
-                <span className="relative grid size-12 shrink-0 place-items-center rounded-full border border-violet/50 bg-space">
-                  <Image src={gameIcon(e.icon)} alt="" width={34} height={34} className="rounded-full" />
-                  <span className="absolute -right-1 -bottom-1 grid size-6 place-items-center rounded-full bg-violet text-[0.65rem] font-bold text-space">
-                    E{e.rank}
-                  </span>
-                </span>
-                <div className="min-w-0">
-                  <p className="text-xs font-semibold tracking-widest text-violet uppercase">Eidolon {ROMAN[e.rank]}</p>
-                  <h4 className="font-display text-lg leading-tight font-bold">{e.name}</h4>
-                  <KitDescription desc={e.desc} className="mt-2 text-sm" />
-                </div>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <EidolonGallery
+          name={name}
+          eidolons={kit.eidolons.map((e) => ({
+            rank: e.rank, name: e.name, desc: e.desc, icon: gameIcon(e.icon), art: e.art ? eidolonArt(kit.gameId, e.rank) : null,
+          }))}
+        />
+        <p className="mt-3 text-xs text-muted">Select an Eidolon to browse the full art and effects.</p>
       </KitSection>
 
       {lightCone && (

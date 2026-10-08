@@ -5,9 +5,11 @@ import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 import { CharacterChip } from "@/components/characters/CharacterChip";
 import { MaterialGroup } from "@/components/characters/kit/MaterialTiles";
+import { GameText } from "@/components/GameText";
 import { JsonLd } from "@/components/JsonLd";
 import { LightConePassive } from "@/components/light-cones/LightConePassive";
 import { AsOf, NotYet } from "@/components/spoilers/AsOf";
+import { ZoomableImage } from "@/components/viewer/ZoomableImage";
 import { fillDescription } from "@/lib/kit";
 import { rarityColor } from "@/lib/light-cone";
 import { lightConePortrait, pathIcon } from "@/lib/images";
@@ -63,16 +65,18 @@ export default async function LightConePage({ params }: PageProps<"/light-cones/
         <header className="mt-8 grid items-start gap-10 md:grid-cols-[minmax(0,380px)_1fr]">
           <div className="relative mx-auto w-full max-w-[380px]">
             <div aria-hidden="true" className="absolute inset-x-0 inset-y-[-10%] -z-10 bg-[radial-gradient(circle,color-mix(in_srgb,var(--c)_30%,transparent),transparent_65%)] blur-2xl" />
-            <Image
-              src={lightConePortrait(lc.gameId)}
-              alt={`${lc.name} Light Cone art`}
-              width={904}
-              height={1260}
-              sizes="(min-width: 768px) 380px, 90vw"
-              loading="eager"
-              fetchPriority="high"
-              className="w-full drop-shadow-[0_24px_48px_rgb(0_0_0/0.6)]"
-            />
+            <ZoomableImage src={lightConePortrait(lc.gameId)} title={lc.name} caption={`${lc.rarity}★ ${lc.path.name} Light Cone`}>
+              <Image
+                src={lightConePortrait(lc.gameId)}
+                alt={`${lc.name} Light Cone art`}
+                width={904}
+                height={1260}
+                sizes="(min-width: 768px) 380px, 90vw"
+                loading="eager"
+                fetchPriority="high"
+                className="w-full drop-shadow-[0_24px_48px_rgb(0_0_0/0.6)]"
+              />
+            </ZoomableImage>
           </div>
 
           <div>
@@ -120,8 +124,8 @@ export default async function LightConePage({ params }: PageProps<"/light-cones/
         {data.lore && (
           <section className="mt-16" aria-labelledby="story">
             <h2 id="story" className="font-display text-2xl font-bold sm:text-3xl">Story</h2>
-            <blockquote className="glass mt-6 rounded-2xl border-l-2 !border-l-[var(--c)] p-6 leading-relaxed whitespace-pre-line text-muted italic sm:p-8">
-              {data.lore}
+            <blockquote className="glass mt-6 rounded-2xl border-l-2 !border-l-[var(--c)] p-6 leading-relaxed text-muted sm:p-8 [&_em]:text-ink/90">
+              <GameText text={data.lore} />
             </blockquote>
           </section>
         )}

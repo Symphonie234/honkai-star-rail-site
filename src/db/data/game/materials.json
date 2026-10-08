@@ -1,5 +1,5 @@
 {
- "source": "https://github.com/Mar-7th/StarRailRes (index_new/en)",
+ "source": "https://github.com/Mar-7th/StarRailRes (index_new/en); text: https://sr.yatta.moe",
  "importedAt": "2026-10-08",
  "materials": [
   {
@@ -11,14 +11,192 @@
    "icon": "icon/item/2.png",
    "sources": [
     "Calyx: Great Mine",
-    "Calyx: Artisanship Commission",
-    "Calyx: The Reverie (Dreamscape)",
-    "Calyx: \"Murmuring Woods\" Grove of Epiphany",
-    "Calyx: \"Dovebrook District\"",
     "Mission rewards",
     "Assignment rewards",
+    "Embers Exchange",
+    "Calyx: Artisanship Commission",
+    "Calyx: The Reverie (Dreamscape)",
+    "Calyx: \"Murmuring Woods\" Grove of Epiphany"
+   ],
+   "category": "Common currency",
+   "description": "This currency, used by the Interastral Peace Corporation to settle accounts with its customers, is now widely accepted as the hard currency for space travel.",
+   "story": "<i>\"People run around fighting and trading for numbers in a terminal, but the truly precious cannot be bought.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "211",
+   "name": "Travel Encounters",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "AvatarExp",
+   "icon": "icon/item/211.png",
+   "sources": [
+    "Calyx: Outlying Snow Plains",
+    "Assignment rewards",
+    "Calyx: Cloudford",
+    "Calyx: Dream's Edge",
+    "Calyx: \"Sanctum of Prophecy\" Janusopolis"
+   ],
+   "category": "Character EXP Material",
+   "description": "Experience material for characters. Provides 1000 Character EXP.",
+   "story": "A travel diary with messy handwriting and random content. It's not of much use to you.\n\n<i>\"Dan Heng, hurry up and finish reading it so you can throw it away.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "212",
+   "name": "Adventure Log",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "AvatarExp",
+   "icon": "icon/item/212.png",
+   "sources": [
+    "Calyx: Outlying Snow Plains",
+    "Daily Training",
+    "Embers Exchange",
+    "Calyx: Cloudford",
+    "Calyx: Dream's Edge",
+    "Calyx: \"Sanctum of Prophecy\" Janusopolis"
+   ],
+   "category": "Character EXP Material",
+   "description": "Experience material for characters. Provides 5000 Character EXP.",
+   "story": "A neatly organized collection of educational adventure notes containing countless illustrations and texts entailing adventures from beginning to end, as well as valuable information and survival-related techniques.\n\n<i>\"Why not just digitize it and save it on a photolith disk? That'd be much more convenient.\"</i>\n<i>\"Advanced technology is far more fragile than you'd think when faced with stellar storms and neuron flow eruptions. Besides, I'm sure the author of this book wanted people to read it in the simplest of ways.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "213",
+   "name": "Traveler's Guide",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarExp",
+   "icon": "icon/item/213.png",
+   "sources": [
+    "Calyx: Outlying Snow Plains",
+    "Forgotten Hall",
+    "Calyx: Cloudford",
+    "Calyx: Dream's Edge",
+    "Calyx: \"Sanctum of Prophecy\" Janusopolis"
+   ],
+   "category": "Character EXP Material",
+   "description": "Experience material for characters. Provides 20,000 Character EXP.",
+   "story": "Required reading for world exploration. Press the \"Read\" button to tune in to an attractive voice in a language you understand, telling you about the legendary encounters of renowned adventurers across different worlds as well as the precious wisdom and knowledge that they have gathered.\n\n<i>\"All-new series of the Traveler's Guide, </i>The Chef's Manual to Galactic Cuisine<i>, is now available for purchase.\"</i>\n<i>\"For submissions, please connect to synesthesia beacon ERD-23θ to contact an Intelligentsia Guild representative. Method of payment can be arranged to your convenience.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "221",
+   "name": "Sparse Aether",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "EquipmentExp",
+   "icon": "icon/item/221.png",
+   "sources": [
+    "Calyx: Backwater Pass",
+    "Assignment rewards",
+    "Calyx: Divination Commission",
+    "Calyx: A Child's Dream",
+    "Calyx: \"Strife Ruins\" Castrum Kremnos"
+   ],
+   "category": "Light Cone EXP Material",
+   "description": "Enhancement material for Light Cones, provides 500 Light Cone EXP.",
+   "story": "An imaginary substance that shouldn't exist in reality. The basic material to create Light Cones.\nThe images contained in the Light Cones become clearer when infused with this substance.\n\n<i>\"I see, so this is the supposed 'memoria' of the Garden of Recollection. No wonder the Memokeepers can set off on galactic voyages with memories.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "222",
+   "name": "Condensed Aether",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "EquipmentExp",
+   "icon": "icon/item/222.png",
+   "sources": [
+    "Calyx: Backwater Pass",
+    "Embers Exchange",
+    "Calyx: Divination Commission",
+    "Calyx: A Child's Dream",
+    "Calyx: \"Strife Ruins\" Castrum Kremnos"
+   ],
+   "category": "Light Cone EXP Material",
+   "description": "Enhancement material for Light Cones, provides 2000 Light Cone EXP.",
+   "story": "A can of Aether refined through special techniques.\n\n<i>\"Handle with care, do not drop or place pressure upon it. If damages and leaks occur, please refer to chapter II of the </i>Leak Disaster Response Manual<i> for emergency response.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "223",
+   "name": "Refined Aether",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "EquipmentExp",
+   "icon": "icon/item/223.png",
+   "sources": [
+    "Calyx: Backwater Pass",
+    "Forgotten Hall",
+    "Calyx: Divination Commission",
+    "Calyx: A Child's Dream",
+    "Calyx: \"Strife Ruins\" Castrum Kremnos"
+   ],
+   "category": "Light Cone EXP Material",
+   "description": "Enhancement material for Light Cones, provides 6000 Light Cone EXP.",
+   "story": "A canister of aether that has been extracted and distilled using special procedures.\n\n<i>\"The Garden looks forward to recreating a past glory, but it is a 'past glory' selected by them. Do you understand?\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "231",
+   "name": "Lost Lightdust",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "RelicExp",
+   "icon": "icon/item/231.png",
+   "sources": [
+    "Salvage Relic"
+   ],
+   "category": "Relic EXP Material",
+   "description": "Enhancement material for Relics. Provides 100 Relic EXP.",
+   "story": "Lightdust permeated the Fragmentum, carrying what seems to indicate the existence of another civilization.\n\n<i>\"Theosophy holds that the database used to store information of the material world is called the Akasha Records. I don't necessarily support this, but... these dust indeed store information from the past. They are like... seeds? When you water them, they can yield bountiful fruit.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "232",
+   "name": "Lost Gold Fragment",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "RelicExp",
+   "icon": "icon/item/232.png",
+   "sources": [
+    "Daily Training",
+    "Salvage Relic",
     "Embers Exchange"
-   ]
+   ],
+   "category": "Relic EXP Material",
+   "description": "Enhancement material for Relics. Provides 500 Relic EXP.",
+   "story": "Carefully collected Fragmentum dust with irregular shapes. Under the right conditions, they can express specific forms of relics.\n\n<i>When the stars return to the right position... Ha! Just kidding.</i>",
+   "synthesis": null
+  },
+  {
+   "id": "233",
+   "name": "Lost Crystal",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "RelicExp",
+   "icon": "icon/item/233.png",
+   "sources": [
+    "Forgotten Hall"
+   ],
+   "category": "Relic EXP Material",
+   "description": "Enhancement material for Relics. Provides 1000 Relic EXP.",
+   "story": "A Fragmentum dust crystal that had densified after being reduced to its original form.\n\n<i>\"This must not be placed together with the ores offered to the Amber Lord. This is a creation of the Stellaron and goes against the will of Preservation.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "234",
+   "name": "Lost Essence",
+   "rarity": 5,
+   "type": "Material",
+   "subType": "RelicExp",
+   "icon": "icon/item/234.png",
+   "sources": [],
+   "category": "Relic EXP Material",
+   "description": "Enhancement material for Relics. Provides 2000 Relic EXP.",
+   "story": "A large Fragmentum dust crystal that had densified after being reduced to its original form.\n\n<i>\"It can even recreate our deceased mother if it has enough information! It really can! Even if it was only for 26 seconds... I just have one question after I completed the experiment: Just why was the Fragmentum created?\"</i>",
+   "synthesis": null
   },
   {
    "id": "241",
@@ -28,13 +206,79 @@
    "subType": "WeeklyMonsterDrop",
    "icon": "icon/item/241.png",
    "sources": [
-    "Currency Wars Point Rewards",
     "Simulated Universe Point Rewards",
     "Nameless Honor",
     "Embers Exchange",
+    "Limited-Time Event Rewards",
     "Starlight Exchange",
-    "Limited-Time Event Rewards"
-   ]
+    "Currency Wars Point Rewards"
+   ],
+   "category": "Trace Materials",
+   "description": "Advanced level-up material for Traces.",
+   "story": "Your victory is secured by countless failures, and the small steps you have taken led you to the turning point of fate.",
+   "synthesis": null
+  },
+  {
+   "id": "261",
+   "name": "Lucent Afterglow",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/261.png",
+   "sources": [
+    "Forgotten Hall",
+    "Pure Fiction",
+    "Echo of War",
+    "Apocalyptic Shadow"
+   ],
+   "category": "Common currency",
+   "description": "Used to exchange for rewards at the Light Cone Manifest shop.",
+   "story": "An afterimage of bygone days, invaluable to the Garden of Recollection.\n\n<i>The Garden of Recollection has its own rules: Exchange time for time and memory for memory. The Garden of Recollection can even bring back to you a lost, irrevocable past for the right cost...</i>",
+   "synthesis": null
+  },
+  {
+   "id": "271",
+   "name": "Superimposer (Custom-made)",
+   "rarity": 5,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/271.png",
+   "sources": [],
+   "category": "Light Cone Superimposition Material",
+   "description": "A special gadget made by Herta. It can Superimpose special Light Cones obtained from the Simulated Universe.",
+   "story": "A special gadget made by Herta. Its principles are not stated.\n\n<i>\"Be grateful, Trailblazer. I've prepared everything for you.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "503",
+   "name": "Herta Bond",
+   "rarity": 5,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/503.png",
+   "sources": [
+    "Simulated Universe Point Rewards",
+    "Currency Wars Point Rewards"
+   ],
+   "category": "Common currency",
+   "description": "A reward from the Simulated Universe. Can be used to buy items from Herta's Store.",
+   "story": "",
+   "synthesis": null
+  },
+  {
+   "id": "110101",
+   "name": "Tears of Dreams",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110101.png",
+   "sources": [
+    "Nameless Honor"
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Sealed thoughts and feelings. Can substitute Path Materials when they are insufficient. The substitution ratio of Tears of Dreams varies depending on the materials' rarity.",
+   "story": "The unresolved resentment, the unsolved puzzle, the places never reached, the achievements never attained... All the regrets that make the human soul bend its knees are sealed into these tears condensed by time. \n\n<i>\"Believe me, everything is possible in dreams...\"</i>",
+   "synthesis": null
   },
   {
    "id": "110111",
@@ -44,10 +288,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110111.png",
    "sources": [
-    "Calyx (Storage Zone)",
     "Embers Exchange",
+    "Calyx (Storage Zone)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Weapon fragments left behind by members of the Antimatter Legion. Used to level up Traces slightly for Destruction characters.",
+   "story": "This brand represents their rank and accomplishments in the name of Destruction.\nThe master of this weapon rides on a scarlet horse to ignite cities, to take peace from humankind, and to bring down nations akin to anthills.\n\n<i>\"The bearer of this brand is tasked with driving peace out of nations.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110112",
@@ -57,11 +305,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110112.png",
    "sources": [
-    "Calyx (Storage Zone)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (Storage Zone)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Weapon remnants left behind by members of the Antimatter Legion. Used to level up Traces moderately for Destruction characters.",
+   "story": "This brand represents their rank and accomplishments in the name of Destruction.\nThe master of this weapon carries a strong hatred for all sentient beings. They relish in the lament of intelligent beings as sweet melodies and topple civilizations with millennia of history in the blink of an eye.\n\n<i>\"The bearer of this brand is tasked with stopping breath among the living.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110111",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110113",
@@ -71,10 +331,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110113.png",
    "sources": [
-    "Calyx (Storage Zone)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (Storage Zone)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Broken weapon left behind by members of the Antimatter Legion. Used to level up Traces significantly for Destruction characters.",
+   "story": "This weapon represents its owner's rank and accomplishments in the name of Destruction.\nThe owner of this weapon makes their appearance at the end of a war to fan the embers to consume the world. Regardless of the glories of the past or the blessing of its deities, this planet is destined to return to the ashes it came from, and to wither away in the depths of the starry sky.\n\n<i>\"The bearer of this brand is tasked with purifying the world.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110112",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110121",
@@ -84,10 +356,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110121.png",
    "sources": [
-    "Calyx (Outlying Snow Plains)",
     "Embers Exchange",
+    "Calyx (Outlying Snow Plains)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "An arrowhead forged with Frost Steel by the craftsmen of Xianzhou. Used to level up Traces slightly for Hunt characters.",
+   "story": "A gift that parents give to their children who've successfully hunted their first prey at their coming of age ceremony. It is a blessing that their life would be as successful and true as an arrow heading towards its mark.\n\n<i>\"May the arrow on your waist and the sword in your sheath stay true and always find its target.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110122",
@@ -97,11 +373,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110122.png",
    "sources": [
-    "Calyx (Outlying Snow Plains)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (Outlying Snow Plains)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "An arrowhead forged with Stellaris Essence by the craftsmen of Xianzhou. Used to level up Traces moderately for Hunt characters.",
+   "story": "An arrow narrower than a finger's width. It can be loaded into an electromagnetic crossbow or a thermal seeking bow as ammunition. Its power is enough to penetrate the tough shells of abominations with just one strike.\n\n<i>\"The celestial banished arrives from afar, great distances journeyed 'twixt oceans of stars. Like rain falls a cloudburst of arrows below, in a helmet reflected the bright lunar glow.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110121",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110123",
@@ -111,10 +399,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110123.png",
    "sources": [
-    "Calyx (Outlying Snow Plains)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (Outlying Snow Plains)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A shard of the Sky-Shattering Lux Arrow shot by the Reignbow Arbiter. Used to level up Traces significantly for Hunt characters.",
+   "story": "The remains of a divine construct that ordinary humans can rarely behold. What kind of force can shatter stars that are light-years away? Humanity can only imagine the power of the Lux Arrow from the ashes it left behind.\nOnly the Furnace Master, chief of the Xianzhou artisans, has the rights to reforge the shards for those who are worthy.\n\n<i>\"The death of a star shall shine bright for ages to come.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110122",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110131",
@@ -124,10 +424,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110131.png",
    "sources": [
-    "Calyx (Rivet Town)",
     "Embers Exchange",
+    "Calyx (Rivet Town)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A mythical key that appears in the hands of the Meditative Scholars. Used to level up Traces slightly for Erudition characters.",
+   "story": "It can unlock inspirations hidden deep within the conscience.\nTo take hold of the key is to grasp at the darting embers of thought that lead to the forward path.\n\n<i>\"Eureka!\"</i>",
+   "synthesis": null
   },
   {
    "id": "110132",
@@ -137,11 +441,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110132.png",
    "sources": [
-    "Calyx (Rivet Town)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (Rivet Town)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A mythical key that appears in the hands of the sages of the worlds. Used to level up Traces moderately for Erudition characters.",
+   "story": "It can unlock the mysteries binding the truth of the world and grants knowledge beyond the understanding of humans.\nNo matter how the wielder attempts to display their possession of the key, no one but themselves can see its form. Some people believe that to be a gift from the heavens, while others think it's a sign of mental disorder.\n\n<i>\"I had a dream of molecules coiling up into a loop like a snake biting its own tail. I woke up realizing that this is the answer I've been looking for all along!\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110131",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110133",
@@ -151,10 +467,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110133.png",
    "sources": [
-    "Calyx (Rivet Town)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (Rivet Town)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A mythical key that appears in the hands of the greatest prodigies of the cosmos. Used to level up Traces significantly for Erudition characters.",
+   "story": "This is the proof of invitation to the halls of the Nous Temple.\nFinding the door of which this key opens is a far more arduous task than obtaining the key itself. Those who pass through the doors will immediately realize the impossibility of returning to this side.\n\n<i>\"The Erudition does not have answers to the universe, but it will teach you how to ask the right questions.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110132",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110141",
@@ -164,10 +492,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110141.png",
    "sources": [
-    "Calyx (Supply Zone)",
     "Embers Exchange",
+    "Calyx (Supply Zone)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A crude but durable ancient hand-held bronze shield. Used to level up Traces slightly for Preservation characters.",
+   "story": "Ancient legends entail a war where humans exhausted all primitive methods, following the gods into battle against overwhelmingly powerful beasts.\nThis shield is a witness to that war.\n\n<i>\"There's no choice but to stop it, even if the efforts are futile.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110142",
@@ -177,11 +509,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110142.png",
    "sources": [
-    "Calyx (Supply Zone)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (Supply Zone)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A shield forged with irreplaceable craftsmanship from an unknown alloy. Used to level up Traces moderately for Preservation characters.",
+   "story": "It may be a large shield, but it feels as light as a feather. Even after taking on a full charge, no marks can be seen on the face of the shield.\nAncient legends tell of a war where high-spirited warriors wielded deathray-beaming spears and shields forged of Frost Steel, defended a nation destined to falter in the face of war.\nThis shield is a witness to that war.\n\n\"<i>Powerful voices chant: 'The enemies are at our gates!'</i>\"",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110141",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110143",
@@ -191,10 +535,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110143.png",
    "sources": [
-    "Calyx (Supply Zone)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (Supply Zone)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "An unusual shield embedded with ambers mined from beyond the skies. Used to level up Traces significantly for Preservation characters.",
+   "story": "The wielder of this shield is seemingly protected by an invisible shield wall, immune to fiery arrows or mountainous claws.\nAncient legends entail a war where a tribal hero wielding a bronze shield charged to their death against a Leviathan, together with warriors armed with fiery spears.\nThis shield is a witness to that war.\n\n<i>\"Do not cross the line.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110142",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110151",
@@ -204,10 +560,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110151.png",
    "sources": [
-    "Calyx (Great Mine)",
     "Embers Exchange",
+    "Calyx (Great Mine)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A fragment of dark matter captured from the void. Used to level up Traces slightly for Nihility characters.",
+   "story": "Nothing can prove its noumenon.\nTouch gently to hear an unclear murmur from the shard.\n\n<i>\"████ ██ █ █\"</i>",
+   "synthesis": null
   },
   {
    "id": "110152",
@@ -217,11 +577,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110152.png",
    "sources": [
-    "Calyx (Great Mine)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (Great Mine)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A chunk of dark matter captured from the void. Used to level up Traces moderately for Nihility characters.",
+   "story": "No reflections can be seen on the surface of the black prism. Not only does it suck in all the light, it seems to also absorb the wielder's emotions, leaving only a faint feeling of emptiness.\n\n<i>\"...\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110151",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110153",
@@ -231,10 +603,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110153.png",
    "sources": [
-    "Calyx (Great Mine)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (Great Mine)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A sizable piece of dark matter captured from the void. Used to level up Traces significantly for Nihility characters.",
+   "story": "The weak-minded and soft-willed will spend their eternity in chaos from just a simple glance into the prism.\n\n<i>\"         \"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110152",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110161",
@@ -244,10 +628,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110161.png",
    "sources": [
-    "Calyx (Robot Settlement)",
     "Embers Exchange",
+    "Calyx (Robot Settlement)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A compact music box made by an unknown person. Used to level up Traces slightly for Harmony characters.",
+   "story": "It plays a relaxing and joyful tune.\nEven through the simplistic tune, anyone with the slightest understanding of music can tell the mastery of the composer of the piece.\n\n<i>\"Grab the hands of your Family and let us dance!\"</i>",
+   "synthesis": null
   },
   {
    "id": "110162",
@@ -257,11 +645,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110162.png",
    "sources": [
-    "Calyx (Robot Settlement)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (Robot Settlement)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A music box made by an unknown person. Used to level up Traces moderately for Harmony characters.",
+   "story": "It plays a hymn sung by a small band.\nIt is impossible to find out to whom the lyric of the hymn sends its praise.\n\n<i>\"Penury, trial of the Great One! Wealth, grace of the Great One!\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110161",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110163",
@@ -271,10 +671,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110163.png",
    "sources": [
-    "Calyx (Robot Settlement)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (Robot Settlement)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A music box with complex structures made by an unknown person. Used to level up Traces significantly for Harmony characters.",
+   "story": "It plays a powerful cosmic symphony.\n\n<i>\"Some astronomers believe that the revolutions of the heavenly spheres work the same as complex mechanical structures. The crystal clear and pleasant notes emitted during the movements of the stars are known as the 'Harmony of the Heavenly Spheres.'\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110162",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110171",
@@ -284,10 +696,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110171.png",
    "sources": [
-    "Calyx (Backwater Pass)",
     "Embers Exchange",
+    "Calyx (Backwater Pass)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A seed of blessing sown by the Aeon of Abundance. Used to level up Traces slightly for Abundance characters.",
+   "story": "Those who come in contact with it are slowly healed of their wounds and illnesses.\nPeople who pray for the blessing of life while in despair will always have their prayers answered.\n\n<i>\"You shall be granted what you ask for.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110172",
@@ -297,11 +713,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110172.png",
    "sources": [
-    "Calyx (Backwater Pass)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (Backwater Pass)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A young sprout emerging from the Seed of Abundance. Used to level up Traces moderately for Abundance characters.",
+   "story": "Radiating warmth, life and growth flourish around the place where it sinks its roots. Barren wastelands turn into luscious grass fields, withered plants rejuvenate and blossom, and springs burst through the ground to moisten the land.\nAs you get closer to it, your muscles and bones twitch and propagate with an unbearable itch.\n\n<i>\"Life is unfailing where the soul abounds.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110171",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110173",
@@ -311,10 +739,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110173.png",
    "sources": [
-    "Calyx (Backwater Pass)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (Backwater Pass)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A gorgeous flower blooming from the Sprout of Life. Used to level up Traces significantly for Abundance characters.",
+   "story": "The stamen contains the concentrated power of the Path of Abundance, ensuring the flower's ever-lasting vitality. No fire, ice, or any harshness can hinder the growth of this magnificent life form.\nGiven time, its leaves shall feed upon starlight. Its roots shall burrow into the flesh of every being of this world, all-connected, never-perishing. Its fruits shall fulfill the promise of immortality.\n\n<i>\"There be giant ships, eclipsing mountains, drifting over the void. Upon them grows the undying tree. Its consumption grants immortality.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110172",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110181",
@@ -324,10 +764,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110181.png",
    "sources": [
-    "Calyx (Scalegorge Waterscape)",
     "Embers Exchange",
+    "Calyx (Scalegorge Waterscape)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Broken teeth fragments left behind during the borisin conquests. Used to level up Traces slightly for Destruction characters.",
+   "story": "Borisin consider their teeth as a warrior's blade and weapon.\nThe borisin worship warriors possessing supreme power. In their tribes, where the strong rule the weak, those with dental caries will only be discarded by the group.\n\n<i>\"O, Brood Lord, grant us sharp teeth and claws.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110182",
@@ -337,11 +781,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110182.png",
    "sources": [
-    "Calyx (Scalegorge Waterscape)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (Scalegorge Waterscape)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Blood-sucking sharp fangs left behind during the borisin conquests. Used to level up Traces moderately for Destruction characters.",
+   "story": "Borisin consider their teeth as a warrior's blade and weapon.\nA maddening impulse flows through the borisin blood. Fueled by Lupitoxin, they rend their enemies with their sawteeth and suck their blood, and are undefeated.\n\n<i>\"O, Brood Lord, grant us steel skin and bones.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110181",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110183",
@@ -351,10 +807,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110183.png",
    "sources": [
-    "Calyx (Scalegorge Waterscape)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (Scalegorge Waterscape)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Terrifying tusks left behind during the borisin conquests. Used to level up Traces significantly for Destruction characters.",
+   "story": "Borisin can further enhance their bodies through their innate \"Moon Rage.\"\nThe battle-frenzied warriors exhibit incredible healing abilities, shedding the blood of their enemies in a sanguine mist together with the unbridled growth of their muscles and bones.\n\n<i>\"O, Brood Lord, grant us divine strength.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110182",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110191",
@@ -364,10 +832,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110191.png",
    "sources": [
-    "Calyx: SoulGlad™ Scorchsand Audition Venue",
     "Embers Exchange",
+    "Calyx: SoulGlad™ Scorchsand Audition Venue",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Iron pellets forged for hunting monsters. Each one bears scratches that seem to record the number of prey that perished because of it. Used to level up Traces slightly for The Hunt characters.",
+   "story": "The Armed Archaeologists discovered these iron pellets among various types of monster fossils and bones. Radioactive dating confirmed that they were fired in an era when humanity did not yet exist, and the creatures they shot were the last remnants of a certain monster species.\n\n<i>\"Death by old age is no different from death by bullet. The way of the hunter won't lead to a sacred nor sinful end.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110192",
@@ -377,11 +849,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110192.png",
    "sources": [
-    "Calyx: SoulGlad™ Scorchsand Audition Venue",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx: SoulGlad™ Scorchsand Audition Venue",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Embedded in the deceased's brow, piercing through the crevice of matter, this bullet forever resides where its bullet hole should be. Used to level up Traces moderately for The Hunt characters.",
+   "story": "It traversed the winding paths amidst legions of soldiers, pierced through the weakest point of the stoutest helmets, and finally came to rest at the center of the skull of the invincible tyrant, emitting a whisper-like sigh. Its arrival came like a fatal coincidence. Its arrival was akin to an endpoint that all were fated to meet.\n\n<i>\"Sometimes, the bullet hole precedes the trajectory.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110191",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110193",
@@ -391,10 +875,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110193.png",
    "sources": [
-    "Calyx: SoulGlad™ Scorchsand Audition Venue",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx: SoulGlad™ Scorchsand Audition Venue",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A spiral bullet forever going against the arrow of time, like a hound eternally chasing the immortal that defies time. Used to level up Traces significantly for The Hunt characters.",
+   "story": "Once the embers of a Lord Ravager, the button to erase a civilization, and the final lament of an ancient behemoth... How many deaths must these materials have gathered to forge such ammunition? And what kind of firearm can propel it into the past? It is the answer to all. It is not a question itself.\n\n<i>\"Run. Flee to any moment's interstice. It will always find you, nailing you down in the fabric of fate.\" </i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110192",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110201",
@@ -404,10 +900,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110201.png",
    "sources": [
-    "Calyx: Penacony Grand Theater",
     "Embers Exchange",
+    "Calyx: Penacony Grand Theater",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "The character design draft for Clockie, where a few pen strokes already gave the dream a shape. Used to level up Traces slightly for Erudition characters.",
+   "story": "Various original sketches of Clockie are widely circulated on Penacony. Exactly who captured the fleeting spark of inspiration and rang the first sound of \"tick-tock\" on the canvas?\n\n<i>\"Tick-tock! You... can see me?\"</i>",
+   "synthesis": null
   },
   {
    "id": "110202",
@@ -417,11 +917,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110202.png",
    "sources": [
-    "Calyx: Penacony Grand Theater",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx: Penacony Grand Theater",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A Clockie outline drawing, where the silhouette of the dream was already leaping out of the page. Used to level up Traces moderately for Erudition characters.",
+   "story": "The Clockie drawing looks more refined after the unnecessary strokes are removed. The animators hid their wisdom in every frame of Clockie's dance and can be clearly discerned.\n\n<i>\"Tick-tock, tick-tock! Keep up, my friend!\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110201",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110203",
@@ -431,10 +943,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110203.png",
    "sources": [
-    "Calyx: Penacony Grand Theater",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx: Penacony Grand Theater",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A colored draft of Clockie that brings the dream to life with vibrant colors. Used to level up Traces significantly for Erudition characters.",
+   "story": "Clockie becomes filled with colors, taking on the shape that will become a household name. Clockie's story inspired millions of Dreamchasers, with every one of them able to be inspired by his fantastical adventures.\n\n<i>\"My name is Clockie, and I'm a superstar in Dreamville Penacony!\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110202",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110211",
@@ -444,10 +968,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110211.png",
    "sources": [
-    "Calyx: Clock Studios Theme Park",
     "Embers Exchange",
+    "Calyx: Clock Studios Theme Park",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "The dust that falls from the Amber Lord's body when THEY swing the divine hammer. Used to level up Traces slightly for Preservation characters.",
+   "story": "The guards at Pier Point have never left their posts on Qlipoth's orbit, simply waiting for a miracle that only occurs once in decades or even centuries — How stardust splutters up like countless raindrops the moment the giant hammer falls.\n\n<i>\"The stardust are simply insignificant dust to the Amber Lord, but to us, every speck of it contains the essence of Preservation.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110212",
@@ -457,11 +985,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110212.png",
    "sources": [
-    "Calyx: Clock Studios Theme Park",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx: Clock Studios Theme Park",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "The crystals that separate from the Amber Lord's body when THEY swing the celestial hammer. Used to level up Traces moderately for Preservation characters.",
+   "story": "People only become aware of the fact that Qlipoth has swung THEIR hammer again from the two phenomena invariably detected afterward: An enormous burst of intense gravitational waves, and \"starquakes.\" Like a gift from the Preservation, the crystal meteorites dash across the dark sky and announce the beginning of a new Era.\n\n<i>\"The Genius Society is audacious enough to declare the Amber Lord as the slowest Aeon in the Cosmos, but none of these people have ever successfully observed the entire process of Qlipoth swinging the celestial hammer.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110211",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110213",
@@ -471,10 +1011,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110213.png",
    "sources": [
-    "Calyx: Clock Studios Theme Park",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx: Clock Studios Theme Park",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "The amber that rains from the Amber Lord's body when THEY swing the celestial hammer. Used to level up Traces significantly for Preservation characters.",
+   "story": "Although Pier Point sent out Meteor Hunters and intercepted most of the meteors, the brightest one among all these shooting stars will always only be seen by the chosen one.\n\n<i>\"It is a part of the divine body of the Aeon, albeit an insignificant one. Only the chosen ones, with their minds as steadfast as cornerstones and having endured challenges and hardships, can chisel apart this amber and unleash the crystalized light within.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110212",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110221",
@@ -484,10 +1036,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110221.png",
    "sources": [
-    "Calyx (Alchemy Commission)",
     "Embers Exchange",
+    "Calyx (Alchemy Commission)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Feeble heliobus that scattered after the Flaming Catastrophe War. Used to level up Traces slightly for Nihility characters.",
+   "story": "An innocent, formless heliobus.\nThe size of a heliobus's flame when it materializes indicates its strength. This little heliobus is innocent and naive and may be easily consumed by more powerful heliobi.\n\n<i>\"Formless, rootless, and roaming boundless...\"</i>",
+   "synthesis": null
   },
   {
    "id": "110222",
@@ -497,11 +1053,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110222.png",
    "sources": [
-    "Calyx (Alchemy Commission)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (Alchemy Commission)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A mature heliobus that ran away after the Flaming Catastrophe War. Used to level up Traces moderately for Nihility characters.",
+   "story": "A mean and nasty heliobus that appears like a full flame.\nThe size of a heliobus's flame when it materializes indicates its strength. This torch-like heliobus has just tasted consciousness and is eager to devour its host's emotions and desires.\n\n<i>\"Absorb their emotions and sway their wills...\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110221",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110223",
@@ -511,10 +1079,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110223.png",
    "sources": [
-    "Calyx (Alchemy Commission)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (Alchemy Commission)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A beast-form heliobus that homogenized after the Flaming Catastrophe War. Used to level up Traces significantly for Nihility characters.",
+   "story": "An intelligent and powerful heliobus that has started to take the form of a beast.\nThe size of a heliobus's flame when it materializes indicates its strength. A large heliobus, having homogenized its numerous lesser peers, will gradually have a stable shape. These immortal beings can become so dangerous that they are considered calamities.\n\n<i>\"Floods, fires, landslides, and thunderstorms...\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110222",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110231",
@@ -524,10 +1104,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110231.png",
    "sources": [
-    "Calyx: The Reverie (Dreamscape)",
     "Embers Exchange",
+    "Calyx: The Reverie (Dreamscape)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Scattered note from the firmament. Used to level up Traces slightly for Harmony characters.",
+   "story": "A musical note scattered from order. Falling silently from the edge of the clouds, it blends into the symphony of mortal sounds, like a tear dissolving into the sea.\n\n<i>\"No one hears it until it dissolves into a song...\"</i>",
+   "synthesis": null
   },
   {
    "id": "110232",
@@ -537,11 +1121,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110232.png",
    "sources": [
-    "Calyx: The Reverie (Dreamscape)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx: The Reverie (Dreamscape)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Melodious section fallen from the heavens. Used to level up Traces moderately for Harmony characters.",
+   "story": "A musical section scattered from order. Falling silently from the edge of the heavens, it blends into the cacophony, like grains of sand scattered in the desert.\n\n<i>\"No one notices it until it ignites a spark of inspiration...\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110231",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110233",
@@ -551,10 +1147,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110233.png",
    "sources": [
-    "Calyx: The Reverie (Dreamscape)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx: The Reverie (Dreamscape)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Symphonic movements from the cosmos. Used to level up Traces significantly for Harmony characters.",
+   "story": "A piece of music scattered from order. It quietly echoes from beyond the heavens, drowned out by profound silence, like a lone star twinkling in a river of stars.\n\n<i>\"No one feels it until it is forgotten by all ♬...\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110232",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110241",
@@ -564,10 +1172,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110241.png",
    "sources": [
-    "Calyx (Fyxestroll Garden)",
     "Embers Exchange",
+    "Calyx (Fyxestroll Garden)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "The seed obtained from the fruit of the heart tree in the sacred Vonwacq forest, carrying the genes of various life forms. Used to level up Traces slightly for Abundance characters.",
+   "story": "The enormous alien holy tree in the sacred Vonwacq forest meticulously records the changes of the ecosystem over countless life cycles, continuously nurturing the ideal \"Devil\" using the genes of various life forms as seeds.\n\n<i>\"Cut this hard fruit open, scoop out the seed from its flesh, and plant it in sacred soil. You'll harvest dozens of leaders in the following year. Just wait for them to decide a winner via a battle royale!\"</i>",
+   "synthesis": null
   },
   {
    "id": "110242",
@@ -577,11 +1189,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110242.png",
    "sources": [
-    "Calyx (Fyxestroll Garden)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (Fyxestroll Garden)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "The nectar brewed from the juice of flowers growing on the heart tree in the sacred Vonwacq forest. A honey that can accelerate the growth of life. Used to level up Traces moderately for Abundance characters.",
+   "story": "When the Devil emerges from the fertile soil, it is only a round fruit with a stalk as long as a human's forearm. For some reason, it has to defeat its siblings before it has the right to drink nectar and grow into shape.\n\n<i>\"You can drink the sap of any tree in this forest, except that one.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110241",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110243",
@@ -591,10 +1215,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110243.png",
    "sources": [
-    "Calyx (Fyxestroll Garden)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (Fyxestroll Garden)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "The fruit grown on the tip of the heart tree's branch in the sacred Vonwacq forest. It contains the essence of myriad lifeforms. Used to level up Traces significantly for Abundance characters.",
+   "story": "One day and night after drinking the nectar of the divine tree, the ridiculous spherical fruit bloats into a \"Devil\" wearing fiber armor and wielding a wooden spear and a shield made of leaves. All around its footsteps, living creatures in the forest offer their genes as tributes to the Devil for it to taste, learn, and metamorphose. After that, the Devil will move on to challenge the sea and the sky of Vonwacq.\n\n<i>\"Through this method, the ancient sages imprisoned the most terrifying thing within a most ridiculous game.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110242",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110251",
@@ -604,10 +1240,14 @@
    "subType": "TracePath",
    "icon": "icon/item/110251.png",
    "sources": [
-    "Calyx (\"Strife Ruins\" Castrum Kremnos)",
     "Embers Exchange",
+    "Calyx (\"Strife Ruins\" Castrum Kremnos)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Consciousness fuses with matter, giving rise to the embryo of memory. Used to level up Traces slightly for Remembrance characters.",
+   "story": "This thing does not truly exist until you see, hear, or sense something. This existence born from sensations soon falls silent, buried in the soil of thought — it may sprout one day, or it may not.\n\n<i>\"Such is the substance that forms our bodies, existing because you remember.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110252",
@@ -617,11 +1257,23 @@
    "subType": "TracePath",
    "icon": "icon/item/110252.png",
    "sources": [
-    "Calyx (\"Strife Ruins\" Castrum Kremnos)",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
+    "Calyx (\"Strife Ruins\" Castrum Kremnos)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Memory's cells extract thoughts, propagating in the heart of the inscriber. Used to level up Traces moderately for Remembrance characters.",
+   "story": "The seeds take root and sprout. Branches and buds weave together, transmitting signals like a living network of synapses. Over the passage of years, some wither and fade, while others flourish, growing strong enough to bear life and form the vessel of a soul. \n\n<i>\"We did not abandon the flesh. We merely transformed it into something... more enduring.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110251",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110253",
@@ -631,10 +1283,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110253.png",
    "sources": [
-    "Calyx (\"Strife Ruins\" Castrum Kremnos)",
     "Omni-Synthesizer — Material Synthesis",
+    "Calyx (\"Strife Ruins\" Castrum Kremnos)",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "This is another form for life to exist and a substance that the universe cannot forget. Used to level up Traces significantly for Remembrance characters.",
+   "story": "It matures. It becomes a web that constrains history, a blossom from the past. Life is its flower bed or its pistil. If you become the pistil, then you remember the universe and the universe remembers you. You are memory. \n\n<i>\"Memory is the true form of all things, thus there is no creation or annihilation in the Anāśrava pure land.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110252",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110261",
@@ -644,10 +1308,13 @@
    "subType": "TracePath",
    "icon": "icon/item/110261.png",
    "sources": [
-    "Calyx: \"World's End\" Tavern",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "<i>Fluffy Across the Blue</i> in its storyboard stage. Slightly increases the Traces of Elation characters.",
+   "story": "Blurry is an incredibly fast artist who can draw a month's worth of work in a single day. But they never do, claiming they need to \"guarantee quality,\" though they're likely just allergic to work.\n\n<i>\"It's so weird... how are there so many identical manuscripts of 'The Fluffy' out there, and every single one is clearly an original? Is Blurry selling these to make a quick buck?\"\n\"No way! Blurry is just a perfectionist who draws every page ten times until it's exactly right.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110262",
@@ -657,11 +1324,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110262.png",
    "sources": [
-    "Calyx: \"World's End\" Tavern",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "<i>Fluffy Across the Blue</i> currently in magazine serialization. Moderately increases the Traces of Elation characters.",
+   "story": "Rumor has it that a Phantasmoon Games winner once accelerated time, leaving every artist in Planarcadia unable to meet their deadlines, except for Blurry. This is clearly just a tabloid story, and knowing them, QR_Colt probably wrote it themselves.\n\n<i>\"I was born drawing as well as Graphia, but it took me an entire lifetime to learn how to draw as fast as a Bullet Wyrm.\" — QR_Colt, during an online interview</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110261",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110263",
@@ -671,10 +1349,21 @@
    "subType": "TracePath",
    "icon": "icon/item/110263.png",
    "sources": [
-    "Calyx: \"World's End\" Tavern",
     "Omni-Synthesizer — Material Synthesis",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "<i>Fluffy Across the Blue</i>, now in published standalone volumes. Greatly increases the Traces of Elation characters.",
+   "story": "The book's wrap-around band is packed with glowing reviews from cosmic icons like Pearl, Jade, Aventurine, Topaz, Ratio, Jing Yuan, Feixiao, Huaiyan, Yao Guang, Hua, Kafka, Robin, Arita, Schneider, Duke Inferno, Hoolay, Ryusuke, Sparkle, Sparxie, and Trailblazer. Blurry eventually lost a fortune in lawsuits for \"forging endorsements and false advertising.\"\n\n<i>\"Counselor Umbralle, these petty celebrities are all ganging up to sue me. Can I hire you as my defense?\"</i>\n<i>\"Hahaha, you're funny. But I'd quite like to stay alive, thank you.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110262",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110271",
@@ -684,10 +1373,13 @@
    "subType": "TracePath",
    "icon": "icon/item/110271.png",
    "sources": [
-    "Calyx: \"Memortis Shore\" Ruins of Time",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Crimson crystal dust that Castrum Kremnos craftsmen use to coat their weapons. Slightly increases the Traces of The Hunt characters.",
+   "story": "Dried divine blood that has crumbled into drifting crimson dust. It is the most primal, pervasive form of power, carrying the blessing and protection of Nikador.\n\n<i>\"Go on, keep talking! Once I arrive, it's the only thing you'll be able to do.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110272",
@@ -697,11 +1389,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110272.png",
    "sources": [
-    "Calyx: \"Memortis Shore\" Ruins of Time",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Crimson crystal amber forged by the craftsmen of Castrum Kremnos while tempering weapons. Moderately increases the Traces of The Hunt characters.",
+   "story": "Shimmering crimson crystals forged by melting divine blood dust in the fires of strife. These amber-like shards pulse with the rage and punishment of Nikador.\n\n<i>\"Let your arrows fly! They are but a refreshing rain to soothe the scorching heat of war.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110271",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110273",
@@ -711,10 +1414,21 @@
    "subType": "TracePath",
    "icon": "icon/item/110273.png",
    "sources": [
-    "Calyx: \"Memortis Shore\" Ruins of Time",
     "Omni-Synthesizer — Material Synthesis",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A crimson spear forged from the lives and dignity of the craftsmen of Castrum Kremnos. Greatly increases the Traces of The Hunt characters.",
+   "story": "A spear forged by infusing blood-amber with a warrior's oath and the glory of victory. As the manifestation of the Lance of Fury, it embodies the very laws and essence of Nikador.\n\n<i>\"Show me your valiance! I shall still pay my respects... with steel and with blood.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110272",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110281",
@@ -724,10 +1438,13 @@
    "subType": "TracePath",
    "icon": "icon/item/110281.png",
    "sources": [
-    "Calyx: Inkford Hermitage",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A four-sided die used for simple checks. Can slightly level up Traces for Destruction characters.",
+   "story": "The benefit of a four-sided die is that, if you believe in it, it will make every problem easy.\nComplex dilemmas, unsolvable games, and all those situations you have no idea how to handle — the hard part of it all lies in \"not knowing what the optimal solution is.\" We spend our whole lives with a desire to grasp the power to select, yet spend that same lifetime feeling the anxiety of potential regret.\nBut a four-sided die doesn't need to think about any of that. There is no optimal solution in the life of a die. In other words, in a die's life, all four sides are the optimal solution.\n\n<i>\"So don't overthink it. No matter what you select, I will declare it: a great success.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110282",
@@ -737,11 +1454,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110282.png",
    "sources": [
-    "Calyx: Inkford Hermitage",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A six-sided die used for complex destiny checks. Can moderately upgrade the Traces of Destruction characters.",
+   "story": "Once cast, the result of a six-sided die cannot be defied. This is the prerequisite for its presence at the gambling table, anchoring one's life, death, and destiny.\nThe thrower \"chooses\" to cast it, and it brings a \"result.\" But this is not the end, as the cycle of cause and effect has only just begun.\nEveryone must be prepared for the consequences of their choices, and even a Lord Ravager is no exception.\n\n<i>\"Yeah... I need to request some last-minute annual leave... Just in case the destruction of the world fails, I'll still need to keep my day job, you know.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110281",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110283",
@@ -751,10 +1479,21 @@
    "subType": "TracePath",
    "icon": "icon/item/110283.png",
    "sources": [
-    "Calyx: Inkford Hermitage",
     "Omni-Synthesizer — Material Synthesis",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A bizarre, myriad-colored die that binds infinite futures. Can greatly level up Traces for Destruction characters.",
+   "story": "Of course, there are also those who \"choose\" to reroll to escape a destiny of failure. That Lord Ravager is also keen on granting this opportunity.\nUnsatisfactory calculations, imperfect endings... He never tires of permitting a do-over. But every time he chooses to take the die back into his hands, its number of faces increases geometrically.\n\n<i>\"Friend, life's success rate doesn't go up just because you have more choices.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110282",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110291",
@@ -764,10 +1503,13 @@
    "subType": "TracePath",
    "icon": "icon/item/110291.png",
    "sources": [
-    "Calyx: Seafeld TV Tower",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A beginner-level model suitable for astronomy enthusiasts to study. Can slightly level up Traces for Erudition characters.",
+   "story": "The model, clutched in youthful hands, was once warmed to a scorching temperature by love and longing.\nDespite its simple craftsmanship and ordinary materials, it was enough to make a child believe that the boundless universe was nothing more than a small sphere in their palm.\nIt depicted a corner of the vast universe for the youth, only to be left behind forever at their childhood bedside.\n\n<i>\"Later, I ventured into the cosmos, far from home... Through the windows of the Express, my homeland had indeed become a tiny little thing.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110292",
@@ -777,11 +1519,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110292.png",
    "sources": [
-    "Calyx: Seafeld TV Tower",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A framework of a galaxy used for advanced studies in interstellar navigation. Used to moderately level up Traces for Erudition characters.",
+   "story": "In the Interstellar Navigation Dynamics class, the vast sea of stars is measured down to the inch, and eternal stars are reduced to mere framework components with varying specs and parameters.\nFrom then on, the distant horizon is crowded with scores and assessments, and romance must be written out as answers in black and white.\nIt seems the academic journey demands far more passion than one might expect.\n\n<i>\"This galactic framework is beautifully crafted. I mean, I should give you an A.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110291",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110293",
@@ -791,10 +1544,21 @@
    "subType": "TracePath",
    "icon": "icon/item/110293.png",
    "sources": [
-    "Calyx: Seafeld TV Tower",
     "Omni-Synthesizer — Material Synthesis",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A cosmic sandpit drawn by a Navigator after surveying the universe. Can greatly level up Traces for Erudition characters.",
+   "story": "The picture painted by the pioneers is all-encompassing, and the simulated sandpit is vast enough to embrace the entire sea of stars.\nLatecomers take this as the starting point of their journey. Packing the sandpit into their handbags, they follow in the footsteps of their predecessors.\nIt was not until the stars fell and she looked back that she realized: through all the meetings and partings along the way, she had journeyed ahead of everyone else, stepping among stars unrecorded even by the sandpit.\n\n<i>\"The meaning of the universe must lie beyond the universe.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110292",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110311",
@@ -804,10 +1568,13 @@
    "subType": "TracePath",
    "icon": "icon/item/110311.png",
    "sources": [
-    "Calyx \"\"Radiant Scarwood\" Grove of Epiphany\"",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A glass-like water droplet. Used to level up Traces slightly for Nihility characters.",
+   "story": "Look through its clear surface and you will see fish-like shadows drifting within. Yet, they can never swim past the edge of this tear. \n\n<i>\"Drink it, and you'll see your homeland and the shore you can never reach.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110312",
@@ -817,11 +1584,22 @@
    "subType": "TracePath",
    "icon": "icon/item/110312.png",
    "sources": [
-    "Calyx \"\"Radiant Scarwood\" Grove of Epiphany\"",
     "Omni-Synthesizer — Material Synthesis",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "Waves overflowing from the cup. Used to level up Traces moderately for Nihility characters.",
+   "story": "The tides refract an intense blue, as if properly chronicling this banquet, held once and nevermore.\n\n<i>\"When believers shatter their honey brew-filled chalices, ocean waves shall bloom upon the earth.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110311",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110313",
@@ -831,10 +1609,21 @@
    "subType": "TracePath",
    "icon": "icon/item/110313.png",
    "sources": [
-    "Calyx \"\"Radiant Scarwood\" Grove of Epiphany\"",
     "Omni-Synthesizer — Material Synthesis",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Light Cone Ascension Material",
+   "description": "A crystal made of countless ocean waves. Used to level up Traces significantly for Nihility characters.",
+   "story": "It pulses like a beating heart and its gills open like an exhale, for an ocean still lives within it.\n\n<i>\"She pressed the ocean into her chest, trading it for eternal silence.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "110312",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "110400",
@@ -846,7 +1635,11 @@
    "sources": [
     "Mission Rewards",
     "Level Rewards"
-   ]
+   ],
+   "category": "Character Ascension Materials",
+   "description": "A fathomless crystal. Ascension material for the Trailblazer.",
+   "story": "Severed from the highest of beings, this crystal reflects ever-changing mirages. The past and future intertwine on each of its countless facets, attempting to swallow up all observers.\n\n<i>\"Civilization is but a thin sheet of ice on top of the deep dark ocean of chaos.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110401",
@@ -856,9 +1649,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110401.png",
    "sources": [
-    "Stagnant Shadow: Great Mine",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Great Mine"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Fragmented saw teeth left behind by automatons. Can be used for the Ascension of Physical characters.",
+   "story": "It is said that the smelting techniques of the Architects allowed them to make chainsaws sturdy enough to split giant boulders. Such techniques have been long lost to history.\n\n<i>\"Boss Svarog says its blade is so thin that it can cut into the gap between molecules... What are molecules?\"</i>",
+   "synthesis": null
   },
   {
    "id": "110402",
@@ -868,9 +1665,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110402.png",
    "sources": [
-    "Stagnant Shadow: Silvermane Guard Restricted Zone",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Silvermane Guard Restricted Zone"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Hot, translucent substance almost like fire in the solid state. Can be used for the Ascension of Fire characters.",
+   "story": "Strange chitin peeled off from an interdimensional creature. Although not piping hot anymore, it still radiates warmth.\n\n<i>\"It's too cold outside. But with this gemstone on you, you'll be able to travel far and wide, even to search for cities with humans left...\"</i>",
+   "synthesis": null
   },
   {
    "id": "110403",
@@ -880,9 +1681,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110403.png",
    "sources": [
-    "Stagnant Shadow: Corridor of Fading Echoes",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Corridor of Fading Echoes"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Broken horn of a Frigid Prowler. Can be used for the Ascension of Ice characters.",
+   "story": "The Silvermane Guards would host contests where the winner must take a body part from a monster and bring it back within a set time limit. This cold broken horn must have been a trophy of one such contest.\n\n<i>\"Sir Bova, this is no moose horn and is certainly not fit for decoration above the Geomarrow furnace.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110404",
@@ -892,9 +1697,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110404.png",
    "sources": [
-    "Stagnant Shadow: Corridor of Fading Echoes",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Corridor of Fading Echoes"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Headwear of the Guardian Shadows. Can be used for the Ascension of Lightning characters.",
+   "story": "Accessory left behind by the shadow of a past Guardian, telling tales of the city of Everwinter.\n\n<i>\"Svetlana the Iron Fist — her wrath as terrifying as thunder and her retribution as swift as lightning.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110405",
@@ -904,9 +1713,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110405.png",
    "sources": [
-    "Stagnant Shadow: Rivet Town",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Rivet Town"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Arrows belonged to a Stormbringer. Can be used for the Ascension of Wind characters.",
+   "story": "Used to belong to a certain Fragmentum monster modeled after a certain kind of Voidrangers. An arrowhead can be barely seen buried in the center of the vortex.\n\n<i>\"Those who perish in the Fragmentum shall rise again where they met their demise.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110406",
@@ -916,9 +1729,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110406.png",
    "sources": [
-    "Stagnant Shadow: Base Zone",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Base Zone"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Horseshoe of a Voidranger: Trampler. Can be used for the Ascension of Quantum characters.",
+   "story": "Rare horseshoe obtained when a Trampler of the Antimatter Legion is defeated. When no one is observing, it pops in and out of existence.\n\n<i>\"The name of the experiment? It's just called \"Horseshoe of the Trampler\"... \"</i>",
+   "synthesis": null
   },
   {
    "id": "110407",
@@ -928,9 +1745,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110407.png",
    "sources": [
-    "Stagnant Shadow: Backwater Pass",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Backwater Pass"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Headwear of the Decaying Shadow. Can be used for the Ascension of Imaginary characters.",
+   "story": "Accessory left behind by the shadow of a past Guardian, telling tales of the city of Everwinter.\n\n<i>\"Alina the Loving — her kindness as lofty as the sky and her compassion as brilliant as gold.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110411",
@@ -940,9 +1761,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110411.png",
    "sources": [
-    "Stagnant Shadow: Fyxestroll Garden",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Fyxestroll Garden"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "The Aurumaton Spectral Envoy's weapon. Can be used for the Ascension of Physical characters.",
+   "story": "This is both a weapon used by the Ten-Lords Commission messengers to subdue mara and abominations, as well as a token they present when undertaking operations. No authorities of the mortal realm have jurisdiction over them.\n\n<i>\"Messengers of Netherworld, authorized envoys of death's realm. Bearing orders for apprehension, with no pardon for transgressors.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110412",
@@ -952,9 +1777,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110412.png",
    "sources": [
-    "Stagnant Shadow: Great Mine",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Great Mine"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "The broken blade of a Searing Prowler. Can be used for the Ascension of Fire-Type characters.",
+   "story": "The Silvermane Guards would host contests where the winner must take a body part from a monster and bring it back within a set time limit. This broken blade must have been a trophy of one such contest.\n\n<i>\"I saw it with my own eyes. Captain Gepard smashed that thing's hot steel blade with one blow of his fist, then held it with his bare hands and plunged it into the belly of that cold fatty, warming its heart.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110413",
@@ -964,9 +1793,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110413.png",
    "sources": [
-    "Stagnant Shadow: Cloudford",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Cloudford"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Frosty chitin emitting a cold humming. Can be used for the Ascension of Ice characters.",
+   "story": "Strange chitin peeled off from an interdimensional creature. Although not freezing cold anymore, it remains trembling, absorbing heat from its surroundings.\n\n<i>\"How has no one thought of selling it to worlds where they don't have air conditioners? It works like an air conditioner and sounds as loud as one, too.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110414",
@@ -976,9 +1809,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110414.png",
    "sources": [
-    "Stagnant Shadow: Stargazer Navalia",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Stargazer Navalia"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "A wooden staff with a pointed tip. It belonged to a shape shifter from the Disciples of Sanctus Medicus. Can be used for the Ascension of Lightning characters.",
+   "story": "According to ancient Xianzhou records, those who have ascended can summon lightning and command the wind. The Disciples of Sanctus Medicus claimed to have inherited the way of the gods. By demonstrating godly power, the disciples gathered large numbers of worshipers in secret. Branches of lightning coil around this wooden staff — could it be that the disciples were indeed no mere mortals?\n\n<i>\"The mortal body is but an illusion. Truth is only revealed to those who choose to ascend.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110415",
@@ -988,9 +1825,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110415.png",
    "sources": [
-    "Stagnant Shadow: Alchemy Commission",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Alchemy Commission"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Remains of The Ascended. Can be used for Ascension of Wind characters.",
+   "story": "The Ascended originally intended to bring the world a legacy of kindness, but as the bestowment of Abundance fades, understanding arrives alongside liberation: They were nothing more than a mortal with flesh and blood. Their ability to traverse the skies was nothing but an illusion, and all that remained of their existence was dust and dirt.\n\n<i>\"I curse ye, Reignbow Arbiter...\"</i>",
+   "synthesis": null
   },
   {
    "id": "110416",
@@ -1000,9 +1841,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110416.png",
    "sources": [
-    "Stagnant Shadow: Scalegorge Waterscape",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Scalegorge Waterscape"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Remnant of an Abundance Sprite. Can be used for the Ascension of Quantum characters.",
+   "story": "The distinction between \"sprite\" and \"abomination\" is merely a matter of name. A sprite is tamed and obedient, while an abomination is an uncontrolled misfortune. This nail embedded in the body of the Malefic Ape serves as an eternal guarantee of its status as a sprite.\n\n<i>\"As a disciple, it is your duty to obey. If the Master Primus drives this Possession Nail into your body, then you will have no choice but to obey, won't you?\"</i>",
+   "synthesis": null
   },
   {
    "id": "110417",
@@ -1012,9 +1857,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110417.png",
    "sources": [
-    "Stagnant Shadow: Artisanship Commission",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Artisanship Commission"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Parts used in the Xianzhou ingenium technology. Can be used for the Ascension of Imaginary characters.",
+   "story": "After Rubert unleashed the calamity of inorganic life, the aurumaton in Xianzhou also rebelled and began a ruthless slaughter. To ensure that the turmoil does not resurface, the craftsmen imposed imprisonment using talismans, stripping the aurumaton of their ability to think.\n\n<i>\"What on earth did you do to make this fellow go mad?\"</i>\n<i>\"I didn't do anything! I just... cleaned that golden talisman a bit.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110421",
@@ -1024,9 +1873,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110421.png",
    "sources": [
-    "Stagnant Shadow: Clock Studios Theme Park",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Clock Studios Theme Park"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "An IPC \"Senior Staff\" work permit. Can be used for the Ascension of Physical characters.",
+   "story": "In the IPC, only project team leaders will have a work permit in this style. For workaholics like these experienced staff, they'd sooner forget to wear clothes than this name card.\n\n<i>\"This is more than just a pass into Pier Point. It is a status symbol!\"</i>",
+   "synthesis": null
   },
   {
    "id": "110422",
@@ -1036,9 +1889,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110422.png",
    "sources": [
-    "Stagnant Shadow: Dewlight Pavilion",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Dewlight Pavilion"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "The memoria core of \"Shell of Faded Rage.\" Can be used for the Ascension of Fire characters.",
+   "story": "The flames of anger will eventually consume themselves, erasing the original cause of the rage, and leaving behind only lingering resentment and an unquenchable core of poisonous hatred.\n\n<i>\"The memoria of fury will persist due to the hatred, yet it will also become unrealistic due to that hatred.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110423",
@@ -1048,9 +1905,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110423.png",
    "sources": [
-    "Stagnant Shadow: The Reverie (Dreamscape)",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: The Reverie (Dreamscape)"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "The fridge carried by Sweet Gorilla. Can be used for the Ascension of Ice characters.",
+   "story": "A special SoulGlad fridge designed to preserve icy sweetness.\nIt serves as a tool for transporting drinks for the Sweet Dreams Troupe, and can also be wielded as a weapon when they are transformed into the Dreamjolt Troupe.\n\n<i>\"Notice: The Sweet Dreams Troupe serves as an outsourcing company for transportation, and SoulGlad Enterprise does not bear any liability in the event of accidents.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110424",
@@ -1060,9 +1921,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110424.png",
    "sources": [
-    "Stagnant Shadow: The Shackling Prison",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: The Shackling Prison"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "A section of a mech's bionic spinal column. Can be used for the Ascension of Lightning characters.",
+   "story": "The most important central component of the mech that was built in imitation of the borisin. Though the body that nurtured it no longer has even a sliver of life left, this component still maintains the \"Slaughter Algorithm\" inherited from primordial days and buried deep within its genes.\n\n<i>\"While you see a monster that can never be killed, I see infinite parts to salvage. That's the difference in perspective.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110425",
@@ -1072,9 +1937,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110425.png",
    "sources": [
-    "Stagnant Shadow: Penacony Grand Theater",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Penacony Grand Theater"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "A golden goblet of fine wine held by the troupe's cupbearer. Can be used for the Ascension of Wind characters.",
+   "story": "A group of believers treads across countless stars, seeking memories of numerous fine wines, brewing their offerings in dreams. Another group of believers turns themselves into yeast, fermenting ancient faiths sealed by the dust of time, distilling their ideals within dreams.\n\n<i>\"At this moment, a cup of nectar blends with a goblet of poison, intoxicating this era together and poisoning the future with the past.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110426",
@@ -1084,9 +1953,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110426.png",
    "sources": [
-    "Stagnant Shadow: Dream's Edge",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Dream's Edge"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "A flamer that instantly cooks food. Can be used for the Ascension of Quantum characters.",
+   "story": "A special fiery dream flamer that uses flames to serve a delicious dream on the plate.\nIt serves as a tool for the Sweet Dreams Troupe's cooking, and can also be wielded as a weapon when they are transformed into the Dreamjolt Troupe.\n\n<i>\"By design, the flames from this flamer affect only ingredients... although that doesn't exclude the possibility of the head chef regarding you as an ingredient.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110427",
@@ -1096,9 +1969,13 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110427.png",
    "sources": [
-    "Stagnant Shadow: Penacony Grand Theater",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Stagnant Shadow: Penacony Grand Theater"
+   ],
+   "category": "Character Ascension Materials",
+   "description": "The silver strings from the red instruments carried by the troupe's instrumentalists. Can be used for the Ascension of Imaginary characters.",
+   "story": "A simple composition weaves shattered pasts, and the sound of music guides hope for the future. As the strings are plucked, countless worlds converge here — the laughters of this moment and the faded tears, the eternal wishes and the unfinished dreams.\n\n<i>\"Pick up the memories buried in the ruins, and turn them into melodies.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110431",
@@ -1110,7 +1987,11 @@
    "sources": [
     "Stagnant Shadow: \"Dragonbone City\" Styxia",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Black Tide Creatures' core crystal. Can be used for the Ascension of Physical characters.",
+   "story": "Truly, the followers of black tide appear in countless forms and can reliably be identified by their crystals. Yet, no one realizes that what seems to be the core is, in truth, merely the \"outer shell.\"\n\n<i>\"I saw a sea of crystals, and then — the relieved smile of the physician.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110432",
@@ -1120,9 +2001,12 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110432.png",
    "sources": [
-    "Stagnant Shadow: \"Sanctum of Prophecy\" Janusopolis",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Character Ascension Materials",
+   "description": "An alien crown left behind by the Noontide Gryphon. Can be used for Ascension of Fire characters.",
+   "story": "In a radiant fairy tale, Georios once sought the light of the moon to aid in creation. Aquila refused their rival's request, yet silently watched on, casting a sun-like gaze upon the land.\n\n<i>\"The dance of the zenith sun and the night moon brings forth a perfect eclipse.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110433",
@@ -1132,9 +2016,12 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110433.png",
    "sources": [
-    "Stagnant Shadow: \"Warbling Shores\" Styxia",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Character Ascension Materials",
+   "description": "Lady of Crashing Waves's spiny tail fin. Can be used for the Ascension of Ice characters.",
+   "story": "The daughters of the sea once had plump, long tails that glowed in the night, guiding lost fishermen home like lighthouses. Now, those fins have turned to bone spikes, piercing through the very chests they once protected.\n\n<i>\"The mad waves of the Skiana Sea can reach a thousand meters high. The ocean is no gentle mother.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110434",
@@ -1144,9 +2031,12 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110434.png",
    "sources": [
-    "Stagnant Shadow: Dovebrook District",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Character Ascension Materials",
+   "description": "A favorite instrument of the Rocking Rebels. An ascension material for Lightning characters.",
+   "story": "Concerts in Planarcadia offer a spectacle you won't see anywhere else. Under the light of the Phantasmoon, the audience's soaring emotions actually manifest and react with the performers' instruments. Taming this physical emotion is a key skill for any musician here. Sometimes, after being soaked in that fervor for too long, an instrument might even evolve into a deadly weapon.\n\n<i>\"Burn this place to the ground! Salt the earth! Burn this place to the ground! Leave nothing but ruins!\" — A rock singer, during a solo concert</i>\n<i>\"Arcadia's a dream! The best place I've seen! The moon's out in bloom, and the air is serene!\" — The same singer, at a gala hosted by Pearl</i>",
+   "synthesis": null
   },
   {
    "id": "110435",
@@ -1158,7 +2048,11 @@
    "sources": [
     "Stagnant Shadow: \"Fortress of Dome\" Eye of Twilight",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Character Ascension Materials",
+   "description": "A corrosive core found within the head of a Dark Sun Gryphon. Can be used for the Ascension of Wind characters.",
+   "story": "The crown symbolizing celestial radiance collapses into a bud-shaped corrosive core. Beings of light succumb to shadow, while the Gryphon's searing hatred consumes itself like embers' fire.\n\n<i>\"Light nurtures growth; darkness extorts death.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110436",
@@ -1170,7 +2064,11 @@
    "sources": [
     "Stagnant Shadow: \"Murmuring Woods\" Grove of Epiphany",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Character Ascension Materials",
+   "description": "An alien crown left behind by the Moonlit Pegasus. Can be used for Ascension of Quantum characters.",
+   "story": "In a legend veiled by night, Oronyx once purloined the sun's radiance to bestow it upon the moon, as the Pegasi bore the brimming moonlight to ensure the earth's luminance during the slumber of Aquila.\n\n<i>\"How can the moon's pallid glow rival the splendor of the sun?\"</i>",
+   "synthesis": null
   },
   {
    "id": "110437",
@@ -1182,7 +2080,11 @@
    "sources": [
     "Stagnant Shadow: \"Abyss of Fate\" Janusopolis",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Character Ascension Materials",
+   "description": "The golden wheeled blade carried by Furiae Praetor. Can be used for Ascension of Imaginary characters.",
+   "story": "Strife Titankins ascend through their ranks only via military achievements. This blade symbolizes exceptional courage, honor, and martial prowess.\n\n<i>\"Plunge into death's River of Souls, and honor our god with your eternal fame.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110443",
@@ -1192,9 +2094,12 @@
    "subType": "AvatarRank",
    "icon": "icon/item/110443.png",
    "sources": [
-    "Stagnant Shadow: Inkford Hermitage",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Character Ascension Materials",
+   "description": "A clown mask that congeals the moment of greedy laughter. Ascension material for Quantum characters.",
+   "story": "\"What kind of joke could make the sneering ugly face contort into such an expression of laughter?\"\nWhen plain jokes could no longer satisfy, and easy amusement failed to draw the masses' attention, the greedy one remembered this mask. That roaring laughter once lacerated the corners of its mouth, its afterecho reverberating across the universe to this day. Yet he was famished, consumed by a desire to hunt down the ultimate \"joke\" to fill his belly.\nLater, he got his wish and donned the mask. But in the vacuum-like silence, the only sound he heard was the unceasing chewing coming from his own mouth.\n\n<i>\"The greedy must first devour their own tongues. Hilarious, truly hilarious, hehehe...\"</i>",
+   "synthesis": null
   },
   {
    "id": "110501",
@@ -1205,7 +2110,11 @@
    "icon": "icon/item/110501.png",
    "sources": [
     "Echo of War: Supply Zone"
-   ]
+   ],
+   "category": "Trace Materials",
+   "description": "Advanced level-up material for Traces.",
+   "story": "The Leviathan's heart has stopped beating, but its mind lives on despite being trapped in a case. As long as the lid is closed, its mind is simultaneously both alive and dead, driving the engine of destruction.\n\n<i>\"Doomsday Beast, a blight made in the Warforge using what's left of a Leviathan and the weeping bones of thousands of the dead. It longs for the destruction of the universe and itself.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110502",
@@ -1216,7 +2125,11 @@
    "icon": "icon/item/110502.png",
    "sources": [
     "Echo of War: Everwinter Hill"
-   ]
+   ],
+   "category": "Trace Materials",
+   "description": "Advanced level-up material for Traces.",
+   "story": "Together with this visor, the twisted wish of a Guardian also lies broken.\nShe had wanted to find a way out for her people to escape the Everwinter, but ended up becoming a puppet of a consciousness beyond her.\n\n<i>\"Supreme Guardian, the title passed down to generations of Belobog's rulers, the one who looked after all the people — It never occurred to anyone that the Guardians themselves also long for care and protection.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110503",
@@ -1227,7 +2140,11 @@
    "icon": "icon/item/110503.png",
    "sources": [
     "Echo of War: Scalegorge Waterscape"
-   ]
+   ],
+   "category": "Trace Materials",
+   "description": "Advanced level-up material for Traces.",
+   "story": "No matter how many bodies it steals, its wish remains unfulfilled. Like those who seek the medicines of immortality, it craves an imperishable vessel, one that will rid it of its fear of destruction. And yet, it knows this is a dream that will never come true.\n\n<i>\"I have seen countless worlds devoured by The Blemished One's conflagration, and I was one of THEIR flames. I danced at the twirl of THEIR fingers, keenly aware that should the fuel burn out, this fire will also extinguish...\"</i>",
+   "synthesis": null
   },
   {
    "id": "110504",
@@ -1238,7 +2155,11 @@
    "icon": "icon/item/110504.png",
    "sources": [
     "Echo of War: Seclusion Zone"
-   ]
+   ],
+   "category": "Trace Materials",
+   "description": "Advanced level-up material for Traces.",
+   "story": "As a descendant bred personally by the Imperator Insectorum, its only desire is to expand the numbers of its kind. It uses giant scythes to harvest planets for its nest, tirelessly nurturing countless offspring, and devastating innumerable lives until the moment of its death.\n\n<i>\"On the broken planet, giant locusts blotted out the sky, and swarms of insects poured out of the planet's crust. The stag beetle raised this new nest and presented it as a gift to its Imperator Insectorum... May this horror only exist in historical records, never to appear again.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110505",
@@ -1249,7 +2170,11 @@
    "icon": "icon/item/110505.png",
    "sources": [
     "Echo of War: Penacony Grand Theater"
-   ]
+   ],
+   "category": "Trace Materials",
+   "description": "Advanced level-up material for Traces.",
+   "story": "THEY alone played the supreme rhythm until it was downed in THEIR multiple choruses.\nYet, THEIR listeners refused to fall silent. As the foolish dreamer seized the string of the shared wish, the false player repeated the music forgotten by the world.\n\n<i>\"Stars trace your fingers and command all living's law and authority... Sweet dreams nowadays have manifested, and the gazillions of old laws have all faded away.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110506",
@@ -1260,7 +2185,11 @@
    "icon": "icon/item/110506.png",
    "sources": [
     "Echo of War: Skysplitter"
-   ]
+   ],
+   "category": "Trace Materials",
+   "description": "Advanced upgrade material for Traces.",
+   "story": "Only in the fleeting moment right before death, when all things appear frozen in time, can the eyes of mortal humans behold the falling forms of these spiritual feathers. Flying Aureus, Spiritus — its speed is the greatest out of the seven forms of the Reignbow's manifestation.\n\n\f<i>\"I spent a dozen days and nights to hunt it, only to discover it has always been inside my body.\"</i>",
+   "synthesis": null
   },
   {
    "id": "110507",
@@ -1271,7 +2200,11 @@
    "icon": "icon/item/110507.png",
    "sources": [
     "Echo of War: \"Fortress of Dome\" Eye of Twilight"
-   ]
+   ],
+   "category": "Trace Materials",
+   "description": "Advanced upgrade material for Traces.",
+   "story": "When the child of humanity drank of the crystal core, they lost the gift to sense human hearts. From then onward, their only purpose was to watch over the earth, bound to endless cycles of stars and moons.\nThey continued to cherish life, yet could no longer perceive neighbors as living beings.\n\n<i>\"Prostrate upon the earth, longing for the touch of blue skies. Yet, once soaring high, the humble fragrance of grass is beyond all price...\"</i>",
+   "synthesis": null
   },
   {
    "id": "110508",
@@ -1280,9 +2213,11 @@
    "type": "Material",
    "subType": "WeeklyMonsterDrop",
    "icon": "icon/item/110508.png",
-   "sources": [
-    "Echo of War: \"Memortis Shore\" Ruins of Time"
-   ]
+   "sources": [],
+   "category": "Trace Materials",
+   "description": "Advanced level-up material for Traces.",
+   "story": "None remembered the sudden moment when the universe fell silent. The voice of thoughts dissolved. All shapes were recognized as identical pixels, captured by the anti-memetic web, transformed into a singular extrapolation.\nUntil it ceased to \"speak.\"\n\n<i>\"Core▀▄verdict▀▄█loop▄█▀entity▄me▀▄\"</i>",
+   "synthesis": null
   },
   {
    "id": "110509",
@@ -1291,9 +2226,40 @@
    "type": "Material",
    "subType": "WeeklyMonsterDrop",
    "icon": "icon/item/110509.png",
+   "sources": [],
+   "category": "Trace Materials",
+   "description": "Advanced level-up material for Traces.",
+   "story": "The fools who lost their smile tirelessly play games with civilization, for without challengers there is no elation, not for others, and certainly not for themselves.\nYesterday withered, heroes died, and the evil villain traversed the stars, unleashing malice upon all. Yet there is still a yearning for someone to defeat the great villain and take the rewards prepared since the very beginning.\n\n<i>\"Successors of Akivili, splendidly done.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "110610",
+   "name": "Tears of Rail",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/110610.png",
+   "sources": [],
+   "category": "Trace Materials",
+   "description": "Congeals the corners once visited. Can be used as a substitute for advanced Trace Materials when they are insufficient.",
+   "story": "Frozen tundras, restless harbors, radiant metropolises, and forgotten sanctuaries... These distant corners once visited now shimmer before the eyes like a mirage, only to be sealed away within a teardrop of interwoven paths.\n\n<i>\"The ends of the path vanish into the endless starry sky, one side tethered to the past, the other leading toward the future.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "111000",
+   "name": "Tears of Souls",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/111000.png",
    "sources": [
-    "Echo of War: Desolate Maw's Demonhold"
-   ]
+    "Divergent Universe enemies",
+    "Simulated Universe enemies"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A prison cage that sealed life's essence and soul. Can substitute materials dropped by enemies when they are insufficient. The substitution ratio of Tears of Souls varies depending on the materials' rarity.",
+   "story": "The ice-cold screws in the automaton's engine, the blood-stained fangs in the borisin's mouth, the withered finger joints on the Sanctus Medicus disciple's hand, the emotions jumping in the Memory Zone Meme's head... The various essences of life are all imprisoned within this tear.\n\n<i>\"This drop of tear is the best proof that all life has a soul.\"</i>",
+   "synthesis": null
   },
   {
    "id": "111001",
@@ -1304,13 +2270,17 @@
    "icon": "icon/item/111001.png",
    "sources": [
     "Certain Fragmentum Monsters",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
     "Assignment rewards",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
-    "Calyx (Golden)"
-   ]
+    "Calyx (Golden)",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "The heart of a monster wandering the Fragmentum. Crude material used for enhancement.",
+   "story": "It is a lesion that breeds evil, the impulse to sin. It is the source of the Fragmentum distortion.\nA heavy blow has caused this heart to stop beating and lose its luster.\n\n<i>\"Preliminary tests indicate it's some kind of hybrid: One half is primordial, and the other half is something very similar to Stellarons.\" — Department of Biology, Sarah Castro</i>",
+   "synthesis": null
   },
   {
    "id": "111002",
@@ -1322,10 +2292,22 @@
    "sources": [
     "Certain Fragmentum Monsters at Equilibrium Level 2 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "The heart of a monster wandering the Fragmentum. Normal material used for enhancement.",
+   "story": "It is a lesion that breeds evil, the impulse to sin. It is the source of the Fragmentum distortion.\nThe heart is glimmering and the veins on it indicate it's still alive.\n\n<i>\"What kind of monster is this? Did you see it... Its face! It has the face of our previous leader!\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "111001",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "111003",
@@ -1337,10 +2319,22 @@
    "sources": [
     "Certain Fragmentum Monsters at Equilibrium Level 4 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "The heart of a monster wandering the Fragmentum. Advanced material used for enhancement.",
+   "story": "It is a lesion that breeds evil, the impulse to sin. It is the source of the Fragmentum distortion.\nThe heart is pulsating slowly, with a residual force powerful enough to cause a new calamity. It's best to destroy it to prevent further troubles.\n\n<i>\"It's like a cancer...\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "111002",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "111011",
@@ -1351,13 +2345,17 @@
    "icon": "icon/item/111011.png",
    "sources": [
     "Antimatter Legion",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
     "Assignment rewards",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
-    "Calyx (Golden)"
-   ]
+    "Calyx (Golden)",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A small amount of anti-matter. Crude material used for enhancement.",
+   "story": "A small amount of anti-matter that emanates out of the Voidranger: Reaver like the materialization of its destructive instinct.\n\n<i>\"They are all looking forward to the moment of obliteration, when they will be reforged and fused with the entire world.\"</i>",
+   "synthesis": null
   },
   {
    "id": "111012",
@@ -1369,10 +2367,22 @@
    "sources": [
     "Antimatter Legion at Equilibrium Level 2 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A moderate amount of anti-matter. Normal material used for enhancement.",
+   "story": "A moderate amount of anti-matter that floats around the Voidranger: Distorter. The amount of matter and anti-matter particles has reached a dangerous balance...\n\n<i>\"They are all looking forward to the moment of obliteration, when they will be reforged and fused with the entire world.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "111011",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "111013",
@@ -1384,10 +2394,22 @@
    "sources": [
     "Antimatter Legion at Equilibrium Level 4 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Condensed anti-matter. Advanced material used for enhancement.",
+   "story": "Highly condensed anti-matter within the body of the Voidranger: Trampler. The moment of obliteration is the trumpet call for civilizations' destruction.\n\n<i>\"They are all looking forward to the moment of obliteration, when they will be reforged and fused with the entire world.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "111012",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "112001",
@@ -1399,13 +2421,17 @@
    "sources": [
     "Everwinter Shadewalker and Incineration Shadewalker",
     "Silvermane Guards and vagrants",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
     "Assignment rewards",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
-    "Calyx (Golden)"
-   ]
+    "Calyx (Golden)",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Pin badge worn by soldiers of the Silvermane Guards. Crude material used for enhancement.",
+   "story": "It is full of scratches from the erosion of wind and snow.\n\n<i>\"In ancient times, there was only one way Silvermane Guards could retire: Death.\"</i>",
+   "synthesis": null
   },
   {
    "id": "112002",
@@ -1418,10 +2444,22 @@
     "Everwinter Shadewalker and Incineration Shadewalker at Equilibrium Level 2 or higher",
     "Silvermane Guards and vagrants at Equilibrium Level 2 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Military rank insignia worn by captains of the Silvermane Guard. Normal material used for enhancement.",
+   "story": "Maybe it's a proof of heroics that you can brag about to your family. Maybe it's a lucky charm that protects you from a bullet.\n\n<i>\"Times have changed.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "112001",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "112003",
@@ -1434,10 +2472,22 @@
     "Everwinter Shadewalker and Incineration Shadewalker at Equilibrium Level 4 or higher",
     "Silvermane Guards and vagrants at Equilibrium Level 4 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Medal of honor worn by soldiers of the Silvermane Guards with gallant and meritorious service. Advanced material used for enhancement.",
+   "story": "A proof of honor awarded to those that fought against Fragmentum creatures, Underworlders, and sudden disasters.\nIt is not usually pinned onto the recipient's chest, but rather placed onto his coffin.\n\n<i>\"Remember, young Gepard. It is not a toy: It is the destiny and blood of the Landau family.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "112002",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "112011",
@@ -1448,13 +2498,17 @@
    "icon": "icon/item/112011.png",
    "sources": [
     "Automatons",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
     "Assignment rewards",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
-    "Calyx (Golden)"
-   ]
+    "Calyx (Golden)",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Mechanical part left behind from the Old World. Crude material used for enhancement.",
+   "story": "Despite its size, it was cast and polished in a way that people today would struggle to replicate.\n\n<i>\"A small screw in the Old World is stronger than our armor.\"</i>",
+   "synthesis": null
   },
   {
    "id": "112012",
@@ -1466,10 +2520,22 @@
    "sources": [
     "Automatons at Equilibrium Level 2 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Mechanical spindle left behind from the Old World. Normal material used for enhancement.",
+   "story": "Once taken apart, the precision components can never be put back together. Even the maintenance veterans in Belobog's Technology Division would think twice before touching it.\n\n<i>\"You idiot, the Bluecoats will only give you a few canned goods for this. Take it to Boss Svarog and you won't need to worry about food and clothing for a while.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "112011",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "112013",
@@ -1481,10 +2547,22 @@
    "sources": [
     "Automatons at Equilibrium Level 4 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Mechanical engine left behind from the Old World. Advanced material used for enhancement.",
+   "story": "It uses Geomarrow as the energy source. When powered, it spews wandering auroras, not sparkles.\n\n<i>\"Only the Technology Division directly under the Supreme Guardian has access to information regarding the Old World. I lost my privileges after I was fired.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "112012",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "113001",
@@ -1495,13 +2573,17 @@
    "icon": "icon/item/113001.png",
    "sources": [
     "Abominations of Abundance",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
     "Assignment rewards",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
-    "Calyx (Golden)"
-   ]
+    "Calyx (Golden)",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "New and young shoot budding from an ancient divine construct. Crude material used for enhancement.",
+   "story": "The source of the Xianzhou long-life species' \"infinite lifespan.\" The remnants of the Aeon of Abundance's influence. Countless years ago, a sovereign's hubris for immortality caused the Xianzhou fleet to sail into the sea of outer space to seek divine recipes.\n\n<i>\"We desire to live for endless ages and maintain the empire for all eternity. Unfortunately, human lives have limits and human capacity has its ends. Thus, we send nine Navis Astrigera to sail beyond the sky, seeking divine recipes for immortality.\"</i>",
+   "synthesis": null
   },
   {
    "id": "113002",
@@ -1513,10 +2595,22 @@
    "sources": [
     "Abominations of Abundance at Equilibrium Level 2 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "New flowers blooming out of an ancient divine construct. Normal material used for enhancement.",
+   "story": "The source of the Xianzhou long-life species' \"Endless Lifespan.\" The remnants of the Aeon of Abundance's influence. After endless trials, the fleet seeking the medicine of immortality was able to behold the visage of the celestial being. The divine one cast down its blessings in material form, and the Ambrosial Arbor sprouted its leaves.\n\n<i>\"New buds descend into the moon, divine flowers bloom by the clouds. In the blink of a blossom's life, old wood returns to youthful grove.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "113001",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "113003",
@@ -1528,10 +2622,22 @@
    "sources": [
     "Abominations of Abundance at Equilibrium Level 4 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Deciduous twigs from an ancient divine construct. Advanced material used for enhancement.",
+   "story": "The source of the Xianzhou long-life species' \"Endless Lifespan.\" The remnants of the Aeon of Abundance's influence. After the Three Sufferings, Xianzhou laid in devastation. The <i>Homo celestinae</i> fell as demons, and catastrophes occurred ceaselessly.\n\n<i>\"As decreed by the Ten-Lords Commission, all who are near the mara-struck state will be seized by the infernal judges and cast into the Shackling Prison.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "113002",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "113011",
@@ -1542,13 +2648,17 @@
    "icon": "icon/item/113011.png",
    "sources": [
     "Entranced Ingenia",
-    "Dropped by enemies in Divergent Universe",
-    "Simulated Universe enemies",
-    "Assignment rewards",
-    "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
-    "Calyx (Golden)"
-   ]
+    "Simulated Universe enemies",
+    "Embers Exchange",
+    "Assignment rewards",
+    "Calyx (Golden)",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Components used in Xianzhou's ingenium creations. Crude material used for enhancement.",
+   "story": "The foundation of Xianzhou's ingenium technology. The smallest constituent of all machine parts. Breaking it apart would be akin to destroying the cellular structure of a living being.\n\n<i>\"The Intelligentsia Guild put up a bounty of two million credits for technical plans that can flawlessly disassemble Xianzhou mechanical puppets.\"</i>\n<i>\"If you know Screwllum, then these two millions are basically yours to take...\"</i>",
+   "synthesis": null
   },
   {
    "id": "113012",
@@ -1560,10 +2670,22 @@
    "sources": [
     "Entranced Ingenia at Equilibrium Level 2 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Parts of the Xianzhou machines. Normal material used for enhancement.",
+   "story": "The connective components used in Xianzhou's ingenium technology. The intricate and thin teeth of the cogwheels are as minute as mustard seeds, and yet are interconnected to form a complex body, making the machine able to pass as true life.\n\n<i>\"Its form lies in harmony, a parallel to nature. Its movements cyclical, echoing the cosmos.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "113011",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "113013",
@@ -1575,10 +2697,22 @@
    "sources": [
     "Entranced Ingenia at Equilibrium Level 4 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Components used in Xianzhou's ingenium creations. Advanced material used for enhancement.",
+   "story": "The core of Xianzhou's ingenium technology. The armillary sphere roils and vibrates like the essence of a heart, making the machine think like a living being.\n\n<i>\"Do not be startled. Taking away its heart would make him... her?... No, make it lose its sentience and return to its mechanical sources.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "113012",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "114001",
@@ -1589,13 +2723,17 @@
    "icon": "icon/item/114001.png",
    "sources": [
     "Dreamjolt Troupe",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
     "Assignment rewards",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
-    "Calyx (Golden)"
-   ]
+    "Calyx (Golden)",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A storage device for Dreamscape creations. Crude material used for enhancement.",
+   "story": "A storage device for broken dreams, providing a fundamental energy source for Dreamscape creations.\n\n<i>\"Install this device, and you will get a member of the Sweet Dreams Troupe.\"</i>",
+   "synthesis": null
   },
   {
    "id": "114002",
@@ -1607,10 +2745,22 @@
    "sources": [
     "Dreamjolt Troupe at Equilibrium Level 2 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A control component for Dreamscape creations. Normal material used for enhancement.",
+   "story": "A dream-building device that regulates desires and controls the Dreamscape creations' emotions.\n\n<i>\"If this device fails, you will get a member of the Dreamjolt Troupe.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "114001",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "114003",
@@ -1622,10 +2772,22 @@
    "sources": [
     "Dreamjolt Troupe at Equilibrium Level 4 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "An energy core for Dreamscape creations. Advanced material used for enhancement.",
+   "story": "A dream-building device that constructs fantasies and grants souls to Dreamscape creations.\n\n<i>\"If this device malfunctions... try to wake up before you descend into a nightmare, my friend.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "114002",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "114011",
@@ -1636,13 +2798,17 @@
    "icon": "icon/item/114011.png",
    "sources": [
     "Memory Zone Meme Drop",
-    "Dropped by enemies in Divergent Universe",
-    "Simulated Universe enemies",
-    "Assignment rewards",
-    "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
-    "Calyx (Golden)"
-   ]
+    "Simulated Universe enemies",
+    "Embers Exchange",
+    "Assignment rewards",
+    "Calyx (Golden)",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A memoria fragment of fleeting thought. Crude material used for enhancement.",
+   "story": "Within the Memory Zone, thousands of thoughts flutter like dust. Broken thoughts accumulate, serving as nourishment and components for memes.\n\n<i>\"A fleeting thought may dissipate into thin air or amass into obsessions.\"</i>",
+   "synthesis": null
   },
   {
    "id": "114012",
@@ -1654,10 +2820,22 @@
    "sources": [
     "Memory Zone Meme at Equilibrium Level 2 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A memoria fragment of profound impression. Normal material used for enhancement.",
+   "story": "Within the Memory Zone, the form of memories float as fleeting glimmers of light, and only profound and memorable fragments can condense it crystals.\n\n<i>\"Memory is not a mere replication of past sensations, but a reconstruction of past impressions.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "114011",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "114013",
@@ -1669,10 +2847,22 @@
    "sources": [
     "Memory Zone Meme at Equilibrium Level 4 or higher",
     "Omni-Synthesizer — Material Synthesis",
-    "Dropped by enemies in Divergent Universe",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Dropped by enemies in Divergent Universe"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A memoria fragment of obsessive desires. Advanced material used for enhancement.",
+   "story": "Within the Memory Zone, memoria of desires develops ceaselessly. It absorbs thoughts and impressions, nurtures magic mirrors of desires, and reflects the eerie shadows of memetic entities.\n\n<i>\"Memory points to the past, while desire points to the future. To seek desires from memory will cause dreams to become inverted, and inner demons will naturally be born.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "114012",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "115001",
@@ -1683,14 +2873,18 @@
    "icon": "icon/item/115001.png",
    "sources": [
     "Titankin",
-    "Crepuscular Beasts",
     "Divergent Universe enemies",
     "Simulated Universe enemies",
     "Assignment Rewards",
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
+    "Crepuscular Beasts",
     "Calyx (Golden)"
-   ]
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "Dust that forms the Strife Titankins. Crude material used for enhancement.",
+   "story": "The tide of death sweeps across the world, and giants of hatred and resentment step forth from the River of Souls. All fear and cower before that stone-carved legion.\n\n<i>\"Slaughter is the stone from which fear is hewn.\"</i>",
+   "synthesis": null
   },
   {
    "id": "115002",
@@ -1701,12 +2895,24 @@
    "icon": "icon/item/115002.png",
    "sources": [
     "Titankin at Equilibrium Level 2 or higher",
-    "Crepuscular Beasts at Equilibrium Level 2 or higher",
     "Omni-Synthesizer — Material Synthesis",
     "Divergent Universe enemies",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Crepuscular Beasts at Equilibrium Level 2 or higher"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A fragment of the Strife Titankins after their demise. Normal material used for enhancement.",
+   "story": "The slothful generals began to drill, and the reclusive sages began to plot. Then humanity discovered they could shatter the creations of gods, and slaughter became war.\n\n<i>\"Fear is the chisel of courage.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "115001",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "115003",
@@ -1717,12 +2923,24 @@
    "icon": "icon/item/115003.png",
    "sources": [
     "Titankin at Equilibrium Level 4 or higher",
-    "Crepuscular Beasts at Equilibrium Level 4 or higher",
     "Omni-Synthesizer — Material Synthesis",
     "Divergent Universe enemies",
     "Simulated Universe enemies",
-    "Omni-Synthesizer — Material Exchange"
-   ]
+    "Omni-Synthesizer — Material Exchange",
+    "Crepuscular Beasts at Equilibrium Level 4 or higher"
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "The heart of a Strife Titankin, full of divine power. Advanced material used for enhancement.",
+   "story": "In the beginning, humanity fought wars to stay alive, but now some fight as fearlessly as the Titankins of Strife to achieve death. The Kremnoans say that perhaps warriors of flesh and stone share the same heart —\n\n<i>\"And this heart is called glory, with courage flowing within.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "115002",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "115011",
@@ -1739,7 +2957,11 @@
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
     "Calyx (Golden)"
-   ]
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A fragment dropped by black tide creatures. Crude material used for enhancement.",
+   "story": "Misfortune often creeps in quietly, and by the time you perceive it, it has already swelled into a calamity that engulfs the world.\n\n<i>\"The death knell sounds at destiny's cessation.\"</i>",
+   "synthesis": null
   },
   {
    "id": "115012",
@@ -1754,7 +2976,19 @@
     "Divergent Universe enemies",
     "Simulated Universe enemies",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A fractured carapace from black tide creatures. Normal material used for enhancement.",
+   "story": "Grotesque heads roar, ragged blades keen enough to sunder all, while the genesis of the scourge still lurks, veiled in the shadows and shrouded by the mists of death.\n\n<i>\"Why do you lament alone at the gravestone?\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "115011",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "115013",
@@ -1769,7 +3003,19 @@
     "Divergent Universe enemies",
     "Simulated Universe enemies",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A crystal born from the demise of black tide creatures. Advanced material used for enhancement.",
+   "story": "Born of the void and destined to return to the void. A contorted existence wrought by decay, fated to wander the desolate earth purposelessly.\n\n<i>\"Its life is one of ruin and sorrow.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "115012",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "116001",
@@ -1786,7 +3032,11 @@
     "Embers Exchange",
     "Omni-Synthesizer — Material Exchange",
     "Calyx (Golden)"
-   ]
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A Wishpower fragment from an imagenated creature. A crude material used for enhancement.",
+   "story": "In the primal wilds, a mother asked her child, \"Did you break your father's bow?\" The child answered, \"No, it must have been someone else.\"\n\"No one else has ever stepped foot in this cave,\" the mother said. \"If it wasn't you, then it must have been me.\" The child continued, \"A gremlin did it. I saw it with my own eyes, but only kids can see them, so that's why you didn't.\"\nThe mother laughed. \"Fine then, why would a gremlin break your father's bow?\" The child said calmly, \"Father probably stepped on its nest. You adults can't see gremlins, so you're always breaking their homes.\"\nWhether this talk actually happened is irrelevant. The truth it holds is undeniable — the first stories were born from the imagination of a child.\nFor billions of years since, those same fantasies have continued to change the world.\n\n<i>\"With stories, we are able to escape from reality.\"</i>",
+   "synthesis": null
   },
   {
    "id": "116002",
@@ -1801,7 +3051,19 @@
     "Divergent Universe enemies",
     "Simulated Universe enemies",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A Wishpower fragment from an imagenated creature. A normal material used for enhancement.",
+   "story": "Remember the old story? An officer pointed at a painting that exposed his atrocities and asked, \"Did you paint this?\"\nThe artist smiled and replied, \"No, you did.\"\nArt that tries to represent reality cannot simply copy it. The shallow surface of reality can never capture its profound, intangible essence.\nConsider a fallen soldier. If you only paint their likeness, they are just one more face among the nameless dead. But if you look past the surface to find the invisible honor, courage, rage, and regret, that is when you truly reach their reality.\nOnly then will people know that this soldier was not just another statistic. This was someone who once brought the pulse of life to the mountains, the waters, and the homes they left behind.\n\n<i>\"With stories, we are able to fight back against evil.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "116001",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
   },
   {
    "id": "116003",
@@ -1816,7 +3078,920 @@
     "Divergent Universe enemies",
     "Simulated Universe enemies",
     "Omni-Synthesizer — Material Exchange"
-   ]
+   ],
+   "category": "Trace Material · Character Ascension Materials",
+   "description": "A Wishpower fragment from an imagenated creature. An advanced material used for enhancement.",
+   "story": "Every story worth taking seriously shares the same theme: \"How to live the one life we're given.\"\nLife is so short that even the greatest sages are suddenly tossed into this world, forced to experience a lifetime without any preparation. That is why no one ever lives a perfect life. There are always regrets, always moments wasted.\nBut luckily, we have stories. In stories, creators and readers share a different life. In stories, the human experience is continuously extended. And in stories, we can reach immortality from within our finite cages.\n\n<i>\"With stories, we are able to live a thousand lifetimes.\"</i>",
+   "synthesis": {
+    "items": [
+     {
+      "id": "116002",
+      "count": 3
+     }
+    ],
+    "credits": 20
+   }
+  },
+  {
+   "id": "121000",
+   "name": "Lil' Twisty Bubble Gum",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/121000.png",
+   "sources": [],
+   "category": "Light Cone Superimposition Material",
+   "description": "A tasty and cheap Punklorde snack. Can be used to Superimpose the Light Cone \"Before the Tutorial Mission Starts.\"",
+   "story": "A candy favored by a certain Stellaron Hunter. It contains rocket tree gum, and the crispy sound of bubbles popping is absolutely irresistible.\n\n<i>\"Pop!\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "121001",
+   "name": "Exorcismal Fulu",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/121001.png",
+   "sources": [],
+   "category": "Light Cone Superimposition Material",
+   "description": "The special talisman used by the Ten-Lords Commission to suppress heliobi. It can be used to superimpose the Light Cone \"Hey, Over Here.\"",
+   "story": "<i>\"Decree of Nine Chapters, myriad spirits concealed.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "121002",
+   "name": "Clockwork Inspiration Notebook",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/121002.png",
+   "sources": [],
+   "category": "Light Cone Superimposition Material",
+   "description": "A handbook that contains the Watchmaker's inspiration for his works. Can be used for the Superimposition of the Light Cone \"For Tomorrow's Journey.\"",
+   "story": "The initial director of <i>Dreamjoy Memoir</i> left this on the desk. It's filled with messy drafts, cryptic wording, indecipherable handwriting, and a Clockie's smile... The contents of this handbook bear the past of an entire world.",
+   "synthesis": null
+  },
+  {
+   "id": "121003",
+   "name": "Music Disc",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/121003.png",
+   "sources": [],
+   "category": "Light Cone Superimposition Material",
+   "description": "The disc used during a band's performance. It can be used to superimpose the Light Cone \"Ninja Record: Sound Hunt.\"",
+   "story": "<i>\"The best way to record memories.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "121004",
+   "name": "Physical Game Cartridge",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/121004.png",
+   "sources": [],
+   "category": "Light Cone Superimposition Material",
+   "description": "A plug-and-play cartridge. It can be used to superimpose the Light Cone \"The Great Cosmic Enterprise.\"",
+   "story": "Even with today's advanced data transfer technology, some developers still prefer cartridges as their game medium, just like writers savoring the sensation of pen on paper.",
+   "synthesis": null
+  },
+  {
+   "id": "121005",
+   "name": "Chrysos Spoon",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/121005.png",
+   "sources": [],
+   "category": "Light Cone Superimposition Material",
+   "description": "A legendary cooking utensil used by fairies. It can be used to superimpose the Light Cone \"The Forever Victual.\"",
+   "story": "<i>\"—With the power to control most of the Membrance Maze!\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "121006",
+   "name": "Flawed Recollection",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/121006.png",
+   "sources": [],
+   "category": "Light Cone Superimposition Material",
+   "description": "A flawed, fragile crystalline flower of Remembrance. It can be used to superimpose the Light Cone \"Fly Into a Pink Tomorrow.\"",
+   "story": "<i>\"That genuine shiver when crystal flowers fall... That's the 'mover of life.'\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "121007",
+   "name": "Commemorative Cartridge",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/121007.png",
+   "sources": [],
+   "category": "Light Cone Superimposition Material",
+   "description": "A game cartridge featuring the Baseball Raccoon avatar, the proof of a popular streamer. It can be used to superimpose the Light Cone: \"Tomorrow, Together.\"",
+   "story": "<i>\"A game we all produced together.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "121008",
+   "name": "Celebration Champagne",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "Material",
+   "icon": "icon/item/121008.png",
+   "sources": [],
+   "category": "Light Cone Superimposition Material",
+   "description": "The crisp pop of a champagne cork is like a victory salute. Can superimpose the Light Cone \"Race to the Horizon.\"",
+   "story": "<i>In the euphoria of victory, it is uncorked atop the podium, shaken, and sent spraying into the sky. A fragrant, fruity rain.\n\n\"Pop!\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180001",
+   "name": "Solid Water",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180001.png",
+   "sources": [
+    "Storage Zone: Baryons or other enemies",
+    "Found in destructible objects in Jarilo-VI",
+    "Administrative District Shop",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "Compound composed of hydrogen and oxygen, essential to support carbon-based life. \nKeeping it in the solid state makes it easy to carry.\n\n<i>\"...Isn't it ice?\"</i>\n<i>\"No, no, no. Ice is ice, this is water, just in the solid state.\"</i>\n<i>\"...Isn't that the definition of ice?\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180002",
+   "name": "Basic Ingredients",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180002.png",
+   "sources": [
+    "Found in destructible objects in the Herta Space Station",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "Ingredients that keep you fed but taste less than ideal.\nNot particularly good, but is edible.\n\n<i>\"Can I eat it? Is it good? What do I eat it with?\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180004",
+   "name": "Phlogiston",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180004.png",
+   "sources": [
+    "Backwater Pass: Flamespawns or other enemies",
+    "Found in destructible objects in the Herta Space Station",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "Particles that form the flame.\nGenius Society #2 Harald Punch proved its existence, but #3 Nyul Iman disproved it.\n#7 Bohdan overthrew Iman's conclusion and proved it again before getting killed by #4 Polka Kakamond days after announcing Phlogiston's existence.\n\n<i>\"Does it exist or not? We're not interested, frankly speaking.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180005",
+   "name": "Metal",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180005.png",
+   "sources": [
+    "Found in destructible objects in the Herta Space Station",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "A substance abundant in planets' crust and the ocean.\nVery useful, very handy.\n\n<i>\"I've been to a planet where the locals consume metals to get superpowers. Please don't do that at home, as most metals are not digestible by humans.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180006",
+   "name": "Gaseous Liquid",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180006.png",
+   "sources": [
+    "Found in destructible objects in Jarilo-VI",
+    "Grocery Stand",
+    "Calyx (Golden)",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "Is it fog, rain, or wind?\nYou can't tell if it's still in the container without lifting the lid.\n\n<i>\"The answer my friend, is blowing in the gaseous liquid...\"</i>\n<i>\"The answer is blowing in the gaseous liquid.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180007",
+   "name": "Seed",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180007.png",
+   "sources": [
+    "Found in destructible objects in Jarilo-VI",
+    "Grocery Stand",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "Reproductive units unique to plants.\nMost of them symbolize life, and some of them taste pretty good.\n\n<i>\"Sow one in the spring, harvest a thousand in the autumn.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180008",
+   "name": "Discarded Ingenium Parts",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180008.png",
+   "sources": [
+    "Assignment Rewards",
+    "Oldies Depot",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "To a bystander, it's just trash. To a craftsman, it's leftover materials. To a recycler, it's credits. Only skilled artisans who truly understand the art of ingenia can see valuable treasures in what others deem wasteful.\n\n<i>\"It is said that in the Great Trial of the Furnace, to challenge Mr. Yingxing, they gave him a pile of defective products and waste. But after a day and night, he crafted a lifelike mechanical lion that moved as if it was alive.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180009",
+   "name": "Human-Height Auspicious Crops",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180009.png",
+   "sources": [
+    "Assignment Rewards",
+    "Longevity Hall",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "The robust and bountiful rice ears are astonishingly as tall as a person. In certain agricultural and pastoral delves of Xianzhou, such towering auspicious crops can be found everywhere.\n\n<i>\"The scholars who planted them hoped that people would never have to experience the feeling of hunger again.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180010",
+   "name": "Tranquility",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180010.png",
+   "sources": [
+    "The Reverie Hotel: Memory Zone Meme \"Allseer\" or other enemies",
+    "Penacony: Destructible Objects",
+    "Assignment rewards",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "After a long day of work or school, you savagely dive onto your bed on a Friday night, ready to hide there for the next two days.\n\n<i>\"Turn off your cell phone, and if anyone asks on Monday why they couldn't reach you, just say your cell phone ran away from home, and you just managed to talk it into coming back.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180011",
+   "name": "Broken Dreams",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180011.png",
+   "sources": [
+    "The Reverie Hotel: Memory Zone Meme \"Allseer\" or other enemies",
+    "Penacony: Destructible Objects",
+    "Assignment rewards",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "Shards like this can be found everywhere throughout Penacony.\nThey once belonged to broken hearts.\n\n<i>\"In the realm of black dreams I sleep, where distinctions of right or wrong are buried deep.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180012",
+   "name": "Rusty Gear",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180012.png",
+   "sources": [
+    "The Reverie Hotel: Dreamjolt Troupe's Mr. Domescreen or other enemies",
+    "Penacony: Destructible Objects",
+    "Assignment rewards",
+    "Ferdinand"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "Gears themselves are not rare, but finding gears that meet the specifications is no easy task. With rapid advancements in technology, these outdated parts are being discarded in large quantities.\n\n<i>\"The best gear is always the one that fits perfectly.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "180013",
+   "name": "Distinctive Tattered Feather",
+   "rarity": 1,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/180013.png",
+   "sources": [
+    "Enemies such as Furiae Warriors drop \"Strife Ruins Castrum Kremnos\"",
+    "Destructible objects in Amphoreus",
+    "Assignment Rewards",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 1 Synthesis Material",
+   "story": "A feather adorned with the Titan Aquila's symbol, often found on cliff faces near the heavens. Some believe these are ciliary feathers shed by Aquila, the hundred-eyed giant bird, while others think they are remnants of birds of prey that soared too high, caught in Aquila's gaze, and met their demise. In ancient times, Aquila's disciples collected these feathers in bulk, using them to craft the ceremonial priestly miter. Notably, the Titan symbol on the feathers fades if left exposed to the night air for too long. \n\n<i>\"If my love for you could be measured... it would surpass the number of Aquila's eyelashes!\"</i>\n<i>\"...Though, now that I think about it, does the hundred-eyed giant bird even have eyelashes?\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181001",
+   "name": "Mechanical Parts",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181001.png",
+   "sources": [
+    "Robot Settlement: Automatons or other enemies",
+    "Found in destructible objects in the Herta Space Station",
+    "Administrative District Shop",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "Essential components of all machines with strange shapes and specific functions.\nWithout them, nothing can be made.\n\n<i>\"With the same parts, Screwllum can make entire planets and create cyborgs. But you can only make me a watch that runs seven seconds late every day.\"</i>\n<i>\"Seven seconds is good enough! Just a hair later than the clocks they use in observatories.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181002",
+   "name": "Virtual Particle",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181002.png",
+   "sources": [
+    "Storage Zone: Baryons or other enemies",
+    "Found in destructible objects in the Herta Space Station",
+    "Grocery Stand",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "Tiny particles commonly found in the universe but cannot be observed in theory.\nScientists are good at transforming theories into reality.\n\n<i>\"I've got a virtual particle and an anti virtual particle here. How do we turn them into a real particle and a real antiparticle? Now, look closely...\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181003",
+   "name": "Protein Rice",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181003.png",
+   "sources": [
+    "Storage Zone: Voidranger: Reavers or other enemies",
+    "Found in destructible objects in the Herta Space Station",
+    "Grocery Stand"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "Nature's gift to human society, friend of mankind, savior of lives.\nSmooth as egg white and full of protein.\n\n<i>\"Every grain costs sweat and blood.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181004",
+   "name": "Feather of Flame",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181004.png",
+   "sources": [
+    "Cloudford: Mara-Struck Soldiers or other enemies",
+    "Found in destructible objects in Jarilo-VI",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "Warm dark feather with a weak ember at its tip.\nSparks trail the feather as it's waved around.\n\n<i>\"The legend of the Phoenix spreads far throughout the entire universe...\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181005",
+   "name": "Core of Ice",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181005.png",
+   "sources": [
+    "Corridor of Fading Echoes: Everwinter Shadewalkers or other enemies",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "Shattered ice fallen from the stars.\nThe frosty mist it emits when removed from a specialized canister looks like the breath of wintertime.\n\n<i>\"Zoom in on a snowflake 100 times and behold the wonder of nature.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181006",
+   "name": "Eye of Lightning",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181006.png",
+   "sources": [
+    "Corridor of Fading Echoes: Everwinter Shadewalkers or other enemies",
+    "Grocery Stand",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "An electric ball made from captured lightning.\nIf its balance is tipped by a conductor, it emits a lightning ball.\n\n<i>\"A genius in the past wanted to use Eye of Lightning to search for aliens. For this, Nous cast their gaze upon her. Not sure which is the bigger win: Found aliens for real or got noticed by Nous?\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181007",
+   "name": "Vortex of Wind",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181007.png",
+   "sources": [
+    "Cloudford: Mara-Struck Soldiers or other enemies",
+    "Found in destructible objects in Jarilo-VI",
+    "Grocery Stand",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "The eye of the storm remains stagnant.\nEven when put in vacuum, the grains involved in the vortex continue to revolve around the eye of the storm.\n\n<i>\"Look, they won't stop no matter what happens. They just keep whirling. You know what that reminds me of?\"</i>\n<i>\"Trailblazing!\"</i>\n<i>\"...That's right, Pom-Pom. Promise me that our trailblazing journey will never come to a stop.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181008",
+   "name": "Quantum Ripples",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181008.png",
+   "sources": [
+    "Rivet Town: Imaginary Weavers or other enemies",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "Ripples in the Sea of Quanta.\nAlthough called \"ripples,\" they are in fact the most basic form of energy fluctuation.\n\n<i>\"Time, there's so much time.\"</i>\n<i>\"All the time there is.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181009",
+   "name": "Leaf of Imaginary",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181009.png",
+   "sources": [
+    "Backwater Pass: Flamespawns or other enemies",
+    "Grocery Stand",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "A leaf of unknown origin.\nIt doesn't belong to any plant and is more of a representation of something more abstract.\nThe ancient light nourishes the leaf through its veins, displaying its faded but remnant power.\n\n<i>\"One leaf, one world.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181010",
+   "name": "Meteoric Alloy",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181010.png",
+   "sources": [
+    "Robot Settlement: Automatons or other enemies",
+    "Found in destructible objects in Jarilo-VI",
+    "Administrative District Shop"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "Resilient meteoric ironsand.\nIts tenacity is far superior to solid boulders.\n\n<i>\"Let's grab as much as we can. Qlipoth will need them.\"</i>\n<i>\"I have no idea whether the Aeon need them or not. All I know is that the IPC will pay big bucks for them.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181011",
+   "name": "Jade Abacus Unit",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181011.png",
+   "sources": [
+    "Assignment Rewards",
+    "Oldies Depot"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "The most essential component of jade abaci, commonly used in the final step of installation.\n\n<i>\"Pick one, they are all outdated models. But once installed, they will undoubtedly bring a soul-like essence to your machines.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181012",
+   "name": "Extract of Medicinal Herbs",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181012.png",
+   "sources": [
+    "Assignment Rewards",
+    "Longevity Hall"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "Medicinal herbs are the foundation of Xianzhou's medical practice, and these extracts capture the active ingredients from various herbs, enhancing their medicinal efficacy in leaps and bounds.\n\n<i>\"The value of 'tradition' lies in its ability to evolve and progress, rather than remaining stagnant.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181013",
+   "name": "Tian Dong",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181013.png",
+   "sources": [
+    "Lingling's Medicine Stand",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "While plants of the Tian Dong genus typically grow on land, Tian Dong plants of Scalegorge Waterscape stand out by extensively inhabiting the coastal areas of the Lunarescent Depths. Although artificial cultivation techniques for Tian Dong have become quite prevalent, there are still many who believe in the superstition that \"wild plants have stronger medicinal properties,\" causing significant trouble for the Pearlkeepers.\n\n<i>\"Plunderers of Tian Dong, to the Shackling Prison they will go.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181014",
+   "name": "Confounding",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181014.png",
+   "sources": [
+    "The Reverie Hotel: Memory Zone Meme \"Heartbreaker\" or other enemies",
+    "Penacony: Destructible Objects",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "I've never been outstanding since I was a kid. I barely met the requirements to get into college, and I barely earned enough credits to obtain my degree. Now, I'm sitting at my desk, contemplating how to explain my understanding of \"confusion\" to you, but am I really worthy of showering you with my superficial understanding? And do you really need to listen to all this broken gibberish of mine? I don't know the answer.\n\n<i>\"Anyway, I hope you enjoy yourself.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181015",
+   "name": "Hunger",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181015.png",
+   "sources": [
+    "The Reverie Hotel: Memory Zone Meme \"Heartbreaker\" or other enemies",
+    "Penacony: Destructible Objects"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "In Penacony, \"hunger\" is an expensive spice that can make any food in the Dreamscape irresistible.\nIn the world beyond dreams, \"hunger\" is the smile on the lips of death.\n\n<i>\"They say hunger is the best seasoning, but I just want to fill my stomach.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181016",
+   "name": "Old Molar",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181016.png",
+   "sources": [
+    "The Reverie Hotel: Dreamjolt Troupe's Mr. Domescreen or other enemies",
+    "Penacony: Destructible Objects",
+    "Assignment rewards",
+    "Ferdinand"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "No one knows the origin of this molar. The person selling it claims this extremely anachronistic item was found on the battlefield of the Emperor's War, infused by a bygone era of craftsmanship and defiance now lost in modern times.\n\n<i>\"It serves as the growth rings of inorganic life.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181017",
+   "name": "Bough of Thought",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181017.png",
+   "sources": [
+    "Enemies such as Furiae Warriors drop \"Strife Ruins Castrum Kremnos\"",
+    "Destructible objects in Amphoreus",
+    "Assignment Rewards"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "A glowing bough with branches sprawling unrestrained in every direction, resembling the organic divergence of thought. It is born in a quiet corner of the Grove where scholars often drift into contemplative dazes. Though lacking any practical use, Cerces appears particularly fond of such curiosities. Legend has it that the Titan would select the bough with the most intricate branching and wear it atop their head as an ornament. \n\n<i>\"For a long time, I've been going to bed early, yet it does little to quiet my restless mind. It feels as though the thoughts from a past life have been reborn within me... At some point, I began to notice a cluster of intertwined branches outside my window.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "181018",
+   "name": "Deep Marrow Rock Salt",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/181018.png",
+   "sources": [
+    "Enemies such as Furiae Warriors drop \"Strife Ruins Castrum Kremnos\"",
+    "Destructible objects in Amphoreus",
+    "Calyx (Golden)"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 2 Synthesis Material",
+   "story": "Salt crystals unearthed from the depths of the rift valley, revered by the farmers who toil on the land. Many keep one of these crystals in their homes, treasuring it as the \"bared spine marrow of Georios,\" a generous gift to the farmers. When reclaiming barren land, just a small sprinkling of this rock salt is enough to transform the barren soil into fertile ground, breathing life back into the earth. \n\n<i>\"Non-organic, non-organic, non-organic, non-organic, non-organic fertilizer is the best!\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182001",
+   "name": "Strange Matter of Destruction",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182001.png",
+   "sources": [
+    "Storage Zone: Voidranger: Reavers or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "Strange matter that seems to possess the power of destruction.\nResembling fire but not quite, it is neither cold nor hot and will damage anything that comes into contact with it for over 12 seconds.\nCould be the Antimatter Legion's version of trash.\n\n<i>\"Creatures that received blessing from Nanook all have twisted appearances.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182002",
+   "name": "Ambergris of Abundance",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182002.png",
+   "sources": [
+    "Cloudford: Mara-Struck Soldiers or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "Jelly-like substance that contains the power of Abundance.\nFirm but not stiff, with notes of fragrance, it fills your heart with hope the moment it touches your fingertip.\nDo not ask what it's made of.\n\n<i>\"It gives you longevity and abundance, dispelling misfortune and illness.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182003",
+   "name": "Stone of The Hunt",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182003.png",
+   "sources": [
+    "Grocery Stand"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "Small stone with the power of The Hunt.\nAs if guided by someone's will, it moves by itself towards a certain direction.\nSounds like what a magnet would do? I assure you it is not.\n\n<i>\"The destination lies where my arrow is heading.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182004",
+   "name": "Preservation Construction Material",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182004.png",
+   "sources": [
+    "Corridor of Fading Echoes: Everwinter Shadewalkers or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "Construction materials that seem to possess the power of Preservation.\nWhen mixed with water it forms a paste, when exposed to air it turns rock-hard.\nPlease do not use together with Solid Water.\n\n<i>\"I regret to say that Intelligentsia Guild's research on the material used to build the Subspace Crystalline Barrier by Amber Lord still needs time to reveal its nature.\"</i>\n<i>\"I'm sure it's not cement — am I right, Taravan?\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182005",
+   "name": "Hard Chip of Nihility",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182005.png",
+   "sources": [
+    "Rivet Town: Imaginary Weavers or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "A chip made of iron that seems to possess the power of Nihility.\nIt may have been a coin that people use to buy things.\nBut apparently, as the engravings on it fade away, its value went with them.\n\n<i>\"I don't know what I'm writing between these quotation marks. What's the point of this item description? My life is meaningless, so is this piece of flavor text.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182006",
+   "name": "Tree Bark of Erudition",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182006.png",
+   "sources": [
+    "Robot Settlement: Automatons or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "Dried tree bark that seems to possess the power of Erudition.\nIts creases tell the story of the years passed and the wisdom of nature.\nIt says a lot more when beaten into pulp used for papermaking.\n\n<i>\"The wisdom of mankind is contained in this one word.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182007",
+   "name": "Slime of Harmony",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182007.png",
+   "sources": [
+    "Stargazer Navalia: Entranced Ingenium: Obedient Dracolion or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "A torus that seems to possess the power of Harmony.\nIt only has one surface. No matter where you depart, you're destined to not reach your destination.\nA tiny complaint would be that it is a bit sticky, as if it does not want to let you go.\n\n<i>\"All are connected and the wind of blessing breathes across the lands!\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182008",
+   "name": "Dragon Scale Coral",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182008.png",
+   "sources": [
+    "Lingling's Medicine Stand"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "At the bottom of Lunarescent Depths, there is a diverse array of nearly a hundred coral species, among which dragon scale coral holds the greatest value. Within the coral skeleton of dragon scale coral, there is a rich concentration of Heavenly East compound. This compound serves as the finest antibiotic in the cosmos and possesses numerous other medicinal properties. Despite almost ten thousand years of efforts, humans have yet to learn how to industrially produce this compound.\nIn front of the entrance to the Fanghu's Alchemy Commission stands a statue of dragon scale coral. Underneath it, there is an inscription that reads:\n\n<i>\"When you mistakenly believe you can control nature, always remember: Nature is the ultimate biochemist.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182009",
+   "name": "The Sound and the Fury",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182009.png",
+   "sources": [
+    "The Reverie Hotel: Memory Zone Meme \"Heartbreaker\" or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "As you may have realized, the majority of sounds in this world are noise, and the majority of words are meaningless combinations.\nDon't let these distractions sway your judgment.\n\n<i>\"Life is like a fool's dream filled with the sound and the fury, but ultimately meaningless.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182010",
+   "name": "Thermal Gel",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/183006.png",
+   "sources": [
+    "The Reverie Hotel: Dreamjolt Troupe's Mr. Domescreen or other enemies",
+    "Ferdinand"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "Heat dissipation is a challenge that all Intellitrons must overcome. Although Intellitrons created using different generations of technology differ significantly in terms of materials and internal structures, traditional physical heat dissipation often remains the most suitable choice for many models.\n\n<i>\"It's just like organic beings bathing in water.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "182011",
+   "name": "Silk Spindle",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182011.png",
+   "sources": [
+    "Enemies such as Furiae Warriors drop \"Strife Ruins Castrum Kremnos\""
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 3 Synthesis Material",
+   "story": "A spindle entwined with silk threads. When the first discarded garment handcrafted by Aglaea accidentally found its way to the market, people were left in awe. What ingenious trimming! What flawless hidden seams! What masterful cutting! For a time, the entire Okhema fashion scene was swept into a frenzy of imitating Aglaea's artistry. The type of spindle she uses also became a must-have among garmentmakers, but the golden thread wound around it — exclusive to the demigod of Mnestia — cannot be replicated no matter what.\n\n<i>\"O beautiful Mnestia, grant me but one-tenth of Lady Aglaea's talent! I am willing to do anything in exchange!\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "183001",
+   "name": "Interdimensional Leaf",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/183001.png",
+   "sources": [
+    "Cloudford: Mara-Struck Soldiers or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 4 Synthesis Material",
+   "story": "The gravity of the planet Arivanta is not fixed. Rather, it changes all the time according to a Bode plot due to the influence of Arivanta's three moons. Ordinary life forms cannot survive such volatility, so the planet developed its unique eco-system, in which the herbal plant Interdimensional Tree is the most famous.\nFor plants in a world where gravity is constantly subject to change, their leaves often have a hard time landing on the planet's ancient and solid ground. It is for this reason that the Interdimensional Trees tend to shake off their leaves rather late in the year. To help their leaves land, these trees, in the course of evolution, gave their leaves the ability to conduct fast short-distance warp-jumps towards the ground at frequencies that cannot be observed by naked eyes. Even so, not every leaf gets to land on the ground. Those lucky enough to make it watch others rise into the sky and burn as they are devoured by the atmosphere.\n\n<i>\"Wow.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "183002",
+   "name": "Phase Flame",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/183002.png",
+   "sources": [
+    "Robot Settlement: Automatons or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 4 Synthesis Material",
+   "story": "Sserkal, #29 of the Genius Society, only lived 29 days by human measures of time. Despite that, she put her short life as a spider to good use, inventing new technologies that would have taken the spider-kind thousands of years to develop. Of all her inventions, the most famous must be the technique known as Phase Change.\nWhat people don't know is that this technique was first applied to experiments with ions. She successfully created Phase Flame, which almost immediately changed to another phase. By the time the Flame returned to the Sserkal Phase, our genius had already passed away. She tried to harness the Flame but had too little time to do so. Thus, the Phase Flame continued to change between phases across different worlds, leaving behind the seeds of flame.\n\n<i>\"Sserkal's life was remarkable. She was smart, kindhearted, and above all, humble. She remained curious and inquisitive, asking her final question in the club on the last day of her life, the answer to which has not been found to this day.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "183003",
+   "name": "Tear Crystal of Glorious Death",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/183003.png",
+   "sources": [
+    "Corridor of Fading Echoes: Everwinter Shadewalkers or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 4 Synthesis Material",
+   "story": "A Mourning Actor took a gondola and rowed towards a silent world of barrenness, humming an elegy for civilizations long gone. Not a single soul could be found at the site of the doomsday battlefield, but like nacre, the world that had turned into ashes gave birth to pearls of sorrow. The ghosts of the past condensed into clouds and rained down crystals like teardrops. The Actor held a fine grain of such crystal in hand and immediately heard in a dream the glorious chorus of civilizations at their height — heroes with godly might, starships like towering mountains, the whimper of stars, and the rage of the enemy. The Actor became restless in sleep, dragged into silent dreams.\n\n<i>\"Every single joy I had in my dreams breaks my heart.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "183004",
+   "name": "Mythus Knots",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/183004.png",
+   "sources": [
+    "Rivet Town: Imaginary Weavers or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 4 Synthesis Material",
+   "story": "To make the divine revelations of the Mythus even more mysterious, the History Fictionologists whipped up something known as Mythus Knots that contain a blend of rumors, secrets, legends, and myths. Historians would then blend such misinformation into what was supposed to be certain and rigid historical facts, with the aim to bring about a future of uncertainty for the universe. According to the History Fictionologists, the course of history is limited by the \"narrative drive\" in the minds of its observers. If something can be done to mix myths into facts, the universe will be covered in the \"mist of uncertainty,\" allowing it to escape the calamity that is doomed to happen.\n\n<i>\"Scammers try to predict the future themselves, but prophets resort to higher powers.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "183005",
+   "name": "Weary",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/183005.png",
+   "sources": [
+    "The Reverie Hotel: Memory Zone Meme \"Heartbreaker\" or other enemies"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 4 Synthesis Material",
+   "story": "I'm tired of writing. I'm done with it.\n\n<i>\"This is what is called 'weariness.'\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "183006",
+   "name": "Mechanical Cube",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/182010.png",
+   "sources": [
+    "The Reverie Hotel: Dreamjolt Troupe's Mr. Domescreen or other enemies",
+    "Ferdinand"
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 4 Synthesis Material",
+   "story": "According to legend, this is the heart of a prominent Intellitron leader, containing the Ultimate Source Code, the essence of all inorganic life. Scholars at the Intelligentsia Guild believe that this code holds the key to unraveling the mysteries of inorganic life.\n\n<i>\"It may also be the pathway for demons to return to the mortal world.\"</i>",
+   "synthesis": null
+  },
+  {
+   "id": "183007",
+   "name": "Fresh Seed of Dawn",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "ComposeMaterial",
+   "icon": "icon/item/183007.png",
+   "sources": [
+    "Enemies such as Furiae Warriors drop \"Strife Ruins Castrum Kremnos\""
+   ],
+   "category": "Synthesis material",
+   "description": "Tier 4 Synthesis Material",
+   "story": "Legend has it that Amphoreus once hosted a beauty pageant where several renowned beauties each plucked a fruit from the golden apple tree. Mnestia declared that the contestant who returned the following year with their golden apple still intact would be deemed the most beautiful.\nWhen the year passed, none of the contestants succeeded in the trial — even the finest golden apples had rotted, just as even the most radiant faces inevitably fade with time. But in the third year, an ordinary-looking peasant girl returned, not with an apple, but with a new seedling. She explained that she had been deeply saddened by the golden apple's decay and had carefully gathered the seeds from the rotting fruit, planting them to nurture a new tree. Moved by her actions, Georios appeared and urged Mnestia to crown the peasant girl as the most beautiful contestant.\nMnestia, however, was reluctant, unable to see any beauty in the girl. At that moment, Georios called upon Oronyx to cover Mnestia's eyes with the veil of night. The instant Mnestia lost their sight, they perceived the brilliance of the peasant girl's heart and joyfully awarded her the title.\n\n<i>\"Agy, doesn't this legend sound like your story?\"</i>\n<i>\"Heh... a beautiful tale, indeed.\"</i>",
+   "synthesis": null
   }
  ]
 }

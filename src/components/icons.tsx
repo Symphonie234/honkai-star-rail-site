@@ -50,3 +50,24 @@ export const ListIcon = () => (
 export const FitIcon = () => (
   <Icon><path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><path d="M3 3v5h5" /></Icon>
 );
+export const ChevronLeftIcon = () => (
+  <Icon><path d="m15 18-6-6 6-6" /></Icon>
+);
+export const ChevronRightIcon = () => (
+  <Icon><path d="m9 18 6-6-6-6" /></Icon>
+);
+export const ChevronDownIcon = () => (
+  <Icon><path d="m6 9 6 6 6-6" /></Icon>
+);
+export const SearchIcon = () => (
+  <Icon><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></Icon>
+);
+export const LayersIcon = () => (
+  <Icon><path d="m12 3 9 5-9 5-9-5 9-5Z" /><path d="m3 13 9 5 9-5" /></Icon>
+);
+export const PinIcon = () => (
+  <Icon><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11Z" /><circle cx="12" cy="10" r="2.2" /></Icon>
+);
+export const ImageIcon = () => (
+  <Icon><rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="2" /><path d="m21 17-5-5-8 8" /></Icon>
+);

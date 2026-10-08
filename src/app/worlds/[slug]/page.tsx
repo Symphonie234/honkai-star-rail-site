@@ -5,8 +5,9 @@ import { CharacterCard } from "@/components/characters/CharacterCard";
 import { LoreText } from "@/components/glossary/LoreText";
 import { Spoiler } from "@/components/Spoiler";
 import { AsOf, NotYet } from "@/components/spoilers/AsOf";
+import { AreaCard } from "@/components/worlds/AreaCard";
 import { WorldArt } from "@/components/worlds/WorldArt";
-import { getWorld, getWorlds } from "@/lib/queries";
+import { getAreaSummaries, getWorld, getWorlds } from "@/lib/queries";
 import { compareVersions } from "@/lib/spoilers";
 import { colorVar } from "@/lib/theme";
 
@@ -25,7 +26,9 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
   const w = await getWorld((await params).slug);
   if (!w) notFound();
 
-  const worlds = await getWorlds();
+  const [worlds, areas] = await Promise.all([getWorlds(), getAreaSummaries(w.slug)]);
+  // Areas grouped by region (Overworld / Underworld, Reality / Dreamscape…), in story order.
+  const regions = Map.groupBy(areas, (a) => a.region ?? "");
   const i = worlds.findIndex((o) => o.slug === w.slug);
   const prev = worlds[i - 1];
   const next = worlds[i + 1];
@@ -65,8 +68,36 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
           </div>
         </header>
 
+        <nav aria-label="On this page" className="mt-10 flex flex-wrap gap-2 text-sm">
+          {areas.length > 0 && <a href="#areas" className="rounded-full border border-line px-3 py-1 text-muted transition hover:border-[var(--c)] hover:text-ink">Areas & maps</a>}
+          {w.chapters.length > 0 && <a href="#story-title" className="rounded-full border border-line px-3 py-1 text-muted transition hover:border-[var(--c)] hover:text-ink">Story</a>}
+          {w.characters.length > 0 && <a href="#travelers-title" className="rounded-full border border-line px-3 py-1 text-muted transition hover:border-[var(--c)] hover:text-ink">Travelers</a>}
+        </nav>
+
+        {areas.length > 0 && (
+          <section id="areas" className="mt-12 scroll-mt-24" aria-labelledby="areas-title">
+            <h2 id="areas-title" className="font-display text-2xl font-bold sm:text-3xl">Areas & maps</h2>
+            <p className="mt-2 max-w-2xl text-muted">
+              Every area of {w.name} with its in-game map — landmarks, Space Anchors, domains, treasures and more, many with an
+              in-game view of the spot.
+            </p>
+            {[...regions].map(([region, list]) => (
+              <div key={region} className="mt-8">
+                {region && <h3 className="eyebrow !text-[var(--c)]">{region}</h3>}
+                <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {list.map((a) => (
+                    <AsOf key={a.slug} version={a.releaseVersion}>
+                      <li>{a.spoilerVersion ? <Spoiler version={a.spoilerVersion} block><AreaCard a={a} /></Spoiler> : <AreaCard a={a} />}</li>
+                    </AsOf>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </section>
+        )}
+
         {w.chapters.length > 0 && (
-          <section className="mt-16" aria-labelledby="story-title">
+          <section className="mt-16 scroll-mt-24" aria-labelledby="story-title">
             <h2 id="story-title" className="font-display text-2xl font-bold sm:text-3xl">The story so far</h2>
             <ol className="mt-6 flex flex-col gap-4">
               {w.chapters.map((ch, n) => {
@@ -92,7 +123,7 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
         )}
 
         {w.characters.length > 0 && (
-          <section className="mt-16" aria-labelledby="travelers-title">
+          <section className="mt-16 scroll-mt-24" aria-labelledby="travelers-title">
             <h2 id="travelers-title" className="font-display text-2xl font-bold sm:text-3xl">Travelers from {w.name}</h2>
             {factions.length > 0 && (
               <ul className="mt-4 flex flex-wrap gap-2" aria-label="Factions">

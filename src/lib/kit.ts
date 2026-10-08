@@ -50,12 +50,21 @@ export type Kit = {
 
 export type Material = {
   id: string;
+  /** URL slug (set in the database, from the name). */
+  slug?: string;
   name: string;
   rarity: number;
   type: string;
   subType: string;
   icon: string;
   sources: string[];
+  /** The game's grouping, e.g. "Trace Material", "Character Ascension Material". */
+  category: string;
+  /** In-game description and story, as the game formats them (paragraphs, <i>). */
+  description: string;
+  story: string;
+  /** Omni-Synthesizer recipe, if it can be synthesized. */
+  synthesis: { items: { id: string; count: number }[]; credits: number | null } | null;
 };
 
 export type DescPart = string | { value: string };

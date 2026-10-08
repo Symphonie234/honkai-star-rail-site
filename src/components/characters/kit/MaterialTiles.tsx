@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import { gameIcon } from "@/lib/images";
 import type { Material } from "@/lib/kit";
 
 /** Rarity backgrounds in the game's own order: gray, green, blue, purple, gold. */
-const RARITY_BG = [
+export const RARITY_BG = [
   "",
   "from-[#5b5f6b] to-[#2e3140]",
   "from-[#3f7a5c] to-[#1f3b2e]",
@@ -12,10 +13,12 @@ const RARITY_BG = [
   "from-[#c99a45] to-[#6b4e1d]",
 ];
 
+const tileClass = "glass flex h-full flex-col items-center overflow-hidden rounded-xl text-center";
+
 /**
- * Material tiles in the game's rarity colors, with totals. Names wrap in full
- * (some run to 49 characters, e.g. "Four Phases, Crossing the River to Check the
- * King"); tiles in a row stretch to the tallest so the grid stays even.
+ * Material tiles in the game's rarity colors, with totals, each linking to its
+ * material page. Names wrap in full (some run to 49 characters, e.g. "Four Phases,
+ * Crossing the River to Check the King"); tiles in a row stretch to the tallest.
  */
 export function MaterialGroup({
   title, items, materials,
@@ -31,9 +34,8 @@ export function MaterialGroup({
         {items.map(({ id, num }) => {
           const m = materials.get(id);
           if (!m) return null;
-          return (
-            <li key={id} title={m.sources.length ? `${m.name}\nFrom: ${m.sources.join(", ")}` : m.name}
-              className="glass flex flex-col items-center overflow-hidden rounded-xl text-center">
+          const tile = (
+            <>
               <span className={`grid w-full place-items-center bg-gradient-to-b py-2 ${RARITY_BG[m.rarity] ?? RARITY_BG[1]}`}>
                 <Image src={gameIcon(m.icon)} alt="" width={48} height={48} />
               </span>
@@ -41,6 +43,15 @@ export function MaterialGroup({
               <span lang="en" className="w-full px-2 pb-2 text-[0.7rem] leading-snug text-balance text-muted hyphens-auto [overflow-wrap:anywhere]">
                 {m.name}
               </span>
+            </>
+          );
+          return (
+            <li key={id} title={m.sources.length ? `${m.name}\nFrom: ${m.sources.join(", ")}` : m.name}>
+              {m.slug ? (
+                <Link href={`/materials/${m.slug}`} className={`${tileClass} transition hover:-translate-y-0.5 hover:border-gold`}>{tile}</Link>
+              ) : (
+                <div className={tileClass}>{tile}</div>
+              )}
             </li>
           );
         })}

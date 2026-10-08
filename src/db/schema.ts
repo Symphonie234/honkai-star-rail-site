@@ -1,7 +1,10 @@
 import { relations, sql } from "drizzle-orm";
 import { integer, jsonb, pgTable, text } from "drizzle-orm/pg-core";
+import type { Area } from "../lib/area";
+import type { Enemy } from "../lib/enemy";
 import type { Kit } from "../lib/kit";
 import type { LightCone } from "../lib/light-cone";
+import type { RelicSet } from "../lib/relic";
 
 /*
  * Slugs are primary keys: they're stable, human-readable, and double as URL segments.
@@ -158,6 +161,8 @@ export const lightCones = pgTable("light_cones", {
 /** Upgrade materials (ascension, Traces), imported from game data. */
 export const materials = pgTable("materials", {
   id: text("id").primaryKey(),
+  /** URL slug, from the name. */
+  slug: text("slug").notNull().default(""),
   name: text("name").notNull(),
   rarity: integer("rarity").notNull(),
   type: text("type").notNull(),
@@ -166,6 +171,45 @@ export const materials = pgTable("materials", {
   icon: text("icon").notNull(),
   /** Where to farm or obtain it. */
   sources: text("sources").array().notNull().default(sql`'{}'::text[]`),
+  /** The game's grouping, e.g. "Trace Material". */
+  category: text("category").notNull().default(""),
+  /** In-game description and story (paragraphs, <i>). */
+  description: text("description").notNull().default(""),
+  story: text("story").notNull().default(""),
+  synthesis: jsonb("synthesis").$type<{ items: { id: string; count: number }[]; credits: number | null }>(),
+});
+
+/** Areas of each world, with their in-game maps, imported from the HSR Wiki. `data` holds the rest. */
+export const areas = pgTable("areas", {
+  slug: text("slug").primaryKey(),
+  worldSlug: text("world_slug").notNull().references(() => worlds.slug),
+  name: text("name").notNull(),
+  region: text("region"),
+  releaseVersion: text("release_version").notNull().references(() => versions.version),
+  spoilerVersion: text("spoiler_version"),
+  sortOrder: integer("sort_order").notNull(),
+  data: jsonb("data").$type<Area>().notNull(),
+});
+
+/** Enemies, imported from the HSR Wiki. `data` holds the rest. */
+export const enemies = pgTable("enemies", {
+  slug: text("slug").primaryKey(),
+  name: text("name").notNull(),
+  tier: text("tier").notNull(),
+  faction: text("faction"),
+  releaseVersion: text("release_version").notNull().references(() => versions.version),
+  spoilerVersion: text("spoiler_version"),
+  data: jsonb("data").$type<Enemy>().notNull(),
+});
+
+/** Cavern Relic and Planar Ornament sets, imported from game data. `data` holds the rest. */
+export const relicSets = pgTable("relic_sets", {
+  slug: text("slug").primaryKey(),
+  gameId: text("game_id").notNull(),
+  name: text("name").notNull(),
+  kind: text("kind").notNull(),
+  releaseVersion: text("release_version").references(() => versions.version),
+  data: jsonb("data").$type<RelicSet>().notNull(),
 });
 
 /** Lore terms shown as hover definitions wherever they appear in lore text. */
@@ -221,6 +265,11 @@ export const aeonLoreRelations = relations(aeonLore, ({ one }) => ({
 export const worldsRelations = relations(worlds, ({ many }) => ({
   characters: many(characters),
   chapters: many(worldChapters),
+  areas: many(areas),
+}));
+
+export const areasRelations = relations(areas, ({ one }) => ({
+  world: one(worlds, { fields: [areas.worldSlug], references: [worlds.slug] }),
 }));
 
 export const worldChaptersRelations = relations(worldChapters, ({ one }) => ({

@@ -1,13 +1,10 @@
 "use client";
 
 import { MotionConfig, motion } from "framer-motion";
-import Image from "next/image";
-import {
-  useEffect, useImperativeHandle, useRef, useState, useSyncExternalStore,
-  type KeyboardEvent, type MouseEvent, type PointerEvent, type Ref, type RefObject, type WheelEvent,
-} from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
 import type { ArtVariant } from "@/db/schema";
-import { CloseIcon, EnterFullscreenIcon, ExitFullscreenIcon, FitIcon, ZoomInIcon, ZoomOutIcon } from "../icons";
+import { CloseIcon, EnterFullscreenIcon, ExitFullscreenIcon } from "../icons";
+import { FillImage, ZoomControls, ZoomStage, type StageHandle } from "../viewer/ZoomStage";
 import { VariantToggle } from "./VariantToggle";
 
 type Props = {
@@ -16,9 +13,10 @@ type Props = {
   caption: string;
   /** Shown when the full splash art is withheld as a spoiler. */
   notice?: string;
-  variants: ArtVariant[];
+  /** Looks to switch between (the Trailblazer); omit for a single image. */
+  variants?: ArtVariant[];
   current?: ArtVariant;
-  onSelectVariant: (v: ArtVariant) => void;
+  onSelectVariant?: (v: ArtVariant) => void;
   onClose: () => void;
 };
 
@@ -38,12 +36,15 @@ const noSubscribe = () => () => {};
  * controls that fade when idle, and optional browser fullscreen (F).
  * Mount it only while open; it opens itself on mount.
  */
-export function ArtViewer({ src, title, caption, notice, variants, current, onSelectVariant, onClose }: Props) {
+export function ArtViewer({ src, title, caption, notice, variants = [], current, onSelectVariant, onClose }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   // Browsers refuse fullscreen on a <dialog> itself, so a wrapper inside it goes fullscreen.
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<StageHandle>(null);
   const [idle, setIdle] = useState(false);
+  // Zoom level for the badge; a new image starts at 100%.
+  const [zoom, setZoom] = useState({ src, scale: 1 });
+  const scale = zoom.src === src ? zoom.scale : 1;
   const idleTimer = useRef(0);
   const isFullscreen = useSyncExternalStore(subscribeFullscreen, () => !!document.fullscreenElement, () => false);
   const canFullscreen = useSyncExternalStore(noSubscribe, () => document.fullscreenEnabled, () => false);
@@ -137,7 +138,12 @@ export function ArtViewer({ src, title, caption, notice, variants, current, onSe
           >
             {/* The art fills the whole window; controls float over it. Keyed by src so
                 zoom and loading state reset when the image changes. */}
-            <Stage key={src} ref={stageRef} src={src} alt={title} uiClass={fade} />
+            <ZoomStage key={src} ref={stageRef} onScaleChange={(scale) => setZoom({ src, scale })}>
+              {() => <FillImage src={src} alt={title} />}
+            </ZoomStage>
+            <span className={`glass pointer-events-none absolute top-24 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs tabular-nums text-muted sm:top-7 ${fade}`}>
+              {Math.round(scale * 100)}%
+            </span>
   
             <div className={`pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-4 bg-gradient-to-b from-space/90 via-space/40 to-transparent p-4 pb-12 sm:p-6 sm:pb-16 ${fade}`}>
               <div className="pointer-events-auto [text-shadow:0_1px_8px_rgb(11_15_36/0.9)]">
@@ -166,7 +172,7 @@ export function ArtViewer({ src, title, caption, notice, variants, current, onSe
             <div className={`pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 bg-gradient-to-t from-space/90 via-space/40 to-transparent p-4 pt-12 sm:p-6 sm:pt-16 ${fade}`}>
               <div className="pointer-events-auto flex flex-wrap items-center justify-center gap-3">
                 <ZoomControls stageRef={stageRef} />
-                {variants.length > 1 && current && (
+                {variants.length > 1 && current && onSelectVariant && (
                   <VariantToggle variants={variants} current={current} onSelect={onSelectVariant} />
                 )}
               </div>
@@ -178,150 +184,5 @@ export function ArtViewer({ src, title, caption, notice, variants, current, onSe
         </MotionConfig>
       </div>
     </dialog>
-  );
-}
-
-function ZoomControls({ stageRef }: { stageRef: RefObject<StageHandle | null> }) {
-  const button = "grid size-10 place-items-center rounded-full transition hover:bg-gold/15 hover:text-gold";
-  return (
-    <div className="glass flex items-center gap-1 rounded-full p-1">
-      <button type="button" className={button} aria-label="Zoom out" title="Zoom out (−)" onClick={() => stageRef.current?.zoomBy(1 / 1.5)}>
-        <ZoomOutIcon />
-      </button>
-      <button type="button" className={button} aria-label="Zoom in" title="Zoom in (+)" onClick={() => stageRef.current?.zoomBy(1.5)}>
-        <ZoomInIcon />
-      </button>
-      <button type="button" className={button} aria-label="Fit to screen" title="Fit to screen (0)" onClick={() => stageRef.current?.reset()}>
-        <FitIcon />
-      </button>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-
-type View = { scale: number; x: number; y: number };
-type StageHandle = { zoomBy: (factor: number) => void; reset: () => void; panBy: (dx: number, dy: number) => void };
-
-const MIN_SCALE = 1;
-const MAX_SCALE = 5;
-const FIT: View = { scale: 1, x: 0, y: 0 };
-const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
-
-/** The zoomable, pannable image. */
-function Stage({ src, alt, uiClass, ref }: { src: string; alt: string; uiClass: string; ref: Ref<StageHandle> }) {
-  const boxRef = useRef<HTMLDivElement>(null);
-  const [view, setView] = useState<View>(FIT);
-  const [loaded, setLoaded] = useState(false);
-  const [dragging, setDragging] = useState(false);
-  const pointers = useRef(new Map<number, { x: number; y: number }>());
-  const gesture = useRef<{ kind: "pan"; x: number; y: number; view: View } | { kind: "pinch"; dist: number; view: View } | null>(null);
-
-  // Keep the image from being dragged entirely off-screen.
-  const bound = (v: View): View => {
-    const box = boxRef.current?.getBoundingClientRect();
-    if (!box) return v;
-    const maxX = (box.width * (v.scale - 1)) / 2;
-    const maxY = (box.height * (v.scale - 1)) / 2;
-    return { scale: v.scale, x: clamp(v.x, -maxX, maxX), y: clamp(v.y, -maxY, maxY) };
-  };
-
-  /** Zoom to `scale`, keeping the point (cx, cy) — relative to the box center — fixed on screen. */
-  const zoomTo = (from: View, scale: number, cx = 0, cy = 0): View => {
-    const s = clamp(scale, MIN_SCALE, MAX_SCALE);
-    const k = s / from.scale;
-    return bound({ scale: s, x: cx - (cx - from.x) * k, y: cy - (cy - from.y) * k });
-  };
-
-  const fromCenter = (clientX: number, clientY: number) => {
-    const box = boxRef.current!.getBoundingClientRect();
-    return [clientX - box.left - box.width / 2, clientY - box.top - box.height / 2] as const;
-  };
-
-  useImperativeHandle(ref, () => ({
-    zoomBy: (f) => setView((v) => zoomTo(v, v.scale * f)),
-    reset: () => setView(FIT),
-    panBy: (dx, dy) => setView((v) => bound({ ...v, x: v.x + dx, y: v.y + dy })),
-  }));
-
-  const onWheel = (e: WheelEvent) => {
-    const [cx, cy] = fromCenter(e.clientX, e.clientY);
-    setView((v) => zoomTo(v, v.scale * Math.exp(-e.deltaY * 0.0015), cx, cy));
-  };
-
-  const onPointerDown = (e: PointerEvent) => {
-    e.currentTarget.setPointerCapture(e.pointerId);
-    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    const pts = [...pointers.current.values()];
-    if (pts.length === 2) {
-      gesture.current = { kind: "pinch", dist: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y), view };
-    } else if (pts.length === 1 && view.scale > 1) {
-      gesture.current = { kind: "pan", x: e.clientX, y: e.clientY, view };
-      setDragging(true);
-    }
-  };
-
-  const onPointerMove = (e: PointerEvent) => {
-    if (!pointers.current.has(e.pointerId)) return;
-    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    const g = gesture.current;
-    if (g?.kind === "pinch") {
-      const [a, b] = [...pointers.current.values()];
-      const [cx, cy] = fromCenter((a.x + b.x) / 2, (a.y + b.y) / 2);
-      setView(zoomTo(g.view, g.view.scale * (Math.hypot(a.x - b.x, a.y - b.y) / g.dist), cx, cy));
-    } else if (g?.kind === "pan") {
-      setView(bound({ ...g.view, x: g.view.x + e.clientX - g.x, y: g.view.y + e.clientY - g.y }));
-    }
-  };
-
-  const endPointer = (e: PointerEvent) => {
-    pointers.current.delete(e.pointerId);
-    gesture.current = null;
-    setDragging(false);
-  };
-
-  const onDoubleClick = (e: MouseEvent) => {
-    const [cx, cy] = fromCenter(e.clientX, e.clientY);
-    setView((v) => (v.scale > 1 ? FIT : zoomTo(v, 2.5, cx, cy)));
-  };
-
-  return (
-    <div
-      ref={boxRef}
-      onWheel={onWheel}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={endPointer}
-      onPointerCancel={endPointer}
-      onDoubleClick={onDoubleClick}
-      className={`absolute inset-0 touch-none select-none ${
-        view.scale > 1 ? (dragging ? "cursor-grabbing" : "cursor-grab") : "cursor-zoom-in"
-      }`}
-    >
-      {!loaded && (
-        <div className="absolute inset-0 grid place-items-center" role="status">
-          <span className="size-10 animate-spin rounded-full border-2 border-line border-t-gold" />
-          <span className="sr-only">Loading art…</span>
-        </div>
-      )}
-      <div
-        className={`absolute inset-0 will-change-transform ${dragging ? "" : "transition-transform duration-200 ease-out"}`}
-        style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})` }}
-      >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="100vw"
-          quality={90}
-          draggable={false}
-          onLoad={() => setLoaded(true)}
-          className={`object-contain transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
-        />
-      </div>
-      <span className={`glass pointer-events-none absolute top-24 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs tabular-nums text-muted sm:top-7 ${uiClass}`}>
-        {Math.round(view.scale * 100)}%
-      </span>
-    </div>
   );
 }
