@@ -23,13 +23,19 @@ const hue = (id: string) => [...id].reduce((h, c) => (h * 31 + c.charCodeAt(0)) 
  * category, and select a point to see what it is — with the in-game view of the
  * spot where the wiki has one (those pins carry a picture badge).
  */
-export function AreaMap({ areaSlug, areaName, floors, categories }: {
+/** Height of a floor label: F3 = 3, F1 = 1, a single "Map" = 0, B1 = -1. */
+const floorLevel = (label: string) => (label.startsWith("B") ? -Number(label.slice(1)) : label.startsWith("F") ? Number(label.slice(1)) : 0);
+
+export function AreaMap({ areaSlug, areaName, floors: givenFloors, categories }: {
   areaSlug: string;
   areaName: string;
   floors: AreaFloor[];
   categories: MapCategory[];
 }) {
-  const [floorIndex, setFloorIndex] = useState(0);
+  // As in game: floors listed top-down (F2, F1, B1…), opening on the ground floor.
+  const floors = useMemo(() => [...givenFloors].sort((a, b) => floorLevel(b.label) - floorLevel(a.label)), [givenFloors]);
+  // F1 if there is one, else the area's single map, else the top floor.
+  const [floorIndex, setFloorIndex] = useState(() => Math.max(0, floors.findIndex((fl) => fl.label === "F1" || fl.label === "Map")));
   const [enabled, setEnabled] = useState(() => new Set(categories.filter((c) => c.defaultOn).map((c) => c.id)));
   const [onlyWithView, setOnlyWithView] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);

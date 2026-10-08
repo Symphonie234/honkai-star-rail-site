@@ -3,7 +3,7 @@
 import Image from "next/image";
 import {
   useEffect, useImperativeHandle, useRef, useState,
-  type MouseEvent, type PointerEvent, type ReactNode, type Ref, type RefObject, type WheelEvent,
+  type MouseEvent, type PointerEvent, type ReactNode, type Ref, type RefObject,
 } from "react";
 import { FitIcon, ZoomInIcon, ZoomOutIcon } from "../icons";
 
@@ -68,10 +68,25 @@ export function ZoomStage({
     panBy: (dx, dy) => setView((v) => bound({ ...v, x: v.x + dx, y: v.y + dy })),
   }));
 
-  const onWheel = (e: WheelEvent) => {
-    const [cx, cy] = fromCenter(e.clientX, e.clientY);
-    setView((v) => zoomTo(v, v.scale * Math.exp(-e.deltaY * 0.0015), cx, cy));
-  };
+  // The wheel zooms, and must not also scroll the page. React's onWheel listener is
+  // passive (it can't preventDefault), so listen natively with passive: false. The
+  // handler is read through a ref so it always sees the latest props.
+  const wheelRef = useRef<(e: globalThis.WheelEvent) => void>(null);
+  useEffect(() => {
+    wheelRef.current = (e) => {
+      e.preventDefault();
+      const [cx, cy] = fromCenter(e.clientX, e.clientY);
+      // Trackpads send small pixel deltas, mice larger line deltas; normalize lines to pixels.
+      const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+      setView((v) => zoomTo(v, v.scale * Math.exp(-dy * 0.0015), cx, cy));
+    };
+  });
+  useEffect(() => {
+    const box = boxRef.current!;
+    const onWheel = (e: globalThis.WheelEvent) => wheelRef.current?.(e);
+    box.addEventListener("wheel", onWheel, { passive: false });
+    return () => box.removeEventListener("wheel", onWheel);
+  }, []);
 
   const onPointerDown = (e: PointerEvent) => {
     // Let clicks on controls inside (pins, buttons) through.
@@ -119,7 +134,6 @@ export function ZoomStage({
   return (
     <div
       ref={boxRef}
-      onWheel={onWheel}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endPointer}
