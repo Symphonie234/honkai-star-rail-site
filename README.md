@@ -29,7 +29,8 @@ npm run dev              # http://localhost:3000
 | `npm run db:push` | Sync the schema to the database |
 | `npm run db:seed` | Upsert content and prune removed entries (safe to re-run) |
 | `npm run db:studio` | Browse the database in Drizzle Studio |
-| `npm run art:fetch` | Download missing art into `public/art` (`-- --force` re-fetches) |
+| `npm run art:fetch` | Download missing art and icons into `public/art` (`-- --force` re-fetches) |
+| `npm run data:import` | Re-import character kits and materials from game data into `src/db/data/game/` |
 | `npm run typecheck` / `npm run lint` | Checks |
 
 ## What's in it
@@ -37,7 +38,7 @@ npm run dev              # http://localhost:3000
 | Route | |
 | --- | --- |
 | `/` | Hero + animated star map (the Astral Express rides the rail) |
-| `/characters`, `/characters/[slug]` | 80 characters: search, filter by type / Path / rarity, sort by release; full splash art viewer |
+| `/characters`, `/characters/[slug]` | 80 characters: search, filter by type / Path / rarity, sort by release; full splash art viewer; full kits — skills with per-level values, Traces, Eidolons, stats and upgrade materials |
 | `/worlds`, `/worlds/[slug]` | World hubs with in-game art, the main story arc by arc (33 chapters, 1.0–3.8), and their people |
 | `/aeons`, `/aeons/[slug]` | Interactive web of Aeons, factions and characters; a lore page per Aeon with official art |
 | `/versions` | Every version 1.0–3.8: official title, release date, its story chapters and characters released |
@@ -90,6 +91,12 @@ legacy/                the original static site, kept for reference
 - Pick a spoiler-safe `factionSlug`. If the card itself reveals story, set `spoilerVersion` to the version of the reveal.
 - Facts (rarity, element, Path, dates, Light Cone, voice actor) are checked against the
   [Honkai: Star Rail Wiki](https://honkai-star-rail.fandom.com/); bios are our own writing.
+
+**Character kits** — generated, not hand-written. `npm run data:import` (scripts/import-game-data.ts) reads
+StarRailRes's game data index for every character in `data/characters.ts` and writes `data/game/kits.json` and
+`data/game/materials.json` (committed, so builds don't need the network and each patch's changes show up as a diff).
+After a game update: `data:import`, review the diff, `art:fetch` for new icons, `db:seed`. Characters that later
+received "Enhanced" versions keep their original kit; the Enhanced variants are excluded on import.
 
 **Aeon lore** — `src/db/data/aeons.ts`: sections per Aeon, each with its own `spoilerVersion`. `artFile` names the
 official art on the wiki for `art:fetch`.

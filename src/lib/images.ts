@@ -28,5 +28,11 @@ export const pathIcon = (slug: string) => `/${ART_DIR}/paths/${slug}.webp`;
 /** Official combat type icon, in the element's own color. */
 export const elementIcon = (slug: string) => `/${ART_DIR}/elements/${slug}.webp`;
 
+/**
+ * A game icon (skill, Trace, Eidolon, stat, material) from its StarRailRes path,
+ * e.g. "icon/skill/1407_skill.png" → "/art/game/skill/1407_skill.webp".
+ */
+export const gameIcon = (iconPath: string) => `/${ART_DIR}/game/${iconPath.replace(/^icon\//, "").replace(/\.png$/, ".webp")}`;
+
 /** Official Aeon art (or, for Aeons never depicted, their Path emblem). */
 export const aeonImage = (slug: string) => `/${ART_DIR}/aeons/${slug}.webp`;

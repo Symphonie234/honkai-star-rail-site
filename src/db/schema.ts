@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import { integer, jsonb, pgTable, text } from "drizzle-orm/pg-core";
+import type { Kit } from "../lib/kit";
 
 /*
  * Slugs are primary keys: they're stable, human-readable, and double as URL segments.
@@ -136,6 +137,25 @@ export const characters = pgTable("characters", {
 
 export type ArtVariant = { label: string; gameId: string };
 
+/** A character's full kit (skills, Traces, Eidolons, stats), imported from game data. */
+export const characterKits = pgTable("character_kits", {
+  characterSlug: text("character_slug").primaryKey().references(() => characters.slug),
+  kit: jsonb("kit").$type<Kit>().notNull(),
+});
+
+/** Upgrade materials (ascension, Traces), imported from game data. */
+export const materials = pgTable("materials", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  rarity: integer("rarity").notNull(),
+  type: text("type").notNull(),
+  subType: text("sub_type").notNull(),
+  /** Game icon path, e.g. "icon/item/110251.png" (see gameIcon). */
+  icon: text("icon").notNull(),
+  /** Where to farm or obtain it. */
+  sources: text("sources").array().notNull().default(sql`'{}'::text[]`),
+});
+
 /** Lore terms shown as hover definitions wherever they appear in lore text. */
 export const glossaryTerms = pgTable("glossary_terms", {
   slug: text("slug").primaryKey(),
@@ -148,12 +168,17 @@ export const glossaryTerms = pgTable("glossary_terms", {
   spoilerVersion: text("spoiler_version"),
 });
 
+export const characterKitsRelations = relations(characterKits, ({ one }) => ({
+  character: one(characters, { fields: [characterKits.characterSlug], references: [characters.slug] }),
+}));
+
 export const charactersRelations = relations(characters, ({ one }) => ({
   element: one(elements, { fields: [characters.elementSlug], references: [elements.slug] }),
   path: one(paths, { fields: [characters.pathSlug], references: [paths.slug] }),
   faction: one(factions, { fields: [characters.factionSlug], references: [factions.slug] }),
   world: one(worlds, { fields: [characters.worldSlug], references: [worlds.slug] }),
   version: one(versions, { fields: [characters.releaseVersion], references: [versions.version] }),
+  kit: one(characterKits, { fields: [characters.slug], references: [characterKits.characterSlug] }),
 }));
 
 export const versionsRelations = relations(versions, ({ many }) => ({

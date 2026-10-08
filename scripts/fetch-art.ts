@@ -18,8 +18,8 @@ import { existsSync } from "node:fs";
 import { copyFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import sharp, { type Sharp } from "sharp";
-import { AEONS, artOf, CHARACTERS, ELEMENTS, PATHS, WORLD_ART_SOURCES } from "../src/db/seed-data";
-import { aeonImage, characterIcon, characterPortrait, characterPreview, elementIcon, pathIcon, worldImage } from "../src/lib/images";
+import { AEONS, artOf, CHARACTERS, ELEMENTS, KITS, MATERIALS, PATHS, WORLD_ART_SOURCES } from "../src/db/seed-data";
+import { aeonImage, characterIcon, characterPortrait, characterPreview, elementIcon, gameIcon, pathIcon, worldImage } from "../src/lib/images";
 
 const CACHE_DIR = path.join(".next", "cache", "hsr-art");
 
@@ -98,6 +98,17 @@ function jobs(): Job[] {
       convert: (i) => webp(i.trim().resize(1024, 1024, { fit: "inside", withoutEnlargement: true }), 88),
     });
   }
+  // Every icon the imported kits and materials use: skills, Traces, Eidolons, stats, materials.
+  const icons = new Set<string>(MATERIALS.map((m) => m.icon));
+  for (const kit of Object.values(KITS)) {
+    for (const s of kit.skills) icons.add(s.icon);
+    for (const t of kit.majorTraces) icons.add(t.icon);
+    for (const e of kit.eidolons) icons.add(e.icon);
+    for (const b of kit.statBonuses) if (b.icon) icons.add(b.icon);
+  }
+  for (const icon of icons) {
+    list.push({ label: `icon ${icon}`, out: gameIcon(icon), source: async () => `${STARRAILRES}/${icon}`, convert: (i) => webp(i.resize(128, 128, { fit: "inside", withoutEnlargement: true }), 88) });
+  }
   for (const a of AEONS) {
     if (!a.artFile) continue;
     list.push({
@@ -152,9 +163,9 @@ async function main() {
   const queue = jobs();
   const counts = { fetched: 0, cached: 0, skipped: 0, unavailable: 0, failed: 0 };
 
-  // A few downloads at a time.
+  // A few downloads at a time (there are ~2,000 small icons).
   await Promise.all(
-    Array.from({ length: 4 }, async () => {
+    Array.from({ length: 8 }, async () => {
       for (let job = queue.shift(); job; job = queue.shift()) {
         try {
           const result = await run(job);

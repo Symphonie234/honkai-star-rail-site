@@ -1,0 +1,1540 @@
+{
+ "source": "https://github.com/Mar-7th/StarRailRes (index_new/en)",
+ "importedAt": "2026-10-08",
+ "materials": [
+  {
+   "id": "2",
+   "name": "Credit",
+   "rarity": 3,
+   "type": "Virtual",
+   "subType": "Virtual",
+   "icon": "icon/item/2.png",
+   "sources": [
+    "Calyx: Great Mine",
+    "Calyx: Artisanship Commission",
+    "Calyx: The Reverie (Dreamscape)",
+    "Calyx: \"Murmuring Woods\" Grove of Epiphany",
+    "Calyx: \"Dovebrook District\"",
+    "Mission rewards",
+    "Assignment rewards",
+    "Embers Exchange"
+   ]
+  },
+  {
+   "id": "241",
+   "name": "Tracks of Destiny",
+   "rarity": 5,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/241.png",
+   "sources": [
+    "Currency Wars Point Rewards",
+    "Simulated Universe Point Rewards",
+    "Nameless Honor",
+    "Embers Exchange",
+    "Starlight Exchange",
+    "Limited-Time Event Rewards"
+   ]
+  },
+  {
+   "id": "110111",
+   "name": "Shattered Blade",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110111.png",
+   "sources": [
+    "Calyx (Storage Zone)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110112",
+   "name": "Lifeless Blade",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110112.png",
+   "sources": [
+    "Calyx (Storage Zone)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110113",
+   "name": "Worldbreaker Blade",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110113.png",
+   "sources": [
+    "Calyx (Storage Zone)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110121",
+   "name": "Arrow of the Beast Hunter",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110121.png",
+   "sources": [
+    "Calyx (Outlying Snow Plains)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110122",
+   "name": "Arrow of the Demon Slayer",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110122.png",
+   "sources": [
+    "Calyx (Outlying Snow Plains)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110123",
+   "name": "Arrow of the Starchaser",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110123.png",
+   "sources": [
+    "Calyx (Outlying Snow Plains)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110131",
+   "name": "Key of Inspiration",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110131.png",
+   "sources": [
+    "Calyx (Rivet Town)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110132",
+   "name": "Key of Knowledge",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110132.png",
+   "sources": [
+    "Calyx (Rivet Town)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110133",
+   "name": "Key of Wisdom",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110133.png",
+   "sources": [
+    "Calyx (Rivet Town)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110141",
+   "name": "Endurance of Bronze",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110141.png",
+   "sources": [
+    "Calyx (Supply Zone)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110142",
+   "name": "Oath of Steel",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110142.png",
+   "sources": [
+    "Calyx (Supply Zone)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110143",
+   "name": "Safeguard of Amber",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110143.png",
+   "sources": [
+    "Calyx (Supply Zone)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110151",
+   "name": "Obsidian of Dread",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110151.png",
+   "sources": [
+    "Calyx (Great Mine)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110152",
+   "name": "Obsidian of Desolation",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110152.png",
+   "sources": [
+    "Calyx (Great Mine)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110153",
+   "name": "Obsidian of Obsession",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110153.png",
+   "sources": [
+    "Calyx (Great Mine)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110161",
+   "name": "Harmonic Tune",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110161.png",
+   "sources": [
+    "Calyx (Robot Settlement)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110162",
+   "name": "Ancestral Hymn",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110162.png",
+   "sources": [
+    "Calyx (Robot Settlement)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110163",
+   "name": "Stellaris Symphony",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110163.png",
+   "sources": [
+    "Calyx (Robot Settlement)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110171",
+   "name": "Seed of Abundance",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110171.png",
+   "sources": [
+    "Calyx (Backwater Pass)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110172",
+   "name": "Sprout of Life",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110172.png",
+   "sources": [
+    "Calyx (Backwater Pass)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110173",
+   "name": "Flower of Eternity",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110173.png",
+   "sources": [
+    "Calyx (Backwater Pass)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110181",
+   "name": "Borisin Teeth",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110181.png",
+   "sources": [
+    "Calyx (Scalegorge Waterscape)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110182",
+   "name": "Lupitoxin Sawteeth",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110182.png",
+   "sources": [
+    "Calyx (Scalegorge Waterscape)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110183",
+   "name": "Moon Rage Fang",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110183.png",
+   "sources": [
+    "Calyx (Scalegorge Waterscape)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110191",
+   "name": "Meteoric Bullet",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110191.png",
+   "sources": [
+    "Calyx: SoulGlad™ Scorchsand Audition Venue",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110192",
+   "name": "Destined Expiration",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110192.png",
+   "sources": [
+    "Calyx: SoulGlad™ Scorchsand Audition Venue",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110193",
+   "name": "Countertemporal Shot",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110193.png",
+   "sources": [
+    "Calyx: SoulGlad™ Scorchsand Audition Venue",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110201",
+   "name": "Rough Sketch",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110201.png",
+   "sources": [
+    "Calyx: Penacony Grand Theater",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110202",
+   "name": "Dynamic Outlining",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110202.png",
+   "sources": [
+    "Calyx: Penacony Grand Theater",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110203",
+   "name": "Exquisite Colored Draft",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110203.png",
+   "sources": [
+    "Calyx: Penacony Grand Theater",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110211",
+   "name": "Scattered Stardust",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110211.png",
+   "sources": [
+    "Calyx: Clock Studios Theme Park",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110212",
+   "name": "Crystal Meteorites",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110212.png",
+   "sources": [
+    "Calyx: Clock Studios Theme Park",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110213",
+   "name": "Divine Amber",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110213.png",
+   "sources": [
+    "Calyx: Clock Studios Theme Park",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110221",
+   "name": "Fiery Spirit",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110221.png",
+   "sources": [
+    "Calyx (Alchemy Commission)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110222",
+   "name": "Starfire Essence",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110222.png",
+   "sources": [
+    "Calyx (Alchemy Commission)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110223",
+   "name": "Heaven Incinerator",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110223.png",
+   "sources": [
+    "Calyx (Alchemy Commission)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110231",
+   "name": "Firmament Note",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110231.png",
+   "sources": [
+    "Calyx: The Reverie (Dreamscape)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110232",
+   "name": "Celestial Section",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110232.png",
+   "sources": [
+    "Calyx: The Reverie (Dreamscape)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110233",
+   "name": "Heavenly Melody",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110233.png",
+   "sources": [
+    "Calyx: The Reverie (Dreamscape)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110241",
+   "name": "Alien Tree Seed",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110241.png",
+   "sources": [
+    "Calyx (Fyxestroll Garden)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110242",
+   "name": "Nourishing Honey",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110242.png",
+   "sources": [
+    "Calyx (Fyxestroll Garden)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110243",
+   "name": "Myriad Fruit",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110243.png",
+   "sources": [
+    "Calyx (Fyxestroll Garden)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110251",
+   "name": "Bīja of Consciousness",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110251.png",
+   "sources": [
+    "Calyx (\"Strife Ruins\" Castrum Kremnos)",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110252",
+   "name": "Seedling of Manas",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110252.png",
+   "sources": [
+    "Calyx (\"Strife Ruins\" Castrum Kremnos)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110253",
+   "name": "Flower of Ālaya",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "TracePath",
+   "icon": "icon/item/110253.png",
+   "sources": [
+    "Calyx (\"Strife Ruins\" Castrum Kremnos)",
+    "Omni-Synthesizer — Material Synthesis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110400",
+   "name": "Enigmatic Ectostella",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110400.png",
+   "sources": [
+    "Mission Rewards",
+    "Level Rewards"
+   ]
+  },
+  {
+   "id": "110401",
+   "name": "Broken Teeth of Iron Wolf",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110401.png",
+   "sources": [
+    "Stagnant Shadow: Great Mine",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110402",
+   "name": "Endotherm Chitin",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110402.png",
+   "sources": [
+    "Stagnant Shadow: Silvermane Guard Restricted Zone",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110403",
+   "name": "Horn of Snow",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110403.png",
+   "sources": [
+    "Stagnant Shadow: Corridor of Fading Echoes",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110404",
+   "name": "Lightning Crown of the Past Shadow",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110404.png",
+   "sources": [
+    "Stagnant Shadow: Corridor of Fading Echoes",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110405",
+   "name": "Storm Eye",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110405.png",
+   "sources": [
+    "Stagnant Shadow: Rivet Town",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110406",
+   "name": "Void Cast Iron",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110406.png",
+   "sources": [
+    "Stagnant Shadow: Base Zone",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110407",
+   "name": "Golden Crown of the Past Shadow",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110407.png",
+   "sources": [
+    "Stagnant Shadow: Backwater Pass",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110411",
+   "name": "Netherworld Token",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110411.png",
+   "sources": [
+    "Stagnant Shadow: Fyxestroll Garden",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110412",
+   "name": "Searing Steel Blade",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110412.png",
+   "sources": [
+    "Stagnant Shadow: Great Mine",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110413",
+   "name": "Gelid Chitin",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110413.png",
+   "sources": [
+    "Stagnant Shadow: Cloudford",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110414",
+   "name": "Shape Shifter's Lightning Staff",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110414.png",
+   "sources": [
+    "Stagnant Shadow: Stargazer Navalia",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110415",
+   "name": "Ascendant Debris",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110415.png",
+   "sources": [
+    "Stagnant Shadow: Alchemy Commission",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110416",
+   "name": "Nail of the Ape",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110416.png",
+   "sources": [
+    "Stagnant Shadow: Scalegorge Waterscape",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110417",
+   "name": "Suppressing Edict",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110417.png",
+   "sources": [
+    "Stagnant Shadow: Artisanship Commission",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110421",
+   "name": "IPC Work Permit",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110421.png",
+   "sources": [
+    "Stagnant Shadow: Clock Studios Theme Park",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110422",
+   "name": "Raging Heart",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110422.png",
+   "sources": [
+    "Stagnant Shadow: Dewlight Pavilion",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110423",
+   "name": "Dream Fridge",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110423.png",
+   "sources": [
+    "Stagnant Shadow: The Reverie (Dreamscape)",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110424",
+   "name": "Nail of the Beast Coffin",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110424.png",
+   "sources": [
+    "Stagnant Shadow: The Shackling Prison",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110425",
+   "name": "A Glass of the Besotted Era",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110425.png",
+   "sources": [
+    "Stagnant Shadow: Penacony Grand Theater",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110426",
+   "name": "Dream Flamer",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110426.png",
+   "sources": [
+    "Stagnant Shadow: Dream's Edge",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110427",
+   "name": "Chordal Mirage",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110427.png",
+   "sources": [
+    "Stagnant Shadow: Penacony Grand Theater",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110431",
+   "name": "Invasive Clot",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110431.png",
+   "sources": [
+    "Stagnant Shadow: \"Dragonbone City\" Styxia",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110432",
+   "name": "Radiant Prominence",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110432.png",
+   "sources": [
+    "Stagnant Shadow: \"Sanctum of Prophecy\" Janusopolis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110433",
+   "name": "Sea Siren's Torn Fin",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110433.png",
+   "sources": [
+    "Stagnant Shadow: \"Warbling Shores\" Styxia",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110435",
+   "name": "Charred Bud of Twilight",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110435.png",
+   "sources": [
+    "Stagnant Shadow: \"Fortress of Dome\" Eye of Twilight",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110436",
+   "name": "Darkveil Moonlight",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110436.png",
+   "sources": [
+    "Stagnant Shadow: \"Murmuring Woods\" Grove of Epiphany",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110437",
+   "name": "Harbinger of Strife",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "AvatarRank",
+   "icon": "icon/item/110437.png",
+   "sources": [
+    "Stagnant Shadow: \"Abyss of Fate\" Janusopolis",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "110501",
+   "name": "Destroyer's Final Road",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/110501.png",
+   "sources": [
+    "Echo of War: Supply Zone"
+   ]
+  },
+  {
+   "id": "110502",
+   "name": "Guardian's Lament",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/110502.png",
+   "sources": [
+    "Echo of War: Everwinter Hill"
+   ]
+  },
+  {
+   "id": "110503",
+   "name": "Regret of Infinite Ochema",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/110503.png",
+   "sources": [
+    "Echo of War: Scalegorge Waterscape"
+   ]
+  },
+  {
+   "id": "110504",
+   "name": "Past Evils of the Borehole Planet Disaster",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/110504.png",
+   "sources": [
+    "Echo of War: Seclusion Zone"
+   ]
+  },
+  {
+   "id": "110505",
+   "name": "Lost Echo of the Shared Wish",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/110505.png",
+   "sources": [
+    "Echo of War: Penacony Grand Theater"
+   ]
+  },
+  {
+   "id": "110506",
+   "name": "Auspice Sliver",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/110506.png",
+   "sources": [
+    "Echo of War: Skysplitter"
+   ]
+  },
+  {
+   "id": "110507",
+   "name": "Daythunder Anamnesis",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/110507.png",
+   "sources": [
+    "Echo of War: \"Fortress of Dome\" Eye of Twilight"
+   ]
+  },
+  {
+   "id": "110508",
+   "name": "Vanquished Flow's Reticence",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "WeeklyMonsterDrop",
+   "icon": "icon/item/110508.png",
+   "sources": [
+    "Echo of War: \"Memortis Shore\" Ruins of Time"
+   ]
+  },
+  {
+   "id": "111001",
+   "name": "Extinguished Core",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/111001.png",
+   "sources": [
+    "Certain Fragmentum Monsters",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Assignment rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "111002",
+   "name": "Glimmering Core",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/111002.png",
+   "sources": [
+    "Certain Fragmentum Monsters at Equilibrium Level 2 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "111003",
+   "name": "Squirming Core",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/111003.png",
+   "sources": [
+    "Certain Fragmentum Monsters at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "111011",
+   "name": "Thief's Instinct",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/111011.png",
+   "sources": [
+    "Antimatter Legion",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Assignment rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "111012",
+   "name": "Usurper's Scheme",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/111012.png",
+   "sources": [
+    "Antimatter Legion at Equilibrium Level 2 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "111013",
+   "name": "Conqueror's Will",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/111013.png",
+   "sources": [
+    "Antimatter Legion at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "112001",
+   "name": "Silvermane Badge",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/112001.png",
+   "sources": [
+    "Everwinter Shadewalker and Incineration Shadewalker",
+    "Silvermane Guards and vagrants",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Assignment rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "112002",
+   "name": "Silvermane Insignia",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/112002.png",
+   "sources": [
+    "Everwinter Shadewalker and Incineration Shadewalker at Equilibrium Level 2 or higher",
+    "Silvermane Guards and vagrants at Equilibrium Level 2 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "112003",
+   "name": "Silvermane Medal",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/112003.png",
+   "sources": [
+    "Everwinter Shadewalker and Incineration Shadewalker at Equilibrium Level 4 or higher",
+    "Silvermane Guards and vagrants at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "112011",
+   "name": "Ancient Part",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/112011.png",
+   "sources": [
+    "Automatons",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Assignment rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "112012",
+   "name": "Ancient Spindle",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/112012.png",
+   "sources": [
+    "Automatons at Equilibrium Level 2 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "112013",
+   "name": "Ancient Engine",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/112013.png",
+   "sources": [
+    "Automatons at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "113001",
+   "name": "Immortal Scionette",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/113001.png",
+   "sources": [
+    "Abominations of Abundance",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Assignment rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "113002",
+   "name": "Immortal Aeroblossom",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/113002.png",
+   "sources": [
+    "Abominations of Abundance at Equilibrium Level 2 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "113003",
+   "name": "Immortal Lumintwig",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/113003.png",
+   "sources": [
+    "Abominations of Abundance at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "113011",
+   "name": "Artifex's Module",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/113011.png",
+   "sources": [
+    "Entranced Ingenia",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Assignment rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "113012",
+   "name": "Artifex's Cogwheel",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/113012.png",
+   "sources": [
+    "Entranced Ingenia at Equilibrium Level 2 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "113013",
+   "name": "Artifex's Gyreheart",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/113013.png",
+   "sources": [
+    "Entranced Ingenia at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "114001",
+   "name": "Dream Collection Component",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/114001.png",
+   "sources": [
+    "Dreamjolt Troupe",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Assignment rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "114002",
+   "name": "Dream Flow Valve",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/114002.png",
+   "sources": [
+    "Dreamjolt Troupe at Equilibrium Level 2 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "114003",
+   "name": "Dream Making Engine",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/114003.png",
+   "sources": [
+    "Dreamjolt Troupe at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "114011",
+   "name": "Tatters of Thought",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/114011.png",
+   "sources": [
+    "Memory Zone Meme Drop",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Assignment rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "114012",
+   "name": "Fragments of Impression",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/114012.png",
+   "sources": [
+    "Memory Zone Meme at Equilibrium Level 2 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "114013",
+   "name": "Shards of Desires",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/114013.png",
+   "sources": [
+    "Memory Zone Meme at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Dropped by enemies in Divergent Universe",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "115001",
+   "name": "Fear-Stomped Flesh",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/115001.png",
+   "sources": [
+    "Titankin",
+    "Crepuscular Beasts",
+    "Divergent Universe enemies",
+    "Simulated Universe enemies",
+    "Assignment Rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "115002",
+   "name": "Courage-Torn Chest",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/115002.png",
+   "sources": [
+    "Titankin at Equilibrium Level 2 or higher",
+    "Crepuscular Beasts at Equilibrium Level 2 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Divergent Universe enemies",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "115003",
+   "name": "Glory-Aspersed Torso",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/115003.png",
+   "sources": [
+    "Titankin at Equilibrium Level 4 or higher",
+    "Crepuscular Beasts at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Divergent Universe enemies",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "115011",
+   "name": "Ethereal Omen",
+   "rarity": 2,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/115011.png",
+   "sources": [
+    "Black Tide Creatures",
+    "Divergent Universe enemies",
+    "Simulated Universe enemies",
+    "Assignment Rewards",
+    "Embers Exchange",
+    "Omni-Synthesizer — Material Exchange",
+    "Calyx (Golden)"
+   ]
+  },
+  {
+   "id": "115012",
+   "name": "Echoing Wail",
+   "rarity": 3,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/115012.png",
+   "sources": [
+    "Black Tide Creatures at Equilibrium Level 2 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Divergent Universe enemies",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  },
+  {
+   "id": "115013",
+   "name": "Eternal Lament",
+   "rarity": 4,
+   "type": "Material",
+   "subType": "CommonMonsterDrop",
+   "icon": "icon/item/115013.png",
+   "sources": [
+    "Black Tide Creature at Equilibrium Level 4 or higher",
+    "Omni-Synthesizer — Material Synthesis",
+    "Divergent Universe enemies",
+    "Simulated Universe enemies",
+    "Omni-Synthesizer — Material Exchange"
+   ]
+  }
+ ]
+}

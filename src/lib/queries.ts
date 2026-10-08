@@ -1,7 +1,9 @@
 import { asc, desc, eq } from "drizzle-orm";
 import { cache } from "react";
 import { db } from "@/db";
-import { aeonLore, aeons, characters, elements, factions, glossaryTerms, paths, versions, worldChapters, worlds } from "@/db/schema";
+import {
+  aeonLore, aeons, characterKits, characters, elements, factions, glossaryTerms, materials, paths, versions, worldChapters, worlds,
+} from "@/db/schema";
 
 const withRefs = { element: true, path: true, faction: true, world: true, version: true } as const;
 
@@ -14,6 +16,18 @@ export const getCharacter = cache((slug: string) =>
 );
 
 export type CharacterWithRefs = Awaited<ReturnType<typeof getCharacters>>[number];
+
+/** A character's imported kit (skills, Traces, Eidolons, stats), if any. */
+export const getCharacterKit = cache(async (slug: string) => {
+  const row = await db.query.characterKits.findFirst({ where: eq(characterKits.characterSlug, slug) });
+  return row?.kit ?? null;
+});
+
+/** Every upgrade material, keyed by game ID. */
+export const getMaterials = cache(async () => {
+  const rows = await db.select().from(materials);
+  return new Map(rows.map((m) => [m.id, m]));
+});
 
 export const getElements = cache(() => db.query.elements.findMany({ orderBy: asc(elements.sortOrder) }));
 

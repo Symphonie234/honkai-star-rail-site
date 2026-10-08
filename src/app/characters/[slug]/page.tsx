@@ -4,13 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { CharacterCard, Stars } from "@/components/characters/CharacterCard";
+import { CharacterKit } from "@/components/characters/kit/CharacterKit";
 import { PortraitShowcase } from "@/components/characters/PortraitShowcase";
 import { LoreText } from "@/components/glossary/LoreText";
 import { JsonLd } from "@/components/JsonLd";
 import { Spoiler } from "@/components/Spoiler";
 import { AsOf, NotYet } from "@/components/spoilers/AsOf";
 import { characterPreview, pathIcon } from "@/lib/images";
-import { getAeons, getCharacter, getCharacters } from "@/lib/queries";
+import { getAeons, getCharacter, getCharacterKit, getCharacters, getMaterials } from "@/lib/queries";
 import { breadcrumbs } from "@/lib/site";
 import { colorVar } from "@/lib/theme";
 
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: PageProps<"/characters/[slug]
   const c = await getCharacter((await params).slug);
   if (!c) return {};
   const title = `${c.name} — ${c.rarity}★ ${c.element.name} ${c.path.name}`;
-  const description = `${c.name} is a ${c.rarity}-star ${c.element.name} character of the ${c.path.name} Path in Honkai: Star Rail, released in Version ${c.releaseVersion}. ${c.bio}`;
+  const description = `${c.name} is a ${c.rarity}-star ${c.element.name} character of the ${c.path.name} Path in Honkai: Star Rail, released in Version ${c.releaseVersion}. Skills, Traces, Eidolons, stats and materials. ${c.bio}`;
   const image = c.art[0] ? characterPreview(c.art[0].gameId) : undefined;
   return {
     title,
@@ -41,7 +42,7 @@ export default async function CharacterPage({ params }: PageProps<"/characters/[
   const c = await getCharacter((await params).slug);
   if (!c) notFound();
 
-  const [all, aeons] = await Promise.all([getCharacters(), getAeons()]);
+  const [all, aeons, kit, materials] = await Promise.all([getCharacters(), getAeons(), getCharacterKit(c.slug), getMaterials()]);
   const pathmates = all.filter((o) => o.pathSlug === c.pathSlug && o.slug !== c.slug);
   const aeon = aeons.find((a) => a.pathSlug === c.pathSlug);
   const faction = c.faction?.name ?? "Unaffiliated";
@@ -119,6 +120,8 @@ export default async function CharacterPage({ params }: PageProps<"/characters/[
             <p className="mt-3 text-muted">{c.element.description}</p>
           </div>
         </section>
+
+        {kit && <CharacterKit name={c.name} kit={kit} materials={materials} />}
 
         {pathmates.length > 0 && (
           <section className="mt-16" aria-labelledby="pathmates">

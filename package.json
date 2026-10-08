@@ -13,7 +13,8 @@
     "db:studio": "drizzle-kit studio",
     "typecheck": "tsc --noEmit",
     "art:fetch": "tsx scripts/fetch-art.ts",
-    "prebuild": "npm run art:fetch"
+    "prebuild": "npm run art:fetch",
+    "data:import": "tsx scripts/import-game-data.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.3",
