@@ -1,6 +1,6 @@
 {
  "source": "https://honkai-star-rail.fandom.com/ (CC BY-SA)",
- "importedAt": "2026-10-08",
+ "importedAt": "2026-10-28",
  "enemies": [
   {
    "slug": "all-or-nothing-double-fortune",
@@ -3077,12 +3077,12 @@
     {
      "name": "All Are Within Me",
      "type": "AoE ATK",
-     "desc": "Deals massive Quantum DMG (500% ATK) to all targets, and has a high chance to inflict an  state on all targets."
+     "desc": "Deals massive Quantum DMG (700% ATK) to all targets, and has a high chance to inflict an  state on all targets."
     },
     {
      "name": "Linked Cluster Stress Response",
      "type": "Talent",
-     "desc": "Being attacked during the ceremony advances the action of \"Frenzied Beast's Seed Germs,\" and \"Blood of the Fallen God\" is unaffected by action advance effects."
+     "desc": "Being attacked during the ceremony advances the action of \"Frenzied Beast's Seed Germs,\" (8%) and \"Blood of the Fallen God\" is unaffected by action advance effects."
     },
     {
      "name": "Myriad Aspects of the Beast Eye",
@@ -4110,7 +4110,7 @@
     "Lock On",
     "Toughness Protection"
    ],
-   "lore": "After being assimilated by the overflowing Fragmentum energy of the Stellaron, the Supreme Guardian transforms into a singer able to control Imaginary Energy and the mouthpiece of its promised \"new world.\"",
+   "lore": "After being assimilated by the overflowing Fragmentum energy of the Stellaron, the Supreme Guardian transforms into a chantress able to control Imaginary Energy and the mouthpiece of the Stellaron's promised \"new world.\"",
    "res": {
     "physical": 0.4,
     "ice": 0.6,
@@ -8873,7 +8873,7 @@
     {
      "name": "Scorching Crush",
      "type": "Single Target",
-     "desc": "Deals Fire DMG (300% ATK) to a single target, with a high chance (100% ATK) to Burn the target (3 Turns, 50% ATK DoT)."
+     "desc": "Deals Fire DMG (300% ATK) to a single target, with a high chance (100% Base Chance) to Burn the target (3 Turns, 50% ATK DoT)."
     }
    ],
    "image": "Enemy Incineration Shadewalker.png",
@@ -9571,12 +9571,12 @@
     {
      "name": "Existential Farce",
      "type": "AoE ATK",
-     "desc": "Deals DMG to all targets."
+     "desc": "Deals DMG (250% ATK) to all targets."
     },
     {
      "name": "Mocked Gaze",
      "type": "Single Target",
-     "desc": "Deals DMG to one designated target."
+     "desc": "Deals DMG (350% ATK) to one designated target."
     },
     {
      "name": "Nihility's Joy",
@@ -9697,12 +9697,12 @@
     {
      "name": "Nihility's Joy",
      "type": "AoE ATK",
-     "desc": "Deals DMG to all targets."
+     "desc": "Deals DMG (250% ATK) to all targets."
     },
     {
      "name": "Triple Contempt",
      "type": "AoE ATK",
-     "desc": "Deals DMG to all targets."
+     "desc": "Deals DMG (350% ATK) to all targets."
     },
     {
      "name": "Three-Faced Incarnation",
@@ -9780,12 +9780,12 @@
     {
      "name": "Existential Farce",
      "type": "AoE ATK",
-     "desc": "Deals DMG to all targets."
+     "desc": "Deals DMG (250% ATK) to all targets."
     },
     {
      "name": "Mocked Gaze",
      "type": "Single Target",
-     "desc": "Deals DMG to one designated target."
+     "desc": "Deals DMG (350% ATK) to one designated target."
     },
     {
      "name": "Gambit of Converging Fates",
@@ -12644,7 +12644,7 @@
     {
      "name": "Soulcaller",
      "type": "Talent",
-     "desc": "Summons 2 Elite Enemies to assist in battle. When a target deals DMG to summons, Soulhook Sovereign will lose an equal amount of HP. When summons are Weakness Broken, their action is further delayed. After any summon is defeated, its Weakness Type is transferred to the other summon still in the battle, and applies  to it."
+     "desc": "Summons 2 Elite Enemies to assist in battle. When a target deals DMG to summons, Soulhook Sovereign will lose an equal amount of HP. When summons are Weakness Broken, their action is further delayed (100%). After any summon is defeated, its Weakness Type is transferred to the other summon still in the battle, and applies  to it."
     }
    ],
    "image": "Enemy Stellaron Hunter Kafka.png",

@@ -122,7 +122,36 @@ const DEFAULT_ON = new Set([
   "Space Anchors", "Landmarks", "Marked Locations", "Calyx (Golden)", "Calyx (Crimson)", "Stagnant Shadows",
   "Caverns of Corrosion", "Echo of War", "Shops", "Shops with Collectibles", "Entrance", "Exit", "Interplanar Jump",
   "Interplanar Jump!", "Shuttles",
+  // Doors into buildings (Eversummer Florist, Goethe Hotel…), which the game's map shows too.
+  "Subareas with Collectibles",
 ]);
+
+/**
+ * A map marker's text, without what can't be shown on its own: reward lists (kept
+ * separately), lists transcluded from other pages, and the headings above them.
+ */
+const markerText = (text: string) =>
+  cleanWiki(
+    text
+      // Penacony Clockwork NPCs: rewards per mood ("|angry = All or Nothing*1") → "Angry: All or Nothing ×1".
+      .replace(/\{\{Clockwork Rewards([\s\S]*?)\n\}\}/g, (_, body: string) =>
+        [...body.matchAll(/\|\s*(\w+)\s*=\s*(.+)/g)]
+          // Plain moods only; "sad_text" and the like hold wording with nested templates.
+          .filter(([, mood, reward]) => !mood.includes("_") && !/\{\{|\}\}/.test(reward))
+          .map(([, mood, reward]) => {
+            const m = /^(.*?)\*(\d+)(?:\{text=([^}]*)\})?\s*$/.exec(reward.trim());
+            const label = m ? `${m[3] ?? m[1]} ×${m[2]}` : reward.trim();
+            return `${mood[0].toUpperCase()}${mood.slice(1)}: ${label}`;
+          })
+          .join("\n"))
+      .replace(/\{\{Item List[\s\S]*?\}\}/g, "")
+      .replace(/\{\{Map Marker\/Description\|[^}]*\}\}/g, "")
+      .replace(/\{\{Transclude\|[^}]*\}\}/g, "")
+      .replace(/^=+[^=\n]+=+\s*$/gm, ""),
+  );
+
+/** "{{Map Marker/Description|Eversummer Florist}}": the page whose description the marker shows. */
+const describedBy = (text: string) => /\{\{Map Marker\/Description\|([^}|]+)/.exec(text)?.[1].trim() ?? null;
 
 /** "{{Item List|1=Oronyx Slate*2;Credit*5000}}" → rewards. */
 function rewards(text: string) {
@@ -172,6 +201,8 @@ async function importAreas() {
 
   const areas: Area[] = [];
   const seen = new Set<string>();
+  // Markers whose text is another page's description, filled in once those pages are fetched.
+  const describedMarkers: { marker: MapMarker; page: string }[] = [];
   for (const base of candidates) {
     const page = [areaPages.get(`${base} (Location)`), areaPages.get(base)].find((p) => p && findTemplate(p.text, "Location Infobox"));
     if (!page || seen.has(page.title)) continue;
@@ -225,13 +256,16 @@ async function importAreas() {
           }
           const [x, y] = mk.position as [number, number];
           const descText = String(mk.popup?.description ?? "");
-          return {
+          const marker: MapMarker = {
             id: String(mk.id), cat: catId, x: round4(x / w), y: round4(flip ? 1 - y / h : y / h),
             title: cleanWiki(String(mk.popup?.title ?? c?.name ?? "")),
-            desc: cleanWiki(descText.replace(/\{\{Item List[\s\S]*?\}\}/g, "")),
+            desc: markerText(descText),
             rewards: rewards(descText),
             image: mk.popup?.image ? String(mk.popup.image).replace(/^File:/, "") : null,
           };
+          const describedPage = describedBy(descText);
+          if (describedPage) describedMarkers.push({ marker, page: describedPage });
+          return marker;
         });
         return { label, image: String(json.mapImage).replace(/^File:/, ""), width: w, height: h, markers };
       });
@@ -246,6 +280,14 @@ async function importAreas() {
       enemies: { normal: enemyList(section(enemySection, "Normal")), elite: enemyList(section(enemySection, "Elite")) },
       activities, collectibles, shops, sortOrder: 0,
     });
+  }
+
+  // Markers that show another page's description (sub-areas like shops and hotels).
+  const describedPages = await pages([...new Set(describedMarkers.map((d) => d.page))]);
+  for (const { marker, page } of describedMarkers) {
+    const text = describedPages.get(page)?.text;
+    const lead = text ? description(text) : "";
+    if (lead) marker.desc = [lead, marker.desc].filter(Boolean).join("\n\n");
   }
 
   // Link connections to areas we have; order each world's areas by version, then name.
