@@ -20,7 +20,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...lightCones.map((lc) => page(`/light-cones/${lc.slug}`, 0.6)),
     ...relics.map((r) => page(`/relics/${r.slug}`, 0.6)),
     ...materials.map((m) => page(`/materials/${m.slug}`, 0.5)),
-    // Story bosses are kept out of search results (their names are spoilers).
     ...enemies.filter((e) => !e.spoilerVersion).map((e) => page(`/enemies/${e.slug}`, 0.5)),
     ...worlds.map((w) => page(`/worlds/${w.slug}`, 0.7)),
     ...areas.map((a) => page(`/worlds/${a.worldSlug}/${a.slug}`, 0.6)),

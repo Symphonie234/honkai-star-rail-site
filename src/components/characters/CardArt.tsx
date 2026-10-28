@@ -5,13 +5,11 @@ import type { ArtVariant } from "@/db/schema";
 import { characterPreview } from "@/lib/images";
 import { useArtVariant } from "./art-variant";
 
-/** A card's bust shot, following the reader's chosen variant (Stelle/Caelus). */
 export function CardArt({
   name, art, sizes = "(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw",
 }: {
   name: string;
   art: ArtVariant[];
-  /** next/image `sizes`, matching how wide the card renders. */
   sizes?: string;
 }) {
   const [variant] = useArtVariant(art);

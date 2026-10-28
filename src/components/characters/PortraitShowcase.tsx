@@ -18,11 +18,6 @@ type Props = {
   spoilerVersion: string | null;
 };
 
-/**
- * The detail page's art panel. Shows full splash art — or, for spoiler-tagged
- * characters whose reveal the reader hasn't reached, the bust shot (Firefly's
- * splash shows SAM). Click to open the full-screen viewer.
- */
 export function PortraitShowcase({ name, caption, art, spoilerVersion }: Props) {
   const [variant, selectVariant] = useArtVariant(art);
   const progress = useStoryProgress();
@@ -52,7 +47,6 @@ export function PortraitShowcase({ name, caption, art, spoilerVersion }: Props) 
         aria-label={`View ${name}'s art full screen`}
         className="glass group relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-3xl bg-[radial-gradient(circle_at_50%_45%,color-mix(in_srgb,var(--c)_40%,transparent),transparent_70%)] transition hover:border-[var(--c)]"
       >
-        {/* The small bust shot stands in while the 2048px splash art loads. */}
         {src !== preview && loadedSrc !== src && (
           <Image src={preview} alt="" fill sizes="(min-width: 768px) 460px, 100vw"
             className="object-contain object-top opacity-50 blur-sm" />

@@ -21,7 +21,6 @@ export async function generateStaticParams() {
   return lightCones.map((lc) => ({ slug: lc.slug }));
 }
 
-/** The passive at S1 as plain text, for descriptions. */
 const passiveText = (desc: string, params: number[]) =>
   fillDescription(desc, params).map((p) => (typeof p === "string" ? p : p.value)).join("").replace(/\s+/g, " ");
 

@@ -1,26 +1,3 @@
-/*
- * Imports character kits, Light Cones, relics and materials from StarRailRes's game data
- * index (github.com/Mar-7th/StarRailRes, index_new/en), with in-game text (stories,
- * descriptions — keeping the game's paragraphs and italics) from Yatta (sr.yatta.moe),
- * and writes the result into the repo:
- *
- *   src/db/data/game/kits.json         skills, Traces, Eidolons, stats, material totals
- *   src/db/data/game/light-cones.json  every Light Cone: passive, stats, materials, story
- *   src/db/data/game/relics.json       every Cavern Relic and Planar Ornament set, its pieces
- *                                      and their stories; main/sub stat values
- *   src/db/data/game/materials.json    every upgrade material: description, story, sources,
- *                                      synthesis recipe
- *
- * From the Honkai: Star Rail Wiki it adds what the game data lacks: each Light
- * Cone's release version (from the wiki's version pages) and the file names of
- * each character's Eidolon card art (checked to exist).
- *
- * Run after a game update, review the diff, then `npm run art:fetch` (for new
- * icons) and `npm run db:seed`. The output is committed so builds never depend
- * on the network and each patch's changes show up in git.
- *
- *   npm run data:import
- */
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { artOf, CHARACTERS, VERSIONS } from "../src/db/seed-data";
@@ -49,20 +26,17 @@ const KIND: Record<string, SkillKind> = {
   MemospriteSkill: "memosprite-skill", MemospriteTalent: "memosprite-talent",
 };
 
-// The game's internal Path IDs.
 const PATH_SLUG: Record<string, string> = {
   Warrior: "destruction", Rogue: "hunt", Mage: "erudition", Shaman: "harmony", Warlock: "nihility",
   Knight: "preservation", Priest: "abundance", Memory: "remembrance", Elation: "elation",
 };
 
-/** Fills the game's text tokens: the player's name, and he/she variants ("{M#man}{F#woman}"). */
 const cleanText = (text: string) =>
   text
     .replace(/\{NICKNAME\}/g, "Trailblazer")
     .replace(/\{M#([^}]*)\}\{F#([^}]*)\}/g, "$1/$2")
     .replace(/\{F#([^}]*)\}\{M#([^}]*)\}/g, "$2/$1");
 
-/** A Yatta API document (`data`), or null if it has none. */
 async function yatta(pathname: string): Promise<Raw | null> {
   for (let i = 1; ; i++) {
     try {
@@ -77,7 +51,6 @@ async function yatta(pathname: string): Promise<Raw | null> {
   }
 }
 
-/** Runs fn over items, a few at a time. */
 async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
   const out: R[] = new Array(items.length);
   let next = 0;
@@ -101,16 +74,11 @@ async function wiki(params: Record<string, string>) {
   }
 }
 
-/**
- * From the wiki's version pages: Light Cone name (lowercased) → the version that introduced
- * it ("Light Cone Intro"), and the same for relic sets (the "Relics" section's links).
- */
 async function releaseVersions() {
   const lightCones = new Map<string, string>();
   const relics = new Map<string, string>();
   for (const { version } of VERSIONS) {
     let text = "";
-    // The wiki occasionally answers with an error body; retry rather than lose a version.
     for (let attempt = 1; !text && attempt <= 4; attempt++) {
       const data = await wiki({ action: "parse", page: `Version ${version}`, prop: "wikitext", redirects: "1" });
       text = data.parse?.wikitext?.["*"] ?? "";
@@ -125,7 +93,6 @@ async function releaseVersions() {
     if (heading) {
       const rest = text.slice(heading.index + heading[0].length);
       const end = rest.search(/^===?[^=]/m);
-      // Both the link target and its label ("[[Tengoku Livestream|Tengoku&commat;Livestream]]").
       for (const m of (end >= 0 ? rest.slice(0, end) : rest).matchAll(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g)) {
         for (const raw of [m[1], m[2]]) {
           const name = raw?.replace(/&commat;/g, "@").replace(/&#39;/g, "'").trim().toLowerCase();
@@ -134,7 +101,6 @@ async function releaseVersions() {
       }
     }
   }
-  // Sets renamed since their release.
   for (const [now, then] of Object.entries(RELIC_RENAMES)) {
     if (relics.has(then) && !relics.has(now)) relics.set(now, relics.get(then)!);
   }
@@ -145,12 +111,10 @@ const RELIC_RENAMES: Record<string, string> = {
   "pan-cosmic commercial enterprise": "pan-galactic commercial enterprise",
 };
 
-// How the wiki names each character's Eidolon art, where it differs from the character's name.
 const EIDOLON_ART_NAME: Record<string, string> = { "march-7th": "March 7th (Preservation)" };
 const eidolonArtName = (slug: string, name: string) =>
   EIDOLON_ART_NAME[slug] ?? (slug.startsWith("trailblazer-") ? "Trailblazer Female" : name.replace(/ & /g, " and "));
 
-/** The subset of these wiki files that exist. */
 async function existingWikiFiles(files: string[]) {
   const exists = new Set<string>();
   for (let i = 0; i < files.length; i += 50) {
@@ -163,7 +127,6 @@ async function existingWikiFiles(files: string[]) {
   return exists;
 }
 
-/** Stat values at each level milestone: Lv.1, the cap of each ascension phase, and the level after it. */
 const MILESTONES: [number, number][] = [
   [1, 0], [20, 0], [20, 1], [30, 1], [30, 2], [40, 2], [40, 3], [50, 3], [50, 4], [60, 4], [60, 5], [70, 5], [70, 6], [80, 6],
 ];
@@ -185,21 +148,15 @@ async function main() {
   const usedItems = new Set<string>();
 
   for (const c of CHARACTERS) {
-    // Variants of one character (Stelle/Caelus) share a kit; use the first.
     const gameId = artOf(c)[0]?.gameId;
     const raw = gameId && chars[gameId];
     if (!raw) { console.warn(`  no game data for ${c.slug}`); continue; }
 
-    // Some older characters later received "Enhanced" versions, stored alongside the
-    // originals under IDs prefixed with "1" (Seele's Thwack: 110201 → 1110201). This
-    // archive covers characters as released, so those are left out. Memosprite entries
-    // share the prefix but are told apart by their type.
     const enhancedPrefix = `1${gameId}`;
     const isEnhancedSkill = (id: string) => id.startsWith(enhancedPrefix) && !skills[id].type.startsWith("Memosprite");
     const treeIds = raw.skill_trees.filter((id: string) => !(id.startsWith(enhancedPrefix) && id.length === gameId.length + 4));
     const hasEnhanced = treeIds.length < raw.skill_trees.length;
 
-    // Each skill's normal level cap comes from the Trace node that levels it.
     const normalMax = new Map<string, number>();
     for (const id of treeIds) for (const s of trees[id].level_up_skills) normalMax.set(s.id, trees[id].max_level);
 
@@ -209,7 +166,6 @@ async function main() {
       if (isEnhancedSkill(id)) continue;
       const s = skills[id];
       const kind = KIND[s.type];
-      // Skip the overworld basic attack, and internal duplicates that share a name.
       if (!kind || seen.has(`${kind}:${s.name}`)) continue;
       seen.add(`${kind}:${s.name}`);
       kitSkills.push({
@@ -249,7 +205,6 @@ async function main() {
       return {
         rank: r.rank, name: r.name, desc: r.desc, icon: r.icon,
         art: `Character ${eidolonArtName(c.slug, c.name)} Eidolon ${r.rank}.png` as string | null,
-        // The game data repeats some boosts (one skill under two internal IDs); keep each skill once.
         levelUps: [...new Map(
           r.level_up_skills.map((u: { id: string; num: number }) => {
             const skill = skills[u.id]?.name ?? u.id;
@@ -279,7 +234,6 @@ async function main() {
     };
   }
 
-  // Keep only Eidolon art the wiki actually has.
   const artFiles = await existingWikiFiles(Object.values(kits).flatMap((k) => k.eidolons.flatMap((e) => (e.art ? [e.art] : []))));
   for (const [slug, kit] of Object.entries(kits)) {
     for (const e of kit.eidolons) if (e.art && !artFiles.has(e.art)) e.art = null;
@@ -287,10 +241,8 @@ async function main() {
     if (missing) console.warn(`  ${slug}: no wiki art for ${missing} Eidolon(s)`);
   }
 
-  // Light Cones.
   const released = await releaseVersions();
   const versions = released.lightCones;
-  // Their stories as the game formats them (the index above flattens the paragraphs).
   const coneStories = new Map<string, string>();
   await mapLimit(Object.keys(cones), 6, async (id) => {
     const d = await yatta(`equipment/${id}`);
@@ -325,7 +277,6 @@ async function main() {
     if (!lightCones.some((l) => l.name.toLowerCase() === name)) console.warn(`  signature Light Cone not found: ${name}`);
   }
 
-  // Relic sets: bonuses and pieces from StarRailRes, each piece's text from Yatta.
   const relics: RelicSet[] = await mapLimit(Object.values(relicSets as Record<string, Raw>), 6, async (set) => {
     const d = await yatta(`relic/${set.id}`);
     const pieces = (Object.values(relicPieces as Record<string, Raw>))
@@ -346,7 +297,6 @@ async function main() {
       pieces, icon: set.icon,
     } satisfies RelicSet;
   });
-  // Stat reference, from the 5★ affix groups (main: 51–56 by slot; sub: 5).
   const SLOTS: RelicSlot[] = ["HEAD", "HAND", "BODY", "FOOT", "NECK", "OBJECT"];
   const relicStats: RelicStats = {
     main: SLOTS.map((slot, i) => ({
@@ -364,8 +314,6 @@ async function main() {
     })),
   };
 
-  // Materials: every upgrade material the game groups as one (Yatta's material types),
-  // plus anything a kit or Light Cone uses.
   const MATERIAL_TYPES = new Set([1, 2, 3, 4, 5, 6, 7, 11, 17, 18]);
   const itemList = await yatta("item");
   const typeNames: Record<string, string> = itemList?.types ?? {};
@@ -382,7 +330,6 @@ async function main() {
     const it = items[id];
     const d = details.get(id);
     const synthesis = (d?.source as Raw[] | undefined)?.flatMap((src) => src.recipe ?? []).find((r: Raw) => r.materialCost);
-    // Unresolved game text ("{TextID#…}") is left out.
     const sources = ((d?.source as Raw[] | undefined)?.map((src) => cleanGameText(src.description)) ?? it.come_from ?? [])
       .filter((src: string) => src && !src.includes("{"));
     return {

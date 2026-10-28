@@ -3,7 +3,6 @@ import Link from "next/link";
 import { areaImage } from "@/lib/images";
 import type { AreaSummary } from "@/lib/queries";
 
-/** An area of a world: its in-game art, name and region, and how much of it is mapped. */
 export function AreaCard({ a }: { a: AreaSummary }) {
   return (
     <Link

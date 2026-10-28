@@ -32,7 +32,6 @@ export async function SiteHeader() {
           <span aria-hidden="true" className="text-gold">✦</span>
           Astral Express
         </Link>
-        {/* Wide screens: two menus. */}
         <nav aria-label="Primary" className="ml-auto hidden items-center text-sm text-muted lg:flex">
           <NavMenu label="Database" links={DATABASE} />
           <NavMenu label="Lore" links={LORE} />
@@ -41,7 +40,6 @@ export async function SiteHeader() {
           <SearchButton />
           <StoryProgressPicker versions={versions} />
         </div>
-        {/* Narrow screens: every section in a scrolling row. */}
         <nav aria-label="Sections" className="order-last -mx-1 flex w-full gap-5 overflow-x-auto px-1 pb-1 text-sm whitespace-nowrap text-muted lg:hidden">
           {[...DATABASE, ...LORE].map((l) => (
             <Link key={l.href} href={l.href} className="transition-colors hover:text-ink">{l.label}</Link>

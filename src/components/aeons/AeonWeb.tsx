@@ -27,8 +27,6 @@ const EDGE_COLOR: Record<Edge["kind"], string> = {
   membership: "var(--color-violet)",
 };
 
-// Shared node behaviour: hover (mouse only, so taps don't leave a sticky hover),
-// keyboard focus, and click/Enter/Space to select.
 type NodeHandlers = {
   onHover: (id: NodeId | null) => void;
   onSelect: (id: NodeId) => void;
@@ -55,13 +53,11 @@ function nodeProps(id: NodeId, label: string, selected: boolean, { onHover, onSe
   } as const;
 }
 
-/** A point `d` units from a node along its ring angle, rounded like the layout (see aeon-web.ts). */
 const offset = (angle: number, d: number) => ({
   x: Math.round(Math.cos((angle * Math.PI) / 180) * d * 100) / 100,
   y: Math.round(Math.sin((angle * Math.PI) / 180) * d * 100) / 100,
 });
 
-/** Text with a dark halo, so labels stay legible over lines. */
 function Label({ children, ...props }: SVGProps<SVGTextElement>) {
   return (
     <text paintOrder="stroke" stroke="var(--color-space)" strokeWidth={6} strokeLinejoin="round" {...props}>
@@ -72,7 +68,6 @@ function Label({ children, ...props }: SVGProps<SVGTextElement>) {
 
 export function AeonWeb({ data: allData }: { data: AeonWebData }) {
   const progress = useStoryProgress();
-  // Viewing as of a version: only what the story had introduced by then.
   const data = useMemo(
     () => ({
       aeons: allData.aeons.filter((a) => isAvailable(a.introducedVersion, progress)),
@@ -86,7 +81,6 @@ export function AeonWeb({ data: allData }: { data: AeonWebData }) {
   const [showCharacters, setShowCharacters] = useState(true);
   const [showFactions, setShowFactions] = useState(true);
 
-  // Faction ties that are story reveals (Firefly) stay hidden until the reader's progress covers them.
   const hiddenKey = data.characters.filter((c) => !isRevealed(c.spoilerVersion, progress)).map((c) => c.slug).join();
   const { positions, edges, labelLevels, aeonLabels } = useMemo(
     () => layoutWeb(data, { hiddenMemberships: new Set(hiddenKey ? hiddenKey.split(",") : []) }),
@@ -97,7 +91,6 @@ export function AeonWeb({ data: allData }: { data: AeonWebData }) {
     (showCharacters || !id.startsWith("c:")) && (showFactions || !id.startsWith("f:"));
   const shownEdges = edges.filter((e) => visible(e.from) && visible(e.to));
 
-  // Hover previews; otherwise the selection is what's lit up.
   const active = hovered && visible(hovered) ? hovered : selected && visible(selected) ? selected : null;
   const lit = new Set<NodeId>(active ? [active] : []);
   for (const e of shownEdges) {
@@ -105,8 +98,6 @@ export function AeonWeb({ data: allData }: { data: AeonWebData }) {
     if (e.to === active) lit.add(e.from);
   }
   const dim = (id: NodeId) => (active && !lit.has(id) ? 0.18 : 1);
-  // Name every lit character only when there are few; large Path groups would bury
-  // each other's labels, so the panel lists those instead. The active node is always named.
   const litCharacters = [...lit].filter((id) => id.startsWith("c:")).length;
   const labelCharacter = (id: NodeId) => id === active || (lit.has(id) && litCharacters <= 6);
 
@@ -207,7 +198,6 @@ export function AeonWeb({ data: allData }: { data: AeonWebData }) {
                 </motion.g>
               )}
 
-              {/* The center names whatever is lit. */}
               <g pointerEvents="none" textAnchor="middle">
                 {active ? (
                   <>
@@ -248,14 +238,10 @@ function Toggle({ pressed, onChange, children }: { pressed: boolean; onChange: (
   );
 }
 
-// --- Nodes -----------------------------------------------------------------
-
 type NodeBase = { at: Point; opacity: number; selected: boolean; handlers: NodeHandlers };
 
 function AeonNode({ aeon, at, label, opacity, selected, handlers }: NodeBase & { aeon: Aeon; label: { x: number; y: number } }) {
   const id: NodeId = `a:${aeon.slug}`;
-  // The label sits inside the ring, toward the center, clear of the characters outside
-  // (slid aside where neighbours would collide; see layoutWeb).
   return (
     <g transform={`translate(${at.x} ${at.y})`} style={{ opacity }} {...nodeProps(id, `${aeon.name}, Aeon of ${aeon.concept}`, selected, handlers)}>
       <circle r={39} fill="none" stroke="var(--color-gold)" strokeWidth={3} className="opacity-0 in-focus-visible:opacity-100" />
@@ -278,8 +264,6 @@ function CharacterNode({ character: c, at, labelLevel, opacity, selected, showLa
 }) {
   const id: NodeId = `c:${c.slug}`;
   const [variant] = useArtVariant(c.art);
-  // Near the top and bottom, labels are centered and neighbours would overlap, so every
-  // other one moves out a row.
   const anchor = anchorFor(at.angle);
   const ring = Math.hypot(at.x - SIZE / 2, at.y - SIZE / 2);
   const out = offset(at.angle, R_LABEL - ring + (anchor === "middle" ? labelLevel * 24 : 0));
@@ -318,8 +302,6 @@ function FactionNode({ faction: f, at, opacity, selected, showLabel, handlers }:
     </g>
   );
 }
-
-// --- Detail panel ------------------------------------------------------------
 
 function Panel({
   data, selected, hidden, onSelect, onClear,

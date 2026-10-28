@@ -40,7 +40,6 @@ export default async function VersionsPage() {
 
       <div className="flex flex-col gap-16">
         {[...eras].map(([major, list]) => (
-          // An era appears once its first version has.
           <AsOf key={major} version={`${major}.0`}>
             <section aria-labelledby={`era-${major}`}>
               <h2 id={`era-${major}`} className="font-display text-3xl font-bold text-gold">{ERAS[major]?.title ?? `Version ${major}.x`}</h2>

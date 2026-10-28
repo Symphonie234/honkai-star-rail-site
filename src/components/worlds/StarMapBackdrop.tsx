@@ -1,20 +1,8 @@
-/*
- * The star map's backdrop: deep space with a faint galactic band, a nebula cloud in
- * each world's color behind its stop, a navigational grid like the in-game star
- * chart, and a field of twinkling stars.
- *
- * Split into two SVG layers on purpose: the nebula uses an expensive turbulence
- * filter and never changes, so it is painted once; only the small stars layer
- * animates. Stars come from a seeded generator, so server and client render the
- * same sky (no hydration mismatch).
- */
-
 type BackdropWorld = { slug: string; color: string; mapX: number; mapY: number };
 
 const W = 100;
 const H = 56.25;
 
-/** Small deterministic PRNG (mulberry32). */
 function seeded(seed: number) {
   return () => {
     seed |= 0;
@@ -28,7 +16,7 @@ function seeded(seed: number) {
 const round = (n: number) => Math.round(n * 100) / 100;
 
 const STARS = (() => {
-  const rand = seeded(20230426); // the Trailblaze's first day
+  const rand = seeded(20230426);
   return Array.from({ length: 170 }, (_, i) => ({
     id: i,
     x: round(rand() * W),
@@ -43,7 +31,6 @@ const STARS = (() => {
 export function StarMapBackdrop({ worlds }: { worlds: BackdropWorld[] }) {
   return (
     <>
-      {/* Static layer: base, galactic band, nebulae, chart grid. */}
       <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" aria-hidden="true">
         <defs>
           <radialGradient id="bd-base" cx="50%" cy="45%" r="75%">
@@ -64,7 +51,6 @@ export function StarMapBackdrop({ worlds }: { worlds: BackdropWorld[] }) {
               <stop offset="1" style={{ stopColor: `var(--color-${w.color})` }} stopOpacity="0" />
             </radialGradient>
           ))}
-          {/* Fractal noise used as an alpha mask, so the color reads as cloud, not gradient. */}
           <filter id="bd-cloud" x="-20%" y="-20%" width="140%" height="140%">
             <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="4" seed="7" result="noise" />
             <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.9 -0.4" result="mask" />
@@ -78,16 +64,13 @@ export function StarMapBackdrop({ worlds }: { worlds: BackdropWorld[] }) {
         </defs>
 
         <rect width={W} height={H} fill="url(#bd-base)" />
-        {/* Galactic band across the chart. */}
         <ellipse cx={W / 2} cy={H / 2} rx={W * 0.75} ry={H * 0.2} fill="url(#bd-band)" transform={`rotate(-18 ${W / 2} ${H / 2})`} filter="url(#bd-cloud)" />
-        {/* A nebula behind each stop, in its world's color. */}
         <g filter="url(#bd-cloud)">
           {worlds.map((w) => (
             <ellipse key={w.slug} cx={(w.mapX / 100) * W} cy={(w.mapY / 100) * H} rx="19" ry="13" fill={`url(#bd-neb-${w.slug})`} />
           ))}
         </g>
 
-        {/* Navigational chart: orbit arcs and a coordinate grid, like the in-game star map. */}
         <g fill="none" stroke="#a7b0d6" strokeWidth="0.08">
           {[18, 30, 44, 60].map((r) => (
             <circle key={r} cx={W * 0.5} cy={H * 1.15} r={r} strokeOpacity="0.09" strokeDasharray="0.4 0.9" />
@@ -102,7 +85,6 @@ export function StarMapBackdrop({ worlds }: { worlds: BackdropWorld[] }) {
         <rect width={W} height={H} fill="url(#bd-vignette)" />
       </svg>
 
-      {/* Animated layer: stars only (cheap to repaint). */}
       <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" aria-hidden="true">
         {STARS.map((s) => (
           <circle

@@ -15,15 +15,8 @@ const subscribeFullscreen = (onChange: () => void) => {
 };
 const noSubscribe = () => () => {};
 
-/** A stable colour per category (for pins without an icon, and the legend). */
 const hue = (id: string) => [...id].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7);
 
-/**
- * An area's in-game map, per floor: zoom and pan it, filter the labelled points by
- * category, and select a point to see what it is — with the in-game view of the
- * spot where the wiki has one (those pins carry a picture badge).
- */
-/** Height of a floor label: F3 = 3, F1 = 1, a single "Map" = 0, B1 = -1. */
 const floorLevel = (label: string) => (label.startsWith("B") ? -Number(label.slice(1)) : label.startsWith("F") ? Number(label.slice(1)) : 0);
 
 export function AreaMap({ areaSlug, areaName, floors: givenFloors, categories }: {
@@ -32,9 +25,7 @@ export function AreaMap({ areaSlug, areaName, floors: givenFloors, categories }:
   floors: AreaFloor[];
   categories: MapCategory[];
 }) {
-  // As in game: floors listed top-down (F2, F1, B1…), opening on the ground floor.
   const floors = useMemo(() => [...givenFloors].sort((a, b) => floorLevel(b.label) - floorLevel(a.label)), [givenFloors]);
-  // F1 if there is one, else the area's single map, else the top floor.
   const [floorIndex, setFloorIndex] = useState(() => Math.max(0, floors.findIndex((fl) => fl.label === "F1" || fl.label === "Map")));
   const [enabled, setEnabled] = useState(() => new Set(categories.filter((c) => c.defaultOn).map((c) => c.id)));
   const [onlyWithView, setOnlyWithView] = useState(false);
@@ -48,7 +39,6 @@ export function AreaMap({ areaSlug, areaName, floors: givenFloors, categories }:
 
   const floor = floors[floorIndex];
   const catById = useMemo(() => new Map(categories.map((c) => [c.id, c])), [categories]);
-  // Categories present on this floor, most common first, with counts.
   const floorCats = useMemo(() => {
     const counts = new Map<string, { total: number; views: number }>();
     for (const m of floor.markers) {
@@ -86,7 +76,6 @@ export function AreaMap({ areaSlug, areaName, floors: givenFloors, categories }:
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Floors and layer controls */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         {floors.length > 1 ? (
           <div role="tablist" aria-label="Floor" className="glass flex items-center rounded-full p-1 text-sm">
@@ -134,11 +123,9 @@ export function AreaMap({ areaSlug, areaName, floors: givenFloors, categories }:
       </details>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
-        {/* The map, on the in-game map's own grey (every map image's background), so it reads edge to edge. */}
         <div ref={frameRef} className={`relative overflow-hidden rounded-2xl border border-line bg-[#d3d3d3] ${isFullscreen ? "h-screen" : "h-[min(78vh,760px)] min-h-[420px]"}`}>
           <ZoomStage ref={stageRef} maxScale={8} onScaleChange={setScale} onBackgroundClick={() => setSelectedId(null)}>
             {(s) => (
-              // Sized to the map's own proportions within the frame, so pins line up.
               <div className="absolute inset-0 grid place-items-center [container-type:size]">
                 <div className="relative" style={{ width: `min(100cqw, calc(100cqh * ${ratio}))`, aspectRatio: String(ratio) }}>
                   <FillImage key={floor.label} src={mapImage(areaSlug, floor.label)} alt={`Map of ${areaName}${floors.length > 1 ? `, ${floor.label}` : ""}`} sizes="(min-width: 1024px) 860px, 100vw" quality={90} />
@@ -160,7 +147,6 @@ export function AreaMap({ areaSlug, areaName, floors: givenFloors, categories }:
               </button>
             )}
           </div>
-          {/* In fullscreen the side panel isn't visible, so the selection floats over the map. */}
           {isFullscreen && selected && (
             <div className="absolute top-3 left-3 w-[min(340px,calc(100%-1.5rem))]">
               <MarkerPanel marker={selected} cat={catById.get(selected.cat)} onClose={() => setSelectedId(null)} onView={() => setViewing(selected)} />
@@ -168,7 +154,6 @@ export function AreaMap({ areaSlug, areaName, floors: givenFloors, categories }:
           )}
         </div>
 
-        {/* What's selected */}
         <div className="lg:sticky lg:top-[calc(var(--header-h,4rem)+1rem)] lg:self-start">
           {selected ? (
             <MarkerPanel marker={selected} cat={catById.get(selected.cat)} onClose={() => setSelectedId(null)} onView={() => setViewing(selected)} />
@@ -213,7 +198,6 @@ function Pin({ marker: m, cat, scale, selected, onSelect }: {
       className="group absolute -translate-x-1/2 -translate-y-1/2"
       style={{ left: `${m.x * 100}%`, top: `${m.y * 100}%`, zIndex: selected ? 20 : 1 } as CSSProperties}
     >
-      {/* Counter-scaled so pins stay the same size at any zoom. */}
       <span className="block origin-center transition-transform" style={{ transform: `scale(${1 / scale})` }}>
         <span className={`relative grid size-7 place-items-center rounded-full border-2 bg-space/85 shadow-[0_2px_8px_rgb(0_0_0/0.6)] transition group-hover:scale-125 ${
           selected ? "scale-125 border-gold ring-4 ring-gold/40" : "border-white/70"

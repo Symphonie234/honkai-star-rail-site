@@ -7,7 +7,6 @@ import { ChevronDownIcon } from "./icons";
 
 export type NavLink = { href: string; label: string; blurb: string };
 
-/** A header menu: a button that opens a list of links (closes on Esc, outside click or navigation). */
 export function NavMenu({ label, links }: { label: string; links: NavLink[] }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);

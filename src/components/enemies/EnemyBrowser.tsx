@@ -41,7 +41,6 @@ export function EnemyBrowser({ enemies, elements }: { enemies: EnemySummary[]; e
     return enemies.filter((e) => {
       if (!isAvailable(e.releaseVersion, progress)) return false;
       const revealed = isRevealed(e.spoilerVersion, progress);
-      // Hidden bosses never match a search: their name is the spoiler.
       if (q && (!revealed || !(e.name.toLowerCase().includes(q) || e.faction?.toLowerCase().includes(q)))) return false;
       return (!tier || e.tier === tier) && (!weakness || e.weaknesses.includes(weakness)) && (!faction || e.faction === faction);
     });

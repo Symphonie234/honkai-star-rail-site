@@ -22,17 +22,12 @@ const SECTIONS = [
 
 const isMemosprite = (s: KitSkill) => s.kind.startsWith("memosprite");
 
-/**
- * A character's full kit — skills, memosprite, Traces, Eidolons, stats and upgrade
- * materials — from imported game data (current game values).
- */
 export function CharacterKit({
   name, kit, materials, lightCone,
 }: {
   name: string;
   kit: Kit;
   materials: Map<string, Material>;
-  /** The character's signature Light Cone, if any. */
   lightCone?: LightCone | null;
 }) {
   const skills = kit.skills.filter((s) => !isMemosprite(s));
@@ -44,7 +39,6 @@ export function CharacterKit({
 
   return (
     <div className="mt-16">
-      {/* Sticks right below the site header, whatever its height (see HeaderHeight). */}
       <nav aria-label="Kit sections" className="sticky top-[var(--header-h,4rem)] z-30 -mx-2 mb-8 overflow-x-auto px-2 py-2">
         <ul className="inline-flex gap-1 rounded-full border border-line bg-space/90 p-1 text-sm whitespace-nowrap shadow-[0_8px_24px_rgb(0_0_0/0.4)] backdrop-blur-md">
           {sections.map((s) => (

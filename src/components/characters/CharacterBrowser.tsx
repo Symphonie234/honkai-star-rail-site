@@ -43,14 +43,11 @@ export function CharacterBrowser({ characters, elements, paths }: Props) {
   const [sort, setSort] = useState<"name" | "newest">("name");
   const reduceMotion = usePrefersReducedMotion();
   const progress = useStoryProgress();
-  // Remembered per browser, like story progress.
   const saved = usePref(LAYOUT_KEY);
   const layout: Layout = LAYOUTS.some((l) => l.value === saved) ? (saved as Layout) : "grid";
 
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase();
-    // A spoiler-tagged character's faction is the reveal (Firefly), so it only counts
-    // toward search once the reader's progress covers it.
     const factionMatches = (c: CharacterWithRefs) =>
       isRevealed(c.spoilerVersion, progress) && !!c.faction?.name.toLowerCase().includes(q);
     const list = characters.filter(
@@ -159,7 +156,6 @@ function FilterRow({
   value: string | null;
   onChange: (v: string | null) => void;
   colored?: boolean;
-  /** Icon image for an option's slug (element and Path filters). */
   icon?: (slug: string) => string;
 }) {
   return (

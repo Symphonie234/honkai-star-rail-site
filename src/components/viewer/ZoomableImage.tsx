@@ -4,18 +4,12 @@ import { useState, type ReactNode } from "react";
 import { ArtViewer } from "../characters/ArtViewer";
 import { ExpandIcon } from "../icons";
 
-/**
- * Wraps a piece of art so clicking it opens the full-screen viewer (zoom, pan,
- * fullscreen) — the same viewer as character splash art.
- */
 export function ZoomableImage({
   src, title, caption, children, className = "",
 }: {
-  /** The full-size image the viewer shows. */
   src: string;
   title: string;
   caption: string;
-  /** The thumbnail shown on the page. */
   children: ReactNode;
   className?: string;
 }) {

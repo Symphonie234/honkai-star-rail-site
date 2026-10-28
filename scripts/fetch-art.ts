@@ -1,19 +1,3 @@
-/*
- * Downloads game art and stores it as WebP under public/art, so the site serves
- * it itself instead of hotlinking multi-megabyte PNGs (which made Next's image
- * optimizer time out).
- *
- *   npm run art:fetch            fetch anything missing
- *   npm run art:fetch -- --force re-fetch everything
- *
- * public/art is not committed. Converted files are also kept in .next/cache/hsr-art,
- * which Vercel preserves between builds, so deploys (which run this via "prebuild")
- * only download what is new.
- *
- * Sources (art © HoYoverse):
- *  - Characters, Light Cones, icons: StarRailRes (github.com/Mar-7th/StarRailRes)
- *  - World renders, Aeon, Eidolon, area and enemy art, maps and map screenshots: the Honkai: Star Rail Wiki on Fandom
- */
 import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
 import { copyFile, mkdir } from "node:fs/promises";
@@ -30,52 +14,40 @@ const CACHE_DIR = path.join(".next", "cache", "hsr-art");
 const STARRAILRES = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master";
 const WIKI_IMAGES = "https://static.wikia.nocookie.net/houkai-star-rail/images";
 const WIKI_API = "https://honkai-star-rail.fandom.com/api.php";
-// The wiki's image CDN serves a bot challenge to bare requests; browser-like headers get the image.
 const BROWSER_HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36",
   Accept: "image/avif,image/webp,image/png,image/*;q=0.8",
   Referer: "https://honkai-star-rail.fandom.com/",
 };
 
-// StarRailRes names Path icons after the in-game Path IDs.
 const PATH_ICON_FILES: Record<string, string> = {
   destruction: "Destruction", hunt: "Hunt", erudition: "Erudition", harmony: "Harmony", nihility: "Nihility",
   preservation: "Preservation", abundance: "Abundance", remembrance: "Remembrance", elation: "Elation",
 };
 
-// StarRailRes names combat type icons after the in-game IDs (Lightning is "Thunder").
 const ELEMENT_ICON_FILES: Record<string, string> = {
   physical: "Physical", fire: "Fire", ice: "Ice", lightning: "Thunder", wind: "Wind", quantum: "Quantum", imaginary: "Imaginary",
 };
 
 type Job = {
   label: string;
-  /** Public URL path, e.g. "/art/worlds/penacony.webp"; the file lives under public/. */
   out: string;
   source: () => Promise<string>;
   headers?: Record<string, string>;
   convert: (img: Sharp) => Sharp;
-  /** Art that may not exist at the source (e.g. Aeons never depicted); a miss is not a failure. */
   optional?: boolean;
-  /** Another way to find the source if the first fails (wiki files that redirect elsewhere). */
   fallback?: () => Promise<string>;
 };
 
 const force = process.argv.includes("--force");
 const webp = (img: Sharp, quality = 85) => img.webp({ quality, alphaQuality: 90, effort: 5 });
 
-/**
- * A wiki file's CDN URL. MediaWiki stores uploads under a path derived from the MD5 of
- * the file name ("images/f/f0/Name.png"), so it can be computed — no API call per file,
- * which matters with thousands of map screenshots (the API rate-limits bulk lookups).
- */
 async function wikiFileUrl(file: string) {
   const name = file.trim().replace(/ /g, "_").replace(/^./, (c) => c.toUpperCase());
   const hash = createHash("md5").update(name).digest("hex");
   return `${WIKI_IMAGES}/${hash[0]}/${hash.slice(0, 2)}/${encodeURIComponent(name)}/revision/latest`;
 }
 
-/** A wiki file's URL as the API reports it, following file redirects (the computed path misses those). */
 async function wikiApiUrl(file: string) {
   const url = `${WIKI_API}?action=query&format=json&redirects=1&prop=imageinfo&iiprop=url&titles=${encodeURIComponent(`File:${file}`)}`;
   const res = await fetch(url, { headers: { "User-Agent": BROWSER_HEADERS["User-Agent"] }, signal: AbortSignal.timeout(60_000) });
@@ -85,7 +57,6 @@ async function wikiApiUrl(file: string) {
   return info.url;
 }
 
-/** Source and fallback for a wiki file. */
 const fromWiki = (file: string) => ({ source: () => wikiFileUrl(file), fallback: () => wikiApiUrl(file) });
 
 function jobs(): Job[] {
@@ -94,7 +65,6 @@ function jobs(): Job[] {
   for (const id of gameIds) {
     list.push(
       { label: `preview ${id}`, out: characterPreview(id), source: async () => `${STARRAILRES}/image/character_preview/${id}.png`, convert: (i) => webp(i) },
-      // Portraits keep their full 2048px for the full-screen viewer.
       { label: `portrait ${id}`, out: characterPortrait(id), source: async () => `${STARRAILRES}/image/character_portrait/${id}.png`, convert: (i) => webp(i) },
       { label: `icon ${id}`, out: characterIcon(id), source: async () => `${STARRAILRES}/icon/character/${id}.png`, convert: (i) => webp(i.resize(160), 82) },
     );
@@ -115,11 +85,9 @@ function jobs(): Job[] {
       out: worldImage(slug),
       ...fromWiki(file),
       headers: BROWSER_HEADERS,
-      // Trim the transparent margin so every world fills its frame alike.
       convert: (i) => webp(i.trim().resize(1024, 1024, { fit: "inside", withoutEnlargement: true }), 88),
     });
   }
-  // Every icon the imported kits and materials use: skills, Traces, Eidolons, stats, materials.
   const icons = new Set<string>(MATERIALS.map((m) => m.icon));
   for (const kit of Object.values(KITS)) {
     for (const s of kit.skills) icons.add(s.icon);
@@ -150,12 +118,10 @@ function jobs(): Job[] {
         out: eidolonArt(kit.gameId, e.rank),
         ...fromWiki(file),
         headers: BROWSER_HEADERS,
-        // 2048px with wide transparent margins: trim, then cap the size.
         convert: (i) => webp(i.trim().resize(900, 900, { fit: "inside", withoutEnlargement: true }), 84),
       });
     }
   }
-  // World areas: their art, each floor's map, marker screenshots and category icons.
   const wikiJob = (label: string, out: string, file: string, convert: Job["convert"]): Job =>
     ({ label, out, ...fromWiki(file), headers: BROWSER_HEADERS, convert });
   const pins = new Set<string>();
@@ -163,7 +129,6 @@ function jobs(): Job[] {
   for (const area of AREAS) {
     if (area.image) list.push(wikiJob(`area ${area.slug}`, areaImage(area.slug), area.image, (i) => webp(i.resize(1280, 1280, { fit: "inside", withoutEnlargement: true }), 84)));
     for (const floor of area.floors) {
-      // Big enough to zoom into; the largest maps are 4096×5500.
       list.push(wikiJob(`map ${area.slug} ${floor.label}`, mapImage(area.slug, floor.label), floor.image,
         (i) => webp(i.resize(3200, 3200, { fit: "inside", withoutEnlargement: true }), 80)));
       for (const m of floor.markers) if (m.image) pins.add(m.image);
@@ -239,7 +204,6 @@ async function main() {
   const queue = jobs();
   const counts = { fetched: 0, cached: 0, skipped: 0, unavailable: 0, failed: 0 };
 
-  // A few downloads at a time (there are ~2,000 small icons).
   await Promise.all(
     Array.from({ length: 8 }, async () => {
       for (let job = queue.shift(); job; job = queue.shift()) {

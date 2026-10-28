@@ -1,16 +1,3 @@
-/*
- * The Aeons and their lore. Written in our own words from in-game lore (as
- * catalogued by the Honkai: Star Rail Wiki). Lore sections carry a spoilerVersion
- * when they rely on story reveals; sections with null are safe for new players.
- *
- * introducedVersion is when the story first brings the Aeon up; a lore section's
- * version (when it enters the story) defaults to its spoilerVersion, else the
- * Aeon's introducedVersion. "View as of" hides anything later.
- *
- * pathSlug links an Aeon to its playable Path. artFile names the official art on
- * the wiki that `npm run art:fetch` downloads (null where none is published).
- */
-
 export const AEONS = [
   { slug: "nanook", introducedVersion: "1.0", name: "Nanook", concept: "Destruction", pathSlug: "destruction", glyph: "✸",
     epithets: ["The Destruction", "Great Destroyer", "Ruin Author"], artFile: "Aeon_Nanook.png",

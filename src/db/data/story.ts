@@ -1,14 +1,3 @@
-/*
- * The main story, chapter by chapter, through Version 4.6 — one entry per story
- * arc, filed under the world where it happens.
- *
- * Written in our own words from the Trailblaze Mission summaries (as catalogued by
- * the Honkai: Star Rail Wiki).
- *   version:        the update whose story the chapter covers; "view as of" hides later chapters
- *   spoilerVersion: what the chapter gives away; null only for each world's opening
- *                   setup, which is safe for new players
- */
-
 type ChapterSeed = { title: string; version: string; spoilerVersion: string | null; body: string };
 
 const CHAPTERS_BY_WORLD: Record<string, ChapterSeed[]> = {

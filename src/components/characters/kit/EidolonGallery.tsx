@@ -11,21 +11,12 @@ export type GalleryEidolon = {
   rank: number;
   name: string;
   desc: string;
-  /** Small round icon. */
   icon: string;
-  /** Card art, if the game has it. */
   art: string | null;
 };
 
 const ROMAN = ["", "I", "II", "III", "IV", "V", "VI"];
 
-/**
- * A character's Eidolons as cards, each opening the Eidolon gallery: a window (not
- * full screen) showing the card art — zoomable inside the frame — beside the
- * Eidolon's name and effect, with ←/→ (arrows, keys or swipe) between Eidolons and
- * a strip of all six. Reading effects while browsing the art is the point, which a
- * full-screen image viewer would hide.
- */
 export function EidolonGallery({ name, eidolons }: { name: string; eidolons: GalleryEidolon[] }) {
   const [open, setOpen] = useState<number | null>(null);
 
@@ -111,8 +102,6 @@ function GalleryWindow({
     };
   }, []);
 
-  // See ArtViewer: in Strict Mode the dialog's close event also follows our own cleanup,
-  // so only a close that leaves it shut (Esc) means the reader closed it.
   const handleClose = () => {
     if (!dialogRef.current?.open) onClose();
   };
@@ -133,7 +122,6 @@ function GalleryWindow({
     }
   };
 
-  // A horizontal swipe on the art (when not zoomed in) moves between Eidolons.
   const onPointerDown = (ev: PointerEvent) => { swipe.current = { x: ev.clientX, y: ev.clientY }; };
   const onPointerUp = (ev: PointerEvent) => {
     const start = swipe.current;
@@ -156,7 +144,6 @@ function GalleryWindow({
     >
       <MotionConfig reducedMotion="user">
         <div className="grid max-h-[min(92dvh,760px)] grid-rows-[minmax(0,1fr)_auto] md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:grid-rows-1">
-          {/* Art */}
           <div
             className="relative min-h-[46dvh] bg-[radial-gradient(circle_at_50%_45%,color-mix(in_srgb,var(--c,var(--color-violet))_26%,transparent),var(--color-space)_75%)] md:min-h-[560px]"
             onPointerDown={onPointerDown}
@@ -194,7 +181,6 @@ function GalleryWindow({
             </div>
           </div>
 
-          {/* Details */}
           <div className="flex min-h-0 flex-col border-t border-line md:border-t-0 md:border-l">
             <div className="flex items-start justify-between gap-3 p-5 pb-0 sm:p-6 sm:pb-0">
               <div className="flex items-center gap-3">

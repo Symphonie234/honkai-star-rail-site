@@ -15,7 +15,6 @@ export default function Search() {
         <p className="eyebrow">Search</p>
         <h1 className="mt-3 font-display text-4xl font-bold sm:text-5xl">Search the archive</h1>
       </header>
-      {/* useSearchParams needs a Suspense boundary for static rendering. */}
       <Suspense fallback={null}>
         <SearchPage />
       </Suspense>

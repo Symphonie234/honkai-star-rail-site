@@ -3,8 +3,6 @@
 import { setPref, usePref } from "@/lib/local-pref";
 import type { StoryProgress } from "@/lib/spoilers";
 
-/* The reader's story-progress setting, saved per browser (see StoryProgress). */
-
 const KEY = "hsr:story-progress";
 
 export function useStoryProgress(): StoryProgress {

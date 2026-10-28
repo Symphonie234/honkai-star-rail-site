@@ -4,11 +4,6 @@ export type LorePart = string | { term: GlossaryTerm; text: string };
 
 const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-/**
- * Splits `text` into plain strings and glossary-term matches. Each term is linked
- * only on its first appearance, so a paragraph doesn't fill up with underlines.
- * `exclude` skips a term (e.g. on that term's own glossary entry).
- */
 export function splitLore(text: string, terms: GlossaryTerm[], exclude?: string): LorePart[] {
   const byName = new Map<string, GlossaryTerm>();
   for (const t of terms) {
@@ -17,7 +12,6 @@ export function splitLore(text: string, terms: GlossaryTerm[], exclude?: string)
   }
   if (byName.size === 0) return [text];
 
-  // Longest names first, so "Stellaron Hunters" wins over "Stellaron". Allows a plural "s".
   const names = [...byName.keys()].sort((a, b) => b.length - a.length).map(escapeRegExp);
   const pattern = new RegExp(`\\b(${names.join("|")})(s?)\\b`, "gi");
 

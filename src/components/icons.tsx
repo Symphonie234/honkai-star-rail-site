@@ -1,6 +1,5 @@
 import type { SVGProps } from "react";
 
-/** Small stroke icons for UI controls. Decorative: label the control, not the icon. */
 function Icon({ children, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg

@@ -21,13 +21,11 @@ export type MapWorld = {
   image: string | null;
 };
 
-// The map is 16:9; world positions are percentages of width and height.
 const VIEW_W = 100;
 const VIEW_H = 56.25;
 
 type Point = { x: number; y: number };
 
-/** Smooth curve through every stop (Catmull-Rom converted to cubic Béziers). */
 function railPath(pts: Point[]) {
   let d = `M ${pts[0].x} ${pts[0].y}`;
   for (let i = 0; i < pts.length - 1; i++) {
@@ -44,11 +42,6 @@ function railPath(pts: Point[]) {
 
 const stopLabel = (n: number) => `Stop ${String(n).padStart(2, "0")}`;
 
-/**
- * A side view of the Astral Express in map units, nose pointing +x and centered on
- * the rail, so animateMotion's rotate="auto" tilts it along the curve: a navy
- * locomotive with gold trim and its round golden headlight, pulling one carriage.
- */
 function ExpressTrain() {
   const body = "#1d2350";
   const trim = "var(--color-gold)";
@@ -61,24 +54,18 @@ function ExpressTrain() {
           <stop offset="1" stopColor="#fff3c4" stopOpacity="0" />
         </linearGradient>
       </defs>
-      {/* Headlight beam */}
       <path d="M 3 -0.2 L 7 -1.3 L 7 0.9 Z" fill="url(#express-beam)" />
-      {/* Carriage, with lit windows */}
       <rect x="-7" y="-1.2" width="3.9" height="1.75" rx="0.4" fill={body} stroke={trim} strokeWidth="0.12" />
       {[-6.4, -5.4, -4.4].map((x) => (
         <rect key={x} x={x} y="-0.85" width="0.6" height="0.55" rx="0.1" fill={lit} />
       ))}
       <rect x="-3.15" y="-0.15" width="0.5" height="0.22" fill={trim} />
-      {/* Cab */}
       <rect x="-2.7" y="-1.65" width="1.9" height="2.2" rx="0.35" fill={body} stroke={trim} strokeWidth="0.12" />
       <rect x="-2.3" y="-1.3" width="0.9" height="0.6" rx="0.1" fill={lit} />
-      {/* Boiler and chimney */}
       <rect x="-0.95" y="-1" width="3.4" height="1.55" rx="0.75" fill={body} stroke={trim} strokeWidth="0.12" />
       <rect x="0.5" y="-1.85" width="0.55" height="0.95" rx="0.12" fill={body} stroke={trim} strokeWidth="0.1" />
-      {/* The golden ring on the Express's nose */}
       <circle cx="2.45" cy="-0.22" r="0.82" fill="#0b0f24" stroke={trim} strokeWidth="0.2" />
       <circle cx="2.45" cy="-0.22" r="0.34" fill="#fff6d6" />
-      {/* Wheels */}
       {[-6.2, -3.9, -2.1, -0.2, 1.6].map((x) => (
         <circle key={x} cx={x} cy="0.72" r="0.36" fill="#0b0f24" stroke={trim} strokeWidth="0.1" />
       ))}
@@ -88,14 +75,12 @@ function ExpressTrain() {
 
 export function StarMap({ worlds: allWorlds }: { worlds: MapWorld[] }) {
   const reduceMotion = usePrefersReducedMotion();
-  // Viewing as of a version: only the stops the Express had reached by then.
   const progress = useStoryProgress();
   const worlds = allWorlds.filter((w) => isAvailable(w.releaseVersion, progress));
   const rail = railPath(worlds.map((w) => ({ x: (w.mapX / 100) * VIEW_W, y: (w.mapY / 100) * VIEW_H })));
 
   return (
     <MotionConfig reducedMotion="user">
-      {/* Wide screens: the map. */}
       <div className="relative hidden aspect-video overflow-hidden rounded-3xl border border-line shadow-[0_20px_60px_-20px_rgb(0_0_0/0.8)] md:block">
         <StarMapBackdrop worlds={worlds} />
         <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="absolute inset-0 h-full w-full" aria-hidden="true">
@@ -117,7 +102,6 @@ export function StarMap({ worlds: allWorlds }: { worlds: MapWorld[] }) {
             animate={{ pathLength: 1 }}
             transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
           />
-          {/* The Astral Express, riding the rail (it passes behind each stop, as if pulling in). */}
           {!reduceMotion && (
             <g>
               <ExpressTrain />
@@ -139,9 +123,7 @@ export function StarMap({ worlds: allWorlds }: { worlds: MapWorld[] }) {
               transition={{ delay: 0.3 + i * 0.35, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link href={`/worlds/${w.slug}`} style={colorVar(w.color)} className="group flex flex-col items-center text-center">
-                {/* Wider than tall, so planets (square) and ships (wide) read at a similar size. */}
                 <WorldArt image={w.image} size="h-20 w-28 lg:h-24 lg:w-36" sizes="144px" priority />
-                {/* Backed so the rail never runs through the text. */}
                 <span className="mt-2 flex flex-col items-center rounded-lg bg-surface-solid/85 px-2.5 py-1 backdrop-blur-sm">
                   <span className="text-[0.65rem] font-semibold tracking-[0.2em] text-[var(--c)] uppercase">
                     {stopLabel(w.arcOrder)}
@@ -157,11 +139,9 @@ export function StarMap({ worlds: allWorlds }: { worlds: MapWorld[] }) {
         </ol>
       </div>
 
-      {/* Narrow screens: the same journey as a vertical line. */}
       <ol className="relative ml-6 flex flex-col gap-8 border-l border-dashed border-line pl-12 md:hidden">
         {worlds.map((w) => (
           <li key={w.slug} style={colorVar(w.color)} className="relative">
-            {/* Centered on the dashed line: pl-12 (3rem) plus half the 3rem frame. */}
             <span className="absolute top-0 -left-[calc(4.5rem+0.5px)]">
               <WorldArt image={w.image} size="size-12" sizes="48px" />
             </span>

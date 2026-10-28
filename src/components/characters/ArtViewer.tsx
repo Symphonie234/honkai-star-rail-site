@@ -11,38 +11,26 @@ type Props = {
   src: string;
   title: string;
   caption: string;
-  /** Shown when the full splash art is withheld as a spoiler. */
   notice?: string;
-  /** Looks to switch between (the Trailblazer); omit for a single image. */
   variants?: ArtVariant[];
   current?: ArtVariant;
   onSelectVariant?: (v: ArtVariant) => void;
   onClose: () => void;
 };
 
-/** Controls fade out after this long without pointer or keyboard activity. */
 const IDLE_MS = 2500;
 
-// Browser fullscreen (hides the browser's own UI). Not available everywhere, e.g. iPhone Safari.
 const subscribeFullscreen = (onChange: () => void) => {
   document.addEventListener("fullscreenchange", onChange);
   return () => document.removeEventListener("fullscreenchange", onChange);
 };
 const noSubscribe = () => () => {};
 
-/**
- * Full-screen art viewer: a modal <dialog> (focus trap, Esc to close) covering the
- * window, with zoom (wheel, pinch, double-click, buttons, +/−/0 keys), drag-to-pan,
- * controls that fade when idle, and optional browser fullscreen (F).
- * Mount it only while open; it opens itself on mount.
- */
 export function ArtViewer({ src, title, caption, notice, variants = [], current, onSelectVariant, onClose }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  // Browsers refuse fullscreen on a <dialog> itself, so a wrapper inside it goes fullscreen.
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<StageHandle>(null);
   const [idle, setIdle] = useState(false);
-  // Zoom level for the badge; a new image starts at 100%.
   const [zoom, setZoom] = useState({ src, scale: 1 });
   const scale = zoom.src === src ? zoom.scale : 1;
   const idleTimer = useRef(0);
@@ -52,12 +40,10 @@ export function ArtViewer({ src, title, caption, notice, variants = [], current,
   useEffect(() => {
     const dialog = dialogRef.current!;
     dialog.showModal();
-    // showModal focuses the first button, which would pin the controls visible (they stay
-    // up while focused); start with focus on the dialog itself instead.
     dialog.focus();
     const root = document.documentElement;
     const prevOverflow = root.style.overflow;
-    root.style.overflow = "hidden"; // the page behind shouldn't scroll
+    root.style.overflow = "hidden";
     idleTimer.current = window.setTimeout(() => setIdle(true), IDLE_MS);
     return () => {
       clearTimeout(idleTimer.current);
@@ -67,11 +53,6 @@ export function ArtViewer({ src, title, caption, notice, variants = [], current,
     };
   }, []);
 
-  // The dialog's close event also fires after this component's own cleanup closes it:
-  // React Strict Mode (development) mounts, unmounts and remounts, and treating that
-  // event as "closed" unmounted the viewer the moment it opened. By the time the event
-  // arrives the remount has reopened the dialog, so only a close that leaves it shut
-  // (Esc) means the reader closed the viewer.
   const handleClose = () => {
     if (!dialogRef.current?.open) onClose();
   };
@@ -110,7 +91,6 @@ export function ArtViewer({ src, title, caption, notice, variants = [], current,
     }
   };
 
-  // Hovering a control, or reaching it by keyboard, keeps it visible while idle.
   const fade = `transition-opacity duration-500 ${idle ? "opacity-0 hover:opacity-100 has-[:focus-visible]:opacity-100" : "opacity-100"}`;
   const roundButton =
     "glass pointer-events-auto grid size-11 shrink-0 place-items-center rounded-full transition hover:border-gold hover:text-gold";
@@ -136,8 +116,6 @@ export function ArtViewer({ src, title, caption, notice, variants = [], current,
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* The art fills the whole window; controls float over it. Keyed by src so
-                zoom and loading state reset when the image changes. */}
             <ZoomStage key={src} ref={stageRef} onScaleChange={(scale) => setZoom({ src, scale })}>
               {() => <FillImage src={src} alt={title} />}
             </ZoomStage>

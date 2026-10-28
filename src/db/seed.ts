@@ -17,7 +17,6 @@ import {
 
 const toSnake = (s: string) => s.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
 
-// Insert rows, or overwrite every non-key column when the key already exists.
 async function upsert<T extends PgTable>(table: T, key: PgColumn, rows: T["$inferInsert"][]) {
   if (rows.length === 0) return;
   const columns = Object.keys(rows[0]).filter((k) => toSnake(k) !== key.name);
@@ -27,19 +26,16 @@ async function upsert<T extends PgTable>(table: T, key: PgColumn, rows: T["$infe
   await db.insert(table).values(rows).onConflictDoUpdate({ target: key, set });
 }
 
-// Delete rows whose key is no longer in the data (renamed or removed entries).
 async function prune(table: PgTable, key: PgColumn, keep: string[]) {
   const deleted = await db.delete(table).where(notInArray(key, keep)).returning();
   if (deleted.length) console.log(`  pruned ${deleted.length} stale row(s) from ${getTableName(table)}`);
 }
 
 async function main() {
-  // Referenced tables first, so foreign keys resolve.
   await upsert(versions, versions.version, VERSIONS);
   await upsert(paths, paths.slug, PATHS);
   await upsert(elements, elements.slug, ELEMENTS);
   await upsert(worlds, worlds.slug, WORLDS);
-  // Point at Aeon art only if art:fetch actually found it (some Aeons have none).
   const hasArt = (url: string) => existsSync(path.join("public", url));
   await upsert(aeons, aeons.slug, AEONS.map(({ artFile, ...a }) => ({ ...a, image: artFile && hasArt(aeonImage(a.slug)) ? aeonImage(a.slug) : null })));
   await upsert(factions, factions.slug, FACTIONS);
@@ -66,7 +62,6 @@ async function main() {
   }));
   await upsert(enemies, enemies.slug, enemyRows);
 
-  // Dependents first, so nothing still references a pruned row.
   await prune(characterKits, characterKits.characterSlug, kitRows.map((k) => k.characterSlug));
   await prune(lightCones, lightCones.slug, coneRows.map((l) => l.slug));
   await prune(relicSets, relicSets.slug, relicRows.map((r) => r.slug));

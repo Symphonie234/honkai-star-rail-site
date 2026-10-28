@@ -6,22 +6,9 @@ import type { Kit } from "../lib/kit";
 import type { LightCone } from "../lib/light-cone";
 import type { RelicSet } from "../lib/relic";
 
-/*
- * Slugs are primary keys: they're stable, human-readable, and double as URL segments.
- *
- * Versions ("1.0", "2.3") are stored as text. Two kinds, compared against the
- * reader's story-progress setting:
- *  - when something entered the game (releaseVersion / introducedVersion / version):
- *    "view as of vX" hides anything newer;
- *  - `spoilerVersion`: what it gives away; hidden until the reader's progress
- *    covers it. Null means spoiler-free.
- */
-
-/** Game versions, with their official titles. Characters reference their release version. */
 export const versions = pgTable("versions", {
   version: text("version").primaryKey(),
   title: text("title").notNull(),
-  /** ISO date, e.g. "2025-04-09". */
   releaseDate: text("release_date").notNull(),
   major: integer("major").notNull(),
   minor: integer("minor").notNull(),
@@ -50,57 +37,41 @@ export const worlds = pgTable("worlds", {
   description: text("description").notNull(),
   arcOrder: integer("arc_order").notNull(),
   releaseVersion: text("release_version").notNull(),
-  /** Theme color token name, e.g. "cyan" → var(--color-cyan). */
   color: text("color").notNull(),
-  /** Position on the star map, in percent of the map's width/height. */
   mapX: integer("map_x").notNull(),
   mapY: integer("map_y").notNull(),
-  /** Optional banner image path under /public (e.g. "/worlds/penacony.webp"); a CSS planet is drawn otherwise. */
   image: text("image"),
 });
 
-/** Story recap for a world, split into chapters so each can carry its own spoiler level. */
 export const worldChapters = pgTable("world_chapters", {
   slug: text("slug").primaryKey(),
   worldSlug: text("world_slug").notNull().references(() => worlds.slug),
   sortOrder: integer("sort_order").notNull(),
   title: text("title").notNull(),
-  /** Plain text; paragraphs separated by blank lines. */
   body: text("body").notNull(),
-  /** The update whose story this chapter covers. */
   version: text("version").notNull().references(() => versions.version),
   spoilerVersion: text("spoiler_version"),
 });
 
-/** The god-like embodiments of concepts. Those with a playable Path link to it. */
 export const aeons = pgTable("aeons", {
   slug: text("slug").primaryKey(),
   name: text("name").notNull(),
-  /** The concept the Aeon embodies, e.g. "Destruction". */
   concept: text("concept").notNull(),
   pathSlug: text("path_slug").references(() => paths.slug),
-  /** When the story first brings the Aeon up. */
   introducedVersion: text("introduced_version").notNull().references(() => versions.version),
-  /** Shown when the Aeon has no Path icon. */
   glyph: text("glyph").notNull(),
-  /** Titles the Aeon is known by, e.g. "Amber Lord". */
   epithets: text("epithets").array().notNull().default(sql`'{}'::text[]`),
-  /** Official art under /public, if any. */
   image: text("image"),
-  /** One-paragraph summary; the full lore lives in aeon_lore. */
   description: text("description").notNull(),
   sortOrder: integer("sort_order").notNull(),
 });
 
-/** An Aeon's lore, in sections so each can carry its own spoiler level. */
 export const aeonLore = pgTable("aeon_lore", {
   slug: text("slug").primaryKey(),
   aeonSlug: text("aeon_slug").notNull().references(() => aeons.slug),
   sortOrder: integer("sort_order").notNull(),
   title: text("title").notNull(),
-  /** Plain text; paragraphs separated by blank lines. */
   body: text("body").notNull(),
-  /** When this part of the lore enters the story. */
   version: text("version").notNull().references(() => versions.version),
   spoilerVersion: text("spoiler_version"),
 });
@@ -109,9 +80,7 @@ export const factions = pgTable("factions", {
   slug: text("slug").primaryKey(),
   name: text("name").notNull(),
   description: text("description"),
-  /** The faction's first story appearance. */
   introducedVersion: text("introduced_version").notNull().references(() => versions.version),
-  /** The Aeon the faction is devoted to, if any. */
   aeonSlug: text("aeon_slug").references(() => aeons.slug),
 });
 
@@ -125,29 +94,20 @@ export const characters = pgTable("characters", {
   worldSlug: text("world_slug").references(() => worlds.slug),
   bio: text("bio").notNull(),
   releaseVersion: text("release_version").notNull().references(() => versions.version),
-  /** ISO date the character was released. */
   releaseDate: text("release_date").notNull(),
   spoilerVersion: text("spoiler_version"),
-  /** Signature Light Cone, if the character has one. */
   lightCone: text("light_cone"),
-  /** English voice actor(s). */
   voiceEn: text("voice_en"),
-  /**
-   * Art variants, each a game character ID (see src/lib/images.ts). Usually one;
-   * the Trailblazer has two (Stelle and Caelus) and the reader picks which to show.
-   */
   art: jsonb("art").$type<ArtVariant[]>().notNull().default([]),
 });
 
 export type ArtVariant = { label: string; gameId: string };
 
-/** A character's full kit (skills, Traces, Eidolons, stats), imported from game data. */
 export const characterKits = pgTable("character_kits", {
   characterSlug: text("character_slug").primaryKey().references(() => characters.slug),
   kit: jsonb("kit").$type<Kit>().notNull(),
 });
 
-/** Light Cones, imported from game data. Listed columns are for querying; `data` holds the rest. */
 export const lightCones = pgTable("light_cones", {
   slug: text("slug").primaryKey(),
   gameId: text("game_id").notNull(),
@@ -158,28 +118,21 @@ export const lightCones = pgTable("light_cones", {
   data: jsonb("data").$type<LightCone>().notNull(),
 });
 
-/** Upgrade materials (ascension, Traces), imported from game data. */
 export const materials = pgTable("materials", {
   id: text("id").primaryKey(),
-  /** URL slug, from the name. */
   slug: text("slug").notNull().default(""),
   name: text("name").notNull(),
   rarity: integer("rarity").notNull(),
   type: text("type").notNull(),
   subType: text("sub_type").notNull(),
-  /** Game icon path, e.g. "icon/item/110251.png" (see gameIcon). */
   icon: text("icon").notNull(),
-  /** Where to farm or obtain it. */
   sources: text("sources").array().notNull().default(sql`'{}'::text[]`),
-  /** The game's grouping, e.g. "Trace Material". */
   category: text("category").notNull().default(""),
-  /** In-game description and story (paragraphs, <i>). */
   description: text("description").notNull().default(""),
   story: text("story").notNull().default(""),
   synthesis: jsonb("synthesis").$type<{ items: { id: string; count: number }[]; credits: number | null }>(),
 });
 
-/** Areas of each world, with their in-game maps, imported from the HSR Wiki. `data` holds the rest. */
 export const areas = pgTable("areas", {
   slug: text("slug").primaryKey(),
   worldSlug: text("world_slug").notNull().references(() => worlds.slug),
@@ -191,7 +144,6 @@ export const areas = pgTable("areas", {
   data: jsonb("data").$type<Area>().notNull(),
 });
 
-/** Enemies, imported from the HSR Wiki. `data` holds the rest. */
 export const enemies = pgTable("enemies", {
   slug: text("slug").primaryKey(),
   name: text("name").notNull(),
@@ -202,7 +154,6 @@ export const enemies = pgTable("enemies", {
   data: jsonb("data").$type<Enemy>().notNull(),
 });
 
-/** Cavern Relic and Planar Ornament sets, imported from game data. `data` holds the rest. */
 export const relicSets = pgTable("relic_sets", {
   slug: text("slug").primaryKey(),
   gameId: text("game_id").notNull(),
@@ -212,14 +163,11 @@ export const relicSets = pgTable("relic_sets", {
   data: jsonb("data").$type<RelicSet>().notNull(),
 });
 
-/** Lore terms shown as hover definitions wherever they appear in lore text. */
 export const glossaryTerms = pgTable("glossary_terms", {
   slug: text("slug").primaryKey(),
   term: text("term").notNull(),
-  /** Other spellings that should link to this term (matched case-insensitively). */
   aliases: text("aliases").array().notNull().default(sql`'{}'::text[]`),
   definition: text("definition").notNull(),
-  /** When the term enters the story. */
   version: text("version").notNull().references(() => versions.version),
   spoilerVersion: text("spoiler_version"),
 });

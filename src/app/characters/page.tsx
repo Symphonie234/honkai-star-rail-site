@@ -24,7 +24,6 @@ export default async function CharactersPage() {
       </header>
       <CharacterBrowser
         characters={characters}
-        // Only offer filters that match someone.
         elements={elements.filter((e) => characters.some((c) => c.elementSlug === e.slug)).map(({ slug, name }) => ({ slug, name }))}
         paths={paths.filter((p) => characters.some((c) => c.pathSlug === p.slug)).map(({ slug, name }) => ({ slug, name }))}
       />

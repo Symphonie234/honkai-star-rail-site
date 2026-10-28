@@ -4,16 +4,11 @@ import type { ReactNode } from "react";
 import { isAvailable, viewingAsOf } from "@/lib/spoilers";
 import { setStoryProgress, useStoryProgress, type VersionOption } from "./story-progress";
 
-/**
- * Renders its children only if something from `version` exists in the version the
- * reader is viewing the archive as of (always, unless they picked a version).
- */
 export function AsOf({ version, children, fallback = null }: { version: string; children: ReactNode; fallback?: ReactNode }) {
   const progress = useStoryProgress();
   return <>{isAvailable(version, progress) ? children : fallback}</>;
 }
 
-/** Shown in place of a page whose subject doesn't exist yet in the chosen version. */
 export function NotYet({ what, version }: { what: string; version: string }) {
   const progress = useStoryProgress();
   return (
@@ -35,7 +30,6 @@ export function NotYet({ what, version }: { what: string; version: string }) {
   );
 }
 
-/** A slim bar under the header while the archive is viewed as of a past version. */
 export function TimeTravelBanner({ versions }: { versions: VersionOption[] }) {
   const progress = useStoryProgress();
   const asOf = viewingAsOf(progress);

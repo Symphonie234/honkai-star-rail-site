@@ -27,15 +27,11 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
   if (!w) notFound();
 
   const [worlds, areas] = await Promise.all([getWorlds(), getAreaSummaries(w.slug)]);
-  // Areas grouped by region (Overworld / Underworld, Reality / Dreamscape…), in story order.
   const regions = Map.groupBy(areas, (a) => a.region ?? "");
   const i = worlds.findIndex((o) => o.slug === w.slug);
   const prev = worlds[i - 1];
   const next = worlds[i + 1];
 
-  // Factions present, derived from the characters who call this world home. Characters with
-  // a spoiler version are skipped: their faction may be the reveal (e.g. Firefly). Each
-  // faction shows from the later of its first story appearance and its first member here.
   const factionsBySlug = new Map<string, { slug: string; name: string; version: string }>();
   for (const c of w.characters) {
     if (!c.faction || c.spoilerVersion) continue;
@@ -62,7 +58,6 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[slug]">)
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted"><LoreText text={w.description} /></p>
           </div>
           <div className="relative order-first mx-auto grid place-items-center md:order-none md:px-6">
-            {/* A soft halo in the world's color behind the render. */}
             <span aria-hidden="true" className="absolute inset-0 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--c)_25%,transparent),transparent_65%)] blur-2xl" />
             <WorldArt image={w.image} size="size-56 sm:size-72 md:size-64 lg:size-80" sizes="(min-width: 1024px) 320px, 288px" float priority />
           </div>

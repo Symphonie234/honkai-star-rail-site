@@ -6,7 +6,6 @@ import {
 } from "@/lib/queries";
 import type { SearchEntry } from "@/lib/search";
 
-// Built once at build time; the search box downloads it the first time it opens.
 export const dynamic = "force-static";
 
 export async function GET() {
@@ -22,13 +21,11 @@ export async function GET() {
     ...characters.map((c) => ({
       t: "Character", n: c.name, s: `${c.rarity}★ ${c.element.name} · ${c.path.name}`, u: `/characters/${c.slug}`,
       v: c.releaseVersion, sp: null, i: c.art[0] ? characterIcon(c.art[0].gameId) : null,
-      // The faction can be the spoiler (Firefly), so it only counts when the card is safe.
       k: [c.element.name, c.path.name, c.spoilerVersion ? "" : c.faction?.name ?? "", c.lightCone ?? ""].join(" "),
     })),
     ...cones.map((lc) => ({
       t: "Light Cone", n: lc.name, s: `${lc.rarity}★ ${lc.path.name}`, u: `/light-cones/${lc.slug}`,
       v: lc.releaseVersion ?? "1.0", sp: null, i: lightConeIcon(lc.gameId),
-      // Found by its signature character too ("acheron" → Along the Passing Shore).
       k: [lc.data.skill, ...lc.data.signature.map((s) => characterName.get(s) ?? "")].join(" "),
     })),
     ...relics.map((r) => ({

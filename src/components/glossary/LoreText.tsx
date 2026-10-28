@@ -2,7 +2,6 @@ import { splitLore } from "@/lib/glossary";
 import { getGlossary } from "@/lib/queries";
 import { Term } from "./Term";
 
-/** Renders lore text with glossary terms turned into hover definitions. */
 export async function LoreText({ text, exclude }: { text: string; exclude?: string }) {
   const parts = splitLore(text, await getGlossary(), exclude);
   return (

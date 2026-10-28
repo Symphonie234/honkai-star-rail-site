@@ -8,7 +8,6 @@ import { SearchIcon } from "../icons";
 import { useStoryProgress } from "../spoilers/story-progress";
 
 let indexPromise: Promise<SearchEntry[]> | null = null;
-/** The search index, downloaded once per visit, the first time it's needed. */
 export const loadSearchIndex = () => {
   indexPromise ??= fetch("/search-index.json").then((r) => r.json() as Promise<SearchEntry[]>).catch(() => {
     indexPromise = null;
@@ -17,7 +16,6 @@ export const loadSearchIndex = () => {
   return indexPromise;
 };
 
-/** Search results for a query, honouring the reader's story progress. */
 export function useSearch(query: string) {
   const [entries, setEntries] = useState<SearchEntry[] | null>(null);
   const progress = useStoryProgress();
@@ -30,7 +28,6 @@ export function useSearch(query: string) {
   return { results, loading: entries === null };
 }
 
-/** The header's search button; opens the search window (also on Ctrl/⌘ K or "/"). */
 export function SearchButton() {
   const [open, setOpen] = useState(false);
 
@@ -76,7 +73,6 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
     dialog.showModal();
     return () => { if (dialog.open) dialog.close(); };
   }, []);
-  // As in ArtViewer: under Strict Mode the close event can follow our own cleanup.
   const handleClose = () => { if (!dialogRef.current?.open) onClose(); };
 
   const go = (e: SearchEntry | undefined) => {

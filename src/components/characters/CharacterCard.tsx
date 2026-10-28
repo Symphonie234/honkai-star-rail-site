@@ -13,10 +13,6 @@ export function Stars({ rarity }: { rarity: number }) {
   );
 }
 
-/**
- * The combat type as its official icon on a dark chip. The card around it already
- * glows in the element's color, so no text label is repeated beside it.
- */
 export function ElementBadge({ slug, name, size = "md" }: { slug: string; name: string; size?: "sm" | "md" }) {
   const px = size === "sm" ? 18 : 24;
   return (
@@ -31,7 +27,6 @@ export function ElementBadge({ slug, name, size = "md" }: { slug: string; name: 
   );
 }
 
-/** The large card: art with the element badge and rarity; name, Path and version below. */
 export function CharacterCard({ c }: { c: CharacterWithRefs }) {
   return (
     <Link

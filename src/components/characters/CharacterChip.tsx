@@ -10,7 +10,6 @@ import { Stars } from "./CharacterCard";
 
 type Props = { slug: string; name: string; rarity: number; elementSlug: string; art: ArtVariant[] };
 
-/** A compact avatar link to a character, following the reader's chosen variant. */
 export function CharacterChip({ slug, name, rarity, elementSlug, art }: Props) {
   const [variant] = useArtVariant(art);
   return (

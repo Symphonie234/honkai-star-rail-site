@@ -1,14 +1,3 @@
-/*
- * Every playable character through Version 4.6 (Planarcadia, the 4.x era).
- *
- * Facts (game ID, rarity, element, Path, release version and date, signature Light
- * Cone, English voice actor) were taken from the Honkai: Star Rail Wiki. Affiliations
- * are chosen to be spoiler-safe; bios are original writing.
- *
- *   art:            game character ID, or labeled variants (the Trailblazer)
- *   factionSlug:    primary affiliation shown on the card
- *   spoilerVersion: set when the card itself reveals story (Firefly's faction)
- */
 import type { ArtVariant } from "../schema";
 
 export type CharacterSeed = {
@@ -19,7 +8,6 @@ export type CharacterSeed = {
 };
 
 export const CHARACTERS: CharacterSeed[] = [
-  // 1.0
   { slug: "arlan", name: "Arlan", art: "1008", rarity: 4,
     elementSlug: "lightning", pathSlug: "destruction", factionSlug: "herta-space-station", worldSlug: "herta-space-station",
     releaseVersion: "1.0", releaseDate: "2023-04-26", spoilerVersion: null,
@@ -140,7 +128,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "1.0", releaseDate: "2023-04-26", spoilerVersion: null,
     lightCone: "Sleep Like the Dead", voiceEn: "Amber May",
     bio: "Jing Yuan's young bodyguard and a prodigy of the sword, who collects blades and hates to lose." },
-  // 1.1
   { slug: "luocha", name: "Luocha", art: "1203", rarity: 5,
     elementSlug: "imaginary", pathSlug: "abundance", factionSlug: null, worldSlug: null,
     releaseVersion: "1.1", releaseDate: "2023-06-28", spoilerVersion: null,
@@ -156,7 +143,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "1.1", releaseDate: "2023-06-28", spoilerVersion: null,
     lightCone: null, voiceEn: "Dawn M. Bennett",
     bio: "Helm Master of the Luofu's Sky-Faring Commission, a veteran Foxian pilot who has flown the stars her whole life." },
-  // 1.2
   { slug: "blade", name: "Blade", art: "1205", rarity: 5,
     elementSlug: "wind", pathSlug: "destruction", factionSlug: "stellaron-hunters", worldSlug: null,
     releaseVersion: "1.2", releaseDate: "2023-07-19", spoilerVersion: null,
@@ -172,7 +158,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "1.2", releaseDate: "2023-08-09", spoilerVersion: null,
     lightCone: null, voiceEn: "Howard Wang",
     bio: "An Underworld boxing champion with a mechanical arm, who fights to give the kids of the Underworld someone to look up to." },
-  // 1.3
   { slug: "dan-heng-imbibitor-lunae", name: "Dan Heng • Imbibitor Lunae", art: "1213", rarity: 5,
     elementSlug: "imaginary", pathSlug: "destruction", factionSlug: "astral-express", worldSlug: "xianzhou-luofu",
     releaseVersion: "1.3", releaseDate: "2023-08-30", spoilerVersion: null,
@@ -188,7 +173,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "1.3", releaseDate: "2023-09-20", spoilerVersion: null,
     lightCone: null, voiceEn: "Risa Mei",
     bio: "The youngest of the Landau siblings, an explorer and field medic who would rather be out in the snow than anywhere else." },
-  // 1.4
   { slug: "guinaifen", name: "Guinaifen", art: "1210", rarity: 4,
     elementSlug: "fire", pathSlug: "nihility", factionSlug: "xianzhou-alliance", worldSlug: "xianzhou-luofu",
     releaseVersion: "1.4", releaseDate: "2023-10-27", spoilerVersion: null,
@@ -204,7 +188,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "1.4", releaseDate: "2023-10-27", spoilerVersion: null,
     lightCone: "Worrisome, Blissful", voiceEn: "Sam Slade",
     bio: "A senior manager of the IPC's Strategic Investment Department and one of the Ten Stonehearts, partnered with her Warp Trotter, Numby." },
-  // 1.5
   { slug: "argenti", name: "Argenti", art: "1302", rarity: 5,
     elementSlug: "physical", pathSlug: "erudition", factionSlug: "knights-of-beauty", worldSlug: null,
     releaseVersion: "1.5", releaseDate: "2023-12-06", spoilerVersion: null,
@@ -220,7 +203,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "1.5", releaseDate: "2023-11-15", spoilerVersion: null,
     lightCone: "Night of Fright", voiceEn: "Megan Shipman",
     bio: "A timid Foxian Judge-in-training who carries a heliobus named Tail on her tail." },
-  // 1.6
   { slug: "dr-ratio", name: "Dr. Ratio", art: "1305", rarity: 5,
     elementSlug: "imaginary", pathSlug: "hunt", factionSlug: "intelligentsia-guild", worldSlug: null,
     releaseVersion: "1.6", releaseDate: "2024-01-17", spoilerVersion: null,
@@ -236,7 +218,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "1.6", releaseDate: "2023-12-27", spoilerVersion: null,
     lightCone: null, voiceEn: "Jenny Yokobori",
     bio: "A judge of the Ten-Lords Commission who serves through a puppet body, hunting down fugitives in her sister's company." },
-  // 2.0
   { slug: "black-swan", name: "Black Swan", art: "1307", rarity: 5,
     elementSlug: "wind", pathSlug: "nihility", factionSlug: "garden-of-recollection", worldSlug: null,
     releaseVersion: "2.0", releaseDate: "2024-02-06", spoilerVersion: null,
@@ -252,7 +233,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "2.0", releaseDate: "2024-02-29", spoilerVersion: null,
     lightCone: "Earthly Escapade", voiceEn: "Lizzie Freeman",
     bio: "A Masked Fool who treats the whole cosmos as her stage and every conversation as a performance." },
-  // 2.1
   { slug: "acheron", name: "Acheron", art: "1308", rarity: 5,
     elementSlug: "lightning", pathSlug: "nihility", factionSlug: "galaxy-rangers", worldSlug: "penacony",
     releaseVersion: "2.1", releaseDate: "2024-03-27", spoilerVersion: null,
@@ -268,7 +248,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "2.1", releaseDate: "2024-03-27", spoilerVersion: null,
     lightCone: null, voiceEn: "Erik Braa",
     bio: "A laid-back bartender and officer of the Bloodhound Family, Penacony's security force within the Family." },
-  // 2.2
   { slug: "boothill", name: "Boothill", art: "1315", rarity: 5,
     elementSlug: "physical", pathSlug: "hunt", factionSlug: "galaxy-rangers", worldSlug: null,
     releaseVersion: "2.2", releaseDate: "2024-05-29", spoilerVersion: null,
@@ -284,7 +263,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "2.2", releaseDate: "2024-05-08", spoilerVersion: null,
     lightCone: null, voiceEn: "Stelle: Chloe Eves · Caelus: Shaun Mendum",
     bio: "The Trailblazer on the Path of Harmony, awakened in Penacony — dancing to empower their allies' Break effects." },
-  // 2.3
   { slug: "firefly", name: "Firefly", art: "1310", rarity: 5,
     elementSlug: "fire", pathSlug: "destruction", factionSlug: "stellaron-hunters", worldSlug: "penacony",
     releaseVersion: "2.3", releaseDate: "2024-06-19", spoilerVersion: "2.1",
@@ -295,7 +273,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "2.3", releaseDate: "2024-07-10", spoilerVersion: null,
     lightCone: "Yet Hope Is Priceless", voiceEn: "Faye Mata",
     bio: "A Stoneheart of the IPC who lends anyone what they desire — in exchange for a fitting price." },
-  // 2.4
   { slug: "jiaoqiu", name: "Jiaoqiu", art: "1218", rarity: 5,
     elementSlug: "fire", pathSlug: "nihility", factionSlug: "xianzhou-alliance", worldSlug: null,
     releaseVersion: "2.4", releaseDate: "2024-08-21", spoilerVersion: null,
@@ -311,7 +288,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "2.4", releaseDate: "2024-07-31", spoilerVersion: null,
     lightCone: "Dance at Sunset", voiceEn: "Brenna Larsen",
     bio: "A fiery young swordswoman of the Xianzhou Zhuming, granddaughter of its general, who treats her blades like old friends." },
-  // 2.5
   { slug: "feixiao", name: "Feixiao", art: "1220", rarity: 5,
     elementSlug: "wind", pathSlug: "hunt", factionSlug: "xianzhou-alliance", worldSlug: null,
     releaseVersion: "2.5", releaseDate: "2024-09-10", spoilerVersion: null,
@@ -327,13 +303,11 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "2.5", releaseDate: "2024-09-10", spoilerVersion: null,
     lightCone: null, voiceEn: "Ben Balmaceda",
     bio: "A silent Shadow Guard of the Xianzhou Yaoqing, sworn to protect General Feixiao." },
-  // 2.6
   { slug: "rappa", name: "Rappa", art: "1317", rarity: 5,
     elementSlug: "imaginary", pathSlug: "erudition", factionSlug: "galaxy-rangers", worldSlug: null,
     releaseVersion: "2.6", releaseDate: "2024-10-23", spoilerVersion: null,
     lightCone: "Ninjutsu Inscription: Dazzling Evilbreaker", voiceEn: "Kendell Byrd",
     bio: "A flamboyant Galaxy Ranger who fights evil with 'Cosmic ninjutsu' and a flair for the dramatic." },
-  // 2.7
   { slug: "fugue", name: "Fugue", art: "1225", rarity: 5,
     elementSlug: "fire", pathSlug: "nihility", factionSlug: "xianzhou-alliance", worldSlug: "xianzhou-luofu",
     releaseVersion: "2.7", releaseDate: "2024-12-25", spoilerVersion: null,
@@ -344,7 +318,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "2.7", releaseDate: "2024-12-04", spoilerVersion: null,
     lightCone: "A Grounded Ascent", voiceEn: "Griffin Puatu",
     bio: "Head of Penacony's Oak Family and Robin's brother, a man who believes everyone deserves to be shielded from suffering." },
-  // 3.0
   { slug: "aglaea", name: "Aglaea", art: "1402", rarity: 5,
     elementSlug: "lightning", pathSlug: "remembrance", factionSlug: "chrysos-heirs", worldSlug: "amphoreus",
     releaseVersion: "3.0", releaseDate: "2025-02-05", spoilerVersion: null,
@@ -360,7 +333,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "3.0", releaseDate: "2025-01-15", spoilerVersion: null,
     lightCone: null, voiceEn: "Stelle: Chloe Eves · Caelus: Shaun Mendum",
     bio: "The Trailblazer on the Path of Remembrance, fighting alongside the memosprite Mem on Amphoreus." },
-  // 3.1
   { slug: "mydei", name: "Mydei", art: "1404", rarity: 5,
     elementSlug: "imaginary", pathSlug: "destruction", factionSlug: "chrysos-heirs", worldSlug: "amphoreus",
     releaseVersion: "3.1", releaseDate: "2025-03-19", spoilerVersion: null,
@@ -371,7 +343,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "3.1", releaseDate: "2025-02-26", spoilerVersion: null,
     lightCone: "If Time Were a Flower", voiceEn: "Hayden Daviau",
     bio: "The Holy Maiden of Janusopolis — three sisters sharing one name — who deliver prophecies and open gates between worlds." },
-  // 3.2
   { slug: "anaxa", name: "Anaxa", art: "1405", rarity: 5,
     elementSlug: "wind", pathSlug: "erudition", factionSlug: "chrysos-heirs", worldSlug: "amphoreus",
     releaseVersion: "3.2", releaseDate: "2025-04-30", spoilerVersion: null,
@@ -382,7 +353,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "3.2", releaseDate: "2025-04-09", spoilerVersion: null,
     lightCone: "Make Farewells More Beautiful", voiceEn: "Melody Muze",
     bio: "A gentle Chrysos Heir whose touch brings death, accompanied by the great dragon Pollux." },
-  // 3.3
   { slug: "cipher", name: "Cipher", art: "1406", rarity: 5,
     elementSlug: "quantum", pathSlug: "nihility", factionSlug: "chrysos-heirs", worldSlug: "amphoreus",
     releaseVersion: "3.3", releaseDate: "2025-06-11", spoilerVersion: null,
@@ -393,7 +363,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "3.3", releaseDate: "2025-05-21", spoilerVersion: null,
     lightCone: "Long May Rainbows Adorn the Sky", voiceEn: "Holly Earl",
     bio: "A kind-hearted healer of the Twilight Courtyard and Chrysos Heir, never far from her little pegasus Ika." },
-  // 3.4
   { slug: "archer", name: "Archer", art: "1015", rarity: 5,
     elementSlug: "quantum", pathSlug: "hunt", factionSlug: null, worldSlug: null,
     releaseVersion: "3.4", releaseDate: "2025-07-11", spoilerVersion: null,
@@ -409,7 +378,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "3.4", releaseDate: "2025-07-11", spoilerVersion: null,
     lightCone: "A Thankless Coronation", voiceEn: null,
     bio: "The King of Knights, a Heroic Spirit summoned from another world in the Fate/stay night [Unlimited Blade Works] collaboration." },
-  // 3.5
   { slug: "cerydra", name: "Cerydra", art: "1412", rarity: 5,
     elementSlug: "wind", pathSlug: "harmony", factionSlug: "chrysos-heirs", worldSlug: "amphoreus",
     releaseVersion: "3.5", releaseDate: "2025-09-02", spoilerVersion: null,
@@ -420,7 +388,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "3.5", releaseDate: "2025-08-13", spoilerVersion: null,
     lightCone: "Why Does the Ocean Sing", voiceEn: "Rosie Day",
     bio: "The Knight Commander of Okhema, a Chrysos Heir whose song carries the voice of the sea." },
-  // 3.6
   { slug: "dan-heng-permansor-terrae", name: "Dan Heng • Permansor Terrae", art: "1414", rarity: 5,
     elementSlug: "physical", pathSlug: "preservation", factionSlug: "astral-express", worldSlug: "amphoreus",
     releaseVersion: "3.6", releaseDate: "2025-10-15", spoilerVersion: null,
@@ -431,19 +398,16 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "3.6", releaseDate: "2025-09-24", spoilerVersion: null,
     lightCone: "To Evernight's Stars", voiceEn: "Skyler Davenport",
     bio: "A mysterious figure of Amphoreus' nights, named for the month of the Veil of Evernight, with a face that feels strangely familiar." },
-  // 3.7
   { slug: "cyrene", name: "Cyrene", art: "1415", rarity: 5,
     elementSlug: "ice", pathSlug: "remembrance", factionSlug: "chrysos-heirs", worldSlug: "amphoreus",
     releaseVersion: "3.7", releaseDate: "2025-11-05", spoilerVersion: null,
     lightCone: "This Love, Forever", voiceEn: "Aiden Dawn",
     bio: "A gentle, enigmatic presence of Amphoreus who greets the Trailblazer as though they were old friends." },
-  // 3.8
   { slug: "the-dahlia", name: "The Dahlia", art: "1321", rarity: 5,
     elementSlug: "fire", pathSlug: "nihility", factionSlug: null, worldSlug: null,
     releaseVersion: "3.8", releaseDate: "2025-12-17", spoilerVersion: null,
     lightCone: "Never Forget Her Flame", voiceEn: "Cristina Vee",
     bio: "A captivating woman of fire who calls herself Constance — and whose memories are, in her own words, quite thorny." },
-  // 4.0
   { slug: "yao-guang", name: "Yao Guang", art: "1502", rarity: 5,
     elementSlug: "physical", pathSlug: "elation", factionSlug: "xianzhou-alliance", worldSlug: "planarcadia",
     releaseVersion: "4.0", releaseDate: "2026-02-13", spoilerVersion: null,
@@ -454,13 +418,11 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "4.0", releaseDate: "2026-03-03", spoilerVersion: null,
     lightCone: "Dazzled by a Flowery World", voiceEn: "Lizzie Freeman",
     bio: "Planarcadia's self-proclaimed \"real Sparkle\" and Queen of Arcadia, a streamer whose every broadcast promises a day overflowing with dopamine." },
-  // 4.1
   { slug: "ashveil", name: "Ashveil", art: "1504", rarity: 5,
     elementSlug: "lightning", pathSlug: "hunt", factionSlug: "galaxy-rangers", worldSlug: "planarcadia",
     releaseVersion: "4.1", releaseDate: "2026-03-25", spoilerVersion: null,
     lightCone: "The Finale of a Lie", voiceEn: "Blythe Melin",
     bio: "Ace of the Ashen Detective Agency, who takes any case going — lost pets, stand-in parents at school nights, interstellar fugitives, the whereabouts of an Aeon." },
-  // 4.2
   { slug: "silver-wolf-lv-999", name: "Silver Wolf LV.999", art: "1506", rarity: 5,
     elementSlug: "imaginary", pathSlug: "elation", factionSlug: "stellaron-hunters", worldSlug: "planarcadia",
     releaseVersion: "4.2", releaseDate: "2026-04-22", spoilerVersion: null,
@@ -476,13 +438,11 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "4.2", releaseDate: "2026-05-13", spoilerVersion: null,
     lightCone: "Until the Flowers Bloom Again", voiceEn: "Nathalie Ferare",
     bio: "The Swordsinger of Planarcadia, an imagenae who keeps the Phantasmoon Games running smoothly — and who finds sharing the stage with you rather appealing." },
-  // 4.3
   { slug: "mortenax-blade", name: "Mortenax Blade", art: "1507", rarity: 5,
     elementSlug: "fire", pathSlug: "nihility", factionSlug: "stellaron-hunters", worldSlug: "planarcadia",
     releaseVersion: "4.3", releaseDate: "2026-06-01", spoilerVersion: null,
     lightCone: "Reforged in Hellfire", voiceEn: "Daman Mills",
     bio: "Blade, tempered anew: the same Stellaron Hunter, sharper for everything time has put him through." },
-  // 4.4
   { slug: "himeko-nova", name: "Himeko • Nova", art: "1510", rarity: 5,
     elementSlug: "fire", pathSlug: "erudition", factionSlug: "astral-express", worldSlug: "planarcadia",
     releaseVersion: "4.4", releaseDate: "2026-07-15", spoilerVersion: null,
@@ -498,7 +458,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "4.4", releaseDate: "2026-07-24", spoilerVersion: null,
     lightCone: "I Am As You Behold", voiceEn: null,
     bio: "The King of Heroes, a Heroic Spirit from the Fate/stay night [Unlimited Blade Works] collaboration, who counts the Stellaron among the treasures he means to keep." },
-  // 4.5
   { slug: "robin-summeretto", name: "Robin • Summeretto", art: "1512", rarity: 5,
     elementSlug: "wind", pathSlug: "remembrance", factionSlug: "the-family", worldSlug: "astropolis",
     releaseVersion: "4.5", releaseDate: "2026-08-26", spoilerVersion: null,
@@ -509,7 +468,6 @@ export const CHARACTERS: CharacterSeed[] = [
     releaseVersion: "4.5", releaseDate: "2026-09-12", spoilerVersion: null,
     lightCone: "Summer Rides the Surf", voiceEn: "Camden Sutkowski",
     bio: "Aventurine, freshly promoted to P46 and finally on vacation, promising an unforgettable getaway to anyone who joins him." },
-  // 4.6
   { slug: "pearl", name: "Pearl", art: "1503", rarity: 5,
     elementSlug: "ice", pathSlug: "elation", factionSlug: "ipc", worldSlug: "planarcadia",
     releaseVersion: "4.6", releaseDate: "2026-09-28", spoilerVersion: null,

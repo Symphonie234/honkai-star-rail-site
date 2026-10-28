@@ -2,7 +2,6 @@
 
 import type { ArtVariant } from "@/db/schema";
 
-/** Segmented control for switching between a character's looks (e.g. Stelle / Caelus). */
 export function VariantToggle({
   variants, current, onSelect, label = "Appearance",
 }: {

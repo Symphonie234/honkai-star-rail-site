@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 export default async function GlossaryPage() {
   const terms = await getGlossary();
 
-  // Group alphabetically, ignoring a leading "the".
   const sortKey = (t: string) => t.replace(/^the\s+/i, "");
   const sorted = [...terms].sort((a, b) => sortKey(a.term).localeCompare(sortKey(b.term)));
   const groups = Map.groupBy(sorted, (t) => sortKey(t.term)[0].toUpperCase());
@@ -32,7 +31,6 @@ export default async function GlossaryPage() {
 
       <div className="flex flex-col gap-12">
         {[...groups].map(([letter, group]) => (
-          // A letter appears once its earliest term has entered the story.
           <AsOf key={letter} version={group.map((t) => t.version).sort(compareVersions)[0]}>
             <section aria-labelledby={`letter-${letter}`}>
               <h2 id={`letter-${letter}`} className="font-display text-3xl font-bold text-gold">{letter}</h2>

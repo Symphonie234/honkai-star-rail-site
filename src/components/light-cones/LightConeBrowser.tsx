@@ -20,7 +20,6 @@ export type LightConeSummary = {
   pathSlug: string;
   pathName: string;
   releaseVersion: string | null;
-  /** Names of the characters it's the signature Light Cone of. */
   signature: string[];
 };
 
@@ -40,7 +39,6 @@ type Sort = "rarity" | "name" | "newest";
 const chip =
   "rounded-full border px-3 py-1.5 text-sm transition-colors aria-pressed:border-gold aria-pressed:bg-gold/15 aria-pressed:text-ink border-line text-muted hover:text-ink";
 
-// Light Cones from before the wiki's version records count as launch content.
 const released = (lc: LightConeSummary) => lc.releaseVersion ?? "1.0";
 
 export function LightConeBrowser({ lightCones, paths }: { lightCones: LightConeSummary[]; paths: Option[] }) {
@@ -64,7 +62,7 @@ export function LightConeBrowser({ lightCones, paths }: { lightCones: LightConeS
     );
     if (sort === "name") return [...list].sort((a, b) => a.name.localeCompare(b.name));
     if (sort === "newest") return [...list].sort((a, b) => compareVersions(released(b), released(a)) || b.rarity - a.rarity);
-    return list; // Already rarest first, then by name.
+    return list;
   }, [lightCones, query, path, rarity, sort, progress]);
 
   return (

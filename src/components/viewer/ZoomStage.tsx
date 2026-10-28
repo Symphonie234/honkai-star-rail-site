@@ -13,12 +13,6 @@ export type StageHandle = { zoomBy: (factor: number) => void; reset: () => void;
 const FIT: View = { scale: 1, x: 0, y: 0 };
 const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 
-/**
- * A zoomable, pannable area: wheel and pinch zoom toward the pointer, double-click
- * toggles a close-up, drag pans once zoomed (kept from leaving the box). Its content
- * fills the box and is transformed as a whole; `children` gets the current scale so
- * overlays (map pins) can stay a constant size.
- */
 export function ZoomStage({
   children, ref, maxScale = 5, onScaleChange, className = "", onBackgroundClick,
 }: {
@@ -27,7 +21,6 @@ export function ZoomStage({
   maxScale?: number;
   onScaleChange?: (scale: number) => void;
   className?: string;
-  /** A click (not a drag) on the stage itself. */
   onBackgroundClick?: () => void;
 }) {
   const boxRef = useRef<HTMLDivElement>(null);
@@ -36,12 +29,10 @@ export function ZoomStage({
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const gesture = useRef<{ kind: "pan"; x: number; y: number; view: View; moved: boolean } | { kind: "pinch"; dist: number; view: View } | null>(null);
 
-  // Report zoom changes after they render (never from inside a state update).
   const onScaleRef = useRef(onScaleChange);
   useEffect(() => { onScaleRef.current = onScaleChange; });
   useEffect(() => { onScaleRef.current?.(view.scale); }, [view.scale]);
 
-  // Keep the content from being dragged entirely out of the box.
   const bound = (v: View): View => {
     const box = boxRef.current?.getBoundingClientRect();
     if (!box) return v;
@@ -50,7 +41,6 @@ export function ZoomStage({
     return { scale: v.scale, x: clamp(v.x, -maxX, maxX), y: clamp(v.y, -maxY, maxY) };
   };
 
-  /** Zoom to `scale`, keeping the point (cx, cy) — relative to the box center — fixed. */
   const zoomTo = (from: View, scale: number, cx = 0, cy = 0): View => {
     const s = clamp(scale, 1, maxScale);
     const k = s / from.scale;
@@ -68,15 +58,11 @@ export function ZoomStage({
     panBy: (dx, dy) => setView((v) => bound({ ...v, x: v.x + dx, y: v.y + dy })),
   }));
 
-  // The wheel zooms, and must not also scroll the page. React's onWheel listener is
-  // passive (it can't preventDefault), so listen natively with passive: false. The
-  // handler is read through a ref so it always sees the latest props.
   const wheelRef = useRef<(e: globalThis.WheelEvent) => void>(null);
   useEffect(() => {
     wheelRef.current = (e) => {
       e.preventDefault();
       const [cx, cy] = fromCenter(e.clientX, e.clientY);
-      // Trackpads send small pixel deltas, mice larger line deltas; normalize lines to pixels.
       const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
       setView((v) => zoomTo(v, v.scale * Math.exp(-dy * 0.0015), cx, cy));
     };
@@ -89,7 +75,6 @@ export function ZoomStage({
   }, []);
 
   const onPointerDown = (e: PointerEvent) => {
-    // Let clicks on controls inside (pins, buttons) through.
     if ((e.target as HTMLElement).closest("button, a")) return;
     e.currentTarget.setPointerCapture(e.pointerId);
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -153,7 +138,6 @@ export function ZoomStage({
   );
 }
 
-/** An image filling its box (object-contain), with a spinner until it loads. */
 export function FillImage({ src, alt, sizes = "100vw", quality = 90 }: { src: string; alt: string; sizes?: string; quality?: number }) {
   const [loaded, setLoaded] = useState(false);
   return (

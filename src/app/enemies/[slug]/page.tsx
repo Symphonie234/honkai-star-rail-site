@@ -20,7 +20,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/enemies/[slug]">): Promise<Metadata> {
   const e = await getEnemy((await params).slug);
   if (!e) return {};
-  // Story bosses: keep the name out of search snippets and link previews.
   if (e.spoilerVersion) {
     return { title: `Story enemy (v${e.spoilerVersion})`, description: "A story enemy from Honkai: Star Rail. Spoilers hidden.", alternates: { canonical: `/enemies/${e.slug}` }, robots: { index: false } };
   }

@@ -2,11 +2,6 @@
 
 import { useEffect } from "react";
 
-/**
- * Publishes the sticky site header's height as the CSS variable --header-h, so
- * other sticky elements (e.g. the kit section nav) sit right below it — whether
- * the header has one row, two rows on phones, or the time-travel banner.
- */
 export function HeaderHeight({ targetId }: { targetId: string }) {
   useEffect(() => {
     const header = document.getElementById(targetId);

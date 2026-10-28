@@ -1,8 +1,3 @@
-/*
- * Game versions through 4.6 (Planarcadia, the 4.x era), with their
- * official titles and release dates (per the Honkai: Star Rail Wiki).
- * These are also the choices in the story-progress picker.
- */
 export const VERSIONS = [
   ["1.0", "The Rail Unto the Stars", "2023-04-26"],
   ["1.1", "Galactic Roaming", "2023-06-07"],

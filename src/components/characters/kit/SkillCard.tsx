@@ -6,7 +6,6 @@ import { gameIcon } from "@/lib/images";
 import type { KitSkill } from "@/lib/kit";
 import { KitDescription } from "./KitDescription";
 
-/** One skill, with a level stepper that fills the description's numbers for that level. */
 export function SkillCard({ skill }: { skill: KitSkill }) {
   const [level, setLevel] = useState(skill.normalMaxLevel);
   const leveled = skill.params.length > 1;

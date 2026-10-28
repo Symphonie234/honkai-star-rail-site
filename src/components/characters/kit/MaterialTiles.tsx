@@ -3,7 +3,6 @@ import Link from "next/link";
 import { gameIcon } from "@/lib/images";
 import type { Material } from "@/lib/kit";
 
-/** Rarity backgrounds in the game's own order: gray, green, blue, purple, gold. */
 export const RARITY_BG = [
   "",
   "from-[#5b5f6b] to-[#2e3140]",
@@ -15,11 +14,6 @@ export const RARITY_BG = [
 
 const tileClass = "glass flex h-full flex-col items-center overflow-hidden rounded-xl text-center";
 
-/**
- * Material tiles in the game's rarity colors, with totals, each linking to its
- * material page. Names wrap in full (some run to 49 characters, e.g. "Four Phases,
- * Crossing the River to Check the King"); tiles in a row stretch to the tallest.
- */
 export function MaterialGroup({
   title, items, materials,
 }: {

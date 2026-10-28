@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 
 type Star = { x: number; y: number; r: number; speed: number; phase: number; gold: boolean };
 
-/** Twinkling, slowly drifting starfield fixed behind the page. */
 export function Starfield() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -22,7 +21,7 @@ export function Starfield() {
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.round((w * h) / 5000); // density scales with screen size
+      const count = Math.round((w * h) / 5000);
       stars = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,

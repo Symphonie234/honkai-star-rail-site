@@ -112,7 +112,6 @@ export default async function AeonPage({ params }: PageProps<"/aeons/[slug]">) {
                   <AsOf key={s.slug} version={s.version}>
                     <li>
                       <a href={`#${anchor(s.title)}`} className="text-muted transition-colors hover:text-gold">
-                        {/* A spoiler section's title can give the reveal away too. */}
                         {s.spoilerVersion ? <SpoilerLabel version={s.spoilerVersion}>{s.title}</SpoilerLabel> : s.title}
                       </a>
                     </li>

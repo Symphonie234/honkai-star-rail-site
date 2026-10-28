@@ -4,11 +4,6 @@ import { useState, type ReactNode } from "react";
 import { isRevealed } from "@/lib/spoilers";
 import { useStoryProgress } from "./spoilers/story-progress";
 
-/**
- * Hides story-revealing content unless the reader's story progress covers
- * `version`; they can also reveal it with a click. `block` covers a whole section
- * (e.g. a story chapter) instead of an inline phrase.
- */
 export function Spoiler({ version, block = false, children }: { version: string; block?: boolean; children: ReactNode }) {
   const progress = useStoryProgress();
   const [clicked, setClicked] = useState(false);
@@ -35,7 +30,6 @@ export function Spoiler({ version, block = false, children }: { version: string;
     );
   }
 
-  // No blurred placeholder text inline: its length alone can hint at the answer.
   return (
     <button
       type="button"
@@ -48,8 +42,6 @@ export function Spoiler({ version, block = false, children }: { version: string;
   );
 }
 
-
-/** A label (e.g. a link's text) that names a spoiler only once the reader's progress covers it — plain text, no reveal button. */
 export function SpoilerLabel({ version, children }: { version: string; children: ReactNode }) {
   const progress = useStoryProgress();
   return isRevealed(version, progress) ? <>{children}</> : <span className="italic">v{version} spoiler</span>;

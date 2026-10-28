@@ -6,7 +6,6 @@ import { SEARCH_KINDS } from "@/lib/search";
 import { SearchIcon } from "../icons";
 import { SearchResults, useSearch } from "./SearchPalette";
 
-/** Full-page search: the same index as the header's search window, with kind filters and a shareable ?q=. */
 export function SearchPage() {
   const params = useSearchParams();
   const router = useRouter();

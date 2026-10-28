@@ -1,22 +1,13 @@
 import { isAvailable, isRevealed, type StoryProgress } from "./spoilers";
 
-/** One searchable page. Short keys keep the index small. */
 export type SearchEntry = {
-  /** Kind: "Character", "Light Cone", … */
   t: string;
-  /** Name. */
   n: string;
-  /** Subtitle. */
   s: string;
-  /** URL. */
   u: string;
-  /** Version it entered the game ("view as of" hides later ones). */
   v: string;
-  /** Spoiler version: unrevealed entries are left out of results entirely (the name is the spoiler). */
   sp: string | null;
-  /** Thumbnail. */
   i: string | null;
-  /** Extra words it should match (aliases, factions, elements). */
   k?: string;
 };
 
@@ -26,7 +17,6 @@ export const SEARCH_KINDS = [
 
 const norm = (s: string) => s.toLowerCase().normalize("NFKD").replace(/\p{Diacritic}/gu, "").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 
-/** Ranks entries for a query: exact name, then name prefix, word prefix, substring, then keywords. */
 export function searchEntries(entries: SearchEntry[], query: string, progress: StoryProgress, limit = 60) {
   const q = norm(query);
   if (!q) return [];
@@ -43,7 +33,6 @@ export function searchEntries(entries: SearchEntry[], query: string, progress: S
     else if (name.includes(q)) score = 50;
     else if (terms.every((t) => name.includes(t) || extra.includes(t))) score = terms.every((t) => name.includes(t)) ? 45 : 25;
     if (!score) continue;
-    // Shorter names first among equals, and the main databases before lore entries.
     score -= Math.min(name.length, 40) / 40 + SEARCH_KINDS.indexOf(e.t as (typeof SEARCH_KINDS)[number]) * 0.01;
     scored.push({ e, score });
   }

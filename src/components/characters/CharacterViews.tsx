@@ -10,10 +10,8 @@ import { useArtVariant } from "./art-variant";
 import { CardArt } from "./CardArt";
 import { ElementBadge, Stars } from "./CharacterCard";
 
-/** Rarity in the game's own colors: gold for 5★, violet for 4★. */
 const rarityColor = (rarity: number) => (rarity === 5 ? "var(--color-gold)" : "var(--color-violet)");
 
-/** A dense tile for the compact layout: art, icons in the corners, name over the bottom. */
 export function CharacterTile({ c }: { c: CharacterWithRefs }) {
   return (
     <Link
@@ -41,7 +39,6 @@ export function CharacterTile({ c }: { c: CharacterWithRefs }) {
 const formatDate = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
 
-/** The list layout: one table row per character, for comparing at a glance. */
 export function CharacterTable({ characters }: { characters: CharacterWithRefs[] }) {
   return (
     <div className="glass overflow-x-auto rounded-2xl">

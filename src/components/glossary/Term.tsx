@@ -6,7 +6,6 @@ import { useStoryProgress } from "../spoilers/story-progress";
 
 type Props = { term: string; definition: string; spoilerVersion: string | null; children: ReactNode };
 
-/** A glossary term inside lore text; shows its definition on hover, focus or tap. */
 export function Term({ term, definition, spoilerVersion, children }: Props) {
   const [open, setOpen] = useState(false);
   const id = useId();

@@ -1,19 +1,3 @@
-/*
- * Imports world areas (with their in-game maps and labelled points) and enemies from
- * the Honkai: Star Rail Wiki, and writes the result into the repo:
- *
- *   src/db/data/game/areas.json    every area of the archive's worlds: description, region,
- *                                  connections, enemies, activities, collectibles, and each
- *                                  floor's map with its markers (from the wiki's interactive maps)
- *   src/db/data/game/enemies.json  every enemy: tier, types, weaknesses, Toughness, faction,
- *                                  lore, resistances, base stats and skills
- *
- * Text is taken from the wiki and cleaned of markup; art is referenced by wiki file
- * name and downloaded by `npm run art:fetch`. Like data:import, the output is
- * committed so builds don't need the network and each update shows up as a diff.
- *
- *   npm run data:wiki
- */
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { VERSIONS, WORLDS } from "../src/db/seed-data";
@@ -36,20 +20,17 @@ async function wiki(params: Record<string, string>): Promise<Raw> {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return await res.json();
     } catch (err) {
-      // Bulk use can trip the wiki's rate limiting (an HTML challenge instead of JSON); back off and retry.
       if (i >= 6) throw err;
       await new Promise((r) => setTimeout(r, 15_000 * i));
     }
   }
 }
 
-/** Page wikitext for many titles (50 per request), following redirects; keyed by the requested title. */
 async function pages(titles: string[]): Promise<Map<string, { title: string; text: string }>> {
   const out = new Map<string, { title: string; text: string }>();
   for (let i = 0; i < titles.length; i += 50) {
     const batch = titles.slice(i, i + 50);
     const data = await wiki({ action: "query", titles: batch.join("|"), prop: "revisions", rvprop: "content", rvslots: "main", redirects: "1" });
-    // Map requested titles through normalization and redirects to the page that answered.
     const alias = new Map<string, string>();
     for (const n of data.query.normalized ?? []) alias.set(n.from, n.to);
     for (const r of data.query.redirects ?? []) alias.set(r.from, r.to);
@@ -75,13 +56,12 @@ async function categoryMembers(category: string) {
   return titles;
 }
 
-/** The subset of these wiki files that exist. */
 async function existingFiles(files: string[]) {
   const exists = new Set<string>();
   const unique = [...new Set(files)];
   for (let i = 0; i < unique.length; i += 50) {
     const data = await wiki({ action: "query", titles: unique.slice(i, i + 50).map((f) => `File:${f}`).join("|"), prop: "imageinfo" });
-    await new Promise((r) => setTimeout(r, 400)); // gentle on the API: this runs dozens of batches
+    await new Promise((r) => setTimeout(r, 400));
     const alias = new Map<string, string>((data.query.normalized ?? []).map((n: Raw) => [n.to, n.from]));
     for (const p of Object.values(data.query.pages) as Raw[]) {
       if (p.imageinfo) exists.add((alias.get(p.title) ?? p.title).replace(/^File:/, "").replace(/_/g, " "));
@@ -90,7 +70,6 @@ async function existingFiles(files: string[]) {
   return (file: string) => exists.has(file.replace(/_/g, " "));
 }
 
-/** A section's text: from its "==Heading==" (any level) to the next heading of the same or higher level. */
 function section(text: string, heading: string) {
   const m = new RegExp(`^(=+)\\s*${heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*\\1\\s*$`, "m").exec(text);
   if (!m) return "";
@@ -102,7 +81,6 @@ function section(text: string, heading: string) {
 
 const bulletLines = (text: string) => text.split("\n").filter((l) => /^\*/.test(l)).map((l) => l.replace(/^\*+\s*/, ""));
 
-/** Entries of {{Enemy List|x=0|A;B/note;C}}: names without notes. */
 function enemyList(text: string) {
   const t = findTemplate(text, "Enemy List");
   if (!t) return [];
@@ -117,26 +95,18 @@ const ELEMENT: Record<string, string> = {
 const elements = (list: string | undefined) =>
   (list ?? "").split(/[;,]/).map((e) => ELEMENT[e.trim().toLowerCase()]).filter(Boolean);
 
-// Map marker categories shown by default: places and activities, not every collectible.
 const DEFAULT_ON = new Set([
   "Space Anchors", "Landmarks", "Marked Locations", "Calyx (Golden)", "Calyx (Crimson)", "Stagnant Shadows",
   "Caverns of Corrosion", "Echo of War", "Shops", "Shops with Collectibles", "Entrance", "Exit", "Interplanar Jump",
   "Interplanar Jump!", "Shuttles",
-  // Doors into buildings (Eversummer Florist, Goethe Hotel…), which the game's map shows too.
   "Subareas with Collectibles",
 ]);
 
-/**
- * A map marker's text, without what can't be shown on its own: reward lists (kept
- * separately), lists transcluded from other pages, and the headings above them.
- */
 const markerText = (text: string) =>
   cleanWiki(
     text
-      // Penacony Clockwork NPCs: rewards per mood ("|angry = All or Nothing*1") → "Angry: All or Nothing ×1".
       .replace(/\{\{Clockwork Rewards([\s\S]*?)\n\}\}/g, (_, body: string) =>
         [...body.matchAll(/\|\s*(\w+)\s*=\s*(.+)/g)]
-          // Plain moods only; "sad_text" and the like hold wording with nested templates.
           .filter(([, mood, reward]) => !mood.includes("_") && !/\{\{|\}\}/.test(reward))
           .map(([, mood, reward]) => {
             const m = /^(.*?)\*(\d+)(?:\{text=([^}]*)\})?\s*$/.exec(reward.trim());
@@ -150,10 +120,8 @@ const markerText = (text: string) =>
       .replace(/^=+[^=\n]+=+\s*$/gm, ""),
   );
 
-/** "{{Map Marker/Description|Eversummer Florist}}": the page whose description the marker shows. */
 const describedBy = (text: string) => /\{\{Map Marker\/Description\|([^}|]+)/.exec(text)?.[1].trim() ?? null;
 
-/** "{{Item List|1=Oronyx Slate*2;Credit*5000}}" → rewards. */
 function rewards(text: string) {
   const t = findTemplate(text, "Item List");
   if (!t) return [];
@@ -167,7 +135,6 @@ function rewards(text: string) {
 const round4 = (n: number) => Math.round(n * 10000) / 10000;
 
 async function importAreas() {
-  // 1. Every interactive map, grouped by area ("X Floor 2" → "X").
   const mapTitles: string[] = [];
   let cont: Raw | null = {};
   while (cont) {
@@ -188,20 +155,17 @@ async function importAreas() {
     } catch { console.warn(`  unreadable map ${title}`); }
   }
 
-  // 2. Each world's listed areas, plus every area that has a map.
   const worldByName = new Map(WORLDS.map((w) => [w.name, w]));
   const worldPages = await pages(WORLDS.map((w) => w.name));
   const candidates = new Set<string>(mapsByBase.keys());
   for (const { text } of worldPages.values()) {
     for (const m of section(text, "Areas").matchAll(/^Area [^|\n]+\.png\|link=([^|\n]+)\|/gm)) candidates.add(m[1].trim());
   }
-  // Area pages are sometimes titled "X (Location)" to tell them from a faction of the same name.
   const tried = [...candidates].flatMap((c) => [c, `${c} (Location)`]);
   const areaPages = await pages(tried);
 
   const areas: Area[] = [];
   const seen = new Set<string>();
-  // Markers whose text is another page's description, filled in once those pages are fetched.
   const describedMarkers: { marker: MapMarker; page: string }[] = [];
   for (const base of candidates) {
     const page = [areaPages.get(`${base} (Location)`), areaPages.get(base)].find((p) => p && findTemplate(p.text, "Location Infobox"));
@@ -236,7 +200,6 @@ async function importAreas() {
       return v && compareVersions(v, world.releaseVersion) > 0 ? v : world.releaseVersion;
     })();
 
-    // Floors: the area's maps (named after the map pages for it, or the infobox's map gallery).
     const floorMaps = mapsByBase.get(base) ?? mapsByBase.get(name) ?? [];
     const categories = new Map<string, MapCategory>();
     const floors: AreaFloor[] = floorMaps
@@ -282,7 +245,6 @@ async function importAreas() {
     });
   }
 
-  // Markers that show another page's description (sub-areas like shops and hotels).
   const describedPages = await pages([...new Set(describedMarkers.map((d) => d.page))]);
   for (const { marker, page } of describedMarkers) {
     const text = describedPages.get(page)?.text;
@@ -290,7 +252,6 @@ async function importAreas() {
     if (lead) marker.desc = [lead, marker.desc].filter(Boolean).join("\n\n");
   }
 
-  // Link connections to areas we have; order each world's areas by version, then name.
   const bySlug = new Map(areas.map((a) => [a.slug, a]));
   for (const a of areas) {
     a.connections = a.connections.map((c) => {
@@ -303,7 +264,6 @@ async function importAreas() {
   areas.forEach((a, i) => (a.sortOrder = i));
   if (new Set(areas.map((a) => a.slug)).size !== areas.length) throw new Error("duplicate area slugs");
 
-  // Drop art the wiki doesn't have.
   const files = areas.flatMap((a) => [
     a.image, ...a.floors.map((f) => f.image), ...a.categories.map((c) => c.icon), ...a.floors.flatMap((f) => f.markers.map((m) => m.image)),
   ].filter((f): f is string => !!f));
@@ -311,7 +271,6 @@ async function importAreas() {
   for (const a of areas) {
     if (a.image && !has(a.image)) a.image = null;
     for (const c of a.categories) if (c.icon && !has(c.icon)) c.icon = null;
-    // Some markers name a screenshot the wiki never uploaded.
     for (const f of a.floors) for (const m of f.markers) if (m.image && !has(m.image)) m.image = null;
     a.floors = a.floors.filter((f) => has(f.image) || (console.warn(`  ${a.name}: map image missing (${f.image})`), false));
   }
@@ -325,7 +284,6 @@ const TIER_SPOILERS = /boss|echo of war|story/i;
 async function importEnemies() {
   const titles = await categoryMembers("Category:Enemies");
   const set = new Set(titles);
-  // Game-mode variants ("X (Apocalyptic Shadow)") repeat their base enemy.
   const wanted = titles.filter((t) => !(/\(.*\)$/.test(t) && set.has(t.replace(/\s*\(.*\)$/, ""))));
   const enemyPages = await pages(wanted);
   const enemies: Enemy[] = [];
@@ -369,7 +327,6 @@ async function importEnemies() {
   }
   const has = await existingFiles(enemies.flatMap((e) => (e.image ? [e.image] : [])));
   for (const e of enemies) if (e.image && !has(e.image)) e.image = null;
-  // Same slug from different pages (rare): keep the first.
   const unique = [...new Map(enemies.map((e) => [e.slug, e])).values()];
   return unique.sort((a, b) => a.name.localeCompare(b.name));
 }

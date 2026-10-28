@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { KitDescription } from "../characters/kit/KitDescription";
 
-/** A Light Cone's passive, with S1–S5 buttons that fill its numbers for each Superimposition. */
 export function LightConePassive({
   skill, desc, params, className = "", heading: Heading = "h3",
 }: {
@@ -11,7 +10,6 @@ export function LightConePassive({
   desc: string;
   params: number[][];
   className?: string;
-  /** Heading level for the passive name, to fit the page outline. */
   heading?: "h3" | "h4";
 }) {
   const [rank, setRank] = useState(1);
