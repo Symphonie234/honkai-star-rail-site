@@ -15,7 +15,8 @@
     "art:fetch": "tsx scripts/fetch-art.ts",
     "prebuild": "npm run art:fetch",
     "data:import": "tsx scripts/import-game-data.ts",
-    "data:wiki": "tsx scripts/import-wiki-data.ts"
+    "data:wiki": "tsx scripts/import-wiki-data.ts",
+    "data:extras": "tsx scripts/import-extras.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.3",

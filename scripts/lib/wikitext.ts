@@ -103,4 +103,6 @@ export const cleanGameText = (text: string) =>
     .replace(/\{M#([^}]*)\}\{F#([^}]*)\}/g, "$1/$2")
     .replace(/\{F#([^}]*)\}\{M#([^}]*)\}/g, "$2/$1")
     .replace(/\{RUBY_B#[^}]*\}([^{]*)\{RUBY_E#\}/g, "$1")
+    .replace(/\{LAYOUT_(?:MOBILE|CONTROLLER)#[^}]*\}/g, "")
+    .replace(/\{LAYOUT_KEYBOARD#([^}]*)\}/g, "$1")
     .trim();

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import {
   getAeons, getAreaSummaries, getCharacters, getEnemies, getLightCones, getMaterialList, getRelicSets, getWorlds,
 } from "@/lib/queries";
+import { ACHIEVEMENT_SERIES } from "@/db/seed-data";
 import { absoluteUrl } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -9,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getCharacters(), getWorlds(), getAeons(), getLightCones(), getRelicSets(), getMaterialList(), getEnemies(), getAreaSummaries(),
   ]);
 
-  const pages = ["/", "/characters", "/light-cones", "/relics", "/materials", "/enemies", "/worlds", "/aeons", "/versions", "/glossary", "/search"].map(
+  const pages = ["/", "/characters", "/light-cones", "/relics", "/materials", "/enemies", "/achievements", "/simulated-universe", "/simulated-universe/blessings", "/simulated-universe/curios", "/simulated-universe/occurrences", "/worlds", "/aeons", "/versions", "/glossary", "/search"].map(
     (path) => ({ url: absoluteUrl(path), changeFrequency: "weekly" as const, priority: path === "/" ? 1 : 0.8 }),
   );
   const page = (path: string, priority: number) => ({ url: absoluteUrl(path), changeFrequency: "monthly" as const, priority });
@@ -24,5 +25,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...worlds.map((w) => page(`/worlds/${w.slug}`, 0.7)),
     ...areas.map((a) => page(`/worlds/${a.worldSlug}/${a.slug}`, 0.6)),
     ...aeons.map((a) => page(`/aeons/${a.slug}`, 0.6)),
+    ...ACHIEVEMENT_SERIES.map((s) => page(`/achievements/${s.slug}`, 0.5)),
   ];
 }

@@ -3,9 +3,12 @@ import { existsSync } from "node:fs";
 import { copyFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import sharp, { type Sharp } from "sharp";
-import { AEONS, AREAS, artOf, CHARACTERS, ELEMENTS, ENEMIES, KITS, LIGHT_CONES, MATERIALS, PATHS, RELIC_SETS, WORLD_ART_SOURCES } from "../src/db/seed-data";
 import {
-  aeonImage, areaImage, characterIcon, characterPortrait, characterPreview, eidolonArt, elementIcon, enemyImage, gameIcon,
+  AEONS, AREAS, artOf, CHARACTERS, CURIOS, DOMAINS, ELEMENTS, ENEMIES, KITS, LIGHT_CONES, MATERIALS, OCCURRENCES, PATHS, RELIC_SETS,
+  WORLD_ART_SOURCES,
+} from "../src/db/seed-data";
+import {
+  aeonImage, areaImage, characterIcon, characterPortrait, characterPreview, eidolonArt, elementIcon, enemyImage, gameIcon, simulatedEventImage,
   lightConeIcon, lightConePortrait, lightConePreview, mapIcon, mapImage, mapPinImage, pathIcon, worldImage,
 } from "../src/lib/images";
 
@@ -98,6 +101,14 @@ function jobs(): Job[] {
   for (const set of RELIC_SETS) {
     icons.add(set.icon);
     for (const p of set.pieces) icons.add(p.icon);
+  }
+  for (const c of CURIOS) if (c.icon) icons.add(c.icon);
+  for (const d of DOMAINS) if (d.icon) icons.add(d.icon);
+  for (const o of OCCURRENCES) {
+    list.push({
+      label: `occurrence ${o.id}`, out: simulatedEventImage(o.image), source: async () => `${STARRAILRES}/${o.image}`,
+      convert: (i) => webp(i.resize(960, 960, { fit: "inside", withoutEnlargement: true }), 82), optional: true,
+    });
   }
   for (const icon of icons) {
     list.push({ label: `icon ${icon}`, out: gameIcon(icon), source: async () => `${STARRAILRES}/${icon}`, convert: (i) => webp(i.resize(128, 128, { fit: "inside", withoutEnlargement: true }), 88) });

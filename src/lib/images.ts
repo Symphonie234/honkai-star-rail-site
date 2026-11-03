@@ -44,3 +44,6 @@ export const mapIcon = (file: string) => `/${ART_DIR}/maps/icons/${fileSlug(file
 export const enemyImage = (slug: string) => `/${ART_DIR}/enemies/${slug}.webp`;
 
 export const eidolonArt = (gameId: string, rank: number) => `/${ART_DIR}/eidolons/${gameId}-${rank}.webp`;
+
+export const simulatedEventImage = (imagePath: string) =>
+  `/${ART_DIR}/simulated/events/${imagePath.split("/").pop()!.replace(/\.png$/, ".webp")}`;

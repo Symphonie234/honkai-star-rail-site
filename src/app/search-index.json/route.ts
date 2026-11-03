@@ -5,6 +5,7 @@ import {
   getAeons, getAreaSummaries, getCharacters, getEnemies, getGlossary, getLightCones, getMaterialList, getRelicSets, getVersions, getWorld, getWorlds,
 } from "@/lib/queries";
 import type { SearchEntry } from "@/lib/search";
+import { ACHIEVEMENT_SERIES, ACHIEVEMENTS, BLESSINGS, CURIOS } from "@/db/seed-data";
 
 export const dynamic = "force-static";
 
@@ -17,6 +18,7 @@ export async function GET() {
   const worldName = new Map(worlds.map((w) => [w.slug, w.name]));
   const characterName = new Map(characters.map((c) => [c.slug, c.name]));
 
+  const seriesOf = new Map(ACHIEVEMENT_SERIES.map((s) => [s.id, s]));
   const entries: SearchEntry[] = [
     ...characters.map((c) => ({
       t: "Character", n: c.name, s: `${c.rarity}★ ${c.element.name} · ${c.path.name}`, u: `/characters/${c.slug}`,
@@ -57,6 +59,16 @@ export async function GET() {
     })),
     ...versions.map((v) => ({
       t: "Version", n: `${v.version} · ${v.title}`, s: v.releaseDate, u: `/versions#v${v.version}`, v: v.version, sp: null, i: null,
+    })),
+    ...ACHIEVEMENTS.flatMap((a) => {
+      const series = seriesOf.get(a.series);
+      return series ? [{ t: "Achievement", n: a.title, s: `${series.name} · ${a.jade} Stellar Jade`, u: `/achievements/${series.slug}#a${a.id}`, v: "1.0", sp: null, i: null }] : [];
+    }),
+    ...BLESSINGS.map((b) => ({
+      t: "Blessing", n: b.name, s: `${b.mode} · ${b.path} · ${b.rarity}`, u: `/simulated-universe/blessings#b${b.id}`, v: "1.0", sp: null, i: null,
+    })),
+    ...[...new Map(CURIOS.map((c) => [c.name, c])).values()].map((c) => ({
+      t: "Curio", n: c.name, s: "Simulated Universe Curio", u: `/simulated-universe/curios#c${c.id}`, v: "1.0", sp: null, i: c.icon ? gameIcon(c.icon) : null,
     })),
   ];
   return Response.json(entries);

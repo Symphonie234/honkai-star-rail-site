@@ -12,6 +12,8 @@ const DATABASE: NavLink[] = [
   { href: "/relics", label: "Relics & Ornaments", blurb: "Set bonuses, pieces and stat rolls" },
   { href: "/materials", label: "Materials", blurb: "Where to farm them and who needs them" },
   { href: "/enemies", label: "Enemies", blurb: "Weaknesses, resistances and lore" },
+  { href: "/achievements", label: "Achievements", blurb: "Every series, reward and hidden one" },
+  { href: "/simulated-universe", label: "Simulated Universe", blurb: "Blessings, Curios and Occurrences" },
 ];
 
 const LORE: NavLink[] = [

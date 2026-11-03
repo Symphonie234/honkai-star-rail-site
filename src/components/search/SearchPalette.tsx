@@ -82,7 +82,8 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "ArrowDown") { e.preventDefault(); setActive((i) => Math.min(i + 1, results.length - 1)); }
+    if (e.key === "Escape") { e.preventDefault(); onClose(); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); setActive((i) => Math.min(i + 1, results.length - 1)); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setActive((i) => Math.max(i - 1, 0)); }
     else if (e.key === "Enter") { e.preventDefault(); go(results[active]); }
   };
@@ -137,7 +138,7 @@ export function SearchResults({
   return (
     <ul id={id} role="listbox" className={`${tall ? "" : "max-h-[60vh]"} overflow-y-auto p-2`}>
       {results.map((r, i) => (
-        <li key={r.u} id={`result-${i}`} role="option" aria-selected={i === active}>
+        <li key={`${r.t}:${r.u}:${r.n}`} id={`result-${i}`} role="option" aria-selected={i === active}>
           <a
             href={r.u}
             onClick={(e) => { e.preventDefault(); onPick(r); }}

@@ -32,6 +32,7 @@ npm run dev              # http://localhost:3000
 | `npm run db:studio` | Browse the database in Drizzle Studio |
 | `npm run art:fetch` | Download missing art and icons into `public/art` (`-- --force` re-fetches) |
 | `npm run data:import` | Re-import character kits, Light Cones, relics and materials from game data into `src/db/data/game/` |
+| `npm run data:extras` | Re-import achievements and Simulated / Divergent Universe content |
 | `npm run data:wiki` | Re-import world areas (with maps and their labelled points) and enemies from the HSR Wiki |
 | `npm run typecheck` / `npm run lint` | Checks |
 
@@ -44,6 +45,8 @@ npm run dev              # http://localhost:3000
 | `/relics`, `/relics/[slug]` | 62 Cavern Relic and Planar Ornament sets: bonuses, every piece with its story; main-stat and sub-stat roll reference |
 | `/materials`, `/materials/[slug]` | 207 upgrade materials: description and story, where to get them, synthesis recipe, and every character and Light Cone that needs them (with totals) |
 | `/enemies`, `/enemies/[slug]` | 263 enemies: weaknesses, Toughness, resistances, skills, lore, zoomable art and the areas they appear in; story bosses stay spoiler-hidden |
+| `/achievements`, `/achievements/[series]` | 1,950 achievements in 9 series with Stellar Jade rewards; hidden ones reveal on request |
+| `/simulated-universe` (+ `/blessings`, `/curios`, `/occurrences`) | 682 Blessings by mode, Path and rarity; 238 Curios with lore; 403 Occurrences with art; domain types |
 | `/search`, Ctrl+K | Site-wide search across every section, filtered by story progress so spoilers never show up in results |
 | `/light-cones`, `/light-cones/[slug]` | All 170 Light Cones: search by name or character, filter by Path / rarity; card art, passive at every Superimposition (S1–S5), stats by level, ascension materials, story text, signature characters and who can use it |
 | `/worlds`, `/worlds/[slug]` | Seven world hubs with in-game art, every area, the main story arc by arc (42 chapters, 1.0–4.6), and their people |
@@ -180,7 +183,8 @@ Create a Postgres database on Neon (or Supabase). In Vercel, set `DATABASE_URL` 
 - [x] Character kits: skills, Traces, Eidolons, stats, materials
 - [x] Light Cones; Eidolon art; Version 4.0–4.6 (Planarcadia, Astropolis, Elation, Oroboros)
 - [x] Areas with in-game maps; enemies; relics and Planar Ornaments; materials; site-wide search
-- [ ] Simulated Universe, achievements
+- [x] Simulated Universe, achievements
+- [ ] Team builder
 - [ ] Phase 5 — Team builder / tier list
 
 ---

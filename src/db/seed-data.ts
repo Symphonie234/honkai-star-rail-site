@@ -12,12 +12,15 @@ import areasFile from "./data/game/areas.json";
 import enemiesFile from "./data/game/enemies.json";
 import lightConesFile from "./data/game/light-cones.json";
 import relicsFile from "./data/game/relics.json";
+import achievementsFile from "./data/game/achievements.json";
+import simulatedFile from "./data/game/simulated.json";
 import materialsFile from "./data/game/materials.json";
 import type { Kit, Material } from "../lib/kit";
 import type { Area } from "../lib/area";
 import type { Enemy } from "../lib/enemy";
 import type { LightCone } from "../lib/light-cone";
 import type { RelicSet, RelicStats } from "../lib/relic";
+import type { Achievement, AchievementSeries, Blessing, Curio, Domain, Occurrence } from "../lib/extras";
 export const KITS = kitsFile.kits as unknown as Record<string, Kit>;
 export const MATERIALS = materialsFile.materials as Material[];
 export const LIGHT_CONES = lightConesFile.lightCones as unknown as LightCone[];
@@ -25,6 +28,12 @@ export const RELIC_SETS = relicsFile.relics as unknown as RelicSet[];
 export const RELIC_STATS = relicsFile.stats as unknown as RelicStats;
 export const AREAS = areasFile.areas as unknown as Area[];
 export const ENEMIES = enemiesFile.enemies as unknown as Enemy[];
+export const ACHIEVEMENT_SERIES = achievementsFile.series as AchievementSeries[];
+export const ACHIEVEMENTS = achievementsFile.achievements as Achievement[];
+export const BLESSINGS = simulatedFile.blessings as Blessing[];
+export const CURIOS = simulatedFile.curios as Curio[];
+export const OCCURRENCES = simulatedFile.occurrences as Occurrence[];
+export const DOMAINS = simulatedFile.domains as Domain[];
 
 export const PATHS = [
   { slug: "destruction", name: "Destruction", icon: "✸", aeon: "Nanook",
