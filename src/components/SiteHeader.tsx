@@ -14,6 +14,7 @@ const DATABASE: NavLink[] = [
   { href: "/enemies", label: "Enemies", blurb: "Weaknesses, resistances and lore" },
   { href: "/achievements", label: "Achievements", blurb: "Every series, reward and hidden one" },
   { href: "/simulated-universe", label: "Simulated Universe", blurb: "Blessings, Curios and Occurrences" },
+  { href: "/currency-wars", label: "Currency Wars", blurb: "Units, Bonds, equipment and a team planner" },
 ];
 
 const LORE: NavLink[] = [

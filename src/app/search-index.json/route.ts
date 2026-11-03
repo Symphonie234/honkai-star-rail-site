@@ -5,7 +5,8 @@ import {
   getAeons, getAreaSummaries, getCharacters, getEnemies, getGlossary, getLightCones, getMaterialList, getRelicSets, getVersions, getWorld, getWorlds,
 } from "@/lib/queries";
 import type { SearchEntry } from "@/lib/search";
-import { ACHIEVEMENT_SERIES, ACHIEVEMENTS, BLESSINGS, CURIOS } from "@/db/seed-data";
+import { ACHIEVEMENT_SERIES, ACHIEVEMENTS, BLESSINGS, CURIOS, CURRENCY_WARS } from "@/db/seed-data";
+import { cwEquipmentImage, cwUnitImage } from "@/lib/images";
 
 export const dynamic = "force-static";
 
@@ -64,6 +65,17 @@ export async function GET() {
       const series = seriesOf.get(a.series);
       return series ? [{ t: "Achievement", n: a.title, s: `${series.name} · ${a.jade} Stellar Jade`, u: `/achievements/${series.slug}#a${a.id}`, v: "1.0", sp: null, i: null }] : [];
     }),
+    ...CURRENCY_WARS.units.map((u) => ({
+      t: "Currency Wars", n: u.name, s: `${u.advisor ? "Expert Advisor" : `${u.costs.join("/")}-cost`} unit · ${u.bonds.join(", ")}`,
+      u: `/currency-wars/units/${u.slug}`, v: "3.7", sp: null, i: u.image ? cwUnitImage(u.slug) : null,
+    })),
+    ...CURRENCY_WARS.bonds.map((b) => ({
+      t: "Currency Wars", n: b.name, s: `${b.kind} Bond · ${b.members.length} members`, u: `/currency-wars/bonds#${b.slug}`, v: "3.7", sp: null, i: null,
+    })),
+    ...CURRENCY_WARS.equipment.map((e) => ({
+      t: "Currency Wars", n: e.name, s: `${e.category} equipment${e.recipe.length === 2 ? ` · ${e.recipe.join(" + ")}` : ""}`,
+      u: `/currency-wars/equipment#${e.slug}`, v: "3.7", sp: null, i: e.image ? cwEquipmentImage(e.slug) : null,
+    })),
     ...BLESSINGS.map((b) => ({
       t: "Blessing", n: b.name, s: `${b.mode} · ${b.path} · ${b.rarity}`, u: `/simulated-universe/blessings#b${b.id}`, v: "1.0", sp: null, i: null,
     })),

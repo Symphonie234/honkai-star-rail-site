@@ -12,7 +12,7 @@ export type SearchEntry = {
 };
 
 export const SEARCH_KINDS = [
-  "Character", "Light Cone", "Relic", "Material", "Enemy", "World", "Area", "Aeon", "Story", "Glossary", "Achievement", "Blessing", "Curio", "Version",
+  "Character", "Light Cone", "Relic", "Material", "Enemy", "World", "Area", "Aeon", "Story", "Glossary", "Achievement", "Blessing", "Curio", "Currency Wars", "Version",
 ] as const;
 
 const norm = (s: string) => s.toLowerCase().normalize("NFKD").replace(/\p{Diacritic}/gu, "").replace(/[^\p{L}\p{N}]+/gu, " ").trim();

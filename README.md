@@ -33,6 +33,7 @@ npm run dev              # http://localhost:3000
 | `npm run art:fetch` | Download missing art and icons into `public/art` (`-- --force` re-fetches) |
 | `npm run data:import` | Re-import character kits, Light Cones, relics and materials from game data into `src/db/data/game/` |
 | `npm run data:extras` | Re-import achievements and Simulated / Divergent Universe content |
+| `npm run data:cw` | Re-import the current Currency Wars period (units, Bonds, equipment, investments, opponents) |
 | `npm run data:wiki` | Re-import world areas (with maps and their labelled points) and enemies from the HSR Wiki |
 | `npm run typecheck` / `npm run lint` | Checks |
 
@@ -47,6 +48,7 @@ npm run dev              # http://localhost:3000
 | `/enemies`, `/enemies/[slug]` | 263 enemies: weaknesses, Toughness, resistances, skills, lore, zoomable art and the areas they appear in; story bosses stay spoiler-hidden |
 | `/achievements`, `/achievements/[series]` | 1,950 achievements in 9 series with Stellar Jade rewards; hidden ones reveal on request |
 | `/simulated-universe` (+ `/blessings`, `/curios`, `/occurrences`) | 682 Blessings by mode, Path and rarity; 238 Curios with lore; 403 Occurrences with art; domain types |
+| `/currency-wars` (+ `/planner`, `/units`, `/bonds`, `/equipment`, `/investments`, `/opponents`) | Currency Wars: 72 units, 34 Bonds, equipment recipe chart, 334 Strategies and 83 Environments, 20 opponents, store odds, and a team planner with Bond tracking, unit recommendations and equipment plans. `/currency-wars/data.json` serves all of it as JSON |
 | `/search`, Ctrl+K | Site-wide search across every section, filtered by story progress so spoilers never show up in results |
 | `/light-cones`, `/light-cones/[slug]` | All 170 Light Cones: search by name or character, filter by Path / rarity; card art, passive at every Superimposition (S1–S5), stats by level, ascension materials, story text, signature characters and who can use it |
 | `/worlds`, `/worlds/[slug]` | Seven world hubs with in-game art, every area, the main story arc by arc (42 chapters, 1.0–4.6), and their people |

@@ -56,14 +56,20 @@ export function changeHistoryVersion(text: string): string | null {
 export const links = (text: string) =>
   [...text.matchAll(/\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|([^\]]+))?\]\]/g)].map((m) => ({ target: m[1].trim(), label: (m[2] ?? m[1]).trim() }));
 
-const TEXT_TEMPLATES = /\{\{\s*(?:Mission|Domain|Item|Character|Color|Enemy|Term|Icon Text|tx|Rubi|w|zh|ja|Lang)\s*\|/i;
+const TEXT_TEMPLATES = /\{\{\s*(?:Mission|Domain|Item|Character|Color|Enemy|Term|Icon Text|tx|Rubi|w|zh|ja|Lang|Extra Effect|Keyword|Status|Effect|sic)\s*\|/i;
 
 export function cleanWiki(input: string): string {
   let s = input
     .replace(/<ref[^>]*\/>/g, "")
     .replace(/<ref[^>]*>[\s\S]*?<\/ref>/g, "")
     .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/<br\s*\/?>/gi, "\n");
+    .replace(/<br\s*\/?>/gi, "\n")
+    // Stat icons: dropped when the stat's name follows, otherwise they stand in for it.
+    .replace(/((?:\{\{Icon\|[^{}|]+(?:\|[^{}]*)?\}\})+)(?=\s*([^{]{0,12}))/g, (run: string, _a: string, after: string) => {
+      const names = [...run.matchAll(/\{\{Icon\|([^{}|]+)/g)].map((m) => m[1].trim().replace(/^CW /, ""));
+      const repeated = names.some((n) => after.toLowerCase().startsWith(n.split(/[\s-]/)[0].toLowerCase()));
+      return repeated ? "" : names.join("/");
+    });
   for (let guard = 0; guard < 20 && /\{\{/.test(s); guard++) {
     s = s.replace(/\{\{([^{}]*)\}\}/g, (whole, inner: string) => {
       const parts = inner.split("|").map((p) => p.trim());

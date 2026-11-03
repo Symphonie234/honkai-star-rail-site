@@ -47,3 +47,7 @@ export const eidolonArt = (gameId: string, rank: number) => `/${ART_DIR}/eidolon
 
 export const simulatedEventImage = (imagePath: string) =>
   `/${ART_DIR}/simulated/events/${imagePath.split("/").pop()!.replace(/\.png$/, ".webp")}`;
+
+export const cwUnitImage = (slug: string) => `/${ART_DIR}/cw/units/${slug}.webp`;
+export const cwEquipmentImage = (slug: string) => `/${ART_DIR}/cw/equipment/${slug}.webp`;
+export const cwInvestmentImage = (slug: string) => `/${ART_DIR}/cw/investments/${slug}.webp`;

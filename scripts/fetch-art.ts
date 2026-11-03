@@ -3,12 +3,13 @@ import { existsSync } from "node:fs";
 import { copyFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import sharp, { type Sharp } from "sharp";
+import { cwSlug } from "../src/lib/currency-wars";
 import {
-  AEONS, AREAS, artOf, CHARACTERS, CURIOS, DOMAINS, ELEMENTS, ENEMIES, KITS, LIGHT_CONES, MATERIALS, OCCURRENCES, PATHS, RELIC_SETS,
+  AEONS, AREAS, artOf, CHARACTERS, CURIOS, CURRENCY_WARS, DOMAINS, ELEMENTS, ENEMIES, KITS, LIGHT_CONES, MATERIALS, OCCURRENCES, PATHS, RELIC_SETS,
   WORLD_ART_SOURCES,
 } from "../src/db/seed-data";
 import {
-  aeonImage, areaImage, characterIcon, characterPortrait, characterPreview, eidolonArt, elementIcon, enemyImage, gameIcon, simulatedEventImage,
+  aeonImage, areaImage, characterIcon, cwEquipmentImage, cwInvestmentImage, cwUnitImage, characterPortrait, characterPreview, eidolonArt, elementIcon, enemyImage, gameIcon, simulatedEventImage,
   lightConeIcon, lightConePortrait, lightConePreview, mapIcon, mapImage, mapPinImage, pathIcon, worldImage,
 } from "../src/lib/images";
 
@@ -155,6 +156,14 @@ function jobs(): Job[] {
   for (const e of ENEMIES) {
     if (!e.image) continue;
     list.push({ ...wikiJob(`enemy ${e.slug}`, enemyImage(e.slug), e.image, (i) => webp(i.trim().resize(1400, 1400, { fit: "inside", withoutEnlargement: true }), 86)), optional: true });
+  }
+  const cw = (label: string, out: string, file: string, size: number): Job => ({
+    ...wikiJob(label, out, file, (i) => webp(i.resize(size, size, { fit: "inside", withoutEnlargement: true }), 86)), optional: true,
+  });
+  for (const u of CURRENCY_WARS.units) if (u.image) list.push(cw(`cw unit ${u.slug}`, cwUnitImage(u.slug), u.image, 512));
+  for (const e of CURRENCY_WARS.equipment) if (e.image) list.push(cw(`cw equipment ${e.slug}`, cwEquipmentImage(e.slug), e.image, 128));
+  for (const inv of [...CURRENCY_WARS.environments, ...CURRENCY_WARS.strategies]) {
+    if (inv.image) list.push(cw(`cw investment ${inv.name}`, cwInvestmentImage(cwSlug(inv.name)), inv.image, 128));
   }
   for (const a of AEONS) {
     if (!a.artFile) continue;

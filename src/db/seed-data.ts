@@ -14,6 +14,7 @@ import lightConesFile from "./data/game/light-cones.json";
 import relicsFile from "./data/game/relics.json";
 import achievementsFile from "./data/game/achievements.json";
 import simulatedFile from "./data/game/simulated.json";
+import currencyWarsFile from "./data/game/currency-wars.json";
 import materialsFile from "./data/game/materials.json";
 import type { Kit, Material } from "../lib/kit";
 import type { Area } from "../lib/area";
@@ -21,6 +22,7 @@ import type { Enemy } from "../lib/enemy";
 import type { LightCone } from "../lib/light-cone";
 import type { RelicSet, RelicStats } from "../lib/relic";
 import type { Achievement, AchievementSeries, Blessing, Curio, Domain, Occurrence } from "../lib/extras";
+import type { CwData } from "../lib/currency-wars";
 export const KITS = kitsFile.kits as unknown as Record<string, Kit>;
 export const MATERIALS = materialsFile.materials as Material[];
 export const LIGHT_CONES = lightConesFile.lightCones as unknown as LightCone[];
@@ -34,6 +36,7 @@ export const BLESSINGS = simulatedFile.blessings as Blessing[];
 export const CURIOS = simulatedFile.curios as Curio[];
 export const OCCURRENCES = simulatedFile.occurrences as Occurrence[];
 export const DOMAINS = simulatedFile.domains as Domain[];
+export const CURRENCY_WARS = currencyWarsFile as unknown as CwData;
 
 export const PATHS = [
   { slug: "destruction", name: "Destruction", icon: "✸", aeon: "Nanook",
