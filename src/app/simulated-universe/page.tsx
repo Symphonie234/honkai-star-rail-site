@@ -42,8 +42,11 @@ export default function SimulatedUniversePage() {
         <p className="mt-2 text-muted">What each kind of domain on the map holds.</p>
         <ul className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {DOMAINS.map((d) => (
-            <li key={d.id} className="glass flex gap-3 rounded-2xl border-l-2 p-4" style={{ borderLeftColor: d.color.slice(0, 7) }}>
-              <Image src={gameIcon(d.icon)} alt="" width={40} height={40} className="shrink-0" />
+            <li key={d.id} className="glass flex items-start gap-4 rounded-2xl border-l-2 p-4" style={{ borderLeftColor: d.color.slice(0, 7) }}>
+              <span className="grid size-14 shrink-0 place-items-center rounded-full border bg-space"
+                style={{ borderColor: `color-mix(in srgb, ${d.color.slice(0, 7)} 55%, transparent)` }}>
+                <Image src={gameIcon(d.icon)} alt="" width={44} height={44} className="size-11 object-contain" />
+              </span>
               <div>
                 <h3 className="font-semibold">{d.name}</h3>
                 <GameText text={d.desc} className="mt-1 text-sm text-muted" />
